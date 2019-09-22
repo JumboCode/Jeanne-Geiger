@@ -27,16 +27,17 @@ DVHRT’s problem is they want to move from static, insecure spreadsheets to a m
 
 ## Setting up Repository on Your Local Machine
 1. `cd <PATH TO DIRECTORY YOU WANT YOUR CODE TO BE IN>`
-2. `git clone https://github.com/JumboCode/TEN.git` This will create a directory called TEN
-3. `cd TEN`
+2. `git clone https://github.com/JumboCode/Jeanne-Geiger.git` This will create a directory called Jeanne-Geiger
+3. `cd Jeanne-Geiger`
 
 Next, install system dependencies:
 1. If you don't have homebrew installed, run the following command
 (if you're a MacOS user): `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-2. `brew install python node yarn`
+2. `brew install python yarn pipenv`
 3. `sudo pip3 install --upgrade pip`
 4. Check if you correctly installed Python: `python3 -V`
 5. Check if you correctly installed pip: `pip3 list`
+6. Now, `pipenv install` (this will set up our environment)
 
 ## How to Run Project on Local Machine
 ### Run frontend server (deploying React)
@@ -48,7 +49,7 @@ Next, install system dependencies:
 - Quit with Control+C
 
 ### Run backend server (first see backend README for directions on how to setup environment)
-- Move into folder: `cd backend`
+- Move into folder: `cd src`
 - Activate environment: `. <name of environment>/bin/activate`
 - Download any requirements: `pip install -r requirements.txt`
 - If any models have changed: `python manage.py makemigrations` or `python manage.py makemigrations api`, then `python manage.py migrate`
