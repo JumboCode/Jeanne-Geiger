@@ -14,7 +14,6 @@ DVHRT’s problem is they want to move from static, insecure spreadsheets to a m
 * Barry Eom (Project Lead)
 * Julia Hedrick
 * Khaliun Narangerel
-* Erica DeBarge
 * Andrew Gross
 * Trevor Russo
 * Nicole Kennedy
@@ -22,8 +21,8 @@ DVHRT’s problem is they want to move from static, insecure spreadsheets to a m
 * Jake Owen
 * Alessandra Jacimovic
 * Panipuck Bhengsri
-* Meha Elhence 
-* Isabella Montoya
+* Meha Elhence (Designer)
+* Isabella Montoya (Designer)
 
 ## Setting up Repository on Your Local Machine
 1. `cd <PATH TO DIRECTORY YOU WANT YOUR CODE TO BE IN>`
