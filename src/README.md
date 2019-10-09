@@ -1,5 +1,8 @@
 ## Setting up the Backend
 
+### Linting:
+Run `yarn run eslint —fix` in your `/src/frontend/` directory to fix.
+
 0. For Linux users:
 	- If you get an error that says "port 5432 is not accepting connections", try this:
 		`sudo nano /etc/postgresql/9.3/main/postgresql.conf`
