@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Community(models.Model):
-    community_id = models.IntegerField()
+    community_id = models.IntegerField(primary_key = True)
     referral_sources = models.ArrayField(models.CharField())
 
 class Person(models.Model):
@@ -38,12 +38,12 @@ class Person(models.Model):
         (9, 'Unknown'),
     )
 
-    person_id = models.IntegerField()
-    is_victim = BooleanField()
+    person_id = models.IntegerField(primary_key = True)
+    is_victim = models.BooleanField()
     name = models.CharField()
-    dob = DateField()
-    gender = EnumField(choices=gender_choices, default=0)
-    race_ethnicity = EnumField(choices=race_ethnicity_choices, default=0)
-    age_at_case_acceptance = EnumField(choices=age_at_case_acceptance_choices, default=0)
+    dob = models.DateField()
+    gender = models.EnumField(choices=gender_choices, default=0)
+    race_ethnicity = models.EnumField(choices=race_ethnicity_choices, default=0)
+    age_at_case_acceptance = models.EnumField(choices=age_at_case_acceptance_choices, default=0)
     primary_language = models.CharField()
     town = models.CharField()
