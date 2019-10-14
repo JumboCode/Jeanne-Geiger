@@ -26,8 +26,9 @@ class Outcomes(models.Model):
     )
 
     SENTENCING_OUTCOMES_SENTENCE = (
-        (0, 'Incarceration'),
-        (1, 'Probation'),
+        (0, 'NA'),
+        (1, 'Incarceration'),
+        (2, 'Probation'),
         (3, 'Incarceration Followed by Probation')
     )
 
