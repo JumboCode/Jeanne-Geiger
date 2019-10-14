@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Risk_Factors(models.Models):
-    risk_factor_id = models.IntegerField()
+    risk_factor_id = models.IntegerField(primary_key = True)
     violence_increased = models.BooleanField(default=False)
     attempted_leaving = models.BooleanField(default=False)
     control_activites = models.BooleanField(default=False)
