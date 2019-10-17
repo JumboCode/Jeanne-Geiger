@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'dvhrtwebsite.urls'
+ROOT_URLCONF = 'dvhrt.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tutvwebsite.wsgi.application'
+WSGI_APPLICATION = 'dvhrt.wsgi.application'
 
 
 # Database
