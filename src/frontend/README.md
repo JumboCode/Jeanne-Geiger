@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+### Linting:
+Run `yarn run eslint —fix` in your `/src/frontend/` directory to fix.
+
 ## Available Scripts
 
 In the project directory, you can run:
