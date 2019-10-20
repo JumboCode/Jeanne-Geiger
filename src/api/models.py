@@ -82,7 +82,7 @@ class Person(models.Model):
     name = models.CharField()
     dob = models.DateField()
     gender = models.IntegerField(default=0, choices=gender_choices)
-    race_ethnicity = models.IntegerField(default=0, choices=race_ethnicity_choices)
+    race_ethnicity = models.ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
     primary_language = models.CharField()
     town = models.CharField()
