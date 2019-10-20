@@ -1,5 +1,6 @@
 ## Setting up the Backend
 
+
 0. For Linux users:
 	- If you get an error that says "port 5432 is not accepting connections", try this:
 		`sudo nano /etc/postgresql/9.3/main/postgresql.conf`
