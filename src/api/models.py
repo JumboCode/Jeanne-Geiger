@@ -109,6 +109,24 @@ class Persons(models.Model):
         (9, 'Unknown'),
     )
 
+    primary_language_choices = (
+        (0, 'undefined'),
+        (1, 'English'),
+        (2, 'Spanish/Spanish Creole'),
+        (3, 'Arabic'),
+        (4, 'Cambodian/Khmer'),
+        (5, 'Chinese'),
+        (6, 'French/French Creole'),
+        (7, 'German'),
+        (8, 'Greek'),
+        (9, 'Italian'),
+        (10, 'Polish'),
+        (11, 'Portugese/Portugese Creole'),
+        (12, 'Russian'),
+        (13, 'Vietnamese'),
+        (10, 'Other/Unknown'),
+    )
+
     person_id = models.IntegerField(primary_key = True)
     is_victim = models.BooleanField()
     name = models.CharField()
@@ -116,7 +134,7 @@ class Persons(models.Model):
     gender = models.IntegerField(default=0, choices=gender_choices)
     race_ethnicity = models.ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
-    primary_language = models.CharField()
+    primary_language = models.IntegerField(default=0, choices=primary_language_choices)
     town = models.CharField()
     
 class RiskFactors(models.Models):
