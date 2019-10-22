@@ -40,7 +40,7 @@ class Outcomes(models.Model):
     sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
     sentencing_outcomes_sentence = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_SENTENCE)
 
-class Case(models.Model):
+class Cases(models.Model):
 	RELATIONSHIP_TYPE = [
 		(0, 'Current Spouse/Intimate Partner'),
 		(1, 'Former Spouse/Intimate Partner'),
@@ -73,11 +73,11 @@ class Case(models.Model):
 	minor_in_home = models.BooleanField(default=False)
 
 
-class Community(models.Model):
+class Communities(models.Model):
     community_id = models.IntegerField(primary_key = True)
     referral_sources = models.ArrayField(models.CharField())
 
-class Person(models.Model):
+class Persons(models.Model):
     gender_choices = (
         (0, 'undefined'),
         (1, 'Female'),
@@ -119,7 +119,7 @@ class Person(models.Model):
     primary_language = models.CharField()
     town = models.CharField()
     
-class Risk_Factors(models.Models):
+class RiskFactors(models.Models):
     risk_factor_id = models.IntegerField(primary_key=True)
     violence_increased = models.BooleanField(default=False)
     attempted_leaving = models.BooleanField(default=False)
