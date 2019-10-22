@@ -61,11 +61,11 @@ class Cases(models.Model):
 
 	case_id = models.IntegerField(primary_key=True)
 
-	community_id = models.ForeignKey('Community', on_delete=models.CASCADE)
-	abuser_id = models.ForeignKey('Person', on_delete=models.CASCADE)
-	victim_id = models.ForeignKey('Person', on_delete=models.CASCADE)
+	community_id = models.ForeignKey('Communities', on_delete=models.CASCADE)
+	abuser_id = models.ForeignKey('Persons', on_delete=models.CASCADE)
+	victim_id = models.ForeignKey('Persons', on_delete=models.CASCADE)
 	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
-	risk_factor_id = models.ForeignKey('Risk_Factors', on_delete=models.CASCADE)
+	risk_factor_id = models.ForeignKey('RiskFactors', on_delete=models.CASCADE)
 
 	relationship_type = models.IntegerField(max_length=1, choices=RELATIONSHIP_TYPE)
 	relationship_len = models.IntegerField(max_length=1, choices=RELATIONSHIP_LENGTH)
