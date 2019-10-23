@@ -1,28 +1,30 @@
 from django.db import models
 
 class Outcomes(models.Model):
-
     CHARGES = (
-        (0, 'Police Response: Charges Filed'),
-        (1, 'Police Response: No Charges Filed'),
-        (2, 'No Police Response: Not Applicable')
+        (0, 'undefined'),
+        (1, 'Police Response: Charges Filed'),
+        (2, 'Police Response: No Charges Filed'),
+        (3, 'No Police Response: Not Applicable')
     )
 
     PRETRIAL_OUTCOME = (
-        (0, 'Released on Bail'),
-        (1, 'Released on Personal Recognizance'),
-        (2, 'Detained/Pretrial Detention Statute'),
-        (3, 'Detained/Bail Unmet'),
-        (4, 'Detained/Other'),
-        (5, 'Pending Pretrial Hearing')
+        (0, 'undefined')
+        (1, 'Released on Bail'),
+        (2, 'Released on Personal Recognizance'),
+        (3, 'Detained/Pretrial Detention Statute'),
+        (4, 'Detained/Bail Unmet'),
+        (5, 'Detained/Other'),
+        (6, 'Pending Pretrial Hearing')
     )
 
     SENTENCING_OUTCOMES_DISPOSITION = (
-        (0, 'Charges Dismissed'),
-        (1, 'Not Guilty'),
-        (2, 'Deferred Adjudication'),
-        (3, 'Plead/Found Guilty'),
-        (4, 'Pending Disposition')
+        (0, 'undefined')
+        (1, 'Charges Dismissed'),
+        (2, 'Not Guilty'),
+        (3, 'Deferred Adjudication'),
+        (4, 'Plead/Found Guilty'),
+        (5, 'Pending Disposition')
     )
 
     SENTENCING_OUTCOMES_SENTENCE = (
@@ -42,21 +44,23 @@ class Outcomes(models.Model):
 
 class Cases(models.Model):
 	RELATIONSHIP_TYPE = [
-		(0, 'Current Spouse/Intimate Partner'),
-		(1, 'Former Spouse/Intimate Partner'),
-		(2, 'Current Dating Relationship'),
-		(3, 'Former Dating Relationship'),
-		(4, 'Other'),
+        (0, 'undefined'),
+		(1, 'Current Spouse/Intimate Partner'),
+		(2, 'Former Spouse/Intimate Partner'),
+		(3, 'Current Dating Relationship'),
+		(4, 'Former Dating Relationship'),
+		(5, 'Other'),
 	]
 
 	RELATIONSHIP_LENGTH = [
-		(0, '<1 year'),
-		(1, '1-5 years'),
-		(2, '6-9 years'),
-		(3, '10-14 years'),
-		(4, '15-19 years'),
-		(5, '20-29 years'),
-		(6, '30+ years'),
+        (0, 'undefined'),
+		(1, '<1 year'),
+		(2, '1-5 years'),
+		(3, '6-9 years'),
+		(4, '10-14 years'),
+		(5, '15-19 years'),
+		(6, '20-29 years'),
+		(7, '30+ years'),
 	]
 
 	case_id = models.IntegerField(primary_key=True)
@@ -67,8 +71,8 @@ class Cases(models.Model):
 	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
 	risk_factor_id = models.ForeignKey('RiskuFactors', on_delete=models.CASCADE)
 
-	relationship_type = models.IntegerField(max_length=1, choices=RELATIONSHIP_TYPE)
-	relationship_len = models.IntegerField(max_length=1, choices=RELATIONSHIP_LENGTH)
+	relationship_type = models.IntegerField(default=0, max_length=1, choices=RELATIONSHIP_TYPE)
+	relationship_len = models.IntegerField(default=0, max_length=1, choices=RELATIONSHIP_LENGTH)
 
 	minor_in_home = models.BooleanField(default=False)
 
