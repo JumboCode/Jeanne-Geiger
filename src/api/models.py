@@ -65,7 +65,7 @@ class Cases(models.Model):
 	abuser_id = models.ForeignKey('Persons', on_delete=models.CASCADE)
 	victim_id = models.ForeignKey('Persons', on_delete=models.CASCADE)
 	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
-	risk_factor_id = models.ForeignKey('RiskFactors', on_delete=models.CASCADE)
+	risk_factor_id = models.ForeignKey('RiskuFactors', on_delete=models.CASCADE)
 
 	relationship_type = models.IntegerField(max_length=1, choices=RELATIONSHIP_TYPE)
 	relationship_len = models.IntegerField(max_length=1, choices=RELATIONSHIP_LENGTH)
@@ -124,7 +124,7 @@ class Persons(models.Model):
         (11, 'Portugese/Portugese Creole'),
         (12, 'Russian'),
         (13, 'Vietnamese'),
-        (10, 'Other/Unknown'),
+        (14, 'Other/Unknown'),
     )
 
     person_id = models.IntegerField(primary_key = True)
