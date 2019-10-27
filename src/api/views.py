@@ -26,3 +26,21 @@ class FrontendAppView(View):
                 """,
                 status=501,
             )
+class CJOChargesFiled(self, request, community):
+    """
+    show total count
+    1. police response: charges filed
+    2. police response: No charges filed
+    3. no police response: not applicable
+
+    *One option per case total count should equal total cases*
+    """
+    caselist = (Cases.objects.filter(community_id=community))
+    result_tuple = (0, 0, 0)
+    for i in caselist:
+        if i.outcome_id.charges_filed_at_or_after_case_acceptance == 0:
+            result_tuple[0] += 1
+        else if i.outcome_id.charges_filed_at_or_after_case_acceptance == 1:
+            result_tuple[1] += 1
+        else:
+            result_tuple[2] += 1
