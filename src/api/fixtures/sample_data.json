@@ -1,0 +1,542 @@
+[
+	{
+		"pk": 1,
+		"model" : "api.Communities",
+		"fields" : {
+			"community_id" : 1,
+			"referral_sources" : ["ref1", "ref2", "ref3"]
+		}
+	},
+	{
+		"pk": 2,
+		"model" : "api.Communities",
+		"fields" : {
+			"community_id" : 2,
+			"referral_sources" : ["barry", "julia", "andrew"]
+		}
+	},
+	{
+		"pk": 3,
+		"model" : "api.Communities",
+		"fields" : {
+			"community_id" : 3,
+			"referral_sources" : ["meha", "izzi"]
+		}
+	},
+	{
+		"model" : "api.Persons",
+		"pk": 1,
+		"fields" : {
+			"person_id": 1,
+			"is_victim": true,
+			"name": "Julia",
+			"dob": "1998-03-25",
+			"gender": 3,
+			"race_ethnicity": "[1, 2]",
+			"age_at_case_acceptance": 1,
+			"primary_laguage": 1,
+			"town": "town1 "
+ 		}
+ 	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 2,
+		"fields" : {
+			"person_id": 2,
+			"is_victim": false,
+			"name": "Barry",
+			"dob": "1997-11-09",
+			"gender": 2,
+			"race_ethnicity": "[2, 6]",
+			"age_at_case_acceptance": 2,
+			"primary_laguage": 2,
+			"town": "town2"
+		}
+ 	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 3,
+		"fields" : {
+			"person_id": 3,
+			"is_victim": true,
+			"name": "Izzi",
+			"dob": "1997-04-08",
+			"gender": 1,
+			"race_ethnicity": "[3]",
+			"age_at_case_acceptance": 3,
+			"primary_laguage": 3,
+			"town": "town2"
+		}
+	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 4,
+		"fields" : {
+			"person_id": 4,
+			"is_victim": false,
+			"name": "Meha",
+			"dob": "1999-09-30",
+			"gender": 1,
+			"race_ethnicity": "[4]",
+			"age_at_case_acceptance": 4,
+			"primary_laguage": 4,
+			"town": "town2"
+		}
+	},
+	{
+ 		"model" : "api.Persons",
+ 		"pk": 5,
+		"fields" : {
+			"person_id": 5,
+			"is_victim": true,
+			"name": "Khaliun",
+			"dob": "1990-08-01",
+			"gender": 1,
+			"race_ethnicity": "[5]",
+			"age_at_case_acceptance": 5,
+			"primary_laguage": 5,
+			"town": "town3"
+		}
+ 	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 6,
+		"fields" : {
+			"person_id": 6,
+			"is_victim": false,
+			"name": "Andrew",
+			"dob": "1967-05-15",
+			"gender": 2,
+			"race_ethnicity": "[6]",
+			"age_at_case_acceptance": 6,
+			"primary_laguage": 6,
+			"town": "town4"
+		}
+ 	},
+ 	 {
+ 		"model" : "api.Persons",
+ 		"pk": 7,
+		"fields" : {
+			"person_id": 7,
+			"is_victim": true,
+			"name": "Trevor R",
+			"dob": "1999-10-15",
+			"gender": 3,
+			"race_ethnicity": "[7]",
+			"age_at_case_acceptance": 7,
+			"primary_laguage": 7,
+			"town": "town5"
+		}
+	},
+	{
+ 		"model" : "api.Persons",
+ 		"pk": 8,
+		"fields" : {
+			"person_id": 8,
+			"is_victim": false,
+			"name": "Nicole",
+			"dob": "1950-01-07",
+			"gender": 1,
+			"race_ethnicity": "[6]",
+			"age_at_case_acceptance": 8,
+			"primary_laguage": 8,
+			"town": "town6"
+		}
+ 	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 9,
+		"fields" : {
+			"person_id": 9,
+			"is_victim": true,
+			"name": "Nate",
+			"dob": "1996-04-09",
+			"gender": 2,
+			"race_ethnicity": "[5]",
+			"age_at_case_acceptance": 9,
+			"primary_laguage": 9,
+			"town": "town7"
+		}
+	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 10,
+		"fields" : {
+			"person_id": 10,
+			"is_victim": false,
+			"name": "Trever M",
+			"dob": "1988-03-30",
+			"gender": 2,
+			"race_ethnicity": "[4]",
+			"age_at_case_acceptance": 1,
+			"primary_laguage": 10,
+			"town": "town8"
+		}
+	},
+ 	{
+ 		"model" : "api.Persons",
+ 		"pk": 11,
+		"fields" : {
+			"person_id": 11,
+			"is_victim": true,
+			"name": "Jake",
+			"dob": "1978-06-13",
+			"gender": 2,
+			"race_ethnicity": "[3]",
+			"age_at_case_acceptance": 2,
+			"primary_laguage": 11,
+			"town": "town9"
+		}
+	},
+	{
+ 		"model" : "api.Persons",
+ 		"pk": 12,
+		"fields" : {
+			"person_id": 12,
+			"is_victim": false,
+			"name": "Alessandra",
+			"dob": "1975-02-02",
+			"gender": 1,
+			"race_ethnicity": "[2]",
+			"age_at_case_acceptance": 3,
+			"primary_laguage": 12,
+			"town": "town10"
+		}
+	},
+	{
+ 		"model" : "api.Cases",
+ 		"pk": 1,
+		"fields" : {
+			"case_id": 1,
+			"community_id": 1,
+			"abuser_id": 2,
+			"victim_id": 1,
+			"outcome_id": 1,
+			"risk_factor_id": 1,
+			"relationship_type": 1,
+			"relationship_len": 1,
+			"minor_in_home": true
+		}
+	},
+	{
+ 		"model" : "api.Cases",
+ 		"pk": 2,
+		"fields" : {
+			"case_id": 2,
+			"community_id": 1,
+			"abuser_id": 4,
+			"victim_id": 3,
+			"outcome_id": 2,
+			"risk_factor_id": 2,
+			"relationship_type": 2,
+			"relationship_len": 2,
+			"minor_in_home": false
+		}
+ 	},
+ 	{
+ 		"model" : "api.Cases",
+ 		"pk": 3,
+		"fields" : {
+			"case_id": 3,
+			"community_id": 1,
+			"abuser_id": 6,
+			"victim_id": 5,
+			"outcome_id": 3,
+			"risk_factor_id": 3,
+			"relationship_type": 3,
+			"relationship_len": 3,
+			"minor_in_home": true
+		}
+	},
+	{
+ 		"model" : "api.Cases",
+ 		"pk": 4,
+		"fields" : {
+			"case_id": 4,
+			"community_id": 2,
+			"abuser_id": 8,
+			"victim_id": 7,
+			"outcome_id": 4,
+			"risk_factor_id": 4,
+			"relationship_type": 4,
+			"relationship_len": 4,
+			"minor_in_home": false
+		}
+	},
+	{
+ 		"model" : "api.Cases",
+ 		"pk": 5,
+		"fields" : {
+			"case_id": 5,
+			"community_id": 2,
+			"abuser_id": 10,
+			"victim_id": 9,
+			"outcome_id": 5,
+			"risk_factor_id": 5,
+			"relationship_type": 3,
+			"relationship_len": 5,
+			"minor_in_home": true
+		}
+	},
+	{
+ 		"model" : "api.Cases",
+ 		"pk": 6,
+		"fields" : {
+			"case_id": 6,
+			"community_id": 3,
+			"abuser_id": 12,
+			"victim_id": 11,
+			"outcome_id": 6,
+			"risk_factor_id": 6,
+			"relationship_type": 2,
+			"relationship_len": 6,
+			"minor_in_home": false
+		}
+	},
+	{
+ 		"model" : "api.RiskFactors",
+ 		"pk": 1,
+		"fields" : {
+			"risk_factor_id": 1,
+			"violence_increased": true,
+			"attempted_leaving": true,
+			"control_activites": false,
+			"attempted_murder": true,
+			"threatened_murder": true,
+			"weapon_threat": false,
+			"attempted_choke": false,
+			"multiple_choked": false,
+			"killing_capable": false,
+			"owns_gun": false,
+			"suicide_threat_or_attempt": true,
+			"is_unemployed": true,
+			"avoided_arrest": false,
+			"unrelated_child": true,
+			"uses_illegal_drugs": true,
+			"is_alcoholic": false,
+			"forced_sex": true,
+			"constantly_jealous": false,
+			"pregnant_abuse": true,
+			"children_threatened": false,
+			"has_spied": true
+		}
+ 	},
+ 	{
+ 		"model" : "api.RiskFactors",
+ 		"pk": 2,
+		"fields" : {
+			"risk_factor_id": 2,
+			"violence_increased": false,
+			"attempted_leaving": false,
+			"control_activites": true,
+			"attempted_murder": false,
+			"threatened_murder": false,
+			"weapon_threat": true,
+			"attempted_choke": false,
+			"multiple_choked": true,
+			"killing_capable": true,
+			"owns_gun": true,
+			"suicide_threat_or_attempt": false,
+			"is_unemployed": false,
+			"avoided_arrest": false,
+			"unrelated_child": true,
+			"uses_illegal_drugs": false,
+			"is_alcoholic": true,
+			"forced_sex": false,
+			"constantly_jealous": true,
+			"pregnant_abuse": false,
+			"children_threatened": true,
+			"has_spied": true
+		}
+	},
+	{
+ 		"model" : "api.RiskFactors",
+ 		"pk": 3,
+		"fields" : {
+			"risk_factor_id": 3,
+			"violence_increased": true,
+			"attempted_leaving": false,
+			"control_activites": false,
+			"attempted_murder": false,
+			"threatened_murder": true,
+			"weapon_threat": false,
+			"attempted_choke": true,
+			"multiple_choked": false,
+			"killing_capable": false,
+			"owns_gun": false,
+			"suicide_threat_or_attempt": false,
+			"is_unemployed": false,
+			"avoided_arrest": true,
+			"unrelated_child": false,
+			"uses_illegal_drugs": true,
+			"is_alcoholic": false,
+			"forced_sex": false,
+			"constantly_jealous": true,
+			"pregnant_abuse": false,
+			"children_threatened": true,
+			"has_spied": true
+		}
+	},
+	{
+ 		"model" : "api.RiskFactors",
+ 		"pk": 4,
+		"fields" : {
+			"risk_factor_id": 4,
+			"violence_increased": true,
+			"attempted_leaving": false,
+			"control_activites": true,
+			"attempted_murder": true,
+			"threatened_murder": true,
+			"weapon_threat": true,
+			"attempted_choke": false,
+			"multiple_choked": false,
+			"killing_capable": false,
+			"owns_gun": false,
+			"suicide_threat_or_attempt": false,
+			"is_unemployed": true,
+			"avoided_arrest": false,
+			"unrelated_child": true,
+			"uses_illegal_drugs": true,
+			"is_alcoholic": true,
+			"forced_sex": false,
+			"constantly_jealous": false,
+			"pregnant_abuse": true,
+			"children_threatened": false,
+			"has_spied": true
+		}
+	},
+	{
+ 		"model" : "api.RiskFactors",
+ 		"pk": 5,
+		"fields" : {
+			"risk_factor_id": 5,
+			"violence_increased": true,
+			"attempted_leaving": true,
+			"control_activites": false,
+			"attempted_murder": true,
+			"threatened_murder": false,
+			"weapon_threat": false,
+			"attempted_choke": false,
+			"multiple_choked": true,
+			"killing_capable": false,
+			"owns_gun": false,
+			"suicide_threat_or_attempt": true,
+			"is_unemployed": false,
+			"avoided_arrest": true,
+			"unrelated_child": false,
+			"uses_illegal_drugs": false,
+			"is_alcoholic": false,
+			"forced_sex": true,
+			"constantly_jealous": false,
+			"pregnant_abuse": false,
+			"children_threatened": false,
+			"has_spied": false
+		}
+	},
+	{
+ 		"model" : "api.RiskFactors",
+ 		"pk": 6,
+		"fields" : {
+			"risk_factor_id": 6,
+			"violence_increased": false,
+			"attempted_leaving": false,
+			"control_activites": true,
+			"attempted_murder": true,
+			"threatened_murder": false,
+			"weapon_threat": false,
+			"attempted_choke": true,
+			"multiple_choked": true,
+			"killing_capable": true,
+			"owns_gun": true,
+			"suicide_threat_or_attempt": true,
+			"is_unemployed": false,
+			"avoided_arrest": false,
+			"unrelated_child": false,
+			"uses_illegal_drugs": true,
+			"is_alcoholic": false,
+			"forced_sex": true,
+			"constantly_jealous": false,
+			"pregnant_abuse": false,
+			"children_threatened": false,
+			"has_spied": false
+		}
+	},
+	{
+ 		"model" : "api.Outcomes",
+ 		"pk": 1,
+		"fields" : {
+			"outcome_id": 1,
+			"connection_to_domestic_violence_services": false,
+			"engagement_in_ongoing_domestic_violence_services": true,
+			"charges_filed_at_or_after_case_acceptance": 1,
+			"pretrial_hearing_outcome": 1,
+			"sentencing_outcomes_disposition": 1,
+			"sentencing_outcomes_sentence": 1
+		}
+ 	},
+ 	{
+ 		"model" : "api.Outcomes",
+ 		"pk": 2,
+		"fields" : {
+			"outcome_id": 2,
+			"connection_to_domestic_violence_services": true,
+			"engagement_in_ongoing_domestic_violence_services": false,
+			"charges_filed_at_or_after_case_acceptance": 2,
+			"pretrial_hearing_outcome": 2,
+			"sentencing_outcomes_disposition": 2,
+			"sentencing_outcomes_sentence": 2
+		}
+	},
+	{
+ 		"model" : "api.Outcomes",
+ 		"pk": 3,
+		"fields" : {
+			"outcome_id": 3,
+			"connection_to_domestic_violence_services": false,
+			"engagement_in_ongoing_domestic_violence_services": false,
+			"charges_filed_at_or_after_case_acceptance": 3,
+			"pretrial_hearing_outcome": 3,
+			"sentencing_outcomes_disposition": 3,
+			"sentencing_outcomes_sentence": 3
+		}
+	},
+	{
+ 		"model" : "api.Outcomes",
+ 		"pk": 4,
+		"fields" : {
+			"outcome_id": 4,
+			"connection_to_domestic_violence_services": false,
+			"engagement_in_ongoing_domestic_violence_services": true,
+			"charges_filed_at_or_after_case_acceptance": 1,
+			"pretrial_hearing_outcome": 4,
+			"sentencing_outcomes_disposition": 4,
+			"sentencing_outcomes_sentence": 1
+		}
+	},
+	{
+ 		"model" : "api.Outcomes",
+ 		"pk": 5,
+		"fields" : {
+			"outcome_id": 5,
+			"connection_to_domestic_violence_services": true,
+			"engagement_in_ongoing_domestic_violence_services": false,
+			"charges_filed_at_or_after_case_acceptance": 2,
+			"pretrial_hearing_outcome": 5,
+			"sentencing_outcomes_disposition": 5,
+			"sentencing_outcomes_sentence": 2
+		}
+	},
+	{
+ 		"model" : "api.Outcomes",
+ 		"pk": 6,
+		"fields" : {
+			"outcome_id": 6,
+			"connection_to_domestic_violence_services": false,
+			"engagement_in_ongoing_domestic_violence_services": true,
+			"charges_filed_at_or_after_case_acceptance": 3,
+			"pretrial_hearing_outcome": 6,
+			"sentencing_outcomes_disposition": 5,
+			"sentencing_outcomes_sentence": 3
+		}
+	}
+]
