@@ -1,7 +1,7 @@
 [
 	{
-		"pk": 1,
 		"model" : "api.Communities",
+		"pk": 1,
 		"fields" : {
 			"community_id" : 1,
 			"referral_sources" : ["ref1", "ref2", "ref3"]
@@ -34,7 +34,7 @@
 			"gender": 3,
 			"race_ethnicity": "[1, 2]",
 			"age_at_case_acceptance": 1,
-			"primary_laguage": 1,
+			"primary_language": 1,
 			"town": "town1 "
  		}
  	},
@@ -49,7 +49,7 @@
 			"gender": 2,
 			"race_ethnicity": "[2, 6]",
 			"age_at_case_acceptance": 2,
-			"primary_laguage": 2,
+			"primary_language": 2,
 			"town": "town2"
 		}
  	},
@@ -64,7 +64,7 @@
 			"gender": 1,
 			"race_ethnicity": "[3]",
 			"age_at_case_acceptance": 3,
-			"primary_laguage": 3,
+			"primary_language": 3,
 			"town": "town2"
 		}
 	},
@@ -79,7 +79,7 @@
 			"gender": 1,
 			"race_ethnicity": "[4]",
 			"age_at_case_acceptance": 4,
-			"primary_laguage": 4,
+			"primary_language": 4,
 			"town": "town2"
 		}
 	},
@@ -94,7 +94,7 @@
 			"gender": 1,
 			"race_ethnicity": "[5]",
 			"age_at_case_acceptance": 5,
-			"primary_laguage": 5,
+			"primary_language": 5,
 			"town": "town3"
 		}
  	},
@@ -109,7 +109,7 @@
 			"gender": 2,
 			"race_ethnicity": "[6]",
 			"age_at_case_acceptance": 6,
-			"primary_laguage": 6,
+			"primary_language": 6,
 			"town": "town4"
 		}
  	},
@@ -124,7 +124,7 @@
 			"gender": 3,
 			"race_ethnicity": "[7]",
 			"age_at_case_acceptance": 7,
-			"primary_laguage": 7,
+			"primary_language": 7,
 			"town": "town5"
 		}
 	},
@@ -139,7 +139,7 @@
 			"gender": 1,
 			"race_ethnicity": "[6]",
 			"age_at_case_acceptance": 8,
-			"primary_laguage": 8,
+			"primary_language": 8,
 			"town": "town6"
 		}
  	},
@@ -154,7 +154,7 @@
 			"gender": 2,
 			"race_ethnicity": "[5]",
 			"age_at_case_acceptance": 9,
-			"primary_laguage": 9,
+			"primary_language": 9,
 			"town": "town7"
 		}
 	},
@@ -169,7 +169,7 @@
 			"gender": 2,
 			"race_ethnicity": "[4]",
 			"age_at_case_acceptance": 1,
-			"primary_laguage": 10,
+			"primary_language": 10,
 			"town": "town8"
 		}
 	},
@@ -184,7 +184,7 @@
 			"gender": 2,
 			"race_ethnicity": "[3]",
 			"age_at_case_acceptance": 2,
-			"primary_laguage": 11,
+			"primary_language": 11,
 			"town": "town9"
 		}
 	},
@@ -199,7 +199,7 @@
 			"gender": 1,
 			"race_ethnicity": "[2]",
 			"age_at_case_acceptance": 3,
-			"primary_laguage": 12,
+			"primary_language": 12,
 			"town": "town10"
 		}
 	},

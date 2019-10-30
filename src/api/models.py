@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 class Outcomes(models.Model):
     CHARGES = (
@@ -9,7 +10,7 @@ class Outcomes(models.Model):
     )
 
     PRETRIAL_OUTCOME = (
-        (0, 'undefined')
+        (0, 'undefined'),
         (1, 'Released on Bail'),
         (2, 'Released on Personal Recognizance'),
         (3, 'Detained/Pretrial Detention Statute'),
@@ -19,7 +20,7 @@ class Outcomes(models.Model):
     )
 
     SENTENCING_OUTCOMES_DISPOSITION = (
-        (0, 'undefined')
+        (0, 'undefined'),
         (1, 'Charges Dismissed'),
         (2, 'Not Guilty'),
         (3, 'Deferred Adjudication'),
@@ -65,21 +66,21 @@ class Cases(models.Model):
 
 	case_id = models.IntegerField(primary_key=True)
 
-	community_id = models.ForeignKey('Communities', on_delete=models.CASCADE)
-	abuser_id = models.ForeignKey('Persons', on_delete=models.CASCADE)
-	victim_id = models.ForeignKey('Persons', on_delete=models.CASCADE)
+	community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
+	abuser_id = models.ForeignKey('Persons', related_name='abuser_id', on_delete=models.CASCADE)
+	victim_id = models.ForeignKey('Persons', related_name='victim_id', on_delete=models.CASCADE)
 	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
-	risk_factor_id = models.ForeignKey('RiskuFactors', on_delete=models.CASCADE)
+	risk_factor_id = models.ForeignKey('RiskFactors', on_delete=models.CASCADE)
 
-	relationship_type = models.IntegerField(default=0, max_length=1, choices=RELATIONSHIP_TYPE)
-	relationship_len = models.IntegerField(default=0, max_length=1, choices=RELATIONSHIP_LENGTH)
+	relationship_type = models.IntegerField(default=0, choices=RELATIONSHIP_TYPE)
+	relationship_len = models.IntegerField(default=0, choices=RELATIONSHIP_LENGTH)
 
 	minor_in_home = models.BooleanField(default=False)
 
 
 class Communities(models.Model):
     community_id = models.IntegerField(primary_key = True)
-    referral_sources = models.ArrayField(models.CharField())
+    referral_sources = ArrayField(models.CharField(max_length=100))
 
 class Persons(models.Model):
     gender_choices = (
@@ -133,15 +134,15 @@ class Persons(models.Model):
 
     person_id = models.IntegerField(primary_key = True)
     is_victim = models.BooleanField()
-    name = models.CharField()
+    name = models.CharField(max_length=100)
     dob = models.DateField()
     gender = models.IntegerField(default=0, choices=gender_choices)
-    race_ethnicity = models.ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
+    race_ethnicity = ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
     primary_language = models.IntegerField(default=0, choices=primary_language_choices)
-    town = models.CharField()
+    town = models.CharField(max_length=100)
     
-class RiskFactors(models.Models):
+class RiskFactors(models.Model):
     risk_factor_id = models.IntegerField(primary_key=True)
     violence_increased = models.BooleanField(default=False)
     attempted_leaving = models.BooleanField(default=False)
