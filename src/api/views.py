@@ -41,8 +41,7 @@ class AbuserEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
         case_set = Cases.objects.filter(community_id=c_id).select_related('abuser_id')
-        people_set = Persons.objects.filter(is_victim=False)
-        #abuser_list = chain(case_set, people_set).groupby(attrgetter('abuser_id'))
+        # people_set = Persons.objects.filter(is_victim=False)
         ethnicities_to_counts = {
             0: 0,
             1: 0,
@@ -76,38 +75,33 @@ class AbuserEthnicities(generics.ListCreateAPIView):
 
         return JsonResponse(counts)
 
-# # View 8: Risk Factors
-# # Show the count associated with each risk factor below
-# # Has he/she tried to kill you?
-# # Has he/she ever tried to choke (strangle) you?
-# # Has he/she choked (strangled) you multiple times?
-# # Does he/she own a gun?
 
-# class risk_factors(generics.ListCreateAPIView):
-#     def get(self, request, *args, **kwargs):
-#         community_id = request.community_id
-#         queryset = Case.objects.all()
-#         case_set = queryset.filter(community_id = community_id)
-#         risks = Risk_Factors.objects.all()
-#         tallies = [0] * 4
-#         for case in case_set:
-#             risk_factors = risks[case['risk_factor_id']]
-#             if(risk_factors['attempted_murder']):
-#                 tallies[0] += 1
-#             if(risk_factors['attempted_choke']):
-#                 tallies[1] += 1
-#             if(risk_factors['multiple_choked']):
-#                 tallies[2] += 1
-#             if(risk_factors['owns_gun']):
-#                 tallies[3] += 1
+class RiskFactorCounts(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.all().filter(community_id=c_id).select_related('risk_factor_id')
+        rf_set = RiskFactors.objects.all()
 
-#         risk_counts = {
-#             'attempted_murder': tallies[0],
-#             'attempted_choke': tallies[1],
-#             'multiple_choked': tallies[2],
-#             'owns_gun': tallies[3],
-#         }
-#         return HttpResponse(risk_counts)
+        rf_counts = {
+            'attempted_murder' : 0,
+            'attempted_choke'  : 0,
+            'multiple_choked'  : 0,
+            'owns_gun'         : 0,
+        }
+
+        for case in case_set:
+            rf = case.risk_factor_id
+            if rf.attempted_murder:
+                rf_counts['attempted_murder'] += 1
+            if rf.attempted_choke:
+                rf_counts['attempted_choke'] += 1
+            if rf.multiple_choked:
+                rf_counts['multiple_choked'] += 1
+            if rf.owns_gun:
+                rf_counts['owns_gun'] += 1
+
+
+        return JsonResponse(rf_counts)
 
 # class pretrial_outcome(generics.ListCreateAPIView):
 #     def get(self, request, *args, **kwargs):
