@@ -20,5 +20,5 @@ from api.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('/', include('api.urls')),
-    path('view_testing/', RiskFactorCounts.as_view(), name="risk_factor_counts"),
+    path('view_testing/', DispositionOutcomes.as_view()),
 ]

@@ -40,8 +40,7 @@ class FrontendAppView(View):
 class AbuserEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.filter(community_id=c_id).select_related('abuser_id')
-        # people_set = Persons.objects.filter(is_victim=False)
+        case_set = Cases.objects.filter(community_id=1).select_related('abuser_id')
         ethnicities_to_counts = {
             0: 0,
             1: 0,
@@ -80,7 +79,6 @@ class RiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
         case_set = Cases.objects.all().filter(community_id=c_id).select_related('risk_factor_id')
-        rf_set = RiskFactors.objects.all()
 
         rf_counts = {
             'attempted_murder' : 0,
@@ -103,41 +101,88 @@ class RiskFactorCounts(generics.ListCreateAPIView):
 
         return JsonResponse(rf_counts)
 
-# class pretrial_outcome(generics.ListCreateAPIView):
-#     def get(self, request, *args, **kwargs):
-#         outcome_id = request.outcome_id
-#         queryset = Case.objects.all()
-#         case_set = queryset.filter(community_id = community_id)
-#         outcomes = Outcomes.objects.all()
-#         tallies = [0] * 7
-#         for case in case_set:
-#             outcome = outcomes[case['outcome_id']]
-#             tallies[outcome['pretrial_outcome'] += 1
-#         risk_counts = {
-#             'undefined': tallies[0],            
-#             'Released on Bail': tallies[1],
-#             'Released on Personal Recognizance': tallies[2],
-#             'Detained/Pretrial Detention Statute': tallies[3],
-#             'Detained/Bail Unmet': tallies[4],
-#             'Detained/Other': tallies[5],
-#             'Pending Pretrial Hearing': tallies[6],
-#         }
-#         return HttpResponse(outcome_counts)
+# View 10, Criminal Justice Outcomes, Pretrial Hearing Outcomes
+class PretrialHearingOutcome(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.all().filter(community_id=c_id).select_related('outcome_id')
+        total_count = 0
 
-# class sentencing_outcomes_sentence(generics.ListCreateAPIView):
-#     def get(self, request, *args, **kwargs):
-#         outcome_id = request.outcome_id
-#         queryset = Case.objects.all()
-#         case_set = queryset.filter(community_id = community_id)
-#         outcomes = Outcomes.objects.all()
-#         tallies = [0] * 3
-#         for case in case_set:
-#             outcome = outcomes[case['outcome_id']]
-#             tallies[outcome['sentencing_outcomes_sentence'] += 1
-#         outcome_counts = {
-#             'undefined': tallies[0],            
-#             'Incarceration': tallies[1],
-#             'Probation': tallies[2],
-#             'Incarceration Followed by Probation': tallies[2],
-#         }
-#         return HttpResponse(outcome_counts)
+        outcome_counts = {
+            'Undefined/Unknown'                  : 0,
+            'Released on Bail'                   : 0,
+            'Released on Personal Recognizance'  : 0,
+            'Detained/Pretrial Detention Statute': 0,
+            'Detained/Bail Unmet'                : 0,
+            'Detained/Other'                     : 0,
+            'Pending Pretrial Hearing'           : 0,
+        }
+
+        for case in case_set:
+            outcome = case.outcome_id
+            p_h_o = outcome.get_pretrial_hearing_outcome_display()
+            try:
+                outcome_counts[p_h_o] += 1
+            except KeyError:
+                outcome_counts['Undefined/Unknown'] += 1
+            total_count += 1
+
+        outcome_counts['Total Count'] = total_count
+
+        return JsonResponse(outcome_counts)
+
+# View 11:View 11: Criminal Justice Outcomes, Disposition Outcomes
+class DispositionOutcomes(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.all().filter(community_id=c_id).select_related("outcome_id")
+        total_count = 0
+
+        disposition_outcome_counts = {
+            'Undefined/Unknown'     : 0,
+            'Charges Dismissed'     : 0,
+            'Not Guilty'            : 0,
+            'Deferred Adjudication' : 0,
+            'Plead/Found Guilty'    : 0,
+            'Pending Disposition'   : 0,
+        }
+
+        for case in case_set:
+            outcome = case.outcome_id
+            d_o = outcome.get_sentencing_outcomes_disposition_display()
+            try:
+                disposition_outcome_counts[d_o] += 1
+            except KeyError:
+                disposition_outcome_counts['Undefined/Unknown'] += 1
+            total_count += 1
+
+        disposition_outcome_counts['Total Count'] = total_count
+
+        return JsonResponse(disposition_outcome_counts)
+
+# View 12:Criminal Justice Outcomes, Sentencing Outcomes
+class SentencingOutcomes(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.all().filter(community_id=c_id).select_related("outcome_id")
+        total_count = 0
+
+        sentencing_outcome_counts = {
+            'Undefined/Unknown'                   : 0,
+            'Incarceration'                       : 0,
+            'Probation'                           : 0,
+            'Incarceration Followed by Probation' : 0,
+        }
+
+        for case in case_set:
+            outcome = case.outcome_id
+            s_o = outcome.get_sentencing_outcomes_sentence_display()
+            try:
+                sentencing_outcome_counts[s_o] += 1
+            except KeyError:
+                sentencing_outcome_counts['Undefined/Unknown'] += 1
+            total_count += 1
+
+        sentencing_outcome_counts['Total Count'] = total_count
+
+        return JsonResponse(sentencing_outcome_counts)
