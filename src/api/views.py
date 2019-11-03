@@ -37,6 +37,15 @@ class FrontendAppView(View):
                 status=501,
             )
 
+# View 1
+
+class GeneralCountView(View):
+    """Returns the number of cases accepted
+    """
+    # TODO: modify to return the number of cases accepted in a certain month
+    def get(self, request, community):
+        return len(Cases.objects.filter(community_id=community))
+
 class AbuserEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
