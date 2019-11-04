@@ -9,6 +9,7 @@ pylint = "*"
 [packages]
 django = "*"
 django_heroku = "*"
+rest_framework="*"
 
 [requires]
 python_version = "3.7"
