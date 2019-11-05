@@ -41,35 +41,30 @@ class FrontendAppView(View):
 class VictimGenders(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.filter(community_id=1).select_related('victim_id')
+        case_set = Cases.objects.filter(community_id=c_id).select_related('victim_id')
         genders_to_counts = {
-            0: 0,
-            1: 0,
-            2: 0,
-            3: 0
+            'Female': 0,
+            'Male': 0,
+            'Other': 0,
+            'Total Count': 0
         }
+
         total_count = 0
         for case in case_set:
             victim = case.victim_id
             try:
-                genders_to_counts[victim.gender] += 1
+                genders_to_counts[victim.get_gender_display()] += 1
             except:
-                genders_to_counts[victim.gender] = 1
-            total_count += 1
+                genders_to_counts['Other'] += 1
+            genders_to_counts['Total Count'] += 1
 
-        counts = {
-            'Female': genders_to_counts[1],
-            'Male': genders_to_counts[2],
-            'Other': genders_to_counts[0] + genders_to_counts[3],
-            'Total Count': total_count
-        }
-        return JsonResponse(counts)
+        return JsonResponse(genders_to_counts)
 
 # View 4
 class VictimEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.filter(community_id=1).select_related('victim_id')
+        case_set = Cases.objects.filter(community_id=c_id).select_related('victim_id')
         ethnicities_to_counts = {
             0: 0,
             1: 0,
