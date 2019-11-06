@@ -65,7 +65,6 @@ class Cases(models.Model):
 	]
 
 	case_id = models.IntegerField(primary_key=True)
-
 	community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
 	abuser_id = models.ForeignKey('Persons', related_name='abuser_id', on_delete=models.CASCADE)
 	victim_id = models.ForeignKey('Persons', related_name='victim_id', on_delete=models.CASCADE)
@@ -76,11 +75,12 @@ class Cases(models.Model):
 	relationship_len = models.IntegerField(default=0, choices=RELATIONSHIP_LENGTH)
 
 	minor_in_home = models.BooleanField(default=False)
-
+    # What the hell is: Why is its indent layer broken...
+    referral_source = models.CharField(max_length=100)
 
 class Communities(models.Model):
     community_id = models.IntegerField(primary_key = True)
-    referral_sources = ArrayField(models.CharField(max_length=100))
+    referral_sources = models.ArrayField(models.CharField(max_length=100))
 
 class Persons(models.Model):
     gender_choices = (
