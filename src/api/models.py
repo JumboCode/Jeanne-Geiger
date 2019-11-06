@@ -1,6 +1,76 @@
 from django.db import models
 
-# Create your models here.
+class Outcomes(models.Model):
+
+    CHARGES = (
+        (0, 'Police Response: Charges Filed'),
+        (1, 'Police Response: No Charges Filed'),
+        (2, 'No Police Response: Not Applicable')
+    )
+
+    PRETRIAL_OUTCOME = (
+        (0, 'Released on Bail'),
+        (1, 'Released on Personal Recognizance'),
+        (2, 'Detained/Pretrial Detention Statute'),
+        (3, 'Detained/Bail Unmet'),
+        (4, 'Detained/Other'),
+        (5, 'Pending Pretrial Hearing')
+    )
+
+    SENTENCING_OUTCOMES_DISPOSITION = (
+        (0, 'Charges Dismissed'),
+        (1, 'Not Guilty'),
+        (2, 'Deferred Adjudication'),
+        (3, 'Plead/Found Guilty'),
+        (4, 'Pending Disposition')
+    )
+
+    SENTENCING_OUTCOMES_SENTENCE = (
+        (0, 'undefined'),
+        (1, 'Incarceration'),
+        (2, 'Probation'),
+        (3, 'Incarceration Followed by Probation')
+    )
+
+    outcome_id = models.IntegerField(primary_key=True)
+    connection_to_domestic_violence_services = models.BooleanField(default=False)
+    engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=False)
+    charges_filed_at_or_after_case_acceptance = models.IntegerField(default=0, choices=CHARGES)
+    pretrial_hearing_outcome = models.IntegerField(default=0, choices=PRETRIAL_OUTCOME)
+    sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
+    sentencing_outcomes_sentence = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_SENTENCE)
+
+class Case(models.Model):
+	RELATIONSHIP_TYPE = [
+		(0, 'Current Spouse/Intimate Partner'),
+		(1, 'Former Spouse/Intimate Partner'),
+		(2, 'Current Dating Relationship'),
+		(3, 'Former Dating Relationship'),
+		(4, 'Other'),
+	]
+
+	RELATIONSHIP_LENGTH = [
+		(0, '<1 year'),
+		(1, '1-5 years'),
+		(2, '6-9 years'),
+		(3, '10-14 years'),
+		(4, '15-19 years'),
+		(5, '20-29 years'),
+		(6, '30+ years'),
+	]
+
+	case_id = models.IntegerField(primary_key=True)
+
+	community_id = models.ForeignKey('Community', on_delete=models.CASCADE)
+	abuser_id = models.ForeignKey('Person', on_delete=models.CASCADE)
+	victim_id = models.ForeignKey('Person', on_delete=models.CASCADE)
+	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
+	risk_factor_id = models.ForeignKey('Risk_Factors', on_delete=models.CASCADE)
+
+	relationship_type = models.IntegerField(max_length=1, choices=RELATIONSHIP_TYPE)
+	relationship_len = models.IntegerField(max_length=1, choices=RELATIONSHIP_LENGTH)
+
+	minor_in_home = models.BooleanField(default=False)
 
 
 class Community(models.Model):
@@ -44,7 +114,7 @@ class Person(models.Model):
     name = models.CharField()
     dob = models.DateField()
     gender = models.IntegerField(default=0, choices=gender_choices)
-    race_ethnicity = models.IntegerField(default=0, choices=race_ethnicity_choices)
+    race_ethnicity = models.ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
     primary_language = models.CharField()
     town = models.CharField()

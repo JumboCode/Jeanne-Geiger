@@ -3,24 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.18",
-    "@types/node": "12.7.5",
-    "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.1.2",
-    "typescript": "3.6.3"
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint": "eslint \"src/**/*.tsx\"",
+    "eslint": "eslint \"src/**/*.js\"",
     "stylelint": "stylelint src/**/*.css",
-    "prettier-write": "prettier --write \"src/**/*.{tsx,css}\""
+    "prettier-write": "prettier --write \"src/**/*.{js,css}\""
   },
   "eslintConfig": {
     "extends": [
@@ -49,8 +43,15 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.3.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-standard": "^4.0.1",
     "prettier": "^1.18.2",
     "stylelint": "^11.0.0",
     "stylelint-config-prettier": "^6.0.0",
