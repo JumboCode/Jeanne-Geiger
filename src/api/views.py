@@ -15,6 +15,9 @@ from .models import *
 
 from itertools import chain
 from operator import attrgetter
+import logging
+
+
 
 class FrontendAppView(View):
     """
@@ -101,6 +104,27 @@ class RiskFactorCounts(generics.ListCreateAPIView):
 
         return JsonResponse(rf_counts)
 
+#Nate View 5
+# Get an instance of a logger
+
+logger = logging.getLogger(__name__)
+
+class EngagementOngoingDomesticViolence(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.filter(community_id=1).select_related('outcome_id')
+        outcome_count = 0
+        outcome_counts = {
+          "engagement_in_ongoing_domestic_violence_services_num" : 0,
+          "Undefined/Unknown": 0,
+        }
+        for case in case_set:
+            outcome = case.outcome_id
+            if outcome.engagement_in_ongoing_domestic_violence_services:
+              outcome_count += 1
+            outcome_counts["engagement_in_ongoing_domestic_violence_services_num"] = outcome_count
+        return JsonResponse(outcome_counts)
+  
 # View 10, Criminal Justice Outcomes, Pretrial Hearing Outcomes
 class PretrialHearingOutcome(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
