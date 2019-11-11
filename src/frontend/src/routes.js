@@ -10,6 +10,9 @@ import comOverview from './modules/comManager/comOverview';
 import detailView from './modules/comManager/detailView';
 import editCase from './modules/comManager/editCase';
 
+import PublicRoute from 'Public';
+import PrivateRoute from 'Private';
+
 export default class AppRouter extends React.Component {
   render() {
     return (
@@ -26,14 +29,6 @@ export default class AppRouter extends React.Component {
           </li>
         </ul>
         <Switch>
-          <Route path="/createTournament" component={CreateTournament} />
-          <Route path="/tournaments/:id" component={TournamentView} />
-          <Route
-            path="/enterResults/:tournamentId/:roundId/:matchupId"
-            component={BallotEnterResults}
-          />
-          <Route path="/login" component={SignIn} />
-          <Route path="/" component={TournamentsList} />
         </Switch>
       </Router>
     );
