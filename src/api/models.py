@@ -74,6 +74,8 @@ class Cases(models.Model):
 	relationship_len = models.IntegerField(default=0, choices=RELATIONSHIP_LENGTH)
 	minor_in_home = models.BooleanField(default=False)
 	referral_source = models.CharField(max_length=100, default="")
+	date_accepted = models.DateField()
+
 
 class Communities(models.Model):
 	community_id = models.IntegerField(primary_key = True)
