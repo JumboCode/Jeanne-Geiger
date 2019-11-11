@@ -101,6 +101,36 @@ class RiskFactorCounts(generics.ListCreateAPIView):
 
         return JsonResponse(rf_counts)
 
+#View 9, Charges Filed Outcomes,
+class CJOChargesFiled(generics.ListCreateAPIView):
+    """
+    show total count
+    1. police response: charges filed
+    2. police response: No charges filed
+    3. no police response: not applicable
+    """
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.all().filter(community_id=1).select_related('outcome_id')
+        total_count = 0
+
+        outcome_counts = {
+            'Police Response: Charges Filed'      : 0,
+            'Police Response: No Charges Filed'   : 0,
+            'No Police Response: Not Applicable'  : 0
+        }
+
+        for case in case_set:
+            outcome = case.outcome_id
+            charges = outcome.get_charges_filed_at_or_after_case_acceptance_display()
+            outcome_counts[charges] += 1
+            total_count += 1
+
+        outcome_counts['Total Count'] = total_count
+
+        return JsonResponse(outcome_counts)
+
+
 # View 10, Criminal Justice Outcomes, Pretrial Hearing Outcomes
 class PretrialHearingOutcome(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
