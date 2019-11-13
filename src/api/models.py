@@ -35,7 +35,7 @@ class Outcomes(models.Model):
         (3, 'Incarceration Followed by Probation')
     )
 
-    outcome_id = models.IntegerField(primary_key=True)
+    outcome_id = models.AutoField(primary_key=True)
     connection_to_domestic_violence_services = models.BooleanField(default=False)
     engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=False)
     charges_filed_at_or_after_case_acceptance = models.IntegerField(default=0, choices=CHARGES)
@@ -64,7 +64,7 @@ class Cases(models.Model):
 		(7, '30+ years'),
 	]
 
-	case_id = models.IntegerField(primary_key=True)
+	case_id = models.AutoField(primary_key=True)
 
 	community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
 	abuser_id = models.ForeignKey('Persons', related_name='abuser_id', on_delete=models.CASCADE)
@@ -79,7 +79,7 @@ class Cases(models.Model):
 
 
 class Communities(models.Model):
-    community_id = models.IntegerField(primary_key = True)
+    community_id = models.AutoField(primary_key = True)
     referral_sources = ArrayField(models.CharField(max_length=100))
 
 class Persons(models.Model):
@@ -132,7 +132,7 @@ class Persons(models.Model):
         (14, 'Other/Unknown'),
     )
 
-    person_id = models.IntegerField(primary_key = True)
+    person_id = models.AutoField(primary_key = True)
     is_victim = models.BooleanField()
     name = models.CharField(max_length=100)
     dob = models.DateField()
@@ -143,7 +143,7 @@ class Persons(models.Model):
     town = models.CharField(max_length=100)
     
 class RiskFactors(models.Model):
-    risk_factor_id = models.IntegerField(primary_key=True)
+    risk_factor_id = models.AutoField(primary_key=True)
     violence_increased = models.BooleanField(default=False)
     attempted_leaving = models.BooleanField(default=False)
     control_activites = models.BooleanField(default=False)
