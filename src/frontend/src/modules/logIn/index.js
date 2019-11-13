@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
 import { render } from 'react-dom';
-
+/*
 class SignIn extends React.Component {
     constructor(prop) {
         super(props)
@@ -85,8 +85,14 @@ render()
         </div>
     );
 }
+*/
 
+class Login extends React.Component {
+	render() {
+		return (
+			<h1>Jeanne Geiger</h1>
+		);
+	}
+}
 
-
-
-export default SignIn;
+export default Login; 

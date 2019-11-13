@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import Router from './routes.js'
+import { Route, BrowserRouter, Switch, Link } from 'react-router-dom';
 
+import {adminComOverview} from './modules/admin/adminComOverview';
+import {adminHomepage} from './modules/admin/adminHomepage';
+import {adminViewCaseDetail} from './modules/admin/adminViewCaseDetail';
+import Login from './modules/logIn';
+
+import {addCase} from './modules/comManager/addCase';
+import {comOverview} from './modules/comManager/comOverview';
+import {detailView} from './modules/comManager/detailView';
+import {editCase} from './modules/comManager/editCase';
+import AppRouter from './routes.js'
+/*
 function App () {
   return (
     <div className="App">
@@ -20,8 +31,19 @@ function App () {
           Learn React
         </a>
       </header>
+      <AppRouter />
     </div>
   )
 }
+return <AppRouter />;
+*/
 
-export default App
+class App extends Component {
+	render() {
+		return(
+			<AppRouter />
+		);
+	}
+}
+
+export default App;

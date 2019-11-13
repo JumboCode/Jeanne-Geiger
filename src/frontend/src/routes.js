@@ -1,36 +1,29 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, BrowserRouter, Switch, Link } from 'react-router-dom';
 
-import adminComOverview from './modules/admin/adminComHomepage';
+import adminComOverview from './modules/admin/adminComOverview';
 import adminHomepage from './modules/admin/adminHomepage';
-import adminViewCaseDetail from './modules/admin/adminViewDetail';
+import adminViewCaseDetail from './modules/admin/adminViewCaseDetail';
+import Login from './modules/logIn';
 
 import addCase from './modules/comManager/addCase';
 import comOverview from './modules/comManager/comOverview';
 import detailView from './modules/comManager/detailView';
 import editCase from './modules/comManager/editCase';
 
-import PublicRoute from 'Public';
-import PrivateRoute from 'Private';
+//import PublicRoute from 'Public';
+//import PrivateRoute from 'Private';
 
 export default class AppRouter extends React.Component {
   render() {
     return (
-      <Router>
-        <ul>
-          <li>
-            <Link to="/">AdminHomepage</Link>
-          </li>
-          <li>
-            <Link to="/AdminCommunityOverview">AdminCommunityOverview</Link>
-          </li>
-          <li>
-            <Link to="AdminViewCaseDetail">AdminViewCaseDetail</Link>
-          </li>
-        </ul>
+      <BrowserRouter>
         <Switch>
+	    <Route path="/" component = {Login} />
+	    <Route path="/admin" component = {adminHomepage} />
+	    <Route path="/site" component = {comOverview} />
         </Switch>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
