@@ -37,6 +37,93 @@ class FrontendAppView(View):
                 status=501,
             )
 
+# View 1
+class GeneralCountView(generics.ListCreateAPIView):
+    """Returns the number of cases accepted
+    """
+    # TODO: modify to return the number of cases accepted in a certain month
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_count = len(Cases.objects.filter(community_id=c_id))
+        case_dict = {"case_count":case_count}
+        return JsonResponse(case_dict)
+
+# View 2
+class ReferalSourceView(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        r_dict = {}
+        referral_sources = []
+        community_q_set = Communities.objects.filter(community_id=0)
+        for community in community_q_set:
+            referral_sources = community.referral_sources
+        for referral_source in referral_sources:
+            r_dict[referral_source] = 0
+        case_set = Cases.objects.filter(community_id=c_id)
+        for case in case_set:
+            r_dict[case.referral_source] += 1
+        return JsonResponse(r_dict)
+
+# View 3
+class VictimGenders(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.filter(community_id=c_id).select_related('victim_id')
+        genders_to_counts = {
+            'Female': 0,
+            'Male': 0,
+            'Other': 0,
+            'Total Count': 0
+        }
+
+        total_count = 0
+        for case in case_set:
+            victim = case.victim_id
+            try:
+                genders_to_counts[victim.get_gender_display()] += 1
+            except:
+                genders_to_counts['Other'] += 1
+            genders_to_counts['Total Count'] += 1
+
+        return JsonResponse(genders_to_counts)
+
+class VictimEthnicities(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.filter(community_id=c_id).select_related('victim_id')
+        ethnicities_to_counts = {
+            0: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0
+        }
+        total_count = 0
+        for case in case_set:
+            victim = case.victim_id
+            for ethnicity in victim.race_ethnicity:
+                try:
+                    ethnicities_to_counts[ethnicity] += 1
+                except:
+                    ethnicities_to_counts[ethnicity] = 1
+                total_count += 1
+
+        counts = {
+            'American Indian/Alaska Native': ethnicities_to_counts[1],
+            'Asian': ethnicities_to_counts[2],
+            'Black/African American': ethnicities_to_counts[3],
+            'Hispanic or Latino': ethnicities_to_counts[4],
+            'Native Hawaiian/Pacific Islander': ethnicities_to_counts[5],
+            'White': ethnicities_to_counts[6],
+            'Other/Unknown': ethnicities_to_counts[0] + ethnicities_to_counts[7],
+            'Total Count': total_count
+        }
+
+        return JsonResponse(counts)
+
 class AbuserEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
@@ -73,7 +160,6 @@ class AbuserEthnicities(generics.ListCreateAPIView):
         }
 
         return JsonResponse(counts)
-
 
 class RiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):

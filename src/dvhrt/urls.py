@@ -20,5 +20,5 @@ from api.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('/', include('api.urls')),
-    path('view_testing/', CJOChargesFiled.as_view()),
+    path('view_testing/', ReferalSourceView.as_view()),
 ]
