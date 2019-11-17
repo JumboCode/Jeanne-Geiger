@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
-import { Route, BrowserRouter, Switch, Link } from 'react-router-dom';
 
 import {adminComOverview} from './modules/admin/adminComOverview';
 import {adminHomepage} from './modules/admin/adminHomepage';
@@ -13,6 +11,7 @@ import {comOverview} from './modules/comManager/comOverview';
 import {detailView} from './modules/comManager/detailView';
 import {editCase} from './modules/comManager/editCase';
 import AppRouter from './routes.js'
+
 /*
 function App () {
   return (

@@ -90,7 +90,11 @@ render()
 class Login extends React.Component {
 	render() {
 		return (
-			<h1>Jeanne Geiger</h1>
+            <div>
+                <h1>hello</h1>
+                <a href="/admin">admin</a>
+                <h1>{this.props.type}</h1>
+            </div>
 		);
 	}
 }

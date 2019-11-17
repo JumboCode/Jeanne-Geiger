@@ -19,9 +19,9 @@ export default class AppRouter extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-	    <Route path="/" component = {Login} />
-	    <Route path="/admin" component = {adminHomepage} />
-	    <Route path="/site" component = {comOverview} />
+          <Route exact path="/" component = {Login} type = "login"/>
+          <Route path="/admin" component = {adminHomepage} type = "admin"/>
+          <Route path="/site" component = {comOverview} type = "comoverview"/>
         </Switch>
       </BrowserRouter>
     );
