@@ -37,6 +37,33 @@ class FrontendAppView(View):
                 status=501,
             )
 
+# View 1
+class GeneralCountView(generics.ListCreateAPIView):
+    """Returns the number of cases accepted
+    """
+    # TODO: modify to return the number of cases accepted in a certain month
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_count = len(Cases.objects.filter(community_id=c_id))
+        case_dict = {"case_count":case_count}
+        return JsonResponse(case_dict)
+
+# View 2
+class ReferalSourceView(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        r_dict = {}
+        referral_sources = []
+        community_q_set = Communities.objects.filter(community_id=0)
+        for community in community_q_set:
+            referral_sources = community.referral_sources
+        for referral_source in referral_sources:
+            r_dict[referral_source] = 0
+        case_set = Cases.objects.filter(community_id=c_id)
+        for case in case_set:
+            r_dict[case.referral_source] += 1
+        return JsonResponse(r_dict)
+
 # View 3
 class VictimGenders(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
@@ -60,7 +87,6 @@ class VictimGenders(generics.ListCreateAPIView):
 
         return JsonResponse(genders_to_counts)
 
-# View 4
 class VictimEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
@@ -134,7 +160,6 @@ class AbuserEthnicities(generics.ListCreateAPIView):
         }
 
         return JsonResponse(counts)
-
 
 class RiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
