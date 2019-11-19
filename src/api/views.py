@@ -37,6 +37,33 @@ class FrontendAppView(View):
                 status=501,
             )
 
+# View 1
+class GeneralCountView(generics.ListCreateAPIView):
+    """Returns the number of cases accepted
+    """
+    # TODO: modify to return the number of cases accepted in a certain month
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_count = len(Cases.objects.filter(community_id=c_id))
+        case_dict = {"case_count":case_count}
+        return JsonResponse(case_dict)
+
+# View 2
+class ReferalSourceView(generics.ListCreateAPIView):
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        r_dict = {}
+        referral_sources = []
+        community_q_set = Communities.objects.filter(community_id=0)
+        for community in community_q_set:
+            referral_sources = community.referral_sources
+        for referral_source in referral_sources:
+            r_dict[referral_source] = 0
+        case_set = Cases.objects.filter(community_id=c_id)
+        for case in case_set:
+            r_dict[case.referral_source] += 1
+        return JsonResponse(r_dict)
+
 # View 3
 class VictimGenders(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
@@ -60,7 +87,6 @@ class VictimGenders(generics.ListCreateAPIView):
 
         return JsonResponse(genders_to_counts)
 
-# View 4
 class VictimEthnicities(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
@@ -135,7 +161,6 @@ class AbuserEthnicities(generics.ListCreateAPIView):
 
         return JsonResponse(counts)
 
-
 class RiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
@@ -161,6 +186,36 @@ class RiskFactorCounts(generics.ListCreateAPIView):
 
 
         return JsonResponse(rf_counts)
+
+#View 9, Charges Filed Outcomes,
+class CJOChargesFiled(generics.ListCreateAPIView):
+    """
+    show total count
+    1. police response: charges filed
+    2. police response: No charges filed
+    3. no police response: not applicable
+    """
+    def get(self, request, *args, **kwargs):
+        c_id = request.GET.get("community_id")
+        case_set = Cases.objects.all().filter(community_id=1).select_related('outcome_id')
+        total_count = 0
+
+        outcome_counts = {
+            'Police Response: Charges Filed'      : 0,
+            'Police Response: No Charges Filed'   : 0,
+            'No Police Response: Not Applicable'  : 0
+        }
+
+        for case in case_set:
+            outcome = case.outcome_id
+            charges = outcome.get_charges_filed_at_or_after_case_acceptance_display()
+            outcome_counts[charges] += 1
+            total_count += 1
+
+        outcome_counts['Total Count'] = total_count
+
+        return JsonResponse(outcome_counts)
+
 
 # View 10, Criminal Justice Outcomes, Pretrial Hearing Outcomes
 class PretrialHearingOutcome(generics.ListCreateAPIView):
