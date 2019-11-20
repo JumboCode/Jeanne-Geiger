@@ -1,1 +1,1 @@
-function isLogic() 
+// function isLogic()

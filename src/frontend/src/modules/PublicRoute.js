@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { isLogin } from '.../utils';
+import React from 'react'
+import { Route, Redirect } from 'react-router-dom'
+import { isLogin } from '.../utils'
 
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   return (
@@ -14,7 +14,7 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
         )
       }
     />
-  );
-};
+  )
+}
 
-export default PublicRoute;
+export default PublicRoute
