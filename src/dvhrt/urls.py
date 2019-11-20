@@ -24,3 +24,5 @@ urlpatterns = [
     path('view_testing/', ReferalSourceView.as_view()),
     path('outcome/', Outcome.as_view()),
 ]
+
+
