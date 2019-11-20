@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from datetime import datetime
 
 class Outcomes(models.Model):
 	CHARGES = (
@@ -74,7 +75,7 @@ class Cases(models.Model):
 	relationship_len = models.IntegerField(default=0, choices=RELATIONSHIP_LENGTH)
 	minor_in_home = models.BooleanField(default=False)
 	referral_source = models.CharField(max_length=100, default="")
-	date_accepted = models.DateField()
+	date_accepted = models.DateField(null=True, blank=True)
 
 
 class Communities(models.Model):
@@ -134,7 +135,7 @@ class Persons(models.Model):
     person_id = models.AutoField(primary_key = True)
     is_victim = models.BooleanField()
     name = models.CharField(max_length=100)
-    dob = models.DateField()
+    dob = models.DateField(null=True, blank=True)
     gender = models.IntegerField(default=0, choices=gender_choices)
     race_ethnicity = ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
