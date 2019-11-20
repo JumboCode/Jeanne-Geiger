@@ -20,8 +20,8 @@ export default class AppRouter extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component = {Login} type = "login"/>
-          <Route path="/admin" component = {adminHomepage} type = "admin"/>
-          <Route path="/site" component = {comOverview} type = "comoverview"/>
+          <Route exact path="/admin" component = {adminHomepage} type = "admin"/>
+          <Route exact path="/admin/site" component = {adminComOverview} type = "comoverview"/>
         </Switch>
       </BrowserRouter>
     );

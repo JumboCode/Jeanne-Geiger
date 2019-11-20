@@ -9,7 +9,7 @@ class adminHomepage extends React.Component {
             <div>
                 <h1>admin page</h1>
                 <a href="/admin/site">communityOverview</a>
-                <h1>{this.props.type}</h1>
+                <h1>{this.props.path}</h1>
             </div>
 		);
 	}
