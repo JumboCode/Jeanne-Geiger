@@ -14,6 +14,11 @@ import detailView from './modules/comManager/detailView';
 //import PublicRoute from 'Public';
 //import PrivateRoute from 'Private';
 
+	  /*<Route exact path="/site" component = {comOverview} type = "comOverview"/>
+	  <Route exact path="/admin/site-view" component = {adminViewCaseDetail} type = "comCaseDetail"/>
+	  <Route exact path="/site/add-case" component = {addCase} type = "addCase"/>
+	  <Route exact path="/site/case-view" component = {detailView} type = "caseView"/>
+*/
 export default class AppRouter extends React.Component {
   render() {
     return (
@@ -22,10 +27,6 @@ export default class AppRouter extends React.Component {
           <Route exact path="/" component = {Login} type = "login"/>
           <Route exact path="/admin" component = {adminHomepage} type = "admin"/>
           <Route exact path="/admin/site" component = {adminComOverview} type = "adminoverview"/>
-	  <Route exact path="/site" component = {comOverview} type = "comOverview"/>
-	  <Route exact path="/admin/site-view" component = {adminViewCaseDetail} type = "comCaseDetail"/>
-	  <Route exact path="/site/add-case" component = {addCase} type = "addCase"/>
-	  <Route exact path="/site/case-view" component = {detailView} type = "caseView"/>
         </Switch>
       </BrowserRouter>
     );
