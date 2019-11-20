@@ -16,6 +16,36 @@ from .models import *
 from itertools import chain
 from operator import attrgetter
 
+class Outcome(generics.ListCreateAPIView):
+    queryset = Outcomes.objects.all()
+    serializer_class = OutcomesSerializer
+    def get(self, request, *args, **kwargs):
+        queryset = Outcomes.objects.all()
+        serializer_class = OutcomesSerializer(queryset, many=True)
+        try:
+            # get_outcome_id = request.GET.get("outcome_id")
+            get_outcome_id = 1
+            outcome = queryset.get(outcome_id=get_outcome_id)
+            return JsonResponse(OutcomesSerializer(outcome).data, safe=False)
+        except:
+            return HttpResponse('user not found')
+
+    def post(self, request, *args, **kwargs):
+        queryset = Outcomes.objects.all()
+        serializer_class = OutcomesSerializer
+        try:
+            outcomeData = Outcome(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
+                                engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
+                                charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
+                                pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
+                                sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
+                                sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
+            )
+            outcomeData.save()
+            return HttpResponse('success')
+        except:
+            return HttpResponse('failure')
+
 class FrontendAppView(View):
     """
     Serves the compiled frontend entry point (only works if you have run `yarn
