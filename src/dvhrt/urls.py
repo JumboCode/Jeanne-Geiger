@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('/', include('api.urls')),
     path('view_testing/', ReferalSourceView.as_view()),
-    path('outcome/', Outcome.as_view()),
+  
 ]
