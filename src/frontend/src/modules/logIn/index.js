@@ -93,6 +93,8 @@ class Login extends React.Component {
       <div>
         <h1>hello</h1>
         <a href="/admin">admin</a>
+        <a href="/site">site</a>
+        <a href="/acc-recovery">Account recovery</a>
         <h1>{this.props.type}</h1>
       </div>
     )

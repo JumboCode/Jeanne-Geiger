@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import { adminComOverview } from './modules/admin/adminComOverview'
+/*import { adminComOverview } from './modules/admin/adminComOverview'
 import { adminHomepage } from './modules/admin/adminHomepage'
 import { adminViewCaseDetail } from './modules/admin/adminViewCaseDetail'
 import Login from './modules/logIn'
@@ -9,7 +9,7 @@ import Login from './modules/logIn'
 import { addCase } from './modules/comManager/addCase'
 import { comOverview } from './modules/comManager/comOverview'
 import { detailView } from './modules/comManager/detailView'
-import { editCase } from './modules/comManager/editCase'
+import { editCase } from './modules/comManager/editCase'*/
 import AppRouter from './routes.js'
 
 /*
