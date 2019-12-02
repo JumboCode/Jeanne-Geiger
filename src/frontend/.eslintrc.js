@@ -21,5 +21,7 @@ module.exports = {
     'react'
   ],
   rules: {
+    "no-unused-vars": "off",
+    "no-undef": "off"
   }
 }
