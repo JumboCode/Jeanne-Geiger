@@ -23,10 +23,10 @@ export default class AppRouter extends React.Component {
           <Route exact path="/" component = {Login} type = "login"/>
           <Route exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
           <Route exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
-	  <Route exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
-	  <Route exact path="/site" component = {siteOverview} type = "siteView"/>
-	  <Route exact path="/site/case-view" component = {detailView} type = "detailView"/>
-	  <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
+          <Route exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
+          <Route exact path="/site" component = {siteOverview} type = "siteView"/>
+          <Route exact path="/site/case-view" component = {detailView} type = "detailView"/>
+          <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
         </Switch>
       </BrowserRouter>
     )

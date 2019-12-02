@@ -13,4 +13,4 @@ class detailView extends React.Component {
   }
 }
 
-export default detailView 
+export default detailView

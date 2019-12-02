@@ -13,4 +13,4 @@ class adminViewSite extends React.Component {
   }
 }
 
-export default adminViewSite 
+export default adminViewSite

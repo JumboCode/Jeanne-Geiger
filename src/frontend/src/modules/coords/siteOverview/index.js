@@ -7,7 +7,7 @@ class siteOverview extends React.Component {
     return (
       <div>
         <h1>Site overview</h1>
-	<a href="/site/case-view">case detail view</a>
+        <a href="/site/case-view">case detail view</a>
         <h1>{this.props.type}</h1>
       </div>
     )

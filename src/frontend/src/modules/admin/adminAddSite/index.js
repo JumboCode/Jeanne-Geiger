@@ -13,4 +13,4 @@ class adminAddSite extends React.Component {
   }
 }
 
-export default adminAddSite 
+export default adminAddSite
