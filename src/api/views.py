@@ -16,24 +16,34 @@ from .models import *
 from itertools import chain
 from operator import attrgetter
 
-class Outcome(generics.ListCreateAPIView):
+class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
+    
     def get(self, request, *args, **kwargs):
+        # queryset = Outcomes.objects.all()
+        # serializer_class = OutcomesSerializer(queryset, many=True)
+        # try:
+        #     get_outcome_id = request.GET.get("outcome_id")
+        #     get_outcome_id = 1
+        #     outcome = queryset.get(outcome_id=get_outcome_id)
+        #     return JsonResponse(OutcomesSerializer(outcome).data, safe=False)
+        # except:
+        #     return HttpResponse('user not found')
+       # o_id = request.GET.get("outcome_id")
+        #o_id = 1
         queryset = Outcomes.objects.all()
-        serializer_class = OutcomesSerializer(queryset, many=True)
-        try:
-            # get_outcome_id = request.GET.get("outcome_id")
-            get_outcome_id = 1
-            outcome = queryset.get(outcome_id=get_outcome_id)
-            return JsonResponse(OutcomesSerializer(outcome).data, safe=False)
-        except:
-            return HttpResponse('user not found')
+        serializer = OutcomesSerializer(queryset, many=True)
+        # OutcomeData = Outcomes.objects.filter(outcome_id=o_id)
+
+        return Response(serializer.data)
+    
 
     def post(self, request, *args, **kwargs):
-        queryset = Outcomes.objects.all()
-        serializer_class = OutcomesSerializer
+        get_outcome_id = request.POST.get("outcome_id")
         try:
+            outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
+        except:
             outcomeData = Outcome(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
                                 engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
                                 charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
@@ -42,9 +52,7 @@ class Outcome(generics.ListCreateAPIView):
                                 sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
             outcomeData.save()
-            return HttpResponse('success')
-        except:
-            return HttpResponse('failure')
+        return HttpResponse('success')
 
 class FrontendAppView(View):
     """
