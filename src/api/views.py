@@ -44,7 +44,7 @@ class OutcomeList(generics.ListCreateAPIView):
         try:
             outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
         except:
-            outcomeData = Outcome(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
+            outcomeData = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
                                 engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
                                 charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
                                 pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
