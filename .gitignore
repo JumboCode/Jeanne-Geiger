@@ -129,3 +129,6 @@ dmypy.json
 
 #.vs_code
 .vs_code/
+
+# migrations
+src/api/migrations/
