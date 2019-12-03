@@ -1,42 +1,41 @@
 import logging
 
 from django.views.generic import View
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.core import serializers
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
-from rest_framework import generics
-from rest_framework.views import Response
+from rest_framework import generics, renderers
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView, Response
 
-from api.serializers import *
+from .serializers import *
 from .models import *
 
-from itertools import chain
-from operator import attrgetter
 
 class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
     
     def get(self, request, *args, **kwargs):
-        # queryset = Outcomes.objects.all()
-        # serializer_class = OutcomesSerializer(queryset, many=True)
-        # try:
-        #     get_outcome_id = request.GET.get("outcome_id")
-        #     get_outcome_id = 1
-        #     outcome = queryset.get(outcome_id=get_outcome_id)
-        #     return JsonResponse(OutcomesSerializer(outcome).data, safe=False)
-        # except:
-        #     return HttpResponse('user not found')
-       # o_id = request.GET.get("outcome_id")
-        #o_id = 1
         queryset = Outcomes.objects.all()
-        serializer = OutcomesSerializer(queryset, many=True)
+        serializer_class = OutcomesSerializer(queryset, many=True)
+        try:
+            get_outcome_id = request.GET.get("outcome_id")
+            outcome = queryset.get(outcome_id=get_outcome_id)
+            return JsonResponse(OutcomesSerializer(outcome).data, safe=False)
+        except:
+            return HttpResponse('outcome not found')
+        # o_id = request.GET.get("outcome_id")
+        # o_id = 1
         # OutcomeData = Outcomes.objects.filter(outcome_id=o_id)
 
-        return Response(serializer.data)
+        # queryset = Outcomes.objects.all()
+        # serializer = OutcomesSerializer(queryset, many=True)
+
+        # return Response(serializer.data)
     
 
     def post(self, request, *args, **kwargs):

@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
+from django.contrib import admin
 
 from . import views
 from .views import *
@@ -7,6 +8,7 @@ from .views import *
 urlpatterns = [
     # ... the rest of the urlpatterns ...
     # must be catch-all for pushState to work
-    path('outcomes/', OutcomeList.as_view(), name="outcome-list"),
+    path('outcomes/', views.OutcomeList.as_view(), name="outcomes"),
+    path('outcomes/<int:pk>/', views.OutcomeList.as_view())
     #url(r'^', views.FrontendAppView.as_view()),
 ]
