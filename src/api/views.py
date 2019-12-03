@@ -37,19 +37,16 @@ class FrontendAppView(View):
                 status=501,
             )
 
-# View 1
-class GeneralCountView(generics.ListCreateAPIView):
+class DVHRTGeneralCountView(generics.ListCreateAPIView):
     """Returns the number of cases accepted
     """
-    # TODO: modify to return the number of cases accepted in a certain month
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
         case_count = len(Cases.objects.filter(community_id=c_id))
         case_dict = {"case_count":case_count}
         return JsonResponse(case_dict)
 
-# View 2
-class ReferalSourceView(generics.ListCreateAPIView):
+class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
         r_dict = {}
@@ -64,16 +61,25 @@ class ReferalSourceView(generics.ListCreateAPIView):
             r_dict[case.referral_source] += 1
         return JsonResponse(r_dict)
 
-# View 3
-class VictimGenders(generics.ListCreateAPIView):
+class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
+    query_set = Cases.objects.all().select_related('victim_id')
+
     def get(self, request, *args, **kwargs):
+        victim_info = {}
+        victim_info.update(self.get_vicitm_genders(request))
+        victim_info.update(self.get_victim_ethnicities(request))
+        victim_info.update(self.get_domestic_violence_service_utilization(request))
+
+        return JsonResponse(victim_info)
+
+    def get_vicitm_genders(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.filter(community_id=c_id).select_related('victim_id')
+        case_set = self.query_set.filter(community_id=c_id)
         genders_to_counts = {
             'Female': 0,
             'Male': 0,
             'Other': 0,
-            'Total Count': 0
+            'Total Gender Count': 0
         }
 
         total_count = 0
@@ -83,14 +89,13 @@ class VictimGenders(generics.ListCreateAPIView):
                 genders_to_counts[victim.get_gender_display()] += 1
             except:
                 genders_to_counts['Other'] += 1
-            genders_to_counts['Total Count'] += 1
+            genders_to_counts['Total Gender Count'] += 1
 
-        return JsonResponse(genders_to_counts)
+        return genders_to_counts
 
-class VictimEthnicities(generics.ListCreateAPIView):
-    def get(self, request, *args, **kwargs):
+    def get_victim_ethnicities(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.filter(community_id=c_id).select_related('victim_id')
+        case_set = self.query_set.filter(community_id=c_id)
         ethnicities_to_counts = {
             0: 0,
             1: 0,
@@ -119,15 +124,64 @@ class VictimEthnicities(generics.ListCreateAPIView):
             'Native Hawaiian/Pacific Islander': ethnicities_to_counts[5],
             'White': ethnicities_to_counts[6],
             'Other/Unknown': ethnicities_to_counts[0] + ethnicities_to_counts[7],
-            'Total Count': total_count
+            'Total Ethnicity Count': total_count
         }
 
-        return JsonResponse(counts)
+        return counts
 
-class AbuserEthnicities(generics.ListCreateAPIView):
-    def get(self, request, *args, **kwargs):
+    def get_domestic_violence_service_utilization(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.filter(community_id=1).select_related('abuser_id')
+        case_set = Cases.objects.filter(community_id=c_id).select_related('outcome_id')
+        dvsu = {
+            "connection_to_domestic_violence_services" : 0,
+            "engagement_in_ongoing_domestic_violence_services" : 0,
+        }
+
+        for case in case_set:
+            outcome = case.outcome_id
+            if outcome.engagement_in_ongoing_domestic_violence_services:
+                dvsu["engagement_in_ongoing_domestic_violence_services"] += 1
+            if outcome.connection_to_domestic_violence_services:
+                dvsu["connection_to_domestic_violence_services"] += 1
+
+        return dvsu
+
+class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
+    query_set = Cases.objects.all().select_related('abuser_id')
+
+    def get(self, request, *args, **kwargs):
+        abuser_info = {}
+        genders = self.get_abuser_genders(request)
+        ethnicities = self.get_abuser_ethnicities(request)
+        abuser_info.update(genders)
+        abuser_info.update(ethnicities)
+
+        return JsonResponse(abuser_info)
+
+    def get_abuser_genders(self, request):
+        c_id = request.GET.get("community_id")
+        case_set = self.query_set.filter(community_id=c_id)
+        genders_to_counts = {
+            'Female': 0,
+            'Male': 0,
+            'Other': 0,
+            'Total Gender Count': 0
+        }
+
+        total_count = 0
+        for case in case_set:
+            abuser = case.abuser_id
+            try:
+                genders_to_counts[abuser.get_gender_display()] += 1
+            except:
+                genders_to_counts['Other'] += 1
+            genders_to_counts['Total Gender Count'] += 1
+
+        return genders_to_counts
+
+    def get_abuser_ethnicities(self, request):
+        c_id = request.GET.get("community_id")
+        case_set = self.query_set.filter(community_id=c_id)
         ethnicities_to_counts = {
             0: 0,
             1: 0,
@@ -138,6 +192,7 @@ class AbuserEthnicities(generics.ListCreateAPIView):
             6: 0,
             7: 0,
         }
+
         total_count = 0
         for case in case_set:
             abuser = case.abuser_id
@@ -159,9 +214,10 @@ class AbuserEthnicities(generics.ListCreateAPIView):
             "Total Count" : total_count
         }
 
-        return JsonResponse(counts)
+        return counts
 
-class RiskFactorCounts(generics.ListCreateAPIView):
+
+class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.GET.get("community_id")
         case_set = Cases.objects.all().filter(community_id=c_id).select_related('risk_factor_id')
@@ -187,17 +243,22 @@ class RiskFactorCounts(generics.ListCreateAPIView):
 
         return JsonResponse(rf_counts)
 
-#View 9, Charges Filed Outcomes,
-class CJOChargesFiled(generics.ListCreateAPIView):
-    """
-    show total count
-    1. police response: charges filed
-    2. police response: No charges filed
-    3. no police response: not applicable
-    """
+class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
+    query_set = Cases.objects.all().select_related('outcome_id')
+
     def get(self, request, *args, **kwargs):
+        outcomes_info = {}
+        outcomes_info.update(self.get_charges_filed(request))
+        outcomes_info.update(self.get_pretrial_hearing_outcomes(request))
+        outcomes_info.update(self.get_disposition_outcomes(request))
+        outcomes_info.update(self.get_sentencing_outcomes(request))
+
+        return JsonResponse(outcomes_info)
+
+    # Charges Filed at or after case acceptance 
+    def get_charges_filed(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.all().filter(community_id=1).select_related('outcome_id')
+        case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
         outcome_counts = {
@@ -212,16 +273,13 @@ class CJOChargesFiled(generics.ListCreateAPIView):
             outcome_counts[charges] += 1
             total_count += 1
 
-        outcome_counts['Total Count'] = total_count
+        outcome_counts['Total Charges Filed Count'] = total_count
 
-        return JsonResponse(outcome_counts)
+        return outcome_counts
 
-
-# View 10, Criminal Justice Outcomes, Pretrial Hearing Outcomes
-class PretrialHearingOutcome(generics.ListCreateAPIView):
-    def get(self, request, *args, **kwargs):
+    def get_pretrial_hearing_outcomes(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.all().filter(community_id=c_id).select_related('outcome_id')
+        case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
         outcome_counts = {
@@ -243,15 +301,13 @@ class PretrialHearingOutcome(generics.ListCreateAPIView):
                 outcome_counts['Undefined/Unknown'] += 1
             total_count += 1
 
-        outcome_counts['Total Count'] = total_count
+        outcome_counts['Total Pretrial Hearing Outcomes Count'] = total_count
 
-        return JsonResponse(outcome_counts)
+        return outcome_counts
 
-# View 11:View 11: Criminal Justice Outcomes, Disposition Outcomes
-class DispositionOutcomes(generics.ListCreateAPIView):
-    def get(self, request, *args, **kwargs):
+    def get_disposition_outcomes(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.all().filter(community_id=c_id).select_related("outcome_id")
+        case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
         disposition_outcome_counts = {
@@ -272,15 +328,13 @@ class DispositionOutcomes(generics.ListCreateAPIView):
                 disposition_outcome_counts['Undefined/Unknown'] += 1
             total_count += 1
 
-        disposition_outcome_counts['Total Count'] = total_count
+        disposition_outcome_counts['Total Disposition Outcomes Count'] = total_count
 
-        return JsonResponse(disposition_outcome_counts)
+        return disposition_outcome_counts
 
-# View 12:Criminal Justice Outcomes, Sentencing Outcomes
-class SentencingOutcomes(generics.ListCreateAPIView):
-    def get(self, request, *args, **kwargs):
+    def get_sentencing_outcomes(self, request):
         c_id = request.GET.get("community_id")
-        case_set = Cases.objects.all().filter(community_id=c_id).select_related("outcome_id")
+        case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
         sentencing_outcome_counts = {
@@ -299,6 +353,6 @@ class SentencingOutcomes(generics.ListCreateAPIView):
                 sentencing_outcome_counts['Undefined/Unknown'] += 1
             total_count += 1
 
-        sentencing_outcome_counts['Total Count'] = total_count
+        sentencing_outcome_counts['Total Sentencing Outcomes Count'] = total_count
 
-        return JsonResponse(sentencing_outcome_counts)
+        return sentencing_outcome_counts
