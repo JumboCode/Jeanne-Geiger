@@ -9,6 +9,4 @@ urlpatterns = [
     # ... the rest of the urlpatterns ...
     # must be catch-all for pushState to work
     path('outcomes/', views.OutcomeList.as_view(), name="outcomes"),
-    path('outcomes/<int:pk>/', views.OutcomeList.as_view())
-    #url(r'^', views.FrontendAppView.as_view()),
 ]

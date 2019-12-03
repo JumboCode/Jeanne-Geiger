@@ -22,20 +22,8 @@ class OutcomeList(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         queryset = Outcomes.objects.all()
         serializer_class = OutcomesSerializer(queryset, many=True)
-        try:
-            get_outcome_id = request.GET.get("outcome_id")
-            outcome = queryset.get(outcome_id=get_outcome_id)
-            return JsonResponse(OutcomesSerializer(outcome).data, safe=False)
-        except:
-            return HttpResponse('outcome not found')
-        # o_id = request.GET.get("outcome_id")
-        # o_id = 1
-        # OutcomeData = Outcomes.objects.filter(outcome_id=o_id)
 
-        # queryset = Outcomes.objects.all()
-        # serializer = OutcomesSerializer(queryset, many=True)
-
-        # return Response(serializer.data)
+        return Response(serializer_class.data)
     
 
     def post(self, request, *args, **kwargs):

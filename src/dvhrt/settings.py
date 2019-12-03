@@ -138,18 +138,11 @@ django_heroku.settings(locals())
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-# DEFAULT_RENDERER_CLASSES = (
-#     'rest_framework.renderers.JSONRenderer',
-# )
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
-# }
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
-        # 'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-        'rest_framework.renderers.TemplateHTMLRenderer',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication'
