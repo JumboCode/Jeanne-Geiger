@@ -133,5 +133,6 @@ src/frontend/node_modules/
 #.vs_code
 .vs_code/
 
-#api migration
+
+# migrations
 src/api/migrations/
