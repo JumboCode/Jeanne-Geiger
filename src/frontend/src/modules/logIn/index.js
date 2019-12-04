@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import './styles.css';
-import { render } from 'react-dom';
+import React, { Component } from 'react'
+import './styles.css'
+import { render } from 'react-dom'
 /*
 class SignIn extends React.Component {
     constructor(prop) {
@@ -88,15 +88,17 @@ render()
 */
 
 class Login extends React.Component {
-	render() {
-		return (
-            <div>
-                <h1>hello</h1>
-                <a href="/admin">admin</a>
-                <h1>{this.props.type}</h1>
-            </div>
-		);
-	}
+  render () {
+    return (
+      <div>
+        <h1>hello</h1>
+        <a href="/admin">admin</a>
+        <a href="/site">site</a>
+        <a href="/acc-recovery">Account recovery</a>
+        <h1>{this.props.type}</h1>
+      </div>
+    )
+  }
 }
 
-export default Login; 
+export default Login
