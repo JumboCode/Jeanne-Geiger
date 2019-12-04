@@ -18,13 +18,13 @@ from .models import *
 class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
-    
+
     def get(self, request, *args, **kwargs):
         queryset = Outcomes.objects.all()
         serializer_class = OutcomesSerializer(queryset, many=True)
 
         return Response(serializer_class.data)
-    
+
 
     def post(self, request, *args, **kwargs):
         get_outcome_id = request.POST.get("outcome_id")
@@ -39,6 +39,62 @@ class OutcomeList(generics.ListCreateAPIView):
                                 sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
             outcomeData.save()
+        return HttpResponse('success')
+
+class AbuserList(generics.ListCreateAPIView):
+    queryset = Persons.objects.filter(is_victim=False)
+    serializer_class = PersonsSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = Persons.objects.filter(is_victim=False)
+        serializer_class = PersonsSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+
+    def post(self, request, *args, **kwargs):
+        get_person_id = request.POST.get("person_id")
+        try:
+            personData = Persons.objects.get(outcome_id=get_outcome_id)
+        except:
+            personData = Persons(is_victim = False,
+                                name = request.POST.get("name"),
+                                dob = request.POST.get("dob"),
+                                gender = request.POST.get("gender"),
+                                race_ethnicity = request.POST.get("race_ethnicity"),
+                                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
+                                primary_language = request.POST.get("primary_language"),
+                                town = request.POST.get("town"),
+            )
+            personData.save()
+        return HttpResponse('success')
+
+class VictimList(generics.ListCreateAPIView):
+    queryset = Persons.objects.filter(is_victim=True)
+    serializer_class = PersonsSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = Persons.objects.filter(is_victim=True)
+        serializer_class = PersonsSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+
+    def post(self, request, *args, **kwargs):
+        get_person_id = request.POST.get("person_id")
+        try:
+            personData = Persons.objects.get(outcome_id=get_outcome_id)
+        except:
+            personData = Persons(is_victim = True,
+                                name = request.POST.get("name"),
+                                dob = request.POST.get("dob"),
+                                gender = request.POST.get("gender"),
+                                race_ethnicity = request.POST.get("race_ethnicity"),
+                                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
+                                primary_language = request.POST.get("primary_language"),
+                                town = request.POST.get("town"),
+            )
+            personData.save()
         return HttpResponse('success')
 
 class FrontendAppView(View):
