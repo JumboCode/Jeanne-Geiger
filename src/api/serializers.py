@@ -25,3 +25,13 @@ class RiskFactorsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model  = RiskFactors
 		fields = ('__all__')
+
+class CasesSerializer(serializers.ModelSerializer):
+	victim     = PersonsSerializer()
+	abuser     = PersonsSerializer()
+	outcome    = OutcomesSerializer()
+	community  = CommunitiesSerializer()
+	riskfactor = RiskFactorsSerializer()
+	class Meta:
+		model  = Cases
+		fields = ('__all__')

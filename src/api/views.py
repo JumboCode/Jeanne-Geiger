@@ -1,20 +1,45 @@
 import logging
 
 from django.views.generic import View
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django.core import serializers
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
-from rest_framework import generics
-from rest_framework.views import Response
+from rest_framework import generics, renderers
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView, Response
 
-from api.serializers import *
+from .serializers import *
 from .models import *
 
-from itertools import chain
-from operator import attrgetter
+
+class OutcomeList(generics.ListCreateAPIView):
+    queryset = Outcomes.objects.all()
+    serializer_class = OutcomesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        queryset = Outcomes.objects.all()
+        serializer_class = OutcomesSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+    
+
+    def post(self, request, *args, **kwargs):
+        get_outcome_id = request.POST.get("outcome_id")
+        try:
+            outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
+        except:
+            outcomeData = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
+                                engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
+                                charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
+                                pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
+                                sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
+                                sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
+            )
+            outcomeData.save()
+        return HttpResponse('success')
 
 class FrontendAppView(View):
     """
