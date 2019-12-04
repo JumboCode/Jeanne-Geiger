@@ -41,6 +41,59 @@ class OutcomeList(generics.ListCreateAPIView):
             outcomeData.save()
         return HttpResponse('success')
 
+class CommunitiesList(generics.ListCreateAPIView):
+    queryset = Communities.objects.all()
+    serializer_class = CommunitiesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        queryset = Communities.objects.all()
+        serializer_class = CommunitiesSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+    def post(self, request, *args, **kwargs):
+        get_community_id = request.POST.get("community_id")
+        try:
+            communityData = Communities.objects.get(community_id=get_community_id)
+        except:
+            communityData = Communities(referral_sources = request.POST.get("referral_sources"))
+            communityData.save()
+        return HttpResponse('success')
+
+class CasesList(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        queryset = Cases.objects.all()
+        serializer_class = CasesSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+    def post(self, request, *args, **kwargs):
+        get_cases_id = request.POST.get("cases_id")
+
+
+
+        outcome = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
+                            engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
+                            charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
+                            pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
+                            sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
+                            sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
+        )
+        outcome.save()
+
+        casesData = Cases(
+            outcome_id = outcome,
+            relationship_type = request.POST.get("relationship_type"),
+            relationship_len = request.POST.get("relationship_len"),
+            minor_in_home = request.POST.get("minor_in_home")
+        )
+        casesData.save()
+
+        return HttpResponse('success')
+
 class FrontendAppView(View):
     """
     Serves the compiled frontend entry point (only works if you have run `yarn

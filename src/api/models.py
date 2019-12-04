@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import JSONField
 from datetime import datetime
 
 class Outcomes(models.Model):
@@ -85,7 +86,8 @@ class Cases(models.Model):
 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key = True)
-    referral_sources = ArrayField(models.CharField(max_length=100))
+    # referral_sources = ArrayField(models.CharField(max_length=100))
+    referral_sources = JSONField()
 
 class Persons(models.Model):
     gender_choices = (
