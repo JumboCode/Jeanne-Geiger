@@ -127,8 +127,12 @@ dmypy.json
 # .DS_Store
 .DS_Store
 
+#Node Modules
+src/frontend/node_modules/
+
 #.vs_code
 .vs_code/
+
 
 # migrations
 src/api/migrations/
