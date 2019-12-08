@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
     'api',
-    'corsheaders',
     'rest_framework',
 ]
 
