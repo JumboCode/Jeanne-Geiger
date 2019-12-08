@@ -38,13 +38,13 @@ class Outcomes(models.Model):
 	)
 
 	BOOL = (
-		(True, 'Yes'),
-		(False, 'No')
+		(0, 'No'),
+        (1, 'Yes')
 	)
 
 	outcome_id = models.AutoField(primary_key=True)
-	connection_to_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
-	engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
+	connection_to_domestic_violence_services = models.IntegerField(default=0, choices=BOOL)
+	engagement_in_ongoing_domestic_violence_services = models.IntegerField(default=0, choices=BOOL)
 	charges_filed_at_or_after_case_acceptance = models.IntegerField(default=0, choices=CHARGES)
 	pretrial_hearing_outcome = models.IntegerField(default=0, choices=PRETRIAL_OUTCOME)
 	sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
