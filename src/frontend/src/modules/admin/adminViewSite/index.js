@@ -64,325 +64,325 @@ class adminViewSite extends React.Component {
         <div id='Victim' className='tabcontent'>
           <h2>DVHRT High Risk Abuser Information</h2>
           <h4>Gender</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Female</th>
-                  <td>{this.state.victim_info['Female']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Male</th>
-                  <td>{this.state.victim_info['Male']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Other</th>
-                  <td>{this.state.victim_info['Other']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Total Count</th>
-                  <td>{this.state.victim_info['Total Gender Count']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Female</th>
+                <td>{this.state.victim_info['Female']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Male</th>
+                <td>{this.state.victim_info['Male']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Other</th>
+                <td>{this.state.victim_info['Other']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Total Count</th>
+                <td>{this.state.victim_info['Total Gender Count']}</td>
+              </tr>
+            </thead>
+          </table>
           <h4>Race/Ethnicity</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>American Indian/Alaska Native</th>
-                  <td>{this.state.victim_info['American Indian/Alaska Native']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Asian</th>
-                  <td>{this.state.victim_info['Asian']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Black/African American</th>
-                  <td>{this.state.victim_info['Black/African American']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Hispanic or Latino</th>
-                  <td>{this.state.victim_info['Hispanic or Latino']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Native Hawaiian/Pacific Islander</th>
-                  <td>{this.state.victim_info['Native Hawaiian/Pacific Islander']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>White</th>
-                  <td>{this.state.victim_info['White']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Unknown</th>
-                  <td>{this.state.victim_info['Other/Unknown']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Total</th>
-                  <td>{this.state.victim_info['Total Ethnicity Count']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>American Indian/Alaska Native</th>
+                <td>{this.state.victim_info['American Indian/Alaska Native']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Asian</th>
+                <td>{this.state.victim_info['Asian']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Black/African American</th>
+                <td>{this.state.victim_info['Black/African American']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Hispanic or Latino</th>
+                <td>{this.state.victim_info['Hispanic or Latino']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Native Hawaiian/Pacific Islander</th>
+                <td>{this.state.victim_info['Native Hawaiian/Pacific Islander']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>White</th>
+                <td>{this.state.victim_info['White']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Unknown</th>
+                <td>{this.state.victim_info['Other/Unknown']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Total</th>
+                <td>{this.state.victim_info['Total Ethnicity Count']}</td>
+              </tr>
+            </thead>
+          </table>
           <h4>Domestic Violence Service Utilization</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Connection To Domestic Violence Services</th>
-                  <td>{this.state.victim_info['connection_to_domestic_violence_services']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Engagement In Ongoing Domestic Violence Services</th>
-                  <td>{this.state.victim_info['engagement_in_ongoing_domestic_violence_services']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Connection To Domestic Violence Services</th>
+                <td>{this.state.victim_info['connection_to_domestic_violence_services']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Engagement In Ongoing Domestic Violence Services</th>
+                <td>{this.state.victim_info['engagement_in_ongoing_domestic_violence_services']}</td>
+              </tr>
+            </thead>
+          </table>
         </div>
         <div id='Abuser' className='tabcontent'>
           <h2>DVHRT High Risk Victim Information</h2>
           <h4>Gender</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Female</th>
-                  <td>{this.state.abuser_info['Female']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Male</th>
-                  <td>{this.state.abuser_info['Male']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Other</th>
-                  <td>{this.state.abuser_info['Other']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Total Count</th>
-                  <td>{this.state.abuser_info['Total Gender Count']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Female</th>
+                <td>{this.state.abuser_info['Female']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Male</th>
+                <td>{this.state.abuser_info['Male']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Other</th>
+                <td>{this.state.abuser_info['Other']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Total Count</th>
+                <td>{this.state.abuser_info['Total Gender Count']}</td>
+              </tr>
+            </thead>
+          </table>
           <h4>Race/Ethnicity</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>American Indian/Alaska Native</th>
-                  <td>{this.state.abuser_info['American Indian/Alaska Native']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Asian</th>
-                  <td>{this.state.abuser_info['Asian']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Black/African American</th>
-                  <td>{this.state.abuser_info['Black/African American']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Hispanic or Latino</th>
-                  <td>{this.state.abuser_info['Hispanic or Latino']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Native Hawaiian/Pacific Islander</th>
-                  <td>{this.state.abuser_info['Native Hawaiian/Pacific Islander']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>White</th>
-                  <td>{this.state.abuser_info['White']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Unknown</th>
-                  <td>{this.state.abuser_info['Other/Unknown']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Total</th>
-                  <td>{this.state.abuser_info['Total Ethnicity Count']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>American Indian/Alaska Native</th>
+                <td>{this.state.abuser_info['American Indian/Alaska Native']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Asian</th>
+                <td>{this.state.abuser_info['Asian']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Black/African American</th>
+                <td>{this.state.abuser_info['Black/African American']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Hispanic or Latino</th>
+                <td>{this.state.abuser_info['Hispanic or Latino']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Native Hawaiian/Pacific Islander</th>
+                <td>{this.state.abuser_info['Native Hawaiian/Pacific Islander']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>White</th>
+                <td>{this.state.abuser_info['White']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Unknown</th>
+                <td>{this.state.abuser_info['Other/Unknown']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Total</th>
+                <td>{this.state.abuser_info['Total Ethnicity Count']}</td>
+              </tr>
+            </thead>
+          </table>
         </div>
         <div id='RiskFactors' className='tabcontent'>
           <h2>Risk Factors Presents In DVHRT Cases</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Has he/she tried to kill you?</th>
-                  <td>{this.state.risk_factor_info['attempted_murder']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Has he/she ever tried to choke (strangle) you?</th>
-                  <td>{this.state.risk_factor_info['attempted_choke']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Has he/she choked (strangled) you multiple times?</th>
-                  <td>{this.state.risk_factor_info['multiple_choked']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Does he/she own a gun?</th>
-                  <td>{this.state.risk_factor_info['owns_gun']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Has he/she tried to kill you?</th>
+                <td>{this.state.risk_factor_info['attempted_murder']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Has he/she ever tried to choke (strangle) you?</th>
+                <td>{this.state.risk_factor_info['attempted_choke']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Has he/she choked (strangled) you multiple times?</th>
+                <td>{this.state.risk_factor_info['multiple_choked']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Does he/she own a gun?</th>
+                <td>{this.state.risk_factor_info['owns_gun']}</td>
+              </tr>
+            </thead>
+          </table>
         </div>
         <div id='Outcomes' className='tabcontent'>
           <h2>Criminal Justice Outcomes In DVHRT Cases</h2>
           <h4>Charges Filed At Or After Case Acceptance</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Police Response: Charges Filed</th>
-                  <td>{this.state.outcome_info['Police Response: Charges Filed']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Police Response: No Charges Filed</th>
-                  <td>{this.state.outcome_info['Police Response: No Charges Filed']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>No Police Response: Not Applicable</th>
-                  <td>{this.state.outcome_info['No Police Response: Not Applicable']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Police Response: Charges Filed</th>
+                <td>{this.state.outcome_info['Police Response: Charges Filed']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Police Response: No Charges Filed</th>
+                <td>{this.state.outcome_info['Police Response: No Charges Filed']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>No Police Response: Not Applicable</th>
+                <td>{this.state.outcome_info['No Police Response: Not Applicable']}</td>
+              </tr>
+            </thead>
+          </table>
           <h4>Pretrial Hearing Outcome In DVHRT Cases</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Released on Bail</th>
-                  <td>{this.state.outcome_info['Released on Bail']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Released on Personal Recognizance</th>
-                  <td>{this.state.outcome_info['Released on Personal Recognizance']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Detained/Pretrial Detention Statute</th>
-                  <td>{this.state.outcome_info['Detained/Pretrial Detention Statute']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Detained/Bail Unmet</th>
-                  <td>{this.state.outcome_info['Detained/Bail Unmet']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Detained/Other</th>
-                  <td>{this.state.outcome_info['Detained/Other']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Pending Pretrial Hearing</th>
-                  <td>{this.state.outcome_info['Pending Pretrial Hearing']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Released on Bail</th>
+                <td>{this.state.outcome_info['Released on Bail']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Released on Personal Recognizance</th>
+                <td>{this.state.outcome_info['Released on Personal Recognizance']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Detained/Pretrial Detention Statute</th>
+                <td>{this.state.outcome_info['Detained/Pretrial Detention Statute']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Detained/Bail Unmet</th>
+                <td>{this.state.outcome_info['Detained/Bail Unmet']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Detained/Other</th>
+                <td>{this.state.outcome_info['Detained/Other']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Pending Pretrial Hearing</th>
+                <td>{this.state.outcome_info['Pending Pretrial Hearing']}</td>
+              </tr>
+            </thead>
+          </table>
           <h4>Disposition Outcomes In DVHRT Cases</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Charges Dismissed</th>
-                  <td>{this.state.outcome_info['Charges Dismissed']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Not Guilty</th>
-                  <td>{this.state.outcome_info['Not Guilty']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Deferred Adjudication</th>
-                  <td>{this.state.outcome_info['Deferred Adjudication']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Plead/Found Guilty</th>
-                  <td>{this.state.outcome_info['Plead/Found Guilty']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Pending Disposition</th>
-                  <td>{this.state.outcome_info['Pending Disposition']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Charges Dismissed</th>
+                <td>{this.state.outcome_info['Charges Dismissed']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Not Guilty</th>
+                <td>{this.state.outcome_info['Not Guilty']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Deferred Adjudication</th>
+                <td>{this.state.outcome_info['Deferred Adjudication']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Plead/Found Guilty</th>
+                <td>{this.state.outcome_info['Plead/Found Guilty']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Pending Disposition</th>
+                <td>{this.state.outcome_info['Pending Disposition']}</td>
+              </tr>
+            </thead>
+          </table>
           <h4>Sentencing Outcomes In DVHRT Cases</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Incarceration</th>
-                  <td>{this.state.outcome_info['Incarceration']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Probation</th>
-                  <td>{this.state.outcome_info['Probation']}</td>
-                </tr>
-              </thead>
-              <thead>
-                <tr>
-                  <th>Incarceration Followed by Probation</th>
-                  <td>{this.state.outcome_info['Incarceration Followed by Probation']}</td>
-                </tr>
-              </thead>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Incarceration</th>
+                <td>{this.state.outcome_info['Incarceration']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Probation</th>
+                <td>{this.state.outcome_info['Probation']}</td>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Incarceration Followed by Probation</th>
+                <td>{this.state.outcome_info['Incarceration Followed by Probation']}</td>
+              </tr>
+            </thead>
+          </table>
         </div>
 
       </div>
