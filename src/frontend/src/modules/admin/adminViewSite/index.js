@@ -14,41 +14,44 @@ class adminViewSite extends React.Component {
   }
 
   doSetState (tabName, data) {
-    if (tabName === 'Victim') { 
-      this.setState({victim_info: data});
-    } else if (tabName === 'Abuser') { 
-      this.setState({abuser_info: data});
-    } else if (tabName === 'RiskFactors') { 
-      this.setState({risk_factor_info: data});
-    } else { // tabName == 'Outcomes' 
-      this.setState({outcome_info: data});
+    if (tabName === 'Victim') {
+      this.setState({ victim_info: data })
+    } else if (tabName === 'Abuser') {
+      this.setState({ abuser_info: data })
+    } else if (tabName === 'RiskFactors') {
+      this.setState({ risk_factor_info: data })
+    } else { // tabName == 'Outcomes'
+      this.setState({ outcome_info: data })
     }
   }
 
   getTabInfo (tabName, url) {
-    var i, tabcontent, tablinks;
+    var i, tabcontent, tablinks
 
     fetch(url
-    ).then(results => {return results.text()
-    }).then(text => {this.doSetState(tabName, JSON.parse(text))})
+    ).then(results => {
+      return results.text()
+    }).then(text => {
+      this.doSetState(tabName, JSON.parse(text))
+    })
     
-
     // Get all elements with class='tabcontent' and hide them
-    tabcontent = document.getElementsByClassName('tabcontent');
+    tabcontent = document.getElementsByClassName('tabcontent')
     for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = 'none';
+      tabcontent[i].style.display = 'none'
     }
 
     // Get all elements with class='tablinks' and remove the class 'active'
-    tablinks = document.getElementsByClassName('tablinks');
+    tablinks = document.getElementsByClassName('tablinks')
     for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(' active', '');
+      tablinks[i].className = tablinks[i].className.replace(' active', '')
     }
 
     // Show the current tab, and add an 'active' class to the button that opened the tab
-    document.getElementById(tabName).style.display = 'block';
+    document.getElementById(tabName).style.display = 'block'
     //evt.currentTarget.className += ' active';
   }
+  
   render () {
     return (
       <div>
