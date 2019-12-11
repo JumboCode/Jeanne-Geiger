@@ -99,7 +99,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 
     def get_vicitm_genders(self, request):
         c_id = request.GET.get("community_id")
-        case_set = self.query_set.filter(community_id=c_id)
+        case_set = self.query_set.filter(community_id=1)
         genders_to_counts = {
             'Female': 0,
             'Male': 0,
