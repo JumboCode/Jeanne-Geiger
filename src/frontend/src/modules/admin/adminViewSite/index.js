@@ -34,7 +34,7 @@ class adminViewSite extends React.Component {
     }).then(text => {
       this.doSetState(tabName, JSON.parse(text))
     })
-    
+
     // Get all elements with class='tabcontent' and hide them
     tabcontent = document.getElementsByClassName('tabcontent')
     for (i = 0; i < tabcontent.length; i++) {
@@ -49,9 +49,9 @@ class adminViewSite extends React.Component {
 
     // Show the current tab, and add an 'active' class to the button that opened the tab
     document.getElementById(tabName).style.display = 'block'
-    //evt.currentTarget.className += ' active';
+    // evt.currentTarget.className += ' active';
   }
-  
+
   render () {
     return (
       <div>
@@ -71,19 +71,19 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Female</th>
-                <td>{this.state.victim_info['Female']}</td>
+                <td>{this.state.victim_info.Female}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Male</th>
-                <td>{this.state.victim_info['Male']}</td>
+                <td>{this.state.victim_info.Male}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Other</th>
-                <td>{this.state.victim_info['Other']}</td>
+                <td>{this.state.victim_info.Other}</td>
               </tr>
             </thead>
             <thead>
@@ -104,7 +104,7 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Asian</th>
-                <td>{this.state.victim_info['Asian']}</td>
+                <td>{this.state.victim_info.Asian}</td>
               </tr>
             </thead>
             <thead>
@@ -128,7 +128,7 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>White</th>
-                <td>{this.state.victim_info['White']}</td>
+                <td>{this.state.victim_info.White}</td>
               </tr>
             </thead>
             <thead>
@@ -149,13 +149,13 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Connection To Domestic Violence Services</th>
-                <td>{this.state.victim_info['connection_to_domestic_violence_services']}</td>
+                <td>{this.state.victim_info.connection_to_domestic_violence_services}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Engagement In Ongoing Domestic Violence Services</th>
-                <td>{this.state.victim_info['engagement_in_ongoing_domestic_violence_services']}</td>
+                <td>{this.state.victim_info.engagement_in_ongoing_domestic_violence_services}</td>
               </tr>
             </thead>
           </table>
@@ -167,19 +167,19 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Female</th>
-                <td>{this.state.abuser_info['Female']}</td>
+                <td>{this.state.abuser_info.Female}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Male</th>
-                <td>{this.state.abuser_info['Male']}</td>
+                <td>{this.state.abuser_info.Male}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Other</th>
-                <td>{this.state.abuser_info['Other']}</td>
+                <td>{this.state.abuser_info.Other}</td>
               </tr>
             </thead>
             <thead>
@@ -200,7 +200,7 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Asian</th>
-                <td>{this.state.abuser_info['Asian']}</td>
+                <td>{this.state.abuser_info.Asian}</td>
               </tr>
             </thead>
             <thead>
@@ -224,7 +224,7 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>White</th>
-                <td>{this.state.abuser_info['White']}</td>
+                <td>{this.state.abuser_info.White}</td>
               </tr>
             </thead>
             <thead>
@@ -247,25 +247,25 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Has he/she tried to kill you?</th>
-                <td>{this.state.risk_factor_info['attempted_murder']}</td>
+                <td>{this.state.risk_factor_info.attempted_murder}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Has he/she ever tried to choke (strangle) you?</th>
-                <td>{this.state.risk_factor_info['attempted_choke']}</td>
+                <td>{this.state.risk_factor_info.attempted_choke}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Has he/she choked (strangled) you multiple times?</th>
-                <td>{this.state.risk_factor_info['multiple_choked']}</td>
+                <td>{this.state.risk_factor_info.multiple_choked}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Does he/she own a gun?</th>
-                <td>{this.state.risk_factor_info['owns_gun']}</td>
+                <td>{this.state.risk_factor_info.owns_gun}</td>
               </tr>
             </thead>
           </table>
@@ -370,13 +370,13 @@ class adminViewSite extends React.Component {
             <thead>
               <tr>
                 <th>Incarceration</th>
-                <td>{this.state.outcome_info['Incarceration']}</td>
+                <td>{this.state.outcome_info.Incarceration}</td>
               </tr>
             </thead>
             <thead>
               <tr>
                 <th>Probation</th>
-                <td>{this.state.outcome_info['Probation']}</td>
+                <td>{this.state.outcome_info.Probation}</td>
               </tr>
             </thead>
             <thead>
