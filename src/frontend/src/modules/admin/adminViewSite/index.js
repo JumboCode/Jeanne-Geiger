@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 
+const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
+const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
+const ABUSER_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskAbuserInfo/'
+const RISK_FACTOR_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/'
+const OUTCOME_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/'
+
 class adminViewSite extends React.Component {
   constructor () {
     super()
@@ -17,7 +23,7 @@ class adminViewSite extends React.Component {
 
   componentDidMount() {
     console.log("in componentDidMount")
-    fetch('http://127.0.0.1:8000/api/communities/'
+    fetch(COMMUNITY_LIST_URL
     ).then(results => {
       return results.json()
     }).then(data => this.setState({ community_list: data }))
@@ -88,10 +94,10 @@ class adminViewSite extends React.Component {
         </div>
 
         <div id='tab'>
-          <button className='tablinks' onClick={() => this.getTabInfo('Victim', 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/')}>Victim</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('Abuser', 'http://127.0.0.1:8000/api/DVHRTHighRiskAbuserInfo/')}>Abuser</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('RiskFactors', 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/')}>Risk Factors</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('Outcomes', 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/')}>Outcomes</button>
+          <button className='tablinks' onClick={() => this.getTabInfo('Victim', VICTIM_INFO_URL)}>Victim</button>
+          <button className='tablinks' onClick={() => this.getTabInfo('Abuser', ABUSER_INFO_URL)}>Abuser</button>
+          <button className='tablinks' onClick={() => this.getTabInfo('RiskFactors', RISK_FACTOR_INFO_URL)}>Risk Factors</button>
+          <button className='tablinks' onClick={() => this.getTabInfo('Outcomes', OUTCOME_INFO_URL)}>Outcomes</button>
         </div>
 
         <div id='Victim' className='tabcontent'>
