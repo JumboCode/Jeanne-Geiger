@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import django_heroku
 from rest_framework.settings import api_settings
+from corsheaders.defaults import default_headers
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -61,6 +63,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'communityid',
+]
 
 CORS_ORIGIN_WHITELIST = (
     'http//:localhost:8000/',

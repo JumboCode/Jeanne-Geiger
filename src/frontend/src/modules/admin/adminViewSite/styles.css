@@ -1,3 +1,7 @@
 .tabcontent {
   display: none;
 }
+
+#tab {
+	display: none;
+}

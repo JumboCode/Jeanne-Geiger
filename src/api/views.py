@@ -41,6 +41,17 @@ class OutcomeList(generics.ListCreateAPIView):
             outcomeData.save()
         return HttpResponse('success')
 
+class CommunitiesList(generics.ListCreateAPIView):
+    queryset = Communities.objects.all()
+    serializer_class = CommunitiesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        queryset = Communities.objects.all()
+        serializer_class = CommunitiesSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+
 class FrontendAppView(View):
     """
     Serves the compiled frontend entry point (only works if you have run `yarn
@@ -66,14 +77,14 @@ class DVHRTGeneralCountView(generics.ListCreateAPIView):
     """Returns the number of cases accepted
     """
     def get(self, request, *args, **kwargs):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_count = len(Cases.objects.filter(community_id=c_id))
         case_dict = {"case_count":case_count}
         return JsonResponse(case_dict)
 
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         r_dict = {}
         referral_sources = []
         community_q_set = Communities.objects.filter(community_id=0)
@@ -98,7 +109,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         return JsonResponse(victim_info)
 
     def get_vicitm_genders(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         genders_to_counts = {
             'Female': 0,
@@ -119,7 +130,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         return genders_to_counts
 
     def get_victim_ethnicities(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         ethnicities_to_counts = {
             0: 0,
@@ -155,7 +166,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         return counts
 
     def get_domestic_violence_service_utilization(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = Cases.objects.filter(community_id=c_id).select_related('outcome_id')
         dvsu = {
             "connection_to_domestic_violence_services" : 0,
@@ -184,7 +195,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
         return JsonResponse(abuser_info)
 
     def get_abuser_genders(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         genders_to_counts = {
             'Female': 0,
@@ -205,7 +216,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
         return genders_to_counts
 
     def get_abuser_ethnicities(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         ethnicities_to_counts = {
             0: 0,
@@ -244,7 +255,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
 class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = Cases.objects.all().filter(community_id=c_id).select_related('risk_factor_id')
 
         rf_counts = {
@@ -282,7 +293,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
 
     # Charges Filed at or after case acceptance 
     def get_charges_filed(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
@@ -303,7 +314,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         return outcome_counts
 
     def get_pretrial_hearing_outcomes(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
@@ -331,7 +342,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         return outcome_counts
 
     def get_disposition_outcomes(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 
@@ -358,7 +369,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         return disposition_outcome_counts
 
     def get_sentencing_outcomes(self, request):
-        c_id = request.GET.get("community_id")
+        c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         total_count = 0
 

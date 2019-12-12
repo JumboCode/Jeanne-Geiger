@@ -9,8 +9,18 @@ class adminViewSite extends React.Component {
       victim_info: [],
       abuser_info: [],
       risk_factor_info: [],
-      outcome_info: []
+      outcome_info: [],
+      community_list: [],
+      community_id: []
     }
+  }
+
+  componentDidMount() {
+    console.log("in componentDidMount")
+    fetch('http://127.0.0.1:8000/api/communities/'
+    ).then(results => {
+      return results.json()
+    }).then(data => this.setState({ community_list: data }))
   }
 
   doSetState (tabName, data) {
@@ -28,7 +38,12 @@ class adminViewSite extends React.Component {
   getTabInfo (tabName, url) {
     var i, tabcontent, tablinks
 
-    fetch(url
+    fetch(
+      url, {
+        headers: {
+          'communityid': this.state.community_id
+        }
+      }
     ).then(results => {
       return results.text()
     }).then(text => {
@@ -52,12 +67,27 @@ class adminViewSite extends React.Component {
     // evt.currentTarget.className += ' active';
   }
 
+  getCommunity(c_id) {
+    document.getElementById('community_list').style.display = 'none'
+    document.getElementById('tab').style.display = 'block'
+    this.setState({ community_id: c_id })
+  }
+
   render () {
     return (
       <div>
         <h1>Viewing a site</h1>
-        <h1>{this.props.type}</h1>
-        <div className='tab'>
+        <div id='community_list'>
+          <ul className="community_list">
+            {this.state.community_list.map(listitem => (
+              <li key={listitem.community_id}>
+                <button type='button' onClick={() => this.getCommunity(listitem.community_id)}>{listitem.community_id}</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div id='tab'>
           <button className='tablinks' onClick={() => this.getTabInfo('Victim', 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/')}>Victim</button>
           <button className='tablinks' onClick={() => this.getTabInfo('Abuser', 'http://127.0.0.1:8000/api/DVHRTHighRiskAbuserInfo/')}>Abuser</button>
           <button className='tablinks' onClick={() => this.getTabInfo('RiskFactors', 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/')}>Risk Factors</button>
