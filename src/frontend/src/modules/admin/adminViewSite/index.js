@@ -75,6 +75,7 @@ class adminViewSite extends React.Component {
   getCommunity (comId) {
     document.getElementById('community_list').style.display = 'none'
     document.getElementById('tab').style.display = 'block'
+    document.getElementById('back_to_com_list').style.display = 'block'
     this.setState({ community_id: comId })
   }
 
@@ -92,6 +93,9 @@ class adminViewSite extends React.Component {
           </ul>
         </div>
 
+        <div id='back_to_com_list'>
+          <button type='button' onClick={() => window.location.reload()}> View another community</button>
+        </div>
         <div id='tab'>
           <button className='tablinks' onClick={() => this.getTabInfo('Victim', VICTIM_INFO_URL)}>Victim</button>
           <button className='tablinks' onClick={() => this.getTabInfo('Abuser', ABUSER_INFO_URL)}>Abuser</button>

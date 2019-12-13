@@ -2,6 +2,10 @@
   display: none;
 }
 
+#back_to_com_list {
+  display: none;
+}
+
 #tab {
   display: none;
 }
