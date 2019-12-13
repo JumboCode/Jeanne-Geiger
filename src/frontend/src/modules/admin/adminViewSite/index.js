@@ -17,7 +17,8 @@ class adminViewSite extends React.Component {
       risk_factor_info: [],
       outcome_info: [],
       community_list: [],
-      community_id: []
+      community_id: [],
+      community_name: []
     }
   }
 
@@ -72,11 +73,12 @@ class adminViewSite extends React.Component {
     // evt.currentTarget.className += ' active';
   }
 
-  getCommunity (comId) {
+  getCommunity (comId, comName) {
     document.getElementById('community_list').style.display = 'none'
     document.getElementById('tab').style.display = 'block'
     document.getElementById('back_to_com_list').style.display = 'block'
     this.setState({ community_id: comId })
+    this.setState({ community_name: comName })
   }
 
   render () {
@@ -87,13 +89,14 @@ class adminViewSite extends React.Component {
           <ul className="community_list">
             {this.state.community_list.map(listitem => (
               <li key={listitem.community_id}>
-                <button type='button' onClick={() => this.getCommunity(listitem.community_id)}>{listitem.community_name}</button>
+                <button type='button' onClick={() => this.getCommunity(listitem.community_id, listitem.community_name)}>{listitem.community_name}</button>
               </li>
             ))}
           </ul>
         </div>
 
         <div id='back_to_com_list'>
+          <h2>{this.state.community_name} DVHRT</h2>
           <button type='button' onClick={() => window.location.reload()}> View another community</button>
         </div>
         <div id='tab'>
@@ -104,7 +107,7 @@ class adminViewSite extends React.Component {
         </div>
 
         <div id='Victim' className='tabcontent'>
-          <h2>DVHRT High Risk Abuser Information</h2>
+          <h2>DVHRT High Risk Victim Information</h2>
           <h4>Gender</h4>
           <table>
             <thead>
@@ -200,7 +203,7 @@ class adminViewSite extends React.Component {
           </table>
         </div>
         <div id='Abuser' className='tabcontent'>
-          <h2>DVHRT High Risk Victim Information</h2>
+          <h2>DVHRT High Risk Abuser Information</h2>
           <h4>Gender</h4>
           <table>
             <thead>
