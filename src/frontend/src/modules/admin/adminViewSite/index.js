@@ -21,8 +21,7 @@ class adminViewSite extends React.Component {
     }
   }
 
-  componentDidMount() {
-    console.log("in componentDidMount")
+  componentDidMount () {
     fetch(COMMUNITY_LIST_URL
     ).then(results => {
       return results.json()
@@ -47,7 +46,7 @@ class adminViewSite extends React.Component {
     fetch(
       url, {
         headers: {
-          'communityid': this.state.community_id
+          communityid: this.state.community_id
         }
       }
     ).then(results => {
@@ -73,10 +72,10 @@ class adminViewSite extends React.Component {
     // evt.currentTarget.className += ' active';
   }
 
-  getCommunity(c_id) {
+  getCommunity (comId) {
     document.getElementById('community_list').style.display = 'none'
     document.getElementById('tab').style.display = 'block'
-    this.setState({ community_id: c_id })
+    this.setState({ community_id: comId })
   }
 
   render () {
@@ -87,7 +86,7 @@ class adminViewSite extends React.Component {
           <ul className="community_list">
             {this.state.community_list.map(listitem => (
               <li key={listitem.community_id}>
-                <button type='button' onClick={() => this.getCommunity(listitem.community_id)}>{listitem.community_id}</button>
+                <button type='button' onClick={() => this.getCommunity(listitem.community_id)}>{listitem.community_name}</button>
               </li>
             ))}
           </ul>
