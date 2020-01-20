@@ -8,6 +8,7 @@ class siteOverview extends React.Component {
       <div>
         <h1>Site overview</h1>
         <a href="/site/case-view">case detail view</a>
+        <a href="/site/add-case">add a case</a>
         <h1>{this.props.type}</h1>
       </div>
     )
