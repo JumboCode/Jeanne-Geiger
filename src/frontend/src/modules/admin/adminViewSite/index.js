@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import './styles.css'
-import { render } from 'react-dom'
+import React, { Component } from 'react';
+import './styles.css';
+import ObjectTable from './table.js';
+import { render } from 'react-dom';
 
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
@@ -106,7 +107,9 @@ class adminViewSite extends React.Component {
           <button className='tablinks' onClick={() => this.getTabInfo('Outcomes', OUTCOME_INFO_URL)}>Outcomes</button>
         </div>
 
+
         <div id='Victim' className='tabcontent'>
+          <ObjectTable Myobject = {this.state.victim_info}/>
           <h2>DVHRT High Risk Victim Information</h2>
           <h4>Gender</h4>
           <table>
