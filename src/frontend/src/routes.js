@@ -24,7 +24,7 @@ export default class AppRouter extends React.Component {
       	<BrowserRouter>
        	 <Switch>
        	   <Route exact path="/" component = {Login} type = "login"/>
-       	   <PrivateRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
+       	   <Route exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
        	   <PrivateRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
            <PrivateRoute exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
            <PrivateRoute exact path="/site" component = {siteOverview} type = "siteView"/>
