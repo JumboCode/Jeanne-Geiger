@@ -42,7 +42,6 @@ class siteAddCase extends React.Component {
                  + '&pretrial_hearing_outcome=' + document.getElementById('pretrial_outcome').value 
                  + '&sentencing_outcomes_disposition=' + document.getElementById('sentencing_outcomes_disposition').value 
                  + '&sentencing_outcomes_sentence=' + document.getElementById('sentencing_outcomes_sentence').value;
-    console.log(outcome_info);
 
     var outcome_post_request = new XMLHttpRequest();
     outcome_post_request.open("POST", OUTCOMES_POST_URL, true);

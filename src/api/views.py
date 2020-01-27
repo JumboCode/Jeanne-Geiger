@@ -28,14 +28,9 @@ class OutcomeList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         get_outcome_id = request.POST.get("outcome_id")
-        print("in outcome post")
-        print(get_outcome_id)
         try:
             outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
         except Outcomes.DoesNotExist:
-            print("HOYAAA")
-            print(request.POST)
-            print(request.POST.get("connection_to_domestic_violence_services"))
             outcomeData = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
                                 engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
                                 charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
@@ -45,6 +40,49 @@ class OutcomeList(generics.ListCreateAPIView):
             )
             outcomeData.save()
         return HttpResponse('success')
+
+class RiskFactorsList(generics.ListCreateAPIView):
+    queryset = RiskFactors.objects.all()
+    serializer_class = RiskFactorsSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = RiskFactors.objects.all()
+        serializer_class = RiskFactorsSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+    def post(self, request, *args, **kwargs):
+        get_rf_id = request.POST.get("risk_factor_id")
+        try:
+            rfData = RiskFactors.objects.get(risk_factor_id=get_rf_id)
+        except:
+            rfData = RiskFactors(
+                violence_increased = request.POST.get("violence_increased"),
+                attempted_leaving = request.POST.get("attempted_leaving"),
+                control_activites = request.POST.get("control_activites"),
+                attempted_murder = request.POST.get("attempted_murder"),
+                threatened_murder = request.POST.get("threatened_murder"),
+                weapon_threat = request.POST.get("weapon_threat"),
+                attempted_choke = request.POST.get("attempted_choke"),
+                multiple_choked = request.POST.get("multiple_choked"),
+                killing_capable = request.POST.get("killing_capable"),
+                owns_gun = request.POST.get("owns_gun"),
+                suicide_threat_or_attempt = request.POST.get("suicide_threat_or_attempt"),
+                is_unemployed = request.POST.get("is_unemployed"),
+                avoided_arrest = request.POST.get("avoided_arrest"),
+                unrelated_child = request.POST.get("unrelated_child"),
+                uses_illegal_drugs = request.POST.get("uses_illegal_drugs"),
+                is_alcoholic = request.POST.get("is_alcoholic"),
+                forced_sex = request.POST.get("forced_sex"),
+                constantly_jealous = request.POST.get("constantly_jealous"),
+                pregnant_abuse = request.POST.get("pregnant_abuse"),
+                children_threatened = request.POST.get("children_threatened"),
+                has_spied = request.POST.get("has_spied"),
+            )
+            rfData.save()
+        return HttpResponse('success')
+
+
 
 class CommunitiesList(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
