@@ -61,7 +61,7 @@ class siteAddCase extends React.Component {
         </div>
 
         <form id='CasePost'>
-          <div id='OutcomesForm' className = 'tabcontent'>
+          <div id='OutcomesForm' className='tabcontent'>
             <DropdownObj id='connection_to_dvs' title='Connection to Domestic Violence Services' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
             <DropdownObj id='engagement_in_ongoing_dvs' title='Engagement in Ongoing Domestic Violence Services' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
             <DropdownObj id='charges' title='Charges' choices={[['undefined', 0], ['Police Response: Charges Filed', 1], ['Police Response: No Charges Filed', 2], ['No Police Response: Not Applicable', 3]]}/>
@@ -69,6 +69,31 @@ class siteAddCase extends React.Component {
             <DropdownObj id='sentencing_outcomes_disposition' title='Sentencing Outcomes Disposition' choices={[['undefined', 0], ['Charges Dismissed', 1], ['Not Guilty', 2], ['Deferred Adjudication', 3], ['Plead/Found Guilty', 4], ['Pending Disposition', 5]]}/>
             <DropdownObj id='sentencing_outcomes_sentence' title='Sentencing Outcomes Sentence' choices={[['undefined', 0], ['Incarceration', 1], ['Probation', 2], ['Incarceration Followed by Probation', 3]]}/>
           </div>
+
+          <div id='RiskFactorsForm' className='tabcontent'>
+            <DropdownObj id='violence_increased' title='Has the physical violence increased in severity or frequency over the past year?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='attempted_leaving' title='Have you left him/her after living together in the past year?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='control_activites' title='Does he/she control most or all of your daily activities?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='attempted_murder' title='Has he/she tried to kill you?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='threatened_murder' title='Has he/she ever threatened to kill you?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='weapon_threat' title='Has he/she used a weapon against you or threatened you with a lethal weapon? ' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='attempted_choke' title='Has he/she ever tried to choke (strangle) you?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='multiple_choked' title='Has he/she choked (strangled) you multiple times?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='killing_capable' title='Do you believe he/she is capable of killing you?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='owns_gun' title='Does he/she own a gun?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='suicide_threat_or_attempt' title='Has he/she ever threatened or tried to commit suicide?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='is_unemployed' title='Is he/she unemployed?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='avoided_arrest' title='Has he/she avoided being arrested for domestic violence?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='unrelated_child' title='Do you have a child that is not his/hers? ' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='uses_illegal_drugs' title='Does he/she use illegal drugs?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='is_alcoholic' title='Is he/she an alcoholic or problem drinker?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='forced_sex' title='Has he/she ever forced you to have sex when you did not wish to do so?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='constantly_jealous' title='Is he/she violently or constantly jealous?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='pregnant_abuse' title='Has he/she ever beaten you while you were pregnant?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='children_threatened' title='Threatens to harm victim’s children?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='has_spied' title='Does he/she spy on you, leaving threatening notes or messages?' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+          </div>
+
           <div>
             <button type="submit" onClick={() => this.doSubmit()}  value="Submit">Submit</button>
           </div>
