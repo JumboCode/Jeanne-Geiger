@@ -17,7 +17,10 @@ class adminHomepage extends React.Component {
 	</Button>
 	<Card>
 	    <Card.Header>Cleveland DVHRT</Card.Header>
-	    <Card.Body>Big Blue Rectangle goes here!</Card.Body>
+	    <Card.Body>
+	    	Big Blue Rectangle goes here!
+	    	<br /> More things will go here!
+	    </Card.Body>
 	</Card>
       </div>
     )
