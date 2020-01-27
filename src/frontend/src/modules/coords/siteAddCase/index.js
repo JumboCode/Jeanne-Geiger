@@ -63,12 +63,12 @@ class siteAddCase extends React.Component {
 
         <form id='CasePost'>
           <div id='OutcomesForm' className = 'tabcontent'>
-            <DropdownObj id='connection_to_dvs' title='Connection to Domestic Violence Services' choices={['undefined', 'Yes', 'No']}/>
-            <DropdownObj id='engagement_in_ongoing_dvs' title='Engagement in Ongoing Domestic Violence Services' choices={['undefined', 'Yes', 'No']}/>
-            <DropdownObj id='charges' title='Charges' choices={['undefined', 'Police Response: Charges Filed', 'Police Response: No Charges Filed', 'No Police Response: Not Applicable']}/>
-            <DropdownObj id='pretrial_outcome' title='Pretrial Outcome' choices={['undefined', 'Released on Bail', 'Released on Personal Recognizance', 'Detained/Pretrial Detention Statute', 'Detained/Bail Unmet', 'Detained/Other', 'Pending Pretrial Hearing']}/>
-            <DropdownObj id='sentencing_outcomes_disposition' title='Sentencing Outcomes Disposition' choices={['undefined', 'Charges Dismissed', 'Not Guilty', 'Deferred Adjudication', 'Plead/Found Guilty', 'Pending Disposition']}/>
-            <DropdownObj id='sentencing_outcomes_sentence' title='Sentencing Outcomes Sentence' choices={['undefined', 'Incarceration', 'Probation', 'Incarceration Followed by Probation']}/>
+            <DropdownObj id='connection_to_dvs' title='Connection to Domestic Violence Services' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='engagement_in_ongoing_dvs' title='Engagement in Ongoing Domestic Violence Services' choices={[['undefined', 'False'], ['Yes', 'True'], ['No', 'False']]}/>
+            <DropdownObj id='charges' title='Charges' choices={[['undefined', 0], ['Police Response: Charges Filed', 1], ['Police Response: No Charges Filed', 2], ['No Police Response: Not Applicable', 3]]}/>
+            <DropdownObj id='pretrial_outcome' title='Pretrial Outcome' choices={[['undefined', 0], ['Released on Bail', 1], ['Released on Personal Recognizance', 2], ['Detained/Pretrial Detention Statute', 3], ['Detained/Bail Unmet', 4], ['Detained/Other', 5], ['Pending Pretrial Hearing', 6]]}/>
+            <DropdownObj id='sentencing_outcomes_disposition' title='Sentencing Outcomes Disposition' choices={[['undefined', 0], ['Charges Dismissed', 1], ['Not Guilty', 2], ['Deferred Adjudication', 3], ['Plead/Found Guilty', 4], ['Pending Disposition', 5]]}/>
+            <DropdownObj id='sentencing_outcomes_sentence' title='Sentencing Outcomes Sentence' choices={[['undefined', 0], ['Incarceration', 1], ['Probation', 2], ['Incarceration Followed by Probation', 3]]}/>
           </div>
           <div>
             <button type="submit" onClick={() => this.doSubmit()}  value="Submit">Submit</button>

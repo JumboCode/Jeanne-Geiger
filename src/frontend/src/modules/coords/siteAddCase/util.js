@@ -3,7 +3,7 @@ import React from "react";
 const DropdownObj = (props) => {
   let elems = []
   if (props.choices != undefined)
-    props.choices.map(elem => elems.push(<option value={elem}>{elem}</option>));
+    props.choices.map(elem => elems.push(<option value={elem[1]}>{elem[0]}</option>));
 
   return(
     <p>{props.title}: 
