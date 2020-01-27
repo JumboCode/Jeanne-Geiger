@@ -28,9 +28,14 @@ class OutcomeList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         get_outcome_id = request.POST.get("outcome_id")
+        print("in outcome post")
+        print(get_outcome_id)
         try:
             outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
-        except:
+        except Outcomes.DoesNotExist:
+            print("HOYAAA")
+            print(request.POST)
+            print(request.POST.get("connection_to_domestic_violence_services"))
             outcomeData = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
                                 engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
                                 charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),

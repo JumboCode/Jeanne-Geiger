@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import DropdownObj from './util.js'
+import SubmitButton from './util.js'
+
+const OUTCOMES_POST_URL = 'http://127.0.0.1:8000/api/outcomes/'
 
 class siteAddCase extends React.Component {
   constructor () {
@@ -31,6 +35,21 @@ class siteAddCase extends React.Component {
     document.getElementById(tabName).style.display = 'block'
   }
 
+  doSubmit () {
+    var outcome_info = 'connection_to_domestic_violence_services=' + document.getElementById('connection_to_dvs').value 
+                 + '&engagement_in_ongoing_domestic_violence_services=' + document.getElementById('engagement_in_ongoing_dvs').value 
+                 + '&charges_filed_at_or_after_case_acceptance=' + document.getElementById('charges').value 
+                 + '&pretrial_hearing_outcome=' + document.getElementById('pretrial_outcome').value 
+                 + '&sentencing_outcomes_disposition=' + document.getElementById('sentencing_outcomes_disposition').value 
+                 + '&sentencing_outcomes_sentence=' + document.getElementById('sentencing_outcomes_sentence').value;
+    console.log(outcome_info);
+
+    var outcome_post_request = new XMLHttpRequest();
+    outcome_post_request.open("POST", OUTCOMES_POST_URL, true);
+    outcome_post_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    outcome_post_request.send(outcome_info);
+  }
+
   render () {
     return (
       <div>
@@ -40,62 +59,21 @@ class siteAddCase extends React.Component {
           <button className='tablinks' onClick={() => this.getTabInfo('AbuserForm')}>Abuser</button>
           <button className='tablinks' onClick={() => this.getTabInfo('RiskFactorsForm')}>Risk Factors</button>
           <button className='tablinks' onClick={() => this.getTabInfo('OutcomesForm')}>Outcomes</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('OtherForm')}>Other</button>
         </div>
 
-        <div id='OutcomesForm' className = 'tabcontent'>
-          <p>Connection to Domestic Violence Services: 
-            <select name='connection_to_domestic_violence_services'>
-              <option value='undefined'>Undefined</option>
-              <option value='Yes'>Yes</option>
-              <option value='No'>No</option>
-            </select>
-          </p>
-          <p>Engagement in Ongoing Domestic Violence Services:
-            <select name='engagement_in_ongoing_domestic_violence_services'>
-              <option value='undefined'>Undefined</option>
-              <option value='Yes'>Yes</option>
-              <option value='No'>No</option>
-            </select>
-          </p>
-          <p>Charges:
-            <select name='Charges'>
-              <option value='undefined'>Undefined</option>
-              <option value='Police Response: Charges Filed'>Police Response: Charges Filed</option>
-              <option value='Police Response: No Charges Filed'>Police Response: No Charges Filed</option>
-              <option value='No Police Response: Not Applicable'>No Police Response: Not Applicable</option>
-            </select>
-          </p>
-          <p>Pretrial Outcome:
-            <select name='PretrialOutcome'>
-              <option value='undefined'>Undefined</option>
-              <option value='Released on Bail'>Released on Bail</option>
-              <option value='Released on Personal Recognizance'>Released on Personal Recognizance</option>
-              <option value='Detained/Pretrial Detention Statute'>Detained/Pretrial Detention Statute</option>
-              <option value='Detained/Bail Unmet'>Detained/Bail Unmet</option>
-              <option value='Detained/Other'>Detained/Other</option>
-              <option value='Pending Pretrial Hearing'>Pending Pretrial Hearing</option>
-            </select>
-          </p>
-          <p>Sentencing Outcomes Disposition:
-            <select name='SentencingOutcomesDisposition'>
-              <option value='undefined'>Undefined</option>
-              <option value='Charges Dismissed'>Charges Dismissed</option>
-              <option value='Not Guilty'>Not Guilty</option>
-              <option value='Deferred Adjudication'>Deferred Adjudication</option>
-              <option value='Plead/Found Guilty'>Plead/Found Guilty</option>
-              <option value='Pending Disposition'>Pending Disposition</option>
-            </select>
-          </p>
-          <p>Sentencing Outcomes Sentence:
-            <select name='SentencingOutcomesSentence'>
-              <option value='undefined'>Undefined</option>
-              <option value='Incarceration'>Incarceration</option>
-              <option value='Probation'>Probation</option>
-              <option value='Incarceration Followed by Probation'>Incarceration Followed by Probation</option>
-            </select>
-          </p>
-        </div>
+        <form id='CasePost'>
+          <div id='OutcomesForm' className = 'tabcontent'>
+            <DropdownObj id='connection_to_dvs' title='Connection to Domestic Violence Services' choices={['undefined', 'Yes', 'No']}/>
+            <DropdownObj id='engagement_in_ongoing_dvs' title='Engagement in Ongoing Domestic Violence Services' choices={['undefined', 'Yes', 'No']}/>
+            <DropdownObj id='charges' title='Charges' choices={['undefined', 'Police Response: Charges Filed', 'Police Response: No Charges Filed', 'No Police Response: Not Applicable']}/>
+            <DropdownObj id='pretrial_outcome' title='Pretrial Outcome' choices={['undefined', 'Released on Bail', 'Released on Personal Recognizance', 'Detained/Pretrial Detention Statute', 'Detained/Bail Unmet', 'Detained/Other', 'Pending Pretrial Hearing']}/>
+            <DropdownObj id='sentencing_outcomes_disposition' title='Sentencing Outcomes Disposition' choices={['undefined', 'Charges Dismissed', 'Not Guilty', 'Deferred Adjudication', 'Plead/Found Guilty', 'Pending Disposition']}/>
+            <DropdownObj id='sentencing_outcomes_sentence' title='Sentencing Outcomes Sentence' choices={['undefined', 'Incarceration', 'Probation', 'Incarceration Followed by Probation']}/>
+          </div>
+          <div>
+            <button type="submit" onClick={() => this.doSubmit()}  value="Submit">Submit</button>
+          </div>
+        </form>
       </div>
     )
   }
