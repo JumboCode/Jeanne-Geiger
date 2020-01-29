@@ -85,12 +85,10 @@ class Cases(models.Model):
 
 
 class Communities(models.Model):
-    community_id = models.AutoField(primary_key = True)
-    # referral_sources = ArrayField(models.CharField(max_length=100))
-    # referral_sources = JSONField()
-    referral_sources1 = models.CharField(max_length=100, default="a", null=True, blank=True)
-    referral_sources2 = models.CharField(max_length=100, default="b", null=True, blank=True)
-    referral_sources3 = models.CharField(max_length=100, default="c", null=True, blank=True)
+    community_id = models.AutoField(primary_key=True)
+    referral_sources1 = models.CharField(max_length=100, null=True, blank=True)
+    referral_sources2 = models.CharField(max_length=100, null=True, blank=True)
+    referral_sources3 = models.CharField(max_length=100, null=True, blank=True)
 
 class Persons(models.Model):
     gender_choices = (
