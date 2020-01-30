@@ -38,8 +38,10 @@ class OutcomeList(generics.ListCreateAPIView):
                                 sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
                                 sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
-            outcomeData.save()
-        return HttpResponse('success')
+            ret = outcomeData.save()
+            resp = HttpResponse('success')
+            resp['outcome_id'] = outcomeData.outcome_id
+        return resp
 
 class RiskFactorsList(generics.ListCreateAPIView):
     queryset = RiskFactors.objects.all()

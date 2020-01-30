@@ -7,7 +7,8 @@ const DropdownObj = (props) => {
 
   return(
     <p>{props.title}: 
-      <select id={props.id} name={props.title}>
+      <select id={props.id} name={props.title} required>
+        <option></option>
         {elems}
       </select>
     </p>
