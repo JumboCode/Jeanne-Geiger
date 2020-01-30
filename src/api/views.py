@@ -122,6 +122,12 @@ class CasesList(generics.ListCreateAPIView):
         )
         abuser.save()
 
+        # try:
+
+        #     risk_factors = RiskFactors.objects.get(risk_factors_id=request.POST.get("risk_factors_id.risk_factors_id"))
+        # except:
+        #     risk_factors = request.POST.get("risk_factors_id.violence_increased")
+        #     return HttpResponse(risk_factors)
         risk_factors = RiskFactors(
             violence_increased = request.POST.get("risk_factor_id.violence_increased"),
             attempted_leaving = request.POST.get("risk_factor_id.attempted_leaving"),
@@ -150,8 +156,8 @@ class CasesList(generics.ListCreateAPIView):
         casesData = Cases(
             outcome_id = outcome,
             community_id = community,
-            victim_id = victim,
-            abuser_id = abuser,
+            # victim_id = victim,
+            # abuser_id = abuser,
             risk_factor_id = risk_factors,
             relationship_type = request.POST.get("relationship_type"),
             relationship_len = request.POST.get("relationship_len"),
