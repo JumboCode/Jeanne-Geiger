@@ -4,6 +4,7 @@
 		"pk": 1,
 		"fields" : {
 			"community_id" : 1,
+			"community_name": "Community1", 
 			"referral_sources" : ["ref1", "ref2", "ref3"]
 		}
 	},
@@ -12,6 +13,7 @@
 		"model" : "api.Communities",
 		"fields" : {
 			"community_id" : 2,
+			"community_name": "Community2", 
 			"referral_sources" : ["barry", "julia", "andrew"]
 		}
 	},
@@ -20,6 +22,7 @@
 		"model" : "api.Communities",
 		"fields" : {
 			"community_id" : 3,
+			"community_name": "Community3", 
 			"referral_sources" : ["meha", "izzi"]
 		}
 	},
