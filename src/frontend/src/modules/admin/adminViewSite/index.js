@@ -2,6 +2,17 @@ import React, { Component } from 'react'
 import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display: grid;
+  margin-left: 7%;
+  column-gap : .5%
+  grid-template-columns: repeat(2, 210px);
+  grid-template-rows: repeat(2, 210px);
+  grid-auto-flow: row;
+  text-decoration: none;
+`
 
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
@@ -110,6 +121,7 @@ class adminViewSite extends React.Component {
         <div id='Victim' className='tabcontent'>
           <h2>DVHRT High Risk Victim Information</h2>
           <p>Gender</p>
+          <Wrapper>
           <ObjectTable tableRows = {[
             ['Female', this.state.victim_info.Female],
             ['Male', this.state.victim_info.Male],
@@ -129,6 +141,7 @@ class adminViewSite extends React.Component {
           <ObjectTable tableRows = {[
             ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
             ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
+            </Wrapper>
         </div>
 
         <div id='Abuser' className='tabcontent'>
