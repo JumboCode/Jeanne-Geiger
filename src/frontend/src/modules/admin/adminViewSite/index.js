@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import './styles.css';
-import ObjectTable from './table.js';
-import { render } from 'react-dom';
+import React, { Component } from 'react'
+import './styles.css'
+import ObjectTable from './table.js'
+import { render } from 'react-dom'
 
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
@@ -111,9 +111,9 @@ class adminViewSite extends React.Component {
           <h2>DVHRT High Risk Victim Information</h2>
           <p>Gender</p>
           <ObjectTable tableRows = {[
-            ['Female', this.state.victim_info.Female], 
-            ['Male', this.state.victim_info.Male], 
-            ['Other', this.state.victim_info.Other], 
+            ['Female', this.state.victim_info.Female],
+            ['Male', this.state.victim_info.Male],
+            ['Other', this.state.victim_info.Other],
             ['Total Count', this.state.victim_info['Total Gender Count']]]}/>
           <p>Race/Ethnicity</p>
           <ObjectTable tableRows = {[
@@ -127,7 +127,7 @@ class adminViewSite extends React.Component {
             ['Total', this.state.victim_info['Total Ethnicity Count']]]}/>
           <p>Domestic Violence Service Utilization</p>
           <ObjectTable tableRows = {[
-            ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services], 
+            ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
             ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
         </div>
 
@@ -135,9 +135,9 @@ class adminViewSite extends React.Component {
           <h2>DVHRT High Risk Abuser Information</h2>
           <p>Gender</p>
           <ObjectTable tableRows = {[
-            ['Female', this.state.abuser_info.Female], 
-            ['Male', this.state.abuser_info.Male], 
-            ['Other', this.state.abuser_info.Other], 
+            ['Female', this.state.abuser_info.Female],
+            ['Male', this.state.abuser_info.Male],
+            ['Other', this.state.abuser_info.Other],
             ['Total Count', this.state.abuser_info['Total Gender Count']]]}/>
           <p>Race/Ethnicity</p>
           <ObjectTable tableRows = {[
@@ -166,8 +166,7 @@ class adminViewSite extends React.Component {
           <ObjectTable tableRows = {[
             ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
             ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
-            ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']]
-            ]}/>
+            ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']]]}/>
           <p>Pretrial Hearing Outcome In DVHRT Cases</p>
           <ObjectTable tableRows = {[
             ['Released on Bail', this.state.outcome_info['Released on Bail']],
@@ -175,22 +174,19 @@ class adminViewSite extends React.Component {
             ['Detained/Pretrial Detention Statute', this.state.outcome_info['Detained/Pretrial Detention Statute']],
             ['Detained/Bail Unmet', this.state.outcome_info['Detained/Bail Unmet']],
             ['Detained/Other', this.state.outcome_info['Detained/Other']],
-            ['Pending Pretrial Hearing', this.state.outcome_info['Pending Pretrial Hearing']],
-            ]}/>
+            ['Pending Pretrial Hearing', this.state.outcome_info['Pending Pretrial Hearing']]]}/>
           <p>Disposition Outcomes In DVHRT Cases</p>
           <ObjectTable tableRows = {[
             ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
             ['Not Guilty', this.state.outcome_info['Not Guilty']],
             ['Deferred Adjudication', this.state.outcome_info['Deferred Adjudication']],
             ['Plead/Found Guilty', this.state.outcome_info['Plead/Found Guilty']],
-            ['Pending Disposition', this.state.outcome_info['Pending Disposition']]
-            ]}/>
+            ['Pending Disposition', this.state.outcome_info['Pending Disposition']]]}/>
           <p>Sentencing Outcomes In DVHRT Cases</p>
           <ObjectTable tableRows = {[
             ['Incarceration', this.state.outcome_info.Incarceration],
             ['Probation', this.state.outcome_info.Probation],
-            ['Incarceration Followed by Probation', this.state.outcome_info['Incarceration Followed by Probation']]
-            ]}/>
+            ['Incarceration Followed by Probation', this.state.outcome_info['Incarceration Followed by Probation']]]}/>
         </div>
 
       </div>
