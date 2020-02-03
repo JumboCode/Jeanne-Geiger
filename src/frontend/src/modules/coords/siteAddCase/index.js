@@ -6,6 +6,7 @@ import SubmitButton from './util.js'
 
 const OUTCOMES_POST_URL = 'http://127.0.0.1:8000/api/outcomes/'
 const RISK_FACTORS_POST_URL = 'http://127.0.0.1:8000/api/riskfactors/'
+const ABUSER_POST_URL = 'http://127.0.0.1:8000/api/abusers/'
 
 class siteAddCase extends React.Component {
   constructor () {
@@ -79,6 +80,32 @@ class siteAddCase extends React.Component {
     rf_post_request.send(risk_factor_info);
   }
 
+  doAbuserPost() {
+    var ethnicities = []
+    var selected_opts = document.getElementById('a_race_ethnicity').selectedOptions
+    for (var i = 0; i < selected_opts.length; i++){
+      console.log(selected_opts[i].value)
+      ethnicities.push(parseInt(selected_opts[i].value))
+    }
+    console.log(document.getElementById('a_race_ethnicity').selectedOptions)
+    console.log(ethnicities)
+    var abuser_info = 'is_victim=' + 'False' 
+                    + '&name=' + document.getElementById('a_name').value 
+                    + '&dob='+ document.getElementById('a_dob').value 
+                    + '&gender=' + document.getElementById('a_gender').value
+                    + '&race_ethnicity={' + ethnicities
+                    + '}&age_at_case_acceptance=' + document.getElementById('a_age_at_case_acceptance').value
+                    + '&primary_language=' + document.getElementById('a_primary_language').value
+                    + '&town=' + document.getElementById('a_town').value;
+
+    console.log(abuser_info)
+
+    var abuser_post_request = new XMLHttpRequest();
+    abuser_post_request.open("POST", ABUSER_POST_URL, true);
+    abuser_post_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    abuser_post_request.send(abuser_info);
+  }
+
   doSubmit () {
     this.doOutcomesPost()
     //this.doRiskFactorsPost()
@@ -133,6 +160,27 @@ class siteAddCase extends React.Component {
             <button type="submit" onClick={() => this.doSubmit()}  value="Submit">Submit</button>
           </div>
         </form>
+          <div id='AbuserForm' className='tabcontent'>
+            Name: <input type='text' id='a_name' name='a_name'></input>
+            Date of Birth: <input type="date" id="a_dob" name="a_dob" min="1900-01-01"></input>
+            <DropdownObj id='a_gender' title='Gender' choices={[['Female', 1], ['Male', 2], ['Other', 3]]}/>
+            <select id="a_race_ethnicity" size="7" multiple="multiple">
+              <option value='1'>American Indian/Alaska Native</option>
+              <option value='2'>Asian</option>
+              <option value='3'>Black/African American</option>
+              <option value='4'>Hispanic or Latino</option>
+              <option value='5'>Native Hawaiian/Pacific Islander</option>
+              <option value='6'>White</option>
+              <option value='7'>Other/Unknown</option>
+            </select>
+            <DropdownObj id='a_age_at_case_acceptance' title='Age at Case Acceptance' choices={[['13 or younger', 1], ['14-17', 2], ['18-19', 3], ['20-29', 4], ['30-39', 5], ['40-49', 6], ['50-59', 7], ['60+', 8], ['Unknown', 9]]}/>
+            <DropdownObj id='a_primary_language' title='Primary Language' choices={[['English', 1], ['Spanish/Spanish Creole', 2], ['Arabic', 3], ['Cambodian/Khmer', 4], ['Chinese', 5], ['French/French Creole', 6], ['German', 7], ['Greek', 8], ['Italian', 9], ['Polish', 10], ['Portugese/Portugese Creole', 11], ['Russian', 12], ['Vietnamese', 13], ['Other/Unknown', 14]]}/>
+            Town: <input type='text' id='a_town' name='a_town'></input>
+
+          </div>
+          <div>
+            <button type="submit" onClick={() => this.doAbuserPost()}  value="Submit">Abuser Submit</button>
+          </div>
       </div>
     )
   }

@@ -96,11 +96,13 @@ class AbuserList(generics.ListCreateAPIView):
 
 
     def post(self, request, *args, **kwargs):
+        print(request.POST)
+        print(request.POST.get("person_id"))
         get_person_id = request.POST.get("person_id")
         try:
-            personData = Persons.objects.get(outcome_id=get_outcome_id)
-        except:
-            personData = Persons(is_victim = False,
+            personData = Persons.objects.get(person_id=get_person_id)
+        except Persons.DoesNotExist:
+            personData = Persons(is_victim = request.POST.get("is_victim"),
                                 name = request.POST.get("name"),
                                 dob = request.POST.get("dob"),
                                 gender = request.POST.get("gender"),

@@ -16,7 +16,3 @@ const DropdownObj = (props) => {
 };
 export default DropdownObj;
 
-const SubmitButton = (props) => {
-  console.log("in SubmitButton");
-  return(<button type="submit" onclick={props.callbackFunc} value="Submit">Submit</button>);
-};

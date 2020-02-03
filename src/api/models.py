@@ -143,7 +143,7 @@ class Persons(models.Model):
     name = models.CharField(max_length=100)
     dob = models.DateField(null=True, blank=True)
     gender = models.IntegerField(default=0, choices=gender_choices)
-    race_ethnicity = models.IntegerField(default=0, choices=race_ethnicity_choices)
+    race_ethnicity = ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
     primary_language = models.IntegerField(default=0, choices=primary_language_choices)
     town = models.CharField(max_length=100)
