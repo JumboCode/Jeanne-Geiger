@@ -69,7 +69,7 @@ class Cases(models.Model):
 		(6, '20-29 years'),
 		(7, '30+ years'),
 	]
-  
+
 	case_id = models.AutoField(primary_key=True)
 	community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
 	abuser_id = models.ForeignKey('Persons', related_name='abuser_id', on_delete=models.CASCADE)
@@ -143,11 +143,11 @@ class Persons(models.Model):
     name = models.CharField(max_length=100)
     dob = models.DateField(null=True, blank=True)
     gender = models.IntegerField(default=0, choices=gender_choices)
-    race_ethnicity = ArrayField(models.IntegerField(default=0, choices=race_ethnicity_choices))
+    race_ethnicity = models.IntegerField(default=0, choices=race_ethnicity_choices)
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
     primary_language = models.IntegerField(default=0, choices=primary_language_choices)
     town = models.CharField(max_length=100)
-    
+
 class RiskFactors(models.Model):
     BOOL = (
         (True, 'Yes'),
@@ -176,4 +176,3 @@ class RiskFactors(models.Model):
     pregnant_abuse = models.BooleanField(default=1, choices=BOOL)
     children_threatened = models.BooleanField(default=1, choices=BOOL)
     has_spied = models.BooleanField(default=1, choices=BOOL)
-
