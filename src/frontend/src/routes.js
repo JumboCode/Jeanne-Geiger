@@ -9,6 +9,7 @@ import adminViewSite from './modules/admin/adminViewSite'
 
 import siteOverview from './modules/coords/siteOverview'
 import detailView from './modules/coords/detailView'
+import siteAddCase from './modules/coords/siteAddCase'
 
 import accRecovery from './modules/accRecovery'
 
@@ -25,6 +26,7 @@ export default class AppRouter extends React.Component {
           <Route exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
           <Route exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
           <Route exact path="/site" component = {siteOverview} type = "siteView"/>
+          <Route exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>
           <Route exact path="/site/case-view" component = {detailView} type = "detailView"/>
           <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
         </Switch>
