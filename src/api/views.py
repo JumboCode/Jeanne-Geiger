@@ -38,7 +38,7 @@ class OutcomeList(generics.ListCreateAPIView):
                                 sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
                                 sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
-            ret = outcomeData.save()
+            outcomeData.save()
             resp = HttpResponse('success')
             resp['outcome_id'] = outcomeData.outcome_id
         return resp
@@ -102,17 +102,18 @@ class AbuserList(generics.ListCreateAPIView):
         try:
             personData = Persons.objects.get(person_id=get_person_id)
         except Persons.DoesNotExist:
-            personData = Persons(is_victim = request.POST.get("is_victim"),
-                                name = request.POST.get("name"),
-                                dob = request.POST.get("dob"),
-                                gender = request.POST.get("gender"),
-                                race_ethnicity = request.POST.get("race_ethnicity"),
-                                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
-                                primary_language = request.POST.get("primary_language"),
-                                town = request.POST.get("town"),
+            personData = Persons(
+                is_victim = request.POST.get("is_victim"),
+                name = request.POST.get("name"),
+                dob = request.POST.get("dob"),
+                gender = request.POST.get("gender"),
+                race_ethnicity = request.POST.get("race_ethnicity"),
+                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
+                primary_language = request.POST.get("primary_language"),
+                town = request.POST.get("town"),
             )
             personData.save()
-        return HttpResponse('success')
+        return JsonResponse({'person_id' : personData.person_id})
 
 class VictimList(generics.ListCreateAPIView):
     queryset = Persons.objects.filter(is_victim=True)
@@ -122,22 +123,26 @@ class VictimList(generics.ListCreateAPIView):
         queryset = Persons.objects.filter(is_victim=True)
         serializer_class = PersonsSerializer(queryset, many=True)
 
+        return Response(serializer_class.data)
+
     def post(self, request, *args, **kwargs):
         get_person_id = request.POST.get("person_id")
         try:
-            personData = Persons.objects.get(outcome_id=get_outcome_id)
+            personData = Persons.objects.get(person_id=get_person_id)
         except:
-            personData = Persons(is_victim = True,
-                                name = request.POST.get("name"),
-                                dob = request.POST.get("dob"),
-                                gender = request.POST.get("gender"),
-                                race_ethnicity = request.POST.get("race_ethnicity"),
-                                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
-                                primary_language = request.POST.get("primary_language"),
-                                town = request.POST.get("town"),
+            personData = Persons(
+                is_victim = request.POST.get("is_victim"),
+                name = request.POST.get("name"),
+                dob = request.POST.get("dob"),
+                gender = request.POST.get("gender"),
+                race_ethnicity = request.POST.get("race_ethnicity"),
+                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
+                primary_language = request.POST.get("primary_language"),
+                town = request.POST.get("town"),
             )
             personData.save()
-        return HttpResponse('success')
+
+        return JsonResponse({'person_id' : personData.person_id})
 
 
 class CommunitiesList(generics.ListCreateAPIView):
