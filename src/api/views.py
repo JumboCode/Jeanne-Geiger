@@ -57,7 +57,7 @@ class CasesList(generics.ListCreateAPIView):
             name = request.POST.get("victim_id.name"),
             dob = request.POST.get("victim_id.dob"),
             gender = request.POST.get("victim_id.gender"),
-            # race_ethnicity = request.POST.get("victim_id.race_ethnicity"),
+            race_ethnicity = request.POST.get("victim_id.race_ethnicity"),
             age_at_case_acceptance = request.POST.get("victim_id.age_at_case_acceptance"),
             primary_language = request.POST.get("victim_id.primary_language"),
             town = request.POST.get("victim_id.town")
@@ -69,7 +69,7 @@ class CasesList(generics.ListCreateAPIView):
             name = request.POST.get("abuser_id.name"),
             dob = request.POST.get("abuser_id.dob"),
             gender = request.POST.get("abuser_id.gender"),
-            # race_ethnicity = request.POST.get("abuser_id.race_ethnicity"),
+            race_ethnicity = request.POST.get("abuser_id.race_ethnicity"),
             age_at_case_acceptance = request.POST.get("abuser_id.age_at_case_acceptance"),
             primary_language = request.POST.get("abuser_id.primary_language"),
             town = request.POST.get("abuser_id.town")
