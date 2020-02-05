@@ -36,9 +36,14 @@ class Outcomes(models.Model):
 		(3, 'Incarceration Followed by Probation')
 	)
 
+	BOOL = (
+		(True, 'Yes'),
+		(False, 'No')
+	)
+
 	outcome_id = models.AutoField(primary_key=True)
-	connection_to_domestic_violence_services = models.BooleanField(default=False)
-	engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=False)
+	connection_to_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
+	engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
 	charges_filed_at_or_after_case_acceptance = models.IntegerField(default=0, choices=CHARGES)
 	pretrial_hearing_outcome = models.IntegerField(default=0, choices=PRETRIAL_OUTCOME)
 	sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
@@ -80,6 +85,7 @@ class Cases(models.Model):
 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key = True)
+    community_name = models.CharField(max_length=100, default="")
     referral_sources = ArrayField(models.CharField(max_length=100))
 
 class Persons(models.Model):
