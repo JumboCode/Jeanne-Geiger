@@ -14,52 +14,6 @@ from rest_framework.views import APIView, Response
 from .serializers import *
 from .models import *
 
-
-# class OutcomeList(generics.ListCreateAPIView):
-#     queryset = Outcomes.objects.all()
-#     serializer_class = OutcomesSerializer
-    
-#     def get(self, request, *args, **kwargs):
-#         queryset = Outcomes.objects.all()
-#         serializer_class = OutcomesSerializer(queryset, many=True)
-
-#         return Response(serializer_class.data)
-    
-
-#     def post(self, request, *args, **kwargs):
-#         get_outcome_id = request.POST.get("outcome_id")
-#         try:
-#             outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
-#         except:
-#             outcomeData = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
-#                                 engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
-#                                 charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
-#                                 pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
-#                                 sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
-#                                 sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
-#             )
-#             outcomeData.save()
-#         return HttpResponse('success')
-
-class CommunitiesList(generics.ListCreateAPIView):
-    queryset = Communities.objects.all()
-    serializer_class = CommunitiesSerializer
-    
-    def get(self, request, *args, **kwargs):
-        queryset = Communities.objects.all()
-        serializer_class = CommunitiesSerializer(queryset, many=True)
-
-        return Response(serializer_class.data)
-
-    # def post(self, request, *args, **kwargs):
-    #     get_community_id = request.POST.get("community_id")
-    #     try:
-    #         communityData = Communities.objects.get(community_id=get_community_id)
-    #     except:
-    #         communityData = Communities(referral_sources = request.POST.get("referral_sources"))
-    #         communityData.save()
-    #     return HttpResponse('success')
-
 class CasesList(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
@@ -103,7 +57,7 @@ class CasesList(generics.ListCreateAPIView):
             name = request.POST.get("victim_id.name"),
             dob = request.POST.get("victim_id.dob"),
             gender = request.POST.get("victim_id.gender"),
-            race_ethnicity = request.POST.get("victim_id.race_ethnicity"),
+            # race_ethnicity = request.POST.get("victim_id.race_ethnicity"),
             age_at_case_acceptance = request.POST.get("victim_id.age_at_case_acceptance"),
             primary_language = request.POST.get("victim_id.primary_language"),
             town = request.POST.get("victim_id.town")
@@ -115,19 +69,13 @@ class CasesList(generics.ListCreateAPIView):
             name = request.POST.get("abuser_id.name"),
             dob = request.POST.get("abuser_id.dob"),
             gender = request.POST.get("abuser_id.gender"),
-            race_ethnicity = request.POST.get("abuser_id.race_ethnicity"),
+            # race_ethnicity = request.POST.get("abuser_id.race_ethnicity"),
             age_at_case_acceptance = request.POST.get("abuser_id.age_at_case_acceptance"),
             primary_language = request.POST.get("abuser_id.primary_language"),
             town = request.POST.get("abuser_id.town")
         )
         abuser.save()
 
-        # try:
-
-        #     risk_factors = RiskFactors.objects.get(risk_factors_id=request.POST.get("risk_factors_id.risk_factors_id"))
-        # except:
-        #     risk_factors = request.POST.get("risk_factors_id.violence_increased")
-        #     return HttpResponse(risk_factors)
         risk_factors = RiskFactors(
             violence_increased = request.POST.get("risk_factor_id.violence_increased"),
             attempted_leaving = request.POST.get("risk_factor_id.attempted_leaving"),
@@ -156,8 +104,8 @@ class CasesList(generics.ListCreateAPIView):
         casesData = Cases(
             outcome_id = outcome,
             community_id = community,
-            # victim_id = victim,
-            # abuser_id = abuser,
+            victim_id = victim,
+            abuser_id = abuser,
             risk_factor_id = risk_factors,
             relationship_type = request.POST.get("relationship_type"),
             relationship_len = request.POST.get("relationship_len"),
