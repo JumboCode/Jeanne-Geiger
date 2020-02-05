@@ -61,6 +61,13 @@ It will prompt you to pick /admin or /api and a route
 With both the frontend and backend server running simultaneously, the frontend will render and pull from 
 your local database. Use console.log for any debugging.
 
+### How to Drop Database
+- From terminal: 'psql postgres'
+- 'DROP DATABASE "dvhrtdb";'
+- 'CREATE DATABASE dvhrtdb;'
+- 'GRANT ALL PRIVILEGES ON DATABASE "dvhrtdb" to dvhrtdbadmin;'
+- '\q'
+
 ## Architecture Overview
 This project will be split up into three parts
 
