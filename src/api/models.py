@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import JSONField
 from datetime import datetime
+
+BOOL = (
+    (False, 'No'),
+    (True, 'Yes')
+)
 
 class Outcomes(models.Model):
 	CHARGES = (
@@ -36,57 +42,20 @@ class Outcomes(models.Model):
 		(3, 'Incarceration Followed by Probation')
 	)
 
-	BOOL = (
-		(True, 'Yes'),
-		(False, 'No')
-	)
-
 	outcome_id = models.AutoField(primary_key=True)
-	connection_to_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
+	connection_to_domestic_violence_services = models.IntegerField(default=0, choices=BOOL)
 	engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
 	charges_filed_at_or_after_case_acceptance = models.IntegerField(default=0, choices=CHARGES)
 	pretrial_hearing_outcome = models.IntegerField(default=0, choices=PRETRIAL_OUTCOME)
 	sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
 	sentencing_outcomes_sentence = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_SENTENCE)
 
-class Cases(models.Model):
-	RELATIONSHIP_TYPE = [
-		(0, 'undefined'),
-		(1, 'Current Spouse/Intimate Partner'),
-		(2, 'Former Spouse/Intimate Partner'),
-		(3, 'Current Dating Relationship'),
-		(4, 'Former Dating Relationship'),
-		(5, 'Other'),
-	]
-
-	RELATIONSHIP_LENGTH = [
-		(0, 'undefined'),
-		(1, '<1 year'),
-		(2, '1-5 years'),
-		(3, '6-9 years'),
-		(4, '10-14 years'),
-		(5, '15-19 years'),
-		(6, '20-29 years'),
-		(7, '30+ years'),
-	]
-
-	case_id = models.AutoField(primary_key=True)
-	community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
-	abuser_id = models.ForeignKey('Persons', related_name='abuser_id', on_delete=models.CASCADE)
-	victim_id = models.ForeignKey('Persons', related_name='victim_id', on_delete=models.CASCADE)
-	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
-	risk_factor_id = models.ForeignKey('RiskFactors', on_delete=models.CASCADE)
-	relationship_type = models.IntegerField(default=0, choices=RELATIONSHIP_TYPE)
-	relationship_len = models.IntegerField(default=0, choices=RELATIONSHIP_LENGTH)
-	minor_in_home = models.BooleanField(default=False)
-	referral_source = models.CharField(max_length=100, default="")
-	date_accepted = models.DateField(null=True, blank=True)
-
-
 class Communities(models.Model):
-    community_id = models.AutoField(primary_key = True)
+    community_id = models.AutoField(primary_key=True)
     community_name = models.CharField(max_length=100, default="")
-    referral_sources = ArrayField(models.CharField(max_length=100))
+    referral_sources1 = models.CharField(max_length=100, null=True, blank=True)
+    referral_sources2 = models.CharField(max_length=100, null=True, blank=True)
+    referral_sources3 = models.CharField(max_length=100, null=True, blank=True)
 
 class Persons(models.Model):
     gender_choices = (
