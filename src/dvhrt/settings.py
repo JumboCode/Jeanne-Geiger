@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import django_heroku
 from rest_framework.settings import api_settings
+from corsheaders.defaults import default_headers
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,8 +44,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
     'api',
-    'corsheaders',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'communityid',
+]
+
+CORS_ORIGIN_WHITELIST = (
+    'http//:localhost:8000/',
+    'http//:localhost:3000/',
+)
 
 ROOT_URLCONF = 'dvhrt.urls'
 

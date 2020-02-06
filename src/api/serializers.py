@@ -8,7 +8,7 @@ class OutcomesSerializer(serializers.ModelSerializer):
 
 class CasesSerializer(serializers.ModelSerializer):
 	class Meta:
-		model  = Cases
+		model = Cases
 		fields = ('__all__')
 
 class CommunitiesSerializer(serializers.ModelSerializer):

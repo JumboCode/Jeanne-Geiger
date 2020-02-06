@@ -4,8 +4,8 @@ from django.contrib.postgres.fields import JSONField
 from datetime import datetime
 
 BOOL = (
-    (0, 'No'),
-    (1, 'Yes')
+    (False, 'No'),
+    (True, 'Yes')
 )
 
 class Outcomes(models.Model):
@@ -44,7 +44,7 @@ class Outcomes(models.Model):
 
 	outcome_id = models.AutoField(primary_key=True)
 	connection_to_domestic_violence_services = models.IntegerField(default=0, choices=BOOL)
-	engagement_in_ongoing_domestic_violence_services = models.IntegerField(default=0, choices=BOOL)
+	engagement_in_ongoing_domestic_violence_services = models.BooleanField(default=1, choices=BOOL)
 	charges_filed_at_or_after_case_acceptance = models.IntegerField(default=0, choices=CHARGES)
 	pretrial_hearing_outcome = models.IntegerField(default=0, choices=PRETRIAL_OUTCOME)
 	sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
@@ -52,6 +52,7 @@ class Outcomes(models.Model):
 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
+    community_name = models.CharField(max_length=100, default="")
     referral_sources1 = models.CharField(max_length=100, null=True, blank=True)
     referral_sources2 = models.CharField(max_length=100, null=True, blank=True)
     referral_sources3 = models.CharField(max_length=100, null=True, blank=True)
@@ -115,60 +116,32 @@ class Persons(models.Model):
     age_at_case_acceptance = models.IntegerField(default=0, choices=age_at_case_acceptance_choices)
     primary_language = models.IntegerField(default=0, choices=primary_language_choices)
     town = models.CharField(max_length=100)
-    
+
 class RiskFactors(models.Model):
+    BOOL = (
+        (True, 'Yes'),
+        (False, 'No')
+    )
+
     risk_factor_id = models.AutoField(primary_key=True)
-    violence_increased = models.IntegerField(default=0, choices=BOOL)
-    attempted_leaving = models.IntegerField(default=0, choices=BOOL)
-    control_activites = models.IntegerField(default=0, choices=BOOL)
-    attempted_murder = models.IntegerField(default=0, choices=BOOL)
-    threatened_murder = models.IntegerField(default=0, choices=BOOL)
-    weapon_threat = models.IntegerField(default=0, choices=BOOL)
-    attempted_choke = models.IntegerField(default=0, choices=BOOL)
-    multiple_choked = models.IntegerField(default=0, choices=BOOL)
-    killing_capable = models.IntegerField(default=0, choices=BOOL)
-    owns_gun = models.IntegerField(default=0, choices=BOOL)
-    suicide_threat_or_attempt = models.IntegerField(default=0, choices=BOOL)
-    is_unemployed = models.IntegerField(default=0, choices=BOOL)
-    avoided_arrest = models.IntegerField(default=0, choices=BOOL)
-    unrelated_child = models.IntegerField(default=0, choices=BOOL)
-    uses_illegal_drugs = models.IntegerField(default=0, choices=BOOL)
-    is_alcoholic = models.IntegerField(default=0, choices=BOOL)
-    forced_sex = models.IntegerField(default=0, choices=BOOL)
-    constantly_jealous = models.IntegerField(default=0, choices=BOOL)
-    pregnant_abuse = models.IntegerField(default=0, choices=BOOL)
-    children_threatened = models.IntegerField(default=0, choices=BOOL)
-    has_spied = models.IntegerField(default=0, choices=BOOL)
-
-class Cases(models.Model):
-	RELATIONSHIP_TYPE = [
-		(0, 'undefined'),
-		(1, 'Current Spouse/Intimate Partner'),
-		(2, 'Former Spouse/Intimate Partner'),
-		(3, 'Current Dating Relationship'),
-		(4, 'Former Dating Relationship'),
-		(5, 'Other'),
-	]
-
-	RELATIONSHIP_LENGTH = [
-		(0, 'undefined'),
-		(1, '<1 year'),
-		(2, '1-5 years'),
-		(3, '6-9 years'),
-		(4, '10-14 years'),
-		(5, '15-19 years'),
-		(6, '20-29 years'),
-		(7, '30+ years'),
-	]
-  
-	case_id = models.AutoField(primary_key=True)
-	community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
-	abuser_id = models.ForeignKey('Persons', related_name='abuser_id', on_delete=models.CASCADE)
-	victim_id = models.ForeignKey('Persons', related_name='victim_id', on_delete=models.CASCADE)
-	outcome_id = models.ForeignKey('Outcomes', on_delete=models.CASCADE)
-	risk_factor_id = models.ForeignKey('RiskFactors', on_delete=models.CASCADE)
-	relationship_type = models.IntegerField(default=0, choices=RELATIONSHIP_TYPE)
-	relationship_len = models.IntegerField(default=0, choices=RELATIONSHIP_LENGTH)
-	minor_in_home = models.IntegerField(default=0, choices=BOOL)
-	referral_source = models.CharField(max_length=100, default="")
-	date_accepted = models.DateField(null=True, blank=True)
+    violence_increased = models.BooleanField(default=1, choices=BOOL)
+    attempted_leaving = models.BooleanField(default=1, choices=BOOL)
+    control_activites = models.BooleanField(default=1, choices=BOOL)
+    attempted_murder = models.BooleanField(default=1, choices=BOOL)
+    threatened_murder = models.BooleanField(default=1, choices=BOOL)
+    weapon_threat = models.BooleanField(default=1, choices=BOOL)
+    attempted_choke = models.BooleanField(default=1, choices=BOOL)
+    multiple_choked = models.BooleanField(default=1, choices=BOOL)
+    killing_capable = models.BooleanField(default=1, choices=BOOL)
+    owns_gun = models.BooleanField(default=1, choices=BOOL)
+    suicide_threat_or_attempt = models.BooleanField(default=1, choices=BOOL)
+    is_unemployed = models.BooleanField(default=1, choices=BOOL)
+    avoided_arrest = models.BooleanField(default=1, choices=BOOL)
+    unrelated_child = models.BooleanField(default=1, choices=BOOL)
+    uses_illegal_drugs = models.BooleanField(default=1, choices=BOOL)
+    is_alcoholic = models.BooleanField(default=1, choices=BOOL)
+    forced_sex = models.BooleanField(default=1, choices=BOOL)
+    constantly_jealous = models.BooleanField(default=1, choices=BOOL)
+    pregnant_abuse = models.BooleanField(default=1, choices=BOOL)
+    children_threatened = models.BooleanField(default=1, choices=BOOL)
+    has_spied = models.BooleanField(default=1, choices=BOOL)
