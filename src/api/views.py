@@ -39,9 +39,7 @@ class OutcomeList(generics.ListCreateAPIView):
                                 sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
             outcomeData.save()
-            resp = HttpResponse('success')
-            resp['outcome_id'] = outcomeData.outcome_id
-        return resp
+        return JsonResponse({'outcome_id' : outcomeData.outcome_id})
 
 class RiskFactorsList(generics.ListCreateAPIView):
     queryset = RiskFactors.objects.all()
@@ -82,7 +80,7 @@ class RiskFactorsList(generics.ListCreateAPIView):
                 has_spied = request.POST.get("has_spied"),
             )
             rfData.save()
-        return HttpResponse('success')
+        return JsonResponse({'risk_factor_id' : rfData.risk_factor_id})
 
 class AbuserList(generics.ListCreateAPIView):
     queryset = Persons.objects.filter(is_victim=False)
