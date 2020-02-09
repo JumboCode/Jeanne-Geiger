@@ -9,6 +9,7 @@ urlpatterns = [
     # ... the rest of the urlpatterns ...
     # must be catch-all for pushState to work
     path('cases/', views.CasesList.as_view(), name="cases"),
+    path('one-case/', views.OneCase.as_view(), name="one-case"),
     path('outcomes/', views.OutcomeList.as_view(), name="outcomes"),
     path('victims/', views.VictimList.as_view(), name="victims"),
     path('abusers/', views.AbuserList.as_view(), name="abusers"),
