@@ -51,12 +51,6 @@ class App extends Component {
       token: localStorage.getItem('token')
     }
   }
-  render () {
-    return (
-      <AppRouter />
-    )
-  }
-
 
   componentDidMount() {
     if (this.state.logged_in) {
