@@ -73,19 +73,29 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: '',
-          username: json.user.username,
-          token: json.token
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(json => {
+          if(json.token){
+            localStorage.setItem('token', json.token);
+            this.setState({
+              logged_in: true,
+              displayed_form: '',
+              username: json.user.username,
+              token: json.token
+            });
+          }else{
+            this.setState({
+              logged_in: false,
+              displayed_form: '',
+              username: "ERROR",
+              token: "ERROR"
+
+            });
+          }
         });
-      });
-  };
+};
 
   handle_signup = (e, data) => {
     e.preventDefault();
@@ -130,21 +140,28 @@ class App extends Component {
       default:
         form = null;
     }
-    return (
-      <div className="App">
-        <Nav
-          logged_in={this.state.logged_in}
-          display_form={this.display_form}
-          handle_logout={this.handle_logout}
-        />
-        {form}
-        <h3>
-          {this.state.logged_in
-            ? `Hello, ${this.state.username}! \n Here is your token:\n${this.state.token}`
-            : 'Please Log In'}
-        </h3>
-      </div>
-    );
+    if (this.state.username != "ERROR"){
+      return (
+        <div className="App">
+          <Nav
+            logged_in={this.state.logged_in}
+            display_form={this.display_form}
+            handle_logout={this.handle_logout}
+          />
+          {form}
+          <h3>
+            {this.state.logged_in
+              ? `Hello, ${this.state.username}! \n Here is your token:\n${this.state.token}`
+              : 'Please Log In'}
+          </h3>
+        </div>
+      );
+    }else{
+      return (
+        <h3>INCORRECT PW</h3>
+      );
+    }
+
   }
 }
 
