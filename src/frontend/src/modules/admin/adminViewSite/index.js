@@ -44,6 +44,7 @@ class adminViewSite extends React.Component {
   doSetState (tabName, data) {
     if (tabName === 'Victim') {
       this.setState({ victim_info: data })
+      console.log(this.state.victim_info)
     } else if (tabName === 'Abuser') {
       this.setState({ abuser_info: data })
     } else if (tabName === 'RiskFactors') {
