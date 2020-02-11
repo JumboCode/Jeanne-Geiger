@@ -14,18 +14,18 @@ class siteAddCase extends React.Component {
   constructor () {
     super()
     this.state = {
-      referral_sources: [],
+      referral_sources: []
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     fetch(COMMUNITY_LIST_URL
     ).then(results => {
       return results.json()
     }).then(data => {
       for (var i = 0; i < data.length; i++) {
         if (data[i].community_id === 1) {
-          this.setState({ referral_sources: data[i].referral_sources})
+          this.setState({ referral_sources: data[i].referral_sources })
         }
       }
     })
@@ -50,78 +50,77 @@ class siteAddCase extends React.Component {
     document.getElementById(tabName).style.display = 'block'
   }
 
-  doOutcomesPost() {
-    return 'connection_to_domestic_violence_services=' + document.getElementById('connection_to_dvs').value 
-         + '&engagement_in_ongoing_domestic_violence_services=' + document.getElementById('engagement_in_ongoing_dvs').value 
-         + '&charges_filed_at_or_after_case_acceptance=' + document.getElementById('charges').value 
-         + '&pretrial_hearing_outcome=' + document.getElementById('pretrial_outcome').value 
-         + '&sentencing_outcomes_disposition=' + document.getElementById('sentencing_outcomes_disposition').value 
-         + '&sentencing_outcomes_sentence=' + document.getElementById('sentencing_outcomes_sentence').value;
+  doOutcomesPost () {
+    return 'connection_to_domestic_violence_services=' + document.getElementById('connection_to_dvs').value +
+         '&engagement_in_ongoing_domestic_violence_services=' + document.getElementById('engagement_in_ongoing_dvs').value +
+         '&charges_filed_at_or_after_case_acceptance=' + document.getElementById('charges').value +
+         '&pretrial_hearing_outcome=' + document.getElementById('pretrial_outcome').value +
+         '&sentencing_outcomes_disposition=' + document.getElementById('sentencing_outcomes_disposition').value +
+         '&sentencing_outcomes_sentence=' + document.getElementById('sentencing_outcomes_sentence').value
   }
 
-  doRiskFactorsPost() {
-    return 'violence_increased=' + document.getElementById('violence_increased').value
-         + '&attempted_leaving=' + document.getElementById('attempted_leaving').value
-         + '&control_activites=' + document.getElementById('control_activites').value
-         + '&attempted_murder=' + document.getElementById('attempted_murder').value
-         + '&threatened_murder=' + document.getElementById('threatened_murder').value
-         + '&weapon_threat=' + document.getElementById('weapon_threat').value
-         + '&attempted_choke=' + document.getElementById('attempted_choke').value
-         + '&multiple_choked=' + document.getElementById('multiple_choked').value
-         + '&killing_capable=' + document.getElementById('killing_capable').value
-         + '&owns_gun=' + document.getElementById('owns_gun').value
-         + '&suicide_threat_or_attempt=' + document.getElementById('suicide_threat_or_attempt').value
-         + '&is_unemployed=' + document.getElementById('is_unemployed').value
-         + '&avoided_arrest=' + document.getElementById('avoided_arrest').value
-         + '&unrelated_child=' + document.getElementById('unrelated_child').value
-         + '&uses_illegal_drugs=' + document.getElementById('uses_illegal_drugs').value
-         + '&is_alcoholic=' + document.getElementById('is_alcoholic').value
-         + '&forced_sex=' + document.getElementById('forced_sex').value
-         + '&constantly_jealous=' + document.getElementById('constantly_jealous').value
-         + '&pregnant_abuse=' + document.getElementById('pregnant_abuse').value
-         + '&children_threatened=' + document.getElementById('children_threatened').value
-         + '&has_spied=' + document.getElementById('has_spied').value;
+  doRiskFactorsPost () {
+    return 'violence_increased=' + document.getElementById('violence_increased').value +
+         '&attempted_leaving=' + document.getElementById('attempted_leaving').value +
+         '&control_activites=' + document.getElementById('control_activites').value +
+         '&attempted_murder=' + document.getElementById('attempted_murder').value +
+         '&threatened_murder=' + document.getElementById('threatened_murder').value +
+         '&weapon_threat=' + document.getElementById('weapon_threat').value +
+         '&attempted_choke=' + document.getElementById('attempted_choke').value +
+         '&multiple_choked=' + document.getElementById('multiple_choked').value +
+         '&killing_capable=' + document.getElementById('killing_capable').value +
+         '&owns_gun=' + document.getElementById('owns_gun').value +
+         '&suicide_threat_or_attempt=' + document.getElementById('suicide_threat_or_attempt').value +
+         '&is_unemployed=' + document.getElementById('is_unemployed').value +
+         '&avoided_arrest=' + document.getElementById('avoided_arrest').value +
+         '&unrelated_child=' + document.getElementById('unrelated_child').value +
+         '&uses_illegal_drugs=' + document.getElementById('uses_illegal_drugs').value +
+         '&is_alcoholic=' + document.getElementById('is_alcoholic').value +
+         '&forced_sex=' + document.getElementById('forced_sex').value +
+         '&constantly_jealous=' + document.getElementById('constantly_jealous').value +
+         '&pregnant_abuse=' + document.getElementById('pregnant_abuse').value +
+         '&children_threatened=' + document.getElementById('children_threatened').value +
+         '&has_spied=' + document.getElementById('has_spied').value
   }
 
-  doAbuserOrVictimPost(post_url, isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
+  doAbuserOrVictimPost (isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
     var ethnicities = []
-    var selected_opts = document.getElementById(raceEthnicity).selectedOptions
-    for (var i = 0; i < selected_opts.length; i++){
-      ethnicities.push(parseInt(selected_opts[i].value))
+    var selectedOpts = document.getElementById(raceEthnicity).selectedOptions
+    for (var i = 0; i < selectedOpts.length; i++) {
+      ethnicities.push(parseInt(selectedOpts[i].value))
     }
     console.log(document.getElementById(raceEthnicity).selectedOptions)
     console.log(ethnicities)
-    return  name + '=' + document.getElementById(name).value 
-            + '&' + DOB + '='+ document.getElementById(DOB).value 
-            + '&' + gender +'=' + document.getElementById(gender).value
-            + '&' + raceEthnicity + '={' + ethnicities
-            + '}&' + ageAtCaseAcc + '=' + document.getElementById(ageAtCaseAcc).value
-            + '&' + primLang + '=' + document.getElementById(primLang).value
-            + '&' + town + '=' + document.getElementById(town).value;
+    return name + '=' + document.getElementById(name).value +
+            '&' + DOB + '=' + document.getElementById(DOB).value +
+            '&' + gender + '=' + document.getElementById(gender).value +
+            '&' + raceEthnicity + '={' + ethnicities +
+            '}&' + ageAtCaseAcc + '=' + document.getElementById(ageAtCaseAcc).value +
+            '&' + primLang + '=' + document.getElementById(primLang).value +
+            '&' + town + '=' + document.getElementById(town).value
   }
 
   doSubmit () {
-    var o_params  = this.doOutcomesPost()
-    var a_params  = this.doAbuserOrVictimPost(ABUSER_POST_URL, 'False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
-    var v_params  = this.doAbuserOrVictimPost(VICTIM_POST_URL, 'True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
-    var rf_params = this.doRiskFactorsPost()
+    var oParams = this.doOutcomesPost()
+    var aParams = this.doAbuserOrVictimPost(ABUSER_POST_URL, 'False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
+    var vParams = this.doAbuserOrVictimPost(VICTIM_POST_URL, 'True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
+    var rfParams = this.doRiskFactorsPost()
 
-    var case_info = o_params + '&' + a_params + '&' + v_params + '&' + rf_params + '&'
-                  + '&community_id=' + 1
-                  + '&relationship_type=' + document.getElementById('relationship_type').value
-                  + '&relationship_len='  + document.getElementById('relationship_len').value
-                  + '&minor_in_home='     + document.getElementById('minor_in_home').value
-                  + '&referral_source='   + document.getElementById('referral_source').value
-                  + '&date_accepted='     + document.getElementById('date_accepted').value; 
+    var caseInfo = oParams + '&' + aParams + '&' + vParams + '&' + rfParams + '&' +
+                  '&community_id=' + 1 +
+                  '&relationship_type=' + document.getElementById('relationship_type').value +
+                  '&relationship_len=' + document.getElementById('relationship_len').value +
+                  '&minor_in_home=' + document.getElementById('minor_in_home').value +
+                  '&referral_source=' + document.getElementById('referral_source').value +
+                  '&date_accepted=' + document.getElementById('date_accepted').value
 
-    var case_post_request = new XMLHttpRequest();
-    case_post_request.open("POST", CASE_POST_URL, true);
-    case_post_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    case_post_request.send(case_info);
-    case_post_request.onload = function () {
-      return JSON.parse(case_post_request.responseText).case_id
+    var casePostRequest = new XMLHttpRequest()
+    casePostRequest.open('POST', CASE_POST_URL, true)
+    casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    casePostRequest.send(caseInfo)
+    casePostRequest.onload = function () {
+      return JSON.parse(casePostRequest.responseText).case_id
     }
-
   }
 
   render () {
@@ -188,14 +187,14 @@ class siteAddCase extends React.Component {
             <DropdownObj id='v_primary_language' title='Primary Language' choices={[['English', 1], ['Spanish/Spanish Creole', 2], ['Arabic', 3], ['Cambodian/Khmer', 4], ['Chinese', 5], ['French/French Creole', 6], ['German', 7], ['Greek', 8], ['Italian', 9], ['Polish', 10], ['Portugese/Portugese Creole', 11], ['Russian', 12], ['Vietnamese', 13], ['Other/Unknown', 14]]}/>
             <TextInputObj title='Town' id='v_town'/>
             <DropdownObj id='relationship_type' title='Relationship Type' choices={[['Current Spouse/Intimate Partner', 1], ['Former Spouse/Intimate Partner', 2], ['Current Dating Relationship', 3], ['Former Dating Relationship', 4], ['Other', 5]]}/>
-            <DropdownObj id='relationship_len' title='Relationship Type' choices={[['<1 year', 1], ['1-5 years', 2], ['6-9 years', 3], ['10-14 years', 4], ['15-19 years', 5], ['20-29 years', 6], ['30+ years', 7]]}/>                
+            <DropdownObj id='relationship_len' title='Relationship Type' choices={[['<1 year', 1], ['1-5 years', 2], ['6-9 years', 3], ['10-14 years', 4], ['15-19 years', 5], ['20-29 years', 6], ['30+ years', 7]]}/>
             <DropdownObj id='minor_in_home' title='Minor in Home' choices={[['Yes', 'True'], ['No', 'False']]}/>
             <DropdownObj id='referral_source' title='Referral Source' choices={this.state.referral_sources.map(listitem => [listitem, listitem])}/>
             <DateInputObj title='Date of Case Acceptance' id='date_accepted'/>
           </div>
 
           <div>
-            <button type="submit" onClick={() => this.doSubmit()}  value="Submit">Submit</button>
+            <button type="submit" onClick={() => this.doSubmit()} value="Submit">Submit</button>
           </div>
         </form>
 
