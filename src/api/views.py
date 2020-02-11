@@ -59,6 +59,17 @@ class CommunitiesList(generics.ListCreateAPIView):
     #         communityData.save()
     #     return HttpResponse('success')
 
+class CasesByCommunity(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+
+    def get(self, request, *args, **kwargs):
+        test_community_id = 3        # hard-coded test_community_id for now        
+        cases = Cases.objects.filter(community_id=test_community_id)
+        serializer_class = CasesSerializer(cases, many=True)
+
+        return Response(serializer_class.data)
+
 class CasesList(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
