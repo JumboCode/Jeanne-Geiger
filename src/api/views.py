@@ -392,3 +392,37 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         sentencing_outcome_counts['Total Sentencing Outcomes Count'] = total_count
 
         return sentencing_outcome_counts
+
+class OutcomesUpdateView(generics.UpdateAPIView):
+    queryset = Outcomes.objects.all()
+    serializer_class = OutcomesSerializer
+    # def get_object(self, pk):
+    #     return TestModel.objects.get(pk=pk)
+    def get_object(self, request):
+        obj = Outcomes.objects.get(id=self.request.id)
+        return obj
+
+    def patch(self, request, *args, **kwargs):
+        obj = Outcomes.objects.get(id=kwargs['id'])
+        serializer_class = OutcomesSerializer(obj, data=request.data, partial=True)
+        if serializer_class.is_valid():
+            serializer_class.save()
+            return Response(serializer_class.data)
+        return JsonResponse(code=400, data="wrong parameters")
+
+
+
+    # def patch(self, request, *args, **kwargs):
+    #     if request.method.lower() in self.http_method_names:
+    #         handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+    #     else:
+    #         handler = self.http_method_not_allowed
+    #     self.request = request
+    #     self.args = args
+    #     self.kwargs = kwargs
+    #     return handler(request, *args, **kwargs)
+        
+    # def get(self, request, **kwargs):
+    #     obj = Outcomes.objects.get(id=self.request.id)
+    #     serializer_class = OutcomesSerializer(obj, many=False)
+    #     return Response(serializer_class.data)
