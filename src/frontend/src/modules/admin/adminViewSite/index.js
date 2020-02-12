@@ -48,7 +48,9 @@ class adminViewSite extends React.Component {
     fetch(
       url, {
         headers: {
-          communityid: this.state.community_id
+          communityid: this.state.community_id,
+          startdate: this.state.startdate,
+          enddate: this.state.enddate
         }
       }
     ).then(results => {

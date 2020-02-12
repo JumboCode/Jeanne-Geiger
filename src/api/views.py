@@ -14,6 +14,8 @@ from rest_framework.views import APIView, Response
 from .serializers import *
 from .models import *
 
+import datetime
+
 class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
@@ -456,8 +458,17 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
 class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
-        c_id = request.META.get('HTTP_COMMUNITYID')
-        case_set = Cases.objects.all().filter(community_id=c_id).select_related('risk_factor_id')
+        # hard coded for now, change to get parameters from request
+        c_id = 1                    # request.META.get('HTTP_COMMUNITYID')
+        start_date = "2020-01-01"   # request.META.get('HTTP_STARTDATE')
+        end_date = "2020-01-29"     # request.META.get('HTTP_ENDDATE')
+
+        # default: last 30 days 
+        if (start_date is None) or (end_date is None):
+            end_date = datetime.date.today()
+            start_date = end_date - datetime.timedelta(days=30)
+
+        case_set = Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]).select_related('risk_factor_id')
 
         rf_counts = {
             'attempted_murder' : 0,
