@@ -2,7 +2,7 @@ import React from 'react'
 
 const DropdownObj = (props) => {
   const elems = []
-  if (props.choices != undefined) { props.choices.map(elem => elems.push(<option value={elem[1]}>{elem[0]}</option>)) }
+  if (props.choices !== undefined) { props.choices.map(elem => elems.push(<option value={elem[1]}>{elem[0]}</option>)) }
 
   return (
     <p>{props.title}:
@@ -24,7 +24,7 @@ const DateInputObj = (props) => {
 
 const MultSelectionObj = (props) => {
   const elems = []
-  if (props.choices != undefined) { props.choices.map(elem => elems.push(<option value={elem[1]}>{elem[0]}</option>)) }
+  if (props.choices !== undefined) { props.choices.map(elem => elems.push(<option value={elem[1]}>{elem[0]}</option>)) }
 
   return (
     <p>{props.title}: <br/>

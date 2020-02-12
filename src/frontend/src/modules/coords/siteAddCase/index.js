@@ -72,11 +72,11 @@ class siteAddCase extends React.Component {
          '&has_spied=' + document.getElementById('has_spied').value
   }
 
-  doAbuserOrVictimPost (post_url, isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
+  doAbuserOrVictimPost (postUrl, isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
     var ethnicities = []
-    var selected_opts = document.getElementById(raceEthnicity).selectedOptions
-    for (var i = 0; i < selected_opts.length; i++) {
-      ethnicities.push(parseInt(selected_opts[i].value))
+    var selectedOpts = document.getElementById(raceEthnicity).selectedOptions
+    for (var i = 0; i < selectedOpts.length; i++) {
+      ethnicities.push(parseInt(selectedOpts[i].value))
     }
     console.log(document.getElementById(raceEthnicity).selectedOptions)
     console.log(ethnicities)
@@ -90,12 +90,12 @@ class siteAddCase extends React.Component {
   }
 
   doSubmit () {
-    var o_params = this.doOutcomesPost()
-    var a_params = this.doAbuserOrVictimPost(ABUSER_POST_URL, 'False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
-    var v_params = this.doAbuserOrVictimPost(VICTIM_POST_URL, 'True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
-    var rf_params = this.doRiskFactorsPost()
+    var oParams = this.doOutcomesPost()
+    var aParams = this.doAbuserOrVictimPost(ABUSER_POST_URL, 'False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
+    var vParams = this.doAbuserOrVictimPost(VICTIM_POST_URL, 'True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
+    var rfParams = this.doRiskFactorsPost()
 
-    var case_info = o_params + '&' + a_params + '&' + v_params + '&' + rf_params + '&' +
+    var caseInfo = oParams + '&' + aParams + '&' + vParams + '&' + rfParams + '&' +
                   '&community_id=' + 1 +
                   '&relationship_type=' + document.getElementById('relationship_type').value +
                   '&relationship_len=' + document.getElementById('relationship_len').value +
@@ -103,12 +103,12 @@ class siteAddCase extends React.Component {
                   '&referral_source=' + document.getElementById('referral_source').value +
                   '&date_accepted=' + document.getElementById('date_accepted').value
 
-    var case_post_request = new XMLHttpRequest()
-    case_post_request.open('POST', CASE_POST_URL, true)
-    case_post_request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    case_post_request.send(case_info)
-    case_post_request.onload = function () {
-      return JSON.parse(case_post_request.responseText).case_id
+    var casePostRequestt = new XMLHttpRequest()
+    casePostRequestt.open('POST', CASE_POST_URL, true)
+    casePostRequestt.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    casePostRequestt.send(caseInfo)
+    casePostRequestt.onload = function () {
+      return JSON.parse(casePostRequestt.responseText).case_id
     }
   }
 
