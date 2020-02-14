@@ -2,6 +2,15 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
+import { Tabs, Tab } from 'react-bootstrap-tabs'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import styled from 'styled-components'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import { Container } from '@material-ui/core'
 
 const OUTCOMES_POST_URL = 'http://127.0.0.1:8000/api/outcomes/'
 const RISK_FACTORS_POST_URL = 'http://127.0.0.1:8000/api/riskfactors/'
@@ -127,6 +136,27 @@ class siteAddCase extends React.Component {
     return (
       <div>
         <h1>Adding a Case to a Community</h1>
+        
+        {/* <Tabs onSelect={(index, label) => this.getTabInfo('VictimForm')}> */}
+        <Tabs>
+          <Tab label="Victim" class="tab" onClick={(index, label) => this.getTabInfo('VictimForm')}> 
+            <div class="container"> Victim Content
+            </div>
+          </Tab>
+          <Tab label="Abuser" onClick={(index, label) => this.getTabInfo('AbuserForm')}>
+            <div class="container"> Abuser Content
+            </div>
+          </Tab>
+          <Tab label="Risk Factors" onClick={(index, label) => this.getTabInfo('RiskFactorsForm')}>
+            <div class="container"> Risk Factors Content
+            </div>
+          </Tab>
+          <Tab label="Outcomes" onClick={(index, label) => this.getTabInfo('OutcomesForm')}>
+            <div class="container"> Outcomes Content
+            </div>
+          </Tab>
+        </Tabs>   
+
         <div id='addCaseTab'>
           <button className='tablinks' onClick={() => this.getTabInfo('VictimForm')}>Victim</button>
           <button className='tablinks' onClick={() => this.getTabInfo('AbuserForm')}>Abuser</button>
@@ -197,7 +227,6 @@ class siteAddCase extends React.Component {
             <button type="submit" onClick={() => this.doSubmit()} value="Submit">Submit</button>
           </div>
         </form>
-
       </div>
     )
   }
