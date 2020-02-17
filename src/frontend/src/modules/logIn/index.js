@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import {BackButton} from '../../Comps/Back'
 /*
 class SignIn extends React.Component {
     constructor(prop) {
@@ -96,6 +97,7 @@ class Login extends React.Component {
         <a href="/site">site</a>
         <a href="/acc-recovery">Account recovery</a>
         <h1>{this.props.type}</h1>
+        <BackButton/>
       </div>
     )
   }
