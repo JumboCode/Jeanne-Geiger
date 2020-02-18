@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import './styles.css';
-import { render } from 'react-dom';
-import { useTable, useSortBy } from 'react-table';
-import Table from 'react-bootstrap/Table';
+import React, { Component } from 'react'
+import './styles.css'
+import { render } from 'react-dom'
+import { useTable, useSortBy } from 'react-table'
+import Table from 'react-bootstrap/Table'
 
-const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/';
+const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
 
 // source: https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/sorting
-function Table({ columns, data }) {
+function MyTable ({ columns, data }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -20,11 +20,11 @@ function Table({ columns, data }) {
       data
     },
     useSortBy
-  );
+  )
 
   // We don't want to render all 2000 rows for this example, so cap
   // it at 20 for this use case
-  const firstPageRows = rows.slice(0, 20);
+  const firstPageRows = rows.slice(0, 20)
 
   return (
     <>
@@ -55,28 +55,28 @@ function Table({ columns, data }) {
         </thead>
         <tbody {...getTableBodyProps()}>
           {firstPageRows.map((row, i) => {
-            prepareRow(row);
+            prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  );
+                  )
                 })}
               </tr>
-            );
+            )
           })}
         </tbody>
       </Table>
       <br />
       <div>Showing the first 20 results of {rows.length} rows</div>
     </>
-  );
+  )
 }
 
 class siteOverview extends React.Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       cases: [],
       victim_columns: [
@@ -326,38 +326,38 @@ class siteOverview extends React.Component {
           ]
         }
       ]
-    };
+    }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     fetch(CASES_URL)
       .then(results => {
-        return results.json();
+        return results.json()
       })
-      .then(data => this.setState({ cases: data }));
+      .then(data => this.setState({ cases: data }))
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h1>Site overview</h1>
         <a href="/site/case-view">case detail view</a>
         <a href="/site/add-case"> add a case</a>
         <p>Victim Tab</p>
-        <Table columns={this.state.victim_columns} data={this.state.cases} />
+        <MyTable columns={this.state.victim_columns} data={this.state.cases} />
         <p>Abuser Tab</p>
-        <Table columns={this.state.abuser_columns} data={this.state.cases} />
+        <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
         <p>Risk Factors Tab</p>
         {console.log(this.state.cases)}
-        <Table
+        <MyTable
           columns={this.state.risk_factor_columns}
           data={this.state.cases}
         />
         <p>Outcomes Tab</p>
-        <Table columns={this.state.outcomes_columns} data={this.state.cases} />
+        <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
       </div>
-    );
+    )
   }
 }
 
-export default siteOverview;
+export default siteOverview

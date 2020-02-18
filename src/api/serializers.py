@@ -21,21 +21,21 @@ class CommunitiesSerializer(serializers.ModelSerializer):
 class RaceEthnicityField(serializers.Field):
 	def to_representation(self, value):
 		if value == 0:
-			return 'undefined'
+			return 'undefined, '
 		elif value == 1:
-			return 'American Indian/Alaska Native'
+			return 'American Indian/Alaska Native, '
 		elif value == 2:
-			return 'Asian'
+			return 'Asian, '
 		elif value == 3:
-			return 'Black/African American'
+			return 'Black/African American, '
 		elif value == 4:
-			return 'Hispanic or Latino'
+			return 'Hispanic or Latino, '
 		elif value == 5:
-			return 'Native Hawaiian/Pacific Islander'
+			return 'Native Hawaiian/Pacific Islander, '
 		elif value == 6:
-			return 'White'
+			return 'White, '
 		else: 
-			return 'Other/Unknown'
+			return 'Other/Unknown, '
 
 class PersonsSerializer(serializers.ModelSerializer):
 	gender = serializers.CharField(source='get_gender_display')
