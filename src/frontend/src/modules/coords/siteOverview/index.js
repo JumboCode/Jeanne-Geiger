@@ -6,6 +6,7 @@ import { useTable, useSortBy } from 'react-table'
 
 const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
 
+// source: https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/sorting
 function Table({ columns, data }) {
   const {
     getTableProps,
@@ -255,6 +256,9 @@ class siteOverview extends React.Component {
             },
       ],
       outcomes_columns: [
+        {
+          Header: 'Abuser Information',
+          columns: [
             {
               Header: 'Date Created',
               accessor: 'date_accepted',
@@ -267,6 +271,11 @@ class siteOverview extends React.Component {
               Header: 'Abuser Name',
               accessor: 'abuser_id.name',
             },
+          ]
+        },
+        {
+          Header: 'Victim Outcomes',
+          columns: [
             {
               Header: 'Connection to Domestic Violence Services',
               accessor: 'outcome_id.connection_to_domestic_violence_services',
@@ -275,14 +284,29 @@ class siteOverview extends React.Component {
               Header: 'Engagement in Ongoing Domestic Violence Services',
               accessor: 'outcome_id.engagement_in_ongoing_domestic_violence_services',
             },
-            {
+          ]
+        },
+        {
+          Header: 'CJ Intervention',
+          columns: [
+          {
               Header: 'Charges Filed At or After Case Acceptance',
               accessor: 'outcome_id.charges_filed_at_or_after_case_acceptance',
             },
+          ]
+        },
+        {
+          Header: ' ', 
+          columns: [
             {
               Header: 'Pretrial Hearing Outcome',
               accessor: 'outcome_id.pretrial_hearing_outcome',
             },
+          ]
+        },
+        {
+          Header: 'Sentencing Outcomes',
+          columns: [
             {
               Header: 'Sentencing Outcomes Disposition',
               accessor: 'outcome_id.sentencing_outcomes_disposition',
@@ -291,7 +315,9 @@ class siteOverview extends React.Component {
               Header: 'Sentencing Outcomes Sentence',
               accessor: 'outcome_id.sentencing_outcomes_sentence',
             },
-      ]
+          ]
+        },            
+      ],
     }
   }
 
