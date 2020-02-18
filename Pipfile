@@ -10,6 +10,7 @@ pylint = "*"
 django = "*"
 django_heroku = "*"
 djangorestframework = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.7"
