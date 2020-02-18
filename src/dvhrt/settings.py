@@ -70,11 +70,11 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8000/',
-    'http://localhost:3000/',
+    'http://localhost:8000',
+    'http://localhost:3000',
     'http://localhost:8080',
-    'https://localhost:8000/',
-    'https://localhost:3000/',
+    'https://localhost:8000',
+    'https://localhost:3000',
     'https://localhost:8080',
 )
 
