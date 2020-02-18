@@ -18,9 +18,28 @@ class CommunitiesSerializer(serializers.ModelSerializer):
 		model  = Communities
 		fields = ('__all__')
 
+class RaceEthnicityField(serializers.Field):
+	def to_representation(self, value):
+		if value == 0:
+			return 'undefined'
+		elif value == 1:
+			return 'American Indian/Alaska Native'
+		elif value == 2:
+			return 'Asian'
+		elif value == 3:
+			return 'Black/African American'
+		elif value == 4:
+			return 'Hispanic or Latino'
+		elif value == 5:
+			return 'Native Hawaiian/Pacific Islander'
+		elif value == 6:
+			return 'White'
+		else: 
+			return 'Other/Unknown'
+
 class PersonsSerializer(serializers.ModelSerializer):
 	gender = serializers.CharField(source='get_gender_display')
-	race_ethnicity = serializers.ListField(child=serializers.CharField())
+	race_ethnicity = serializers.ListField(child=RaceEthnicityField())
 	age_at_case_acceptance = serializers.CharField(source='get_age_at_case_acceptance_display')
 	primary_language = serializers.CharField(source='get_primary_language_display')
 
