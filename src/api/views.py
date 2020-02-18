@@ -64,7 +64,7 @@ class CasesByCommunity(generics.ListCreateAPIView):
     serializer_class = CasesSerializer
 
     def get(self, request, *args, **kwargs):
-        test_community_id = 3        # hard-coded test_community_id for now        
+        test_community_id = 1        # hard-coded test_community_id for now        
         cases = Cases.objects.filter(community_id=test_community_id)
         serializer_class = CasesSerializer(cases, many=True)
 
