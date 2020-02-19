@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'] # for localhost running of the server
 # Application definition
 
 INSTALLED_APPS = [
+    'api',
     'dvhrt',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
-    'api',
     'rest_framework',
     'corsheaders',
 ]
