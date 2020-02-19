@@ -303,16 +303,17 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         victim_info = {}
-        victim_info.update(self.get_vicitm_genders(request))
-        victim_info.update(self.get_victim_ethnicities(request))
-        victim_info.update(self.get_domestic_violence_service_utilization(request))
+        victim_info['genders'] = self.get_victim_genders(request)
+        victim_info['ethnicities'] = self.get_victim_ethnicities(request)
+        victim_info['get_domestic_violence_service_utilization'] = self.get_domestic_violence_service_utilization(request)
 
         return JsonResponse(victim_info)
 
-    def get_vicitm_genders(self, request):
+    def get_victim_genders(self, request):
         c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         genders_to_counts = {
+            'Unknown': 0,
             'Female': 0,
             'Male': 0,
             'Other': 0,
@@ -354,13 +355,14 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
                 total_count += 1
 
         counts = {
+            'Unknown': ethnicities_to_counts[0],
             'American Indian/Alaska Native': ethnicities_to_counts[1],
             'Asian': ethnicities_to_counts[2],
             'Black/African American': ethnicities_to_counts[3],
             'Hispanic or Latino': ethnicities_to_counts[4],
             'Native Hawaiian/Pacific Islander': ethnicities_to_counts[5],
             'White': ethnicities_to_counts[6],
-            'Other/Unknown': ethnicities_to_counts[0] + ethnicities_to_counts[7],
+            'Other': ethnicities_to_counts[7],
             'Total Ethnicity Count': total_count
         }
 
@@ -388,10 +390,8 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         abuser_info = {}
-        genders = self.get_abuser_genders(request)
-        ethnicities = self.get_abuser_ethnicities(request)
-        abuser_info.update(genders)
-        abuser_info.update(ethnicities)
+        abuser_info['genders'] = self.get_abuser_genders(request)
+        abuser_info['ethnicities'] = self.get_abuser_ethnicities(request)
 
         return JsonResponse(abuser_info)
 
@@ -399,6 +399,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
         c_id = request.META.get('HTTP_COMMUNITYID')
         case_set = self.query_set.filter(community_id=c_id)
         genders_to_counts = {
+            'Unknown': 0,
             'Female': 0,
             'Male': 0,
             'Other': 0,
@@ -441,13 +442,14 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
                 total_count += 1
 
         counts = {
+            'Unknown': ethnicities_to_counts[0],
             'American Indian/Alaska Native': ethnicities_to_counts[1],
             'Asian': ethnicities_to_counts[2],
             'Black/African American': ethnicities_to_counts[3],
             'Hispanic or Latino': ethnicities_to_counts[4],
             'Native Hawaiian/Pacific Islander': ethnicities_to_counts[5],
             'White': ethnicities_to_counts[6],
-            'Other/Unknown': ethnicities_to_counts[0] + ethnicities_to_counts[7],
+            'Other': ethnicities_to_counts[7],
             "Total Count" : total_count
         }
 
@@ -485,10 +487,10 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         outcomes_info = {}
-        outcomes_info.update(self.get_charges_filed(request))
-        outcomes_info.update(self.get_pretrial_hearing_outcomes(request))
-        outcomes_info.update(self.get_disposition_outcomes(request))
-        outcomes_info.update(self.get_sentencing_outcomes(request))
+        outcomes_info['charges_filed'] = self.get_charges_filed(request)
+        outcomes_info['pretrial_hearing_outcomes'] = self.get_pretrial_hearing_outcomes(request)
+        outcomes_info['disposition_outcomes'] = self.get_disposition_outcomes(request)
+        outcomes_info['sentencing_outcomes'] = self.get_sentencing_outcomes(request)
 
         return JsonResponse(outcomes_info)
 
@@ -499,6 +501,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         total_count = 0
 
         outcome_counts = {
+            'Unknown'                             : 0,
             'Police Response: Charges Filed'      : 0,
             'Police Response: No Charges Filed'   : 0,
             'No Police Response: Not Applicable'  : 0
@@ -520,7 +523,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         total_count = 0
 
         outcome_counts = {
-            'Undefined/Unknown'                  : 0,
+            'Unknown'                            : 0,
             'Released on Bail'                   : 0,
             'Released on Personal Recognizance'  : 0,
             'Detained/Pretrial Detention Statute': 0,
@@ -535,7 +538,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
             try:
                 outcome_counts[p_h_o] += 1
             except KeyError:
-                outcome_counts['Undefined/Unknown'] += 1
+                outcome_counts['Unknown'] += 1
             total_count += 1
 
         outcome_counts['Total Pretrial Hearing Outcomes Count'] = total_count
@@ -548,12 +551,13 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         total_count = 0
 
         disposition_outcome_counts = {
-            'Undefined/Unknown'     : 0,
+            'Unknown'               : 0,
             'Charges Dismissed'     : 0,
             'Not Guilty'            : 0,
             'Deferred Adjudication' : 0,
             'Plead/Found Guilty'    : 0,
             'Pending Disposition'   : 0,
+            'Other'                 : 0
         }
 
         for case in case_set:
@@ -562,7 +566,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
             try:
                 disposition_outcome_counts[d_o] += 1
             except KeyError:
-                disposition_outcome_counts['Undefined/Unknown'] += 1
+                disposition_outcome_counts['Unknown'] += 1
             total_count += 1
 
         disposition_outcome_counts['Total Disposition Outcomes Count'] = total_count
@@ -575,10 +579,11 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         total_count = 0
 
         sentencing_outcome_counts = {
-            'Undefined/Unknown'                   : 0,
+            'Unknown'                             : 0,
             'Incarceration'                       : 0,
             'Probation'                           : 0,
             'Incarceration Followed by Probation' : 0,
+            'Other'                               : 0
         }
 
         for case in case_set:
@@ -587,7 +592,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
             try:
                 sentencing_outcome_counts[s_o] += 1
             except KeyError:
-                sentencing_outcome_counts['Undefined/Unknown'] += 1
+                sentencing_outcome_counts['Unknown'] += 1
             total_count += 1
 
         sentencing_outcome_counts['Total Sentencing Outcomes Count'] = total_count
