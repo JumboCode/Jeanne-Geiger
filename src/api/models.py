@@ -10,14 +10,14 @@ BOOL = (
 
 class Outcomes(models.Model):
 	CHARGES = (
-		(0, 'undefined'),
+		(0, 'Unknown'),
 		(1, 'Police Response: Charges Filed'),
 		(2, 'Police Response: No Charges Filed'),
 		(3, 'No Police Response: Not Applicable')
 	)
 
 	PRETRIAL_OUTCOME = (
-		(0, 'undefined'),
+		(0, 'Unknown'),
 		(1, 'Released on Bail'),
 		(2, 'Released on Personal Recognizance'),
 		(3, 'Detained/Pretrial Detention Statute'),
@@ -27,19 +27,21 @@ class Outcomes(models.Model):
 	)
 
 	SENTENCING_OUTCOMES_DISPOSITION = (
-		(0, 'undefined'),
+		(0, 'Unknown'),
 		(1, 'Charges Dismissed'),
 		(2, 'Not Guilty'),
 		(3, 'Deferred Adjudication'),
 		(4, 'Plead/Found Guilty'),
-		(5, 'Pending Disposition')
+		(5, 'Pending Disposition'),
+        (6, 'Other')
 	)
 
 	SENTENCING_OUTCOMES_SENTENCE = (
-		(0, 'undefined'),
+		(0, 'Unknown'),
 		(1, 'Incarceration'),
 		(2, 'Probation'),
-		(3, 'Incarceration Followed by Probation')
+		(3, 'Incarceration Followed by Probation'),
+        (4, 'Other')
 	)
 
 	outcome_id = models.AutoField(primary_key=True)
@@ -52,7 +54,7 @@ class Outcomes(models.Model):
 
 class Cases(models.Model):
     RELATIONSHIP_TYPE = [
-        (0, 'undefined'),
+        (0, 'Unknown'),
         (1, 'Current Spouse/Intimate Partner'),
         (2, 'Former Spouse/Intimate Partner'),
         (3, 'Current Dating Relationship'),
@@ -61,7 +63,7 @@ class Cases(models.Model):
     ]
 
     RELATIONSHIP_LENGTH = [
-        (0, 'undefined'),
+        (0, 'Unknown'),
         (1, '<1 year'),
         (2, '1-5 years'),
         (3, '6-9 years'),
@@ -93,25 +95,25 @@ class Communities(models.Model):
 
 class Persons(models.Model):
     gender_choices = (
-        (0, 'undefined'),
+        (0, 'Unknown'),
         (1, 'Female'),
         (2, 'Male'),
         (3, 'Other'),
     )
 
     race_ethnicity_choices = (
-        (0, 'undefined'),
+        (0, 'Unknown'),
         (1, 'American Indian/Alaska Native'),
         (2, 'Asian'),
         (3, 'Black/African American'),
         (4, 'Hispanic or Latino'),
         (5, 'Native Hawaiian/Pacific Islander'),
         (6, 'White'),
-        (7, 'Other/Unknown'),
+        (7, 'Other'),
     )
 
     age_at_case_acceptance_choices = (
-        (0, 'undefined'),
+        (0, 'Unknown'),
         (1, '13 or younger'),
         (2, '14-17'),
         (3, '18-19'),
@@ -119,12 +121,11 @@ class Persons(models.Model):
         (5, '30-39'),
         (6, '40-49'),
         (7, '50-59'),
-        (8, '60+'),
-        (9, 'Unknown'),
+        (8, '60+')
     )
 
     primary_language_choices = (
-        (0, 'undefined'),
+        (0, 'Unknown'),
         (1, 'English'),
         (2, 'Spanish/Spanish Creole'),
         (3, 'Arabic'),
@@ -138,7 +139,7 @@ class Persons(models.Model):
         (11, 'Portugese/Portugese Creole'),
         (12, 'Russian'),
         (13, 'Vietnamese'),
-        (14, 'Other/Unknown'),
+        (14, 'Other')
     )
 
     person_id = models.AutoField(primary_key = True)
@@ -152,11 +153,6 @@ class Persons(models.Model):
     town = models.CharField(max_length=100)
 
 class RiskFactors(models.Model):
-    BOOL = (
-        (True, 'Yes'),
-        (False, 'No')
-    )
-
     risk_factor_id = models.AutoField(primary_key=True)
     violence_increased = models.BooleanField(default=1, choices=BOOL)
     attempted_leaving = models.BooleanField(default=1, choices=BOOL)
