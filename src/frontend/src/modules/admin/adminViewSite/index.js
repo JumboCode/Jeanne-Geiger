@@ -3,6 +3,7 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
+import NavigationBar from '../../navbar/NavigationBar.js'
 
 const Wrapper = styled.div`
   display: grid;
@@ -100,6 +101,7 @@ class adminViewSite extends React.Component {
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>Viewing a site</h1>
         <div id='community_list'>
           <ul className="community_list">

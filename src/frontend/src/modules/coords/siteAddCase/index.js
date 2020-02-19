@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
+import NavigationBar from '../../navbar/NavigationBar.js'
 
 const OUTCOMES_POST_URL = 'http://127.0.0.1:8000/api/outcomes/'
 const RISK_FACTORS_POST_URL = 'http://127.0.0.1:8000/api/riskfactors/'
@@ -126,6 +127,7 @@ class siteAddCase extends React.Component {
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>Adding a Case to a Community</h1>
         <div id='addCaseTab'>
           <button className='tablinks' onClick={() => this.getTabInfo('VictimForm')}>Victim</button>

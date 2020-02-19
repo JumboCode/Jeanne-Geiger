@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import NavigationBar from '../navbar/NavigationBar.js'
 /*
 class SignIn extends React.Component {
     constructor(prop) {
@@ -91,6 +92,7 @@ class Login extends React.Component {
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>hello</h1>
         <a href="/admin">admin</a>
         <a href="/site">site</a>
