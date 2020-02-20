@@ -1,7 +1,9 @@
 import { Route, BrowserRouter, Switch, Link} from 'react-router-dom';
-import React from 'react'
+import React from 'react';
+import App from './App.js';
 
 function Authenticate (props) {
+  var username;
   var token = localStorage.getItem('token');
   console.log("LOCAL STORAGE", localStorage.getItem('token'));
   fetch('http://localhost:8000/api/current_user/', {
@@ -10,9 +12,27 @@ function Authenticate (props) {
     }
   }).then(res => res.json())
   .then(json => {
-    console.log("APP auth ", json);
+    username = json.username;
+
+    if (props.path == '/site' || props.path == '/site' ){
+      if (username == 'nate'){
+        return true;
+      }
+      //If user community person
+    }else{
+      if (username == 'nate'){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    return true;
   });
-  /*
+
+
+
+
+  };    /*
     .then(function(response){
       console.log("AFTER")
       if (response.status == 401){
@@ -27,15 +47,17 @@ function Authenticate (props) {
         console.log("JSON ", response);
     });
     */
-  return true;
-}
 
 const PrivateRoute = (props) => {
-  if (Authenticate(props.route)){
+  if (Authenticate(props.path)){
     console.log("AUTHENTICATION");
     return (
     <Route exact path= {props.path} component = {props.component} type = {props.type}/>
     );
+  }else{
+    return (
+      <App />
+      );
   }
 }
 
