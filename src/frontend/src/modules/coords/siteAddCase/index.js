@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import { Container } from '@material-ui/core'
+// import { Container } from '@material-ui/core'
 
 const OUTCOMES_POST_URL = 'http://127.0.0.1:8000/api/outcomes/'
 const RISK_FACTORS_POST_URL = 'http://127.0.0.1:8000/api/riskfactors/'
@@ -18,6 +18,12 @@ const ABUSER_POST_URL = 'http://127.0.0.1:8000/api/abusers/'
 const VICTIM_POST_URL = 'http://127.0.0.1:8000/api/victims/'
 const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
+function showTab(index,obj){
+  if (index == 0) obj.getTabInfo('VictimForm');
+  else if (index == 1) obj.getTabInfo('AbuserForm');
+  else if (index == 2) obj.getTabInfo('RiskFactorsForm');
+  else if (index == 3) obj.getTabInfo('OutcomesForm');
+}
 
 class siteAddCase extends React.Component {
   constructor () {
@@ -132,37 +138,36 @@ class siteAddCase extends React.Component {
     }
   }
 
+   showTab(index,obj){
+    if (index == 0) obj.getTabInfo('VictimForm');
+    else if (index == 1) obj.getTabInfo('AbuserForm');
+    else if (index == 2) obj.getTabInfo('RiskFactorsForm');
+    else if (index == 3) obj.getTabInfo('OutcomesForm');
+  }
+
   render () {
     return (
       <div>
         <h1>Adding a Case to a Community</h1>
         
-        {/* <Tabs onSelect={(index, label) => this.getTabInfo('VictimForm')}> */}
-        <Tabs>
-          <Tab label="Victim" class="tab" onClick={(index, label) => this.getTabInfo('VictimForm')}> 
+        <Tabs selectedIndex={1} onSelect={(index, label) => showTab(index,this)}>
+          <Tab label="Victim"> 
             <div class="container"> Victim Content
             </div>
           </Tab>
-          <Tab label="Abuser" onClick={(index, label) => this.getTabInfo('AbuserForm')}>
+          <Tab label="Abuser">
             <div class="container"> Abuser Content
             </div>
           </Tab>
-          <Tab label="Risk Factors" onClick={(index, label) => this.getTabInfo('RiskFactorsForm')}>
+          <Tab label="Risk Factors" >
             <div class="container"> Risk Factors Content
             </div>
           </Tab>
-          <Tab label="Outcomes" onClick={(index, label) => this.getTabInfo('OutcomesForm')}>
+          <Tab label="Outcomes">
             <div class="container"> Outcomes Content
             </div>
           </Tab>
         </Tabs>   
-
-        <div id='addCaseTab'>
-          <button className='tablinks' onClick={() => this.getTabInfo('VictimForm')}>Victim</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('AbuserForm')}>Abuser</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('RiskFactorsForm')}>Risk Factors</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('OutcomesForm')}>Outcomes</button>
-        </div>
 
         <form id='CasePost'>
           <div id='OutcomesForm' className='tabcontent'>
@@ -199,6 +204,94 @@ class siteAddCase extends React.Component {
           </div>
 
           <div id='AbuserForm' className='tabcontent'>
+            <div class = "container">
+              <Form>
+                <Form.Row>
+                  <Col>
+                    <Form.Group controlId='a_name' id='a_name'>
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control placeholder="Enter name" />
+                    </Form.Group>
+
+                    <Form.Group controlId='a_gender' id='a_gender'>
+                      <Form.Label>Gender</Form.Label>
+                      <Form.Control as="select">
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Other</option>
+                        {/* choices={[['Female', 1], ['Male', 2], ['Other', 3]]} */}
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId= 'a_dob' id='a_dob'>
+                      <Form.Label>Date of birth</Form.Label>
+                      <Form.Control placeholder="Enter date of birth" />
+                    </Form.Group>
+
+                    <Form.Group controlId='a_age_at_case_acceptance' id='a_age_at_case_acceptance'>
+                      <Form.Label>Age at Case Acceptance</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>13 or younger</option>
+                        <option>14-17</option>
+                        <option>18-19</option>
+                        <option>20-29</option>
+                        <option>30-39</option>
+                        <option>40-49</option>
+                        <option>50-59</option>
+                        <option>60+</option>
+                        <option>Unknown</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="exampleForm.ControlSelect2">
+                      <Form.Label>Race/ethnicity</Form.Label>
+                      {['checkbox'].map(type => (<div key={`default-${type}`} className="mb-3">
+                        <Form.Check id={`a_race_ethnicity`} label={`American India/Alaska Native`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`Asian`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`Black/African American`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`Hispanic or Latino`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`Hispanic or Latino`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`Native Hawaiian/Pacific Islander`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`White`}/>
+                        <Form.Check id={`a_race_ethnicity`} label={`Other/Unknown`}/>
+                      </div>
+                      ))}
+                    </Form.Group>
+                  </Col>
+
+                  <Col>
+                  <Form.Group controlId='a_primary_language' id='a_primary_language'>
+                      <Form.Label>Primary Language</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>English</option>
+                        <option>Spanish/Spanish Creole</option>
+                        <option>Arabic</option>
+                        <option>Cambodian/Khmer</option>
+                        <option>Chinese</option>
+                        <option>French/French Creole</option>
+                        <option>German</option>
+                        <option>Greek</option>
+                        <option>Italian</option>
+                        <option>Polish</option>
+                        <option>Portuguese/Portuguese Creole</option>
+                        <option>Russian</option>
+                        <option>Vietnamese</option>
+                        <option>Unknown</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='a_town' id='a_town'>
+                      <Form.Label>Town</Form.Label>
+                      <Form.Control placeholder="Enter town" />
+                    </Form.Group>
+
+                  </Col>
+                </Form.Row>
+              </Form>
+              </div>
+
             <TextInputObj title='Name' id='a_name'/>
             <DateInputObj title='Date of Birth' id='a_dob'/>
             <DropdownObj id='a_gender' title='Gender' choices={[['Female', 1], ['Male', 2], ['Other', 3]]}/>
@@ -209,6 +302,138 @@ class siteAddCase extends React.Component {
           </div>
 
           <div id='VictimForm' className='tabcontent'>
+          <div class = "container">
+              <Form>
+                <Form.Row>
+                  <Col>
+                    <Form.Group controlId='v_name' id='v_name'>
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control placeholder="Enter name" />
+                    </Form.Group>
+
+                    <Form.Group controlId='v_gender' id='v_gender'>
+                      <Form.Label>Gender</Form.Label>
+                      <Form.Control as="select">
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Other</option>
+                        {/* choices={[['Female', 1], ['Male', 2], ['Other', 3]]} */}
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId= 'v_dob' id='v_dob'>
+                      <Form.Label>Date of birth</Form.Label>
+                      <Form.Control placeholder="Enter date of birth" />
+                    </Form.Group>
+
+                    <Form.Group controlId='v_age_at_case_acceptance' id='v_age_at_case_acceptance'>
+                      <Form.Label>Age at Case Acceptance</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>13 or younger</option>
+                        <option>14-17</option>
+                        <option>18-19</option>
+                        <option>20-29</option>
+                        <option>30-39</option>
+                        <option>40-49</option>
+                        <option>50-59</option>
+                        <option>60+</option>
+                        <option>Unknown</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="exampleForm.ControlSelect2">
+                      <Form.Label>Race/ethnicity</Form.Label>
+                      {['checkbox'].map(type => (<div key={`default-${type}`} className="mb-3">
+                        <Form.Check id={`v_race_ethnicity`} label={`American India/Alaska Native`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`Asian`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`Black/African American`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`Hispanic or Latino`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`Hispanic or Latino`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`Native Hawaiian/Pacific Islander`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`White`}/>
+                        <Form.Check id={`v_race_ethnicity`} label={`Other/Unknown`}/>
+                      </div>
+                      ))}
+                    </Form.Group>
+                  </Col>
+
+                  <Col>
+                  <Form.Group controlId='v_primary_language' id='v_primary_language'>
+                      <Form.Label>Primary Language</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>English</option>
+                        <option>Spanish/Spanish Creole</option>
+                        <option>Arabic</option>
+                        <option>Cambodian/Khmer</option>
+                        <option>Chinese</option>
+                        <option>French/French Creole</option>
+                        <option>German</option>
+                        <option>Greek</option>
+                        <option>Italian</option>
+                        <option>Polish</option>
+                        <option>Portuguese/Portuguese Creole</option>
+                        <option>Russian</option>
+                        <option>Vietnamese</option>
+                        <option>Unknown</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='v_town' id='v_town'>
+                      <Form.Label>Town</Form.Label>
+                      <Form.Control placeholder="Enter town" />
+                    </Form.Group>
+
+                    <Form.Group controlId='relationship_type' id='relationship_type'>
+                      <Form.Label>Relationship Type</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Current Spouse/Intimate Partner</option>
+                        <option>Former Spouse/Intimate Partner</option>
+                        <option>Current Dating Relationship</option>
+                        <option>Former Dating Relationship</option>
+                        <option>Other</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='relationship_len' id='relationship_len'>
+                      <Form.Label>Relationship Length</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>less than 1 year</option>
+                        <option>1-5 years</option>
+                        <option>6-9 years</option>
+                        <option>10-14 years</option>
+                        <option>15-19 years</option>
+                        <option>20-29 years</option>
+                        <option>30+ years</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='minor_in_home' id='minor_in_home'>
+                      <Form.Label>Minor in Home</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='referral_source' id='referral_source'>
+                      <Form.Label>Referral Source</Form.Label>
+                      <Form.Control placeholder="Enter referral source" />
+                    </Form.Group>
+
+                    <Form.Group controlId='date_accepted' id='date_accepted'>
+                      <Form.Label>Date of Case Acceptance</Form.Label>
+                      <Form.Control placeholder="Enter date of case acceptance" />
+                    </Form.Group>
+
+                  </Col>
+                </Form.Row>
+              </Form>
+              </div>
             <TextInputObj title='Name' id='v_name'/>
             <DateInputObj title='Date of Birth' id='v_dob'/>
             <DropdownObj id='v_gender' title='Gender' choices={[['Female', 1], ['Male', 2], ['Other', 3]]}/>
