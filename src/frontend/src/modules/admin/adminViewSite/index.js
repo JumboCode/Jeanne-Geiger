@@ -3,7 +3,7 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
-//import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
+// import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
 import { Tabs, Tab } from 'react-bootstrap-tabs'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -111,7 +111,7 @@ class adminViewSite extends React.Component {
       <div>
         <h1>Viewing a site</h1>
         <Tabs onSelect={(index, label) => console.log(label + ' selected')}>
-          <Tab label="Victim" class="tab"> 
+          <Tab label="Victim" class="tab">
             <div class="container"> Victim Content
             </div>
           </Tab>
@@ -127,7 +127,7 @@ class adminViewSite extends React.Component {
             <div class="container"> Outcomes Content
             </div>
           </Tab>
-        </Tabs>   
+        </Tabs>
 
         <div id='community_list'>
           <ul className="community_list">

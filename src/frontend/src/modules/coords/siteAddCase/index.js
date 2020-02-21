@@ -18,11 +18,11 @@ const ABUSER_POST_URL = 'http://127.0.0.1:8000/api/abusers/'
 const VICTIM_POST_URL = 'http://127.0.0.1:8000/api/victims/'
 const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
-function showTab(index,obj){
-  if (index == 0) obj.getTabInfo('VictimForm');
-  else if (index == 1) obj.getTabInfo('AbuserForm');
-  else if (index == 2) obj.getTabInfo('RiskFactorsForm');
-  else if (index == 3) obj.getTabInfo('OutcomesForm');
+function showTab (index, obj) {
+  if (index === 0) obj.getTabInfo('VictimForm')
+  else if (index === 1) obj.getTabInfo('AbuserForm')
+  else if (index === 2) obj.getTabInfo('RiskFactorsForm')
+  else if (index === 3) obj.getTabInfo('OutcomesForm')
 }
 
 class siteAddCase extends React.Component {
@@ -138,20 +138,20 @@ class siteAddCase extends React.Component {
     }
   }
 
-   showTab(index,obj){
-    if (index == 0) obj.getTabInfo('VictimForm');
-    else if (index == 1) obj.getTabInfo('AbuserForm');
-    else if (index == 2) obj.getTabInfo('RiskFactorsForm');
-    else if (index == 3) obj.getTabInfo('OutcomesForm');
+  showTab (index, obj) {
+    if (index === 0) obj.getTabInfo('VictimForm')
+    else if (index === 1) obj.getTabInfo('AbuserForm')
+    else if (index === 2) obj.getTabInfo('RiskFactorsForm')
+    else if (index === 3) obj.getTabInfo('OutcomesForm')
   }
 
   render () {
     return (
       <div>
         <h1>Adding a Case to a Community</h1>
-        
-        <Tabs selectedIndex={1} onSelect={(index, label) => showTab(index,this)}>
-          <Tab label="Victim"> 
+
+        <Tabs selectedIndex={1} onSelect={(index, label) => showTab(index, this)}>
+          <Tab label="Victim">
             <div class="container"> Victim Content
             </div>
           </Tab>
@@ -167,7 +167,7 @@ class siteAddCase extends React.Component {
             <div class="container"> Outcomes Content
             </div>
           </Tab>
-        </Tabs>   
+        </Tabs>
 
         <form id='CasePost'>
           <div id='OutcomesForm' className='tabcontent'>
@@ -247,21 +247,21 @@ class siteAddCase extends React.Component {
                     <Form.Group controlId="exampleForm.ControlSelect2">
                       <Form.Label>Race/ethnicity</Form.Label>
                       {['checkbox'].map(type => (<div key={`default-${type}`} className="mb-3">
-                        <Form.Check id={`a_race_ethnicity`} label={`American India/Alaska Native`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`Asian`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`Black/African American`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`Hispanic or Latino`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`Hispanic or Latino`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`Native Hawaiian/Pacific Islander`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`White`}/>
-                        <Form.Check id={`a_race_ethnicity`} label={`Other/Unknown`}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'American India/Alaska Native'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'Asian'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'Black/African American'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'Hispanic or Latino'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'Hispanic or Latino'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'Native Hawaiian/Pacific Islander'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'White'}/>
+                        <Form.Check id={'a_race_ethnicity'} label={'Other/Unknown'}/>
                       </div>
                       ))}
                     </Form.Group>
                   </Col>
 
                   <Col>
-                  <Form.Group controlId='a_primary_language' id='a_primary_language'>
+                    <Form.Group controlId='a_primary_language' id='a_primary_language'>
                       <Form.Label>Primary Language</Form.Label>
                       <Form.Control as="select">
                         <option>N/A</option>
@@ -290,7 +290,7 @@ class siteAddCase extends React.Component {
                   </Col>
                 </Form.Row>
               </Form>
-              </div>
+            </div>
 
             <TextInputObj title='Name' id='a_name'/>
             <DateInputObj title='Date of Birth' id='a_dob'/>
@@ -302,7 +302,7 @@ class siteAddCase extends React.Component {
           </div>
 
           <div id='VictimForm' className='tabcontent'>
-          <div class = "container">
+            <div class = "container">
               <Form>
                 <Form.Row>
                   <Col>
@@ -345,21 +345,21 @@ class siteAddCase extends React.Component {
                     <Form.Group controlId="exampleForm.ControlSelect2">
                       <Form.Label>Race/ethnicity</Form.Label>
                       {['checkbox'].map(type => (<div key={`default-${type}`} className="mb-3">
-                        <Form.Check id={`v_race_ethnicity`} label={`American India/Alaska Native`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`Asian`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`Black/African American`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`Hispanic or Latino`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`Hispanic or Latino`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`Native Hawaiian/Pacific Islander`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`White`}/>
-                        <Form.Check id={`v_race_ethnicity`} label={`Other/Unknown`}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'American India/Alaska Native'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'Asian'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'Black/African American'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'Hispanic or Latino'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'Hispanic or Latino'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'Native Hawaiian/Pacific Islander'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'White'}/>
+                        <Form.Check id={'v_race_ethnicity'} label={'Other/Unknown'}/>
                       </div>
                       ))}
                     </Form.Group>
                   </Col>
 
                   <Col>
-                  <Form.Group controlId='v_primary_language' id='v_primary_language'>
+                    <Form.Group controlId='v_primary_language' id='v_primary_language'>
                       <Form.Label>Primary Language</Form.Label>
                       <Form.Control as="select">
                         <option>N/A</option>
@@ -433,7 +433,7 @@ class siteAddCase extends React.Component {
                   </Col>
                 </Form.Row>
               </Form>
-              </div>
+            </div>
             <TextInputObj title='Name' id='v_name'/>
             <DateInputObj title='Date of Birth' id='v_dob'/>
             <DropdownObj id='v_gender' title='Gender' choices={[['Female', 1], ['Male', 2], ['Other', 3]]}/>
