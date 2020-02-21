@@ -151,7 +151,7 @@ class App extends Component {
           {form}
           <h3>
             {this.state.logged_in
-              ? `Hello, ${this.state.username}! \n Here is your token:\n${this.state.token}`
+              ? `Hello, ${this.state.username}! \n Here is your token:\n${this.state.token}` // This token statment is for debuging!
               : 'Please Log In'}
           </h3>
         </div>
