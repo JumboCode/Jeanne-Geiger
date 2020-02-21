@@ -7,14 +7,14 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 class siteOverview extends React.Component {
   render () {
     return (
-        <div>
+      <div>
         <NavigationBar />
         <h1>Site overview</h1>
         <Filter />
         <a href="/site/case-view">case detail view</a>
         <a href="/site/add-case"> add a case</a>
         <h1>{this.props.type}</h1>
-        </div>
+      </div>
     )
   }
 }

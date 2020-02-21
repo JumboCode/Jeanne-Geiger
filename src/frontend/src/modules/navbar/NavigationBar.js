@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { ReactComponent as Logo } from './logo.svg';
-import { ReactComponent as Settings } from './SettingsIcon.svg';
-import './NavigationBar.css';
+import React, { Component } from 'react'
+import { ReactComponent as Logo } from './logo.svg'
+import { ReactComponent as Settings } from './SettingsIcon.svg'
+import './NavigationBar.css'
 //
 // class NavigationBarItem extends Component {
 //     render() {
@@ -19,20 +19,18 @@ import './NavigationBar.css';
 //     }
 // }
 
-
-
 class NavigationBar extends Component {
-    render() {
-        return (
-            <div className="NavigationBarContainer">
-                <Logo width="17%"/>
-                <form>
-                    <input type="text" name="name" className="NavSearchBar" placeholder=" Search"/>
-                </form>
-                <Settings className="settingsbutton"/>
-            </div>
-        );
-    }
+  render () {
+    return (
+      <div className="NavigationBarContainer">
+        <Logo width="17%"/>
+        <form>
+          <input type="text" name="name" className="NavSearchBar" placeholder=" Search"/>
+        </form>
+        <Settings className="settingsbutton"/>
+      </div>
+    )
+  }
 }
 
-export default NavigationBar;
+export default NavigationBar

@@ -1,92 +1,92 @@
-import React from 'react';
-import './popup.css';
+import React from 'react'
+import './popup.css'
 
 class Popup extends React.Component {
-    render() {
-        return (
-            <div className='popup'>
-                <div className='popup\_inner'>
+  render () {
+    return (
+      <div className='popup'>
+        <div className='popup\_inner'>
                 What filters would you like to display?
 
-                    <div className='container'>
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+          <div className='container'>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           DOB
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Gender
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Race/Ethnicity
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Age at Case Acceptance
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Primary Language
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Town
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Relationship Type
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Length
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Minor Children at Home
-                        </label>
+            </label>
 
-                        <label class="check_container">
-                          <input type="checkbox">
-                          </input>
-                          <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                           Referral Source
-                        </label>
-                    </div>
-                    <button className='exit_button' onClick={this.props.closePopup}>X</button>
+            </label>
+          </div>
+          <button className='exit_button' onClick={this.props.closePopup}>X</button>
 
-                    <h1>{this.props.text}</h1>
-                    <button className='close_button' onClick={this.props.closePopup}>Done</button>
-                </div>
-            </div>
-        );
-    }
+          <h1>{this.props.text}</h1>
+          <button className='close_button' onClick={this.props.closePopup}>Done</button>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default Popup;
+export default Popup
