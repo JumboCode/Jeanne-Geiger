@@ -53,6 +53,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("APP mounting")
     if (this.state.logged_in) {
       fetch('http://localhost:8000/api/current_user/', {
         headers: {
@@ -61,6 +62,7 @@ class App extends Component {
       })
         .then(res => res.json())
         .then(json => {
+          console.log("APP ", json);
           this.setState({ username: json.username });
         });
     }
@@ -95,6 +97,10 @@ class App extends Component {
             });
           }
         });
+        if (this.state.login == true){
+          console.log("")
+          window.location.href = "/admin";
+        }
 };
 
   handle_signup = (e, data) => {
@@ -158,7 +164,10 @@ class App extends Component {
       );
     }else{
       return (
-        <h3>INCORRECT PW</h3>
+        <div className="App">
+          <LoginForm handle_login={this.handle_login} />
+          <h3>INCORRECT PW Please try again</h3>
+        </div>
       );
     }
 
