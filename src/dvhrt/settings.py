@@ -30,7 +30,7 @@ SECRET_KEY = '%37to9jwjy*x4ai*+zt@lz$rm+8hko!7l*6=o4(y-f^6#@!h1)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'] # for localhost running of the server
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'dvhrt.herokuapp.com'] # for localhost running of the server
 
 
 # Application definition
