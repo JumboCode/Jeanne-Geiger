@@ -1,6 +1,23 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    username = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+    is_admin = models.BooleanField(default=False)
+    community_id = models.ForeignKey('Communities', null=True, on_delete=models.CASCADE)
+
+    USERNAME_FIELD = 'username'
+    
+
+    def __str__(self):
+        return self.username
+
 
 class Outcomes(models.Model):
 	CHARGES = (
