@@ -1,0 +1,166 @@
+.login_container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.item_container {
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
+
+.text_container {
+    position: relative;
+    top: 40%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 25%;
+}
+
+.button_container {
+    position: relative;
+    top: 35%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 20%;
+}
+
+.logo_container {
+    position: absolute;
+    top: 38%;
+    left: 30%;
+    background: purple;
+    width: 55%;
+    height: 20%;
+}
+
+.logo_style {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    width: 80%;
+}
+
+.dom_text {
+    position: absolute;
+    top: 110%;
+    left: 15%;
+}
+
+.vl {
+    position: relative;
+    top: 25%;
+    border-left: 1px solid grey;
+    height: 50%;
+}
+
+.email_form {
+    position: absolute;
+    left: 10%;
+    width: 43%;
+    border-width: 1px;
+    border-color: grey;
+    border-style: solid;
+    border-radius: 13px;
+    background-color: white;
+    color: black;
+}
+
+.email_form:focus {
+    outline: none !important;
+}
+
+.password_form {
+    position: absolute;
+    top: 30%;
+    width: 43%;
+    left: 10%;
+    border-width: 1px;
+    border-color: grey;
+    border-style: solid;
+    border-radius: 13px;
+    background-color: white;
+    color: black;
+}
+
+.password_form:focus {
+    outline: none !important;
+}
+
+input[type="email"], textarea {
+    color: black;
+    background-color : white;
+
+}
+
+input[type="email"]::placeholder {
+  color: black;
+  font-size: 1em;
+}
+
+input[type="password"], textarea {
+    color: black;
+    background-color : white;
+
+}
+
+input[type="password"]::placeholder {
+  color: black;
+  font-size: 1em;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+.forgot_text {
+    position: absolute;
+    left: 17%;
+    top: 50%;
+    font-size: 12px;
+}
+
+.admin_button {
+    position: absolute;
+    left: 13%;
+    bottom: 70%;
+    background-color: purple;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 13%;
+    height: 17%;
+    border-radius: 13px;
+}
+
+.coord_button {
+    position: absolute;
+    left: 35%;
+    bottom: 70%;
+    background-color: purple;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 13%;
+    height: 17%;
+    border-radius: 13px;
+}
+
+.admin_button:focus {
+    outline: none !important;
+}
+
+.coord_button:focus {
+    outline: none !important;
+}
