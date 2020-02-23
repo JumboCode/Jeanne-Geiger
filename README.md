@@ -121,3 +121,4 @@ If you're still lost, here's more on making a [pull request](https://help.github
 For testing, run the following to test:
 `heroku logs --tail --app dvhrt`
 `heroku releases:output --app dvhrt`
+[Force makemigrations oh heroku](https://stackoverflow.com/questions/38134535/django-on-heroku-relation-does-not-exist)
