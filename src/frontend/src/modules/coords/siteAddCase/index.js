@@ -83,7 +83,6 @@ class siteAddCase extends React.Component {
          '&has_spied=' + document.getElementById('has_spied').value
   }
 
-
   doAbuserOrVictimPost (isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
     var ethnicities = []
     var selectedOpts = document.getElementById(raceEthnicity).selectedOptions

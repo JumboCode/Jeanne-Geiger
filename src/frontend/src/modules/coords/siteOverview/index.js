@@ -70,17 +70,16 @@ function MyTable ({ columns, data }) {
       </Table>
       <br />
       <div>Showing the first 20 results of {rows.length} rows</div>
-    
 
-    <script>
+      <script>
       document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll("tr[data-href]").forEach(row => {
-          row.addEventListener("click", () => {
-            window.location.href = row.dataset.href;
+          document.querySelectorAll('tr[data-href]').forEach(row => {
+            row.addEventListener('click', () => {
+              window.location.href = row.dataset.href
+            })
           })
         })
-      })
-    </script>
+      </script>
     </>
   )
 }
