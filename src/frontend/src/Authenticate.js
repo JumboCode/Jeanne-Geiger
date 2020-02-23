@@ -13,21 +13,24 @@ function Authenticate (props) {
   }).then(res => res.json())
   .then(json => {
     console.log("JSONNNNN", json);
-    username = json.username;
+    var username = json.username;
+    var is_admin = json.is_admin;
+    var community_id = json.community_id;
 
-    if (props.path == '/site' || props.path == '/site' ){
-      if (username == 'nate'){
+    if (props.path != '/site' && props.path != '/site/case-view' ){
+      if (is_admin == true){
+        return false;
+      }else{
         return true;
       }
       //If user community person
     }else{
-      if (username == 'nate'){
+      if (is_admin == true){
         return true;
       }else{
         return false;
       }
     }
-    return true;
   });
 
 
