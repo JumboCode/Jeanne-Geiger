@@ -68,6 +68,15 @@ class OneCase(generics.ListCreateAPIView):
         case = Cases.objects.filter(case_id=test_case_id)
         serializer_class = CasesSerializer(case, many=True)
 
+class CasesByCommunity(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+
+    def get(self, request, *args, **kwargs):
+        test_community_id = 1        # hard-coded test_community_id for now        
+        cases = Cases.objects.filter(community_id=test_community_id)
+        serializer_class = CasesSerializer(cases, many=True)
+
         return Response(serializer_class.data)
 
 class CasesList(generics.ListCreateAPIView):

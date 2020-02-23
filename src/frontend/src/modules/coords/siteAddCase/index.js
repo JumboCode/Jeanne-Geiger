@@ -8,16 +8,27 @@ const RISK_FACTORS_POST_URL = 'http://127.0.0.1:8000/api/riskfactors/'
 const ABUSER_POST_URL = 'http://127.0.0.1:8000/api/abusers/'
 const VICTIM_POST_URL = 'http://127.0.0.1:8000/api/victims/'
 const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
+const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 
 class siteAddCase extends React.Component {
   constructor () {
     super()
     this.state = {
-      victim_info: [],
-      abuser_info: [],
-      risk_factor_info: [],
-      outcome_info: []
+      referral_sources: []
     }
+  }
+
+  componentDidMount () {
+    fetch(COMMUNITY_LIST_URL
+    ).then(results => {
+      return results.json()
+    }).then(data => {
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].community_id === 1) {
+          this.setState({ referral_sources: data[i].referral_sources })
+        }
+      }
+    })
   }
 
   getTabInfo (tabName) {
@@ -72,7 +83,8 @@ class siteAddCase extends React.Component {
          '&has_spied=' + document.getElementById('has_spied').value
   }
 
-  doAbuserOrVictimPost (postUrl, isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
+
+  doAbuserOrVictimPost (isVictim, name, DOB, gender, raceEthnicity, ageAtCaseAcc, primLang, town) {
     var ethnicities = []
     var selectedOpts = document.getElementById(raceEthnicity).selectedOptions
     for (var i = 0; i < selectedOpts.length; i++) {
@@ -103,12 +115,12 @@ class siteAddCase extends React.Component {
                   '&referral_source=' + document.getElementById('referral_source').value +
                   '&date_accepted=' + document.getElementById('date_accepted').value
 
-    var casePostRequestt = new XMLHttpRequest()
-    casePostRequestt.open('POST', CASE_POST_URL, true)
-    casePostRequestt.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    casePostRequestt.send(caseInfo)
-    casePostRequestt.onload = function () {
-      return JSON.parse(casePostRequestt.responseText).case_id
+    var casePostRequest = new XMLHttpRequest()
+    casePostRequest.open('POST', CASE_POST_URL, true)
+    casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    casePostRequest.send(caseInfo)
+    casePostRequest.onload = function () {
+      return JSON.parse(casePostRequest.responseText).case_id
     }
   }
 
@@ -178,7 +190,7 @@ class siteAddCase extends React.Component {
             <DropdownObj id='relationship_type' title='Relationship Type' choices={[['Current Spouse/Intimate Partner', 1], ['Former Spouse/Intimate Partner', 2], ['Current Dating Relationship', 3], ['Former Dating Relationship', 4], ['Other', 5]]}/>
             <DropdownObj id='relationship_len' title='Relationship Type' choices={[['<1 year', 1], ['1-5 years', 2], ['6-9 years', 3], ['10-14 years', 4], ['15-19 years', 5], ['20-29 years', 6], ['30+ years', 7]]}/>
             <DropdownObj id='minor_in_home' title='Minor in Home' choices={[['Yes', 'True'], ['No', 'False']]}/>
-            <TextInputObj title='Referral Source' id='referral_source'/>
+            <DropdownObj id='referral_source' title='Referral Source' choices={this.state.referral_sources.map(listitem => [listitem, listitem])}/>
             <DateInputObj title='Date of Case Acceptance' id='date_accepted'/>
           </div>
 

@@ -13,24 +13,28 @@ import siteAddCase from './modules/coords/siteAddCase'
 
 import accRecovery from './modules/accRecovery'
 
+import { AuthContext } from './contexts/auth'
+
 // import PublicRoute from 'Public';
-// import PrivateRoute from 'Private';
+import PrivateRoute from './Private'
 
 export default class AppRouter extends React.Component {
   render () {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component = {Login} type = "login"/>
-          <Route exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
-          <Route exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
-          <Route exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
-          <Route exact path="/site" component = {siteOverview} type = "siteView"/>
-          <Route exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>
-          <Route exact path="/site/case-view" component = {detailView} type = "detailView"/>
-          <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
-        </Switch>
-      </BrowserRouter>
+      <AuthContext.Provider value={false}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component = {Login} type = "login"/>
+            <Route exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
+            <PrivateRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
+            <Route exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
+            <Route exact path="/site" component = {siteOverview} type = "siteView"/>
+            <Route exact path="/site/case-view" component = {detailView} type = "detailView"/>
+            <Route exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>
+            <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
+          </Switch>
+        </BrowserRouter>
+      </AuthContext.Provider>
     )
   }
 }

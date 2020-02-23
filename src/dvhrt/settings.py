@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'] # for localhost running of the server
 # Application definition
 
 INSTALLED_APPS = [
+    'api',
+    'dvhrt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
-    'api',
     'rest_framework',
     'corsheaders',
 ]
@@ -69,10 +70,10 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
     'communityid',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'http//:localhost:8000/',
-    'http//:localhost:3000/',
-)
+CORS_ORIGIN_WHITELIST = [
+    'https://localhost:8000',
+    'https://localhost:3000',
+]
 
 ROOT_URLCONF = 'dvhrt.urls'
 
