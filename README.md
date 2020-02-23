@@ -13,7 +13,6 @@ DVHRT’s problem is they want to move from static, insecure spreadsheets to a m
 ## Team members
 * Barry Eom (Project Lead)
 * Julia Hedrick
-* Khaliun Narangerel
 * Andrew Gross
 * Trevor Russo
 * Nicole Kennedy
@@ -60,6 +59,13 @@ It will prompt you to pick /admin or /api and a route
 
 With both the frontend and backend server running simultaneously, the frontend will render and pull from 
 your local database. Use console.log for any debugging.
+
+### How to Drop Database
+- From terminal: `psql postgres`
+- `DROP DATABASE "dvhrtdb";`
+- `CREATE DATABASE dvhrtdb;`
+- `GRANT ALL PRIVILEGES ON DATABASE "dvhrtdb" to dvhrtdbadmin;`
+- `\q`
 
 ## Architecture Overview
 This project will be split up into three parts
@@ -111,3 +117,7 @@ If you're still lost, here's more on making a [pull request](https://help.github
 - (If not) clear npm cache with `npm cache clear`
 - Now `npm install`
 
+### Heroku Production
+For testing, run the following to test:
+`heroku logs --tail --app dvhrt`
+`heroku releases:output --app dvhrt`
