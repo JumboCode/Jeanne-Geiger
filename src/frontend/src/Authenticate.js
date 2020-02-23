@@ -12,6 +12,7 @@ function Authenticate (props) {
     }
   }).then(res => res.json())
   .then(json => {
+    console.log("JSONNNNN", json);
     username = json.username;
 
     if (props.path == '/site' || props.path == '/site' ){
