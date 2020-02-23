@@ -3,6 +3,7 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
+import BackButton from '../../../Comps/Back/back.js'
 
 const Wrapper = styled.div`
   display: grid;
@@ -101,6 +102,9 @@ class adminViewSite extends React.Component {
     return (
       <div>
         <h1>Viewing a site</h1>
+        <div>
+          <BackButton />
+        </div>
         <div id='community_list'>
           <ul className="community_list">
             {this.state.community_list.map(listitem => (

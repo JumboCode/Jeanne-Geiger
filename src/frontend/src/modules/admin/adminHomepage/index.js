@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 import { Button, Card } from 'react-bootstrap'
 import { render } from 'react-dom'
-import BackButton from '../../../Comps/Back/back.js'
 
 class adminHomepage extends React.Component {
   render () {
@@ -19,7 +18,6 @@ class adminHomepage extends React.Component {
           <Card.Body>
             Big Blue Rectangle goes here!
             <br /> More things will go here!
-            <BackButton />
           </Card.Body>
         </Card>
       </div>
