@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import backLogo from './BackButton.png'
 import './back.css'
 
 
@@ -11,9 +12,9 @@ export default class BackButton extends React.Component {
 
   render() {
     return (
-      <img src="BackButton.svg" alt="Back Button" 
-           onClick={this.handleClick}>
-      </img>
+      <div className="backbutton"> 
+        <img src={backLogo} alt="Back Button" onClick={this.handleClick}/>
+      </div>
     );
   }
 

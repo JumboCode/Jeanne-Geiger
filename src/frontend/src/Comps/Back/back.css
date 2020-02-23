@@ -1,7 +1,17 @@
-.BackButton{
+.backbutton{
+  display: flex;
+  flex-direction: column;
+}
+
+.backbutton:focus{
+  outline: none, !important;
+}
+
+.backbutton img{
+  width: 3%;
   filter: invert(100%);
 }
 
-.BackButton:hover {
+.backbutton img:hover{
   filter: invert(0%);
 }
