@@ -57,7 +57,7 @@ function MyTable ({ columns, data }) {
           {firstPageRows.map((row, i) => {
             prepareRow(row)
             return (
-              <tr data-href="/site/case-view" {...row.getRowProps()}>
+              <tr data-href={"/site/case-view?case_id="+ data[i].case_id} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
