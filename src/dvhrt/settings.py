@@ -103,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dvhrtdb',
-        'USER': 'dvhrtdbadmin',
-        'PASSWORD': 'I_want_to_buy_a_onesie_8',
+        'USER': 'trevor',
+        'PASSWORD': 'toor',
         'HOST': 'localhost',
         'PORT': '',
     }
