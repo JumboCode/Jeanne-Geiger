@@ -21,4 +21,3 @@ urlpatterns = [
     path('OutcomesEdit/', OutcomesUpdateView.as_view(), name='OutcomeEdit'),
     path('CaseEdit/', CaseUpdateView.as_view(), name='CaseEdit'),
 ]
-
