@@ -593,3 +593,43 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         sentencing_outcome_counts['Total Sentencing Outcomes Count'] = total_count
 
         return sentencing_outcome_counts
+
+class CaseUpdateView(generics.UpdateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+
+    def patch(self, request, *args, **kwargs):
+        # case_id = request.PATCH.get("case_id")
+        case_id = 1
+        caseData = Cases.objects.get(case_id=case_id)
+        serializer_class = CasesSerializer(caseData, data=caseData, partial=True)
+        if serializer_class.is_valid():
+            serializer_class.save()
+            caseData.save()
+            return Response(serializer_class.data)
+        return JsonResponse(code=400, data="wrong parameters")
+
+    def get_object(self):
+        return Cases.objects.get(pk=1)
+        # return Cases.objects.get(pk=request.GET.get("pk"))
+
+
+
+class OutcomesUpdateView(generics.UpdateAPIView):
+    queryset = Outcomes.objects.all()
+    serializer_class = OutcomesSerializer
+
+    def patch(self, request, *args, **kwargs):
+        # outcome_id = request.PATCH.get("outcome_id")
+        outcome_id = 1
+        outcomeData = Outcomes.objects.get(outcome_id=outcome_id)
+        serializer_class = OutcomesSerializer(outcomeData, data=outcomeData, partial=True)
+        if serializer_class.is_valid():
+            serializer_class.save()
+            outcomeData.save()
+            return Response(serializer_class.data)
+        return JsonResponse(code=400, data="wrong parameters")
+
+    def get_object(self):
+        return Outcomes.objects.get(pk=1)
+        # return Outcomes.objects.get(pk=self.request.GET.get('pk'))
