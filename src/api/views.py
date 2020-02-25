@@ -68,7 +68,7 @@ class OneCase(generics.ListCreateAPIView):
         case = Cases.objects.get(case_id=get_case_id)
         serializer_class = CasesSerializer(case)
 
-        return JsonResponse(serializer_class.data)
+        return Response(serializer_class.data)
 
 class CasesByCommunity(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
