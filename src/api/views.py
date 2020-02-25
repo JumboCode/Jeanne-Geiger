@@ -224,7 +224,6 @@ class AbuserList(generics.ListCreateAPIView):
 
         return Response(serializer_class.data)
 
-
     def post(self, request, *args, **kwargs):
         print(request.POST)
         print(request.POST.get("person_id"))

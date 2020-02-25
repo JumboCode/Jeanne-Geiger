@@ -8,29 +8,29 @@ class detailView extends React.Component {
   constructor () {
     super()
     this.state = {
-      case: [],
+      case: []
     }
   }
 
   componentDidMount () {
     fetch(GET_CASE_URL, {
-        headers: {
-          caseid: this.getUrlVars()
-        }
-      })
+      headers: {
+        caseid: this.getCaseIdFromUrl()
+      }
+    })
       .then(results => {
         return results.json()
       })
       .then(data => this.setState({ case: data }))
   }
 
-  getUrlVars() {
-      var vars = {};
-      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-          vars[key] = value;
-      });
-      console.log(vars["case_id"])
-      return vars["case_id"];
+  getCaseIdFromUrl () {
+    var vars = {}
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+      vars[key] = value
+    })
+    console.log(vars.case_id)
+    return vars.case_id
   }
 
   render () {
