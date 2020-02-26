@@ -106,29 +106,29 @@ class adminViewSite extends React.Component {
     this.setState({ community_name: comName })
   }
 
-  ControlledTabs() {
-    const [key, setKey] = useState('victim');
+  ControlledTabs () {
+    const [key, setKey] = useState('victim')
 
-    return(
+    return (
       <Tabs defaultActiveKey= {key} onSelect={(index, label) => console.log(label + ' selected')}>
-          <Tab eventKey="victim" label="Victim" class="tab">
-            <div class="container in active"> Victim Content
-            </div>
-          </Tab>
-          <Tab eventKey="abuser" label="Abuser">
-            <div class="container"> Abuser Content
-            </div>
-          </Tab>
-          <Tab eventKey="risk_factors" label="Risk Factors">
-            <div class="container"> Risk Factors Content
-            </div>
-          </Tab>
-          <Tab eventKey="outcomes" label="Outcomes">
-            <div class="container"> Outcomes Content
-            </div>
-          </Tab>
+        <Tab eventKey="victim" label="Victim" class="tab">
+          <div class="container in active"> Victim Content
+          </div>
+        </Tab>
+        <Tab eventKey="abuser" label="Abuser">
+          <div class="container"> Abuser Content
+          </div>
+        </Tab>
+        <Tab eventKey="risk_factors" label="Risk Factors">
+          <div class="container"> Risk Factors Content
+          </div>
+        </Tab>
+        <Tab eventKey="outcomes" label="Outcomes">
+          <div class="container"> Outcomes Content
+          </div>
+        </Tab>
       </Tabs>
-    );
+    )
   }
 
   render () {
