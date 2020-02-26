@@ -178,6 +178,69 @@ class siteAddCase extends React.Component {
             <DropdownObj id='sentencing_outcomes_disposition' title='Sentencing Outcomes Disposition' choices={[['Charges Dismissed', 1], ['Not Guilty', 2], ['Deferred Adjudication', 3], ['Plead/Found Guilty', 4], ['Pending Disposition', 5]]}/>
             <DropdownObj id='sentencing_outcomes_sentence' title='Sentencing Outcomes Sentence' choices={[['Incarceration', 1], ['Probation', 2], ['Incarceration Followed by Probation', 3]]}/>
           </div>
+        <div id='OutcomesForm' classname='tabcontent'>
+          <div class = "container">
+            <Form>
+              <Form.Row>
+                <Col>
+                  <Form.Group controlId='connection_to_dvs' id='connection_to_dvs'>
+                    <Form.Label>'Connection to Domestic Violence Services?'</Form.Label>
+                    <Form.Control as="select">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId='engagement_in_ongoing_dvs' id='engagement_in_ongoing_dvs'>
+                    <Form.Label>'Engagement in Ongoing Domestic Violence Services?'</Form.Label>
+                    <Form.Control as="select">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId='charges' id='charges'>
+                    <Form.Label>'Criminal Charges Status'</Form.Label>
+                    <Form.Control as="select">
+                      <option>Police Response: Charges Filed</option>
+                      <option>Police Response: No Charges Filed</option>
+                      <option>No Police Response: Not Applicable</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group controlId='pretrial_outcome' id='pretrial_outcome'>
+                    <Form.Label>'Pretrial Outcome'</Form.Label>
+                    <Form.Control placeholder="If Applicable" as="select">
+                      <option>Released on Bail</option>
+                      <option>Released on Personal Recognizance</option>
+                      <option>Detained/Pretrial Detention Statute</option>
+                      <option>Detained/Bail Unmet</option>
+                      <option>Detained/Other</option>
+                      <option>Pending Pretrial Hearing</option>
+                    </Form.Control>
+                  <Form.Group controlId='sentencing_outcomes_disposition' id='sentencing_outcomes_disposition'>
+                    <Form.Label>'Sentencing Outcomes Disposition'</Form.Label>
+                    <Form.Control placeholder="If Applicable" as="select">
+                      <option>Charges Dismissed</option>
+                      <option>Not Guilty</option>
+                      <option>Deferred Adjudication</option>
+                      <option>Plead/Found Guilty</option>
+                      <option>Pending Disposition</option>
+                    </Form.Control>
+                  <Form.Group controlId='sentencing_outcomes_sentence' id='sentencing_outcomes_sentence'>
+                    <Form.Label>'Sentencing Outcomes Sentence'</Form.Label>
+                    <Form.Control placeholder="If Applicable" as="select">
+                      <option>Incarceration</option>
+                      <option>Probation</option>
+                      <option>Incarceration Followed by Probation</option>
+                    </Form.Control>
+                  </Col>
+                </Form.Row>
+              </Form>
+            </div>
+          </div>
+
+                  
+                  
 
           <div id='RiskFactorsForm' className='tabcontent'>
             <DropdownObj id='violence_increased' title='Has the physical violence increased in severity or frequency over the past year?' choices={[['Yes', 'True'], ['No', 'False']]}/>
