@@ -4,6 +4,7 @@ import PrivateRoute from './Authenticate.js'
 
 import App from './App.js'
 
+import AddUser from './AddUser'
 import adminAddSite from './modules/admin/adminAddSite'
 import adminHomepage from './modules/admin/adminHomepage'
 import adminViewSite from './modules/admin/adminViewSite'
@@ -24,11 +25,12 @@ export default class AppRouter extends React.Component {
         <Switch>
           <Route exact path="/" component = {App} type = "login"/>
           <Route exact path="/login" component = {App} type = "login"/>
-          <PrivateRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
-          <PrivateRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
-          <PrivateRoute exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
-          <PrivateRoute exact path="/site" component = {siteOverview} type = "siteView"/>
-          <PrivateRoute exact path="/site/case-view" component = {detailView} type = "detailView"/>
+          <PrivateRoute path="/admin" component = {adminHomepage} type = "adminoverview"/>
+          <PrivateRoute path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
+          <PrivateRoute path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
+          <PrivateRoute path="/admin/add-user" component = {AddUser} type = "adminviewsite"/>
+          <PrivateRoute path="/site" component = {siteOverview} type = "siteView"/>
+          <PrivateRoute path="/site/case-view" component = {detailView} type = "detailView"/>
           <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
         </Switch>
       </BrowserRouter>

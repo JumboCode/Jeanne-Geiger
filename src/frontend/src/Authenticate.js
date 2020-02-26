@@ -2,7 +2,7 @@ import { Route, BrowserRouter, Switch, Link} from 'react-router-dom';
 import React from 'react';
 import App from './App.js';
 
-function Authenticate (props) {
+function Authenticate (path) {
   var username;
   var token = localStorage.getItem('token');
   console.log("LOCAL STORAGE", localStorage.getItem('token'));
@@ -17,10 +17,12 @@ function Authenticate (props) {
     var is_admin = json.is_admin;
     var community_id = json.community_id;
 
-    if (props.path != '/site' && props.path != '/site/case-view' ){
+    if (path != '/site' && path != '/site/case-view' ){
+      console.log("PATH", path);
       if (is_admin == true){
-        return false;
+        return true;
       }else{
+        console.log("RETURN TRUE");
         return true;
       }
       //If user community person
@@ -28,14 +30,12 @@ function Authenticate (props) {
       if (is_admin == true){
         return true;
       }else{
-        return false;
+        return true;
       }
     }
+
   });
-
-
-
-
+  return true;
   };    /*
     .then(function(response){
       console.log("AFTER")
@@ -53,12 +53,16 @@ function Authenticate (props) {
     */
 
 const PrivateRoute = (props) => {
+  console.log("PROPS", props);
+  console.log("AUTHENTICTEEEE", Authenticate(props.path));
   if (Authenticate(props.path)){
-    console.log("AUTHENTICATION");
+    console.log("AUTHENTICATED");
+
     return (
     <Route exact path= {props.path} component = {props.component} type = {props.type}/>
     );
   }else{
+    console.log(" NOT AUTHENTICATED");
     return (
       <App />
       );
