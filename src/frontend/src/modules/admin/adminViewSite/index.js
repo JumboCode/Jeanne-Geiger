@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
@@ -106,29 +106,36 @@ class adminViewSite extends React.Component {
     this.setState({ community_name: comName })
   }
 
+  ControlledTabs () {
+    const [key, setKey] = useState('victim')
+
+    return (
+      <Tabs defaultActiveKey= {key} onSelect={(index, label) => console.log(label + ' selected')}>
+        <Tab eventKey="victim" label="Victim" class="tab">
+          <div class="container in active"> Victim Content
+          </div>
+        </Tab>
+        <Tab eventKey="abuser" label="Abuser">
+          <div class="container"> Abuser Content
+          </div>
+        </Tab>
+        <Tab eventKey="risk_factors" label="Risk Factors">
+          <div class="container"> Risk Factors Content
+          </div>
+        </Tab>
+        <Tab eventKey="outcomes" label="Outcomes">
+          <div class="container"> Outcomes Content
+          </div>
+        </Tab>
+      </Tabs>
+    )
+  }
+
   render () {
     return (
       <div>
         <h1>Viewing a site</h1>
-        <Tabs onSelect={(index, label) => console.log(label + ' selected')}>
-          <Tab label="Victim" class="tab">
-            <div class="container"> Victim Content
-            </div>
-          </Tab>
-          <Tab label="Abuser">
-            <div class="container"> Abuser Content
-            </div>
-          </Tab>
-          <Tab label="Risk Factors">
-            <div class="container"> Risk Factors Content
-            </div>
-          </Tab>
-          <Tab label="Outcomes">
-            <div class="container"> Outcomes Content
-            </div>
-          </Tab>
-        </Tabs>
-
+        ControlledTabs();
         <div id='community_list'>
           <ul className="community_list">
             {this.state.community_list.map(listitem => (

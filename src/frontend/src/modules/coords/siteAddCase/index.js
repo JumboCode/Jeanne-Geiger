@@ -145,17 +145,21 @@ class siteAddCase extends React.Component {
     else if (index === 3) obj.getTabInfo('OutcomesForm')
   }
 
+  // function ControlledTabs(){
+  //   const [key, setKey] = setState('victim')
+  // }
+
   render () {
     return (
       <div>
         <h1>Adding a Case to a Community</h1>
 
-        <Tabs selectedIndex={1} onSelect={(index, label) => showTab(index, this)}>
-          <Tab label="Victim">
+        <Tabs defaultActiveKey= "Victim" onSelect={(index, label) => showTab(index, this)}>
+          <Tab label="Victim" >
             <div class="container"> Victim Content
             </div>
           </Tab>
-          <Tab label="Abuser">
+          <Tab label="Abuser" eventKey="Victim">
             <div class="container"> Abuser Content
             </div>
           </Tab>
@@ -242,7 +246,199 @@ class siteAddCase extends React.Component {
                   
                   
 
-          <div id='RiskFactorsForm' className='tabcontent'>
+          <div id ='RiskFactorsForm' className = 'tabcontent'>
+            <div class = "container">
+              <Form>
+                <Form.Row>
+                  <Col>
+
+                    <Form.Group controlId='violence_increased' id='violence_increased'>
+                      <Form.Label>Has the physical violence increased in severity or frequency over the past year?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='attempted_leaving' id='attempted_leaving'>
+                      <Form.Label>Have you left him/her after living together in the past year?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='control_activites' id='control_activites'>
+                      <Form.Label>Does he/she control most or all of your daily activities?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='attempted_murder' id='attempted_murder'>
+                      <Form.Label>Has he/she tried to kill you?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='threatened_murder' id='threatened_murder'>
+                      <Form.Label>Has he/she ever threatened to kill you?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='weapon_threat' id='weapon_threat'>
+                      <Form.Label>Has he/she used a weapon against you or threatened you with a lethal weapon?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='attempted_choke' id='attempted_choke'>
+                      <Form.Label>Has he/she ever tried to choke (strangle) you?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='killing_capable' id='killing_capable'>
+                      <Form.Label>Do you believe he/she is capable of killing you?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='owns_gun' id='owns_gun'>
+                      <Form.Label>Does he/she own a gun?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='suicide_threat_or_attempt' id='suicide_threat_or_attempt'>
+                      <Form.Label>Has he/she ever threatened or tried to commit suicide?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+
+                  <Col>
+                    <Form.Group controlId='is_unemployed' id='is_unemployed'>
+                      <Form.Label>Is he/she unemployed?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='avoided_arrest' id='avoided_arrest'>
+                      <Form.Label>Has he/she avoided being arrested for domestic violence?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='unrelated_child' id='unrelated_child'>
+                      <Form.Label>Do you have a child that is not his/hers?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='uses_illegal_drugs' id='uses_illegal_drugs'>
+                      <Form.Label>Does he/she use illegal drugs?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='is_alcoholic' id='is_alcoholic'>
+                      <Form.Label>Is he/she an alcoholic or problem drinker?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='forced_sex' id='forced_sex'>
+                      <Form.Label>Has he/she ever forced you to have sex when you did not wish to do so?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='constantly_jealous' id='constantly_jealous'>
+                      <Form.Label>Is he/she violently or constantly jealous?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='pregnant_abuse' id='pregnant_abuse'>
+                      <Form.Label>Has he/she ever beaten you while you were pregnant?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='children_threatened' id='children_threatened'>
+                      <Form.Label>Threatens to harm victim’s children?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId='has_spied' id='has_spied'>
+                      <Form.Label>Does he/she spy on you, leaving threatening notes or messages?</Form.Label>
+                      <Form.Control as="select">
+                        <option>N/A</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                  </Col>
+                </Form.Row>
+              </Form>
+            </div>
+
             <DropdownObj id='violence_increased' title='Has the physical violence increased in severity or frequency over the past year?' choices={[['Yes', 'True'], ['No', 'False']]}/>
             <DropdownObj id='attempted_leaving' title='Have you left him/her after living together in the past year?' choices={[['Yes', 'True'], ['No', 'False']]}/>
             <DropdownObj id='control_activites' title='Does he/she control most or all of your daily activities?' choices={[['Yes', 'True'], ['No', 'False']]}/>
@@ -516,6 +712,7 @@ class siteAddCase extends React.Component {
           </div>
         </form>
       </div>
+
     )
   }
 }
