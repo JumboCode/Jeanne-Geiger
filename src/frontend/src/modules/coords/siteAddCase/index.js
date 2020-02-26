@@ -145,17 +145,22 @@ class siteAddCase extends React.Component {
     else if (index === 3) obj.getTabInfo('OutcomesForm')
   }
 
+  // function ControlledTabs(){
+  //   const [key, setKey] = setState('victim')
+  // }
+    
   render () {
     return (
       <div>
         <h1>Adding a Case to a Community</h1>
 
-        <Tabs selectedIndex={1} onSelect={(index, label) => showTab(index, this)}>
-          <Tab label="Victim">
+
+        <Tabs defaultActiveKey= "Victim" onSelect={(index, label) => showTab(index, this)}>
+          <Tab label="Victim" >
             <div class="container"> Victim Content
             </div>
           </Tab>
-          <Tab label="Abuser">
+          <Tab label="Abuser" eventKey="Victim">
             <div class="container"> Abuser Content
             </div>
           </Tab>
