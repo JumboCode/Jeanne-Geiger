@@ -1,2 +1,2 @@
-release: cd src && python manage.py migrate
-web: gunicorn backend.wsgi --log-file -
+release: python3 src/manage.py makemigrations && python3 src/manage.py migrate && cd src/frontend && npm install --only=dev && npm install && npm run build
+web: cd src && gunicorn dvhrt.wsgi --log-file - 
