@@ -59,6 +59,28 @@ class CommunitiesList(generics.ListCreateAPIView):
     #         communityData.save()
     #     return HttpResponse('success')
 
+class OneCase(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        get_case_id = request.META.get('HTTP_CASEID')     
+        case = Cases.objects.get(case_id=get_case_id)
+        serializer_class = CasesSerializer(case)
+
+        return Response(serializer_class.data)
+
+class CasesByCommunity(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+
+    def get(self, request, *args, **kwargs):
+        test_community_id = 1        # hard-coded test_community_id for now        
+        cases = Cases.objects.filter(community_id=test_community_id)
+        serializer_class = CasesSerializer(cases, many=True)
+
+        return Response(serializer_class.data)
+
 class CasesList(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
@@ -71,7 +93,6 @@ class CasesList(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         get_case_id = request.POST.get("case_id")
-        print(request.POST)
         try:
             caseData = Cases.objects.get(case_id=get_case_id)
         except Cases.DoesNotExist:
@@ -202,7 +223,6 @@ class AbuserList(generics.ListCreateAPIView):
         serializer_class = PersonsSerializer(queryset, many=True)
 
         return Response(serializer_class.data)
-
 
     def post(self, request, *args, **kwargs):
         print(request.POST)
