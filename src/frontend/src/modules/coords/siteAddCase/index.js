@@ -125,14 +125,7 @@ class siteAddCase extends React.Component {
   }
 
   showTab (index) {
-    if (index === 0) 
-        this.getTabInfo('VictimForm')
-    else if (index === 1) 
-        this.getTabInfo('AbuserForm')
-    else if (index === 2) 
-        this.getTabInfo('RiskFactorsForm')
-    else if (index === 3) 
-        this.getTabInfo('OutcomesForm')
+    if (index === 0) { this.getTabInfo('VictimForm') } else if (index === 1) { this.getTabInfo('AbuserForm') } else if (index === 2) { this.getTabInfo('RiskFactorsForm') } else if (index === 3) { this.getTabInfo('OutcomesForm') }
   }
 
   render () {
@@ -175,7 +168,7 @@ class siteAddCase extends React.Component {
                 </Col>
               </Form.Row>
             </div>
-          </div>  
+          </div>
 
           <div id ='RiskFactorsForm' className = 'tabcontent'>
             <div class = "container">
@@ -205,7 +198,7 @@ class siteAddCase extends React.Component {
                   <DropdownObj id='children_threatened' title='Threatens to harm victim’s children?' choices={[['Yes', 'True'], ['No', 'False']]}/>
                   <DropdownObj id='has_spied' title='Does he/she spy on you, leaving threatening notes or messages?' choices={[['Yes', 'True'], ['No', 'False']]}/>
                 </Col>
-            </Form.Row>
+              </Form.Row>
             </div>
           </div>
 
