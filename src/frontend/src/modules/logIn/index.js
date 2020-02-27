@@ -113,12 +113,12 @@ class Login extends Component {
             </p1>
           </div>
           <div className="button_container">
-            <button className="admin_button">
+            <a href="/admin"><button className="admin_button" onclick="location.href='/admin'">
                     Admin
-            </button>
-            <button className="coord_button">
+            </button></a>
+            <a href="/site"><button className="coord_button">
                     Coordinator
-            </button>
+            </button></a>
           </div>
         </div>
       </div>
