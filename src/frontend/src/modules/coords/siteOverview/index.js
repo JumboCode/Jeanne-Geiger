@@ -380,10 +380,10 @@ class siteOverview extends React.Component {
       <div>
         <NavigationBar />
         <h1>Site overview</h1>
-        <Filter />
         <a href="/site/add-case"> add a case</a>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
+          <Filter />
           <MyTable columns={this.state.victim_columns} data={this.state.cases} />
         </div>
         <div id='Abuser' className='tabcontent'>
