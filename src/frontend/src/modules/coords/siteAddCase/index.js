@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
+import NavigationBar from '../../navbar/NavigationBar.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -131,6 +132,7 @@ class siteAddCase extends React.Component {
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>Adding a Case to a Community</h1>
 
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 
 const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
@@ -140,6 +141,7 @@ class detailView extends React.Component {
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>site detail view</h1>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import Filter from '../../filter/filter.js'
+import NavigationBar from '../../navbar/NavigationBar.js'
 import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
 import { useTable, useSortBy } from 'react-table'
@@ -376,7 +378,9 @@ class siteOverview extends React.Component {
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>Site overview</h1>
+        <Filter />
         <a href="/site/add-case"> add a case</a>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
