@@ -142,7 +142,6 @@ class detailView extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <h1>site detail view</h1>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           {this.getVictimTabInfo()}

@@ -133,10 +133,7 @@ class siteAddCase extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <h1>Adding a Case to a Community</h1>
-
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
-
         <form id='CasePost'>
           <div id='OutcomesForm' className='tabcontent'>
             <div class = "container">
