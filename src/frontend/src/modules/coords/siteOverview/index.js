@@ -370,14 +370,8 @@ class siteOverview extends React.Component {
   }
 
   showTab (index) {
-    if (index === 0) 
-      this.getTabInfo('Victim')
-    else if (index === 1)
-      this.getTabInfo('Abuser')
-    else if (index === 2) 
-      this.getTabInfo('RiskFactors')
-    else // if (index === 3) 
-      this.getTabInfo('Outcomes')
+    if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else // if (index === 3)
+    { this.getTabInfo('Outcomes') }
   }
 
   render () {
