@@ -14,6 +14,7 @@ class detailView extends React.Component {
   }
 
   componentDidMount () {
+    this.showTab(0)
     fetch(GET_CASE_URL, {
       headers: {
         caseid: this.getCaseIdFromUrl()
@@ -29,6 +30,37 @@ class detailView extends React.Component {
       vars[key] = value
     })
     return vars.case_id
+  }
+
+  getTabInfo (tabName) {
+    console.log(tabName)
+    var i, tabcontent, tablinks
+
+    // Get all elements with class='tabcontent' and hide them
+    tabcontent = document.getElementsByClassName('tabcontent')
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none'
+    }
+
+    // Get all elements with class='tablinks' and remove the class 'active'
+    tablinks = document.getElementsByClassName('tablinks')
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '')
+    }
+
+    // Show the current tab, and add an 'active' class to the button that opened the tab
+    document.getElementById(tabName).style.display = 'block'
+  }
+
+  showTab (index) {
+    if (index === 0) 
+      this.getTabInfo('Victim')
+    else if (index === 1)
+      this.getTabInfo('Abuser')
+    else if (index === 2) 
+      this.getTabInfo('RiskFactors')
+    else // if (index === 3) 
+      this.getTabInfo('Outcomes')
   }
 
   getVictimTabInfo () {
@@ -116,15 +148,19 @@ class detailView extends React.Component {
     return (
       <div>
         <h1>site detail view</h1>
-        <TabObj selectFunc={(index, label) => console.log(label + 'selected')}/>
-        <h3> victim tab </h3>
-        {this.getVictimTabInfo()}
-        <h3> abuser tab </h3>
-        {this.getAbuserTabInfo()}
-        <h3> outcomes tab </h3>
-        {this.getOutcomeTabInfo()}
-        <h3> risk factors tab </h3>
-        {this.getRiskFactorTabInfo()}
+        <TabObj selectFunc={(index, label) => this.showTab(index)}/>
+        <div id='Victim' className='tabcontent'>
+          {this.getVictimTabInfo()}
+        </div>
+        <div id='Abuser' className='tabcontent'>
+          {this.getAbuserTabInfo()}
+        </div>
+        <div id='Outcomes' className='tabcontent'>
+          {this.getOutcomeTabInfo()}
+        </div>
+        <div id='RiskFactors' className='tabcontent'>
+          {this.getRiskFactorTabInfo()}
+        </div>
       </div>
     )
   }
