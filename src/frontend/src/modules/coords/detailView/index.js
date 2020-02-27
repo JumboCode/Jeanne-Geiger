@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import TabObj from '../../tabs.js'
 
 const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
 
@@ -115,6 +116,7 @@ class detailView extends React.Component {
     return (
       <div>
         <h1>site detail view</h1>
+        <TabObj selectFunc={(index, label) => console.log(label + 'selected')}/>
         <h3> victim tab </h3>
         {this.getVictimTabInfo()}
         <h3> abuser tab </h3>
@@ -123,7 +125,6 @@ class detailView extends React.Component {
         {this.getOutcomeTabInfo()}
         <h3> risk factors tab </h3>
         {this.getRiskFactorTabInfo()}
-
       </div>
     )
   }

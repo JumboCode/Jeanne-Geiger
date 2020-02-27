@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import Button from 'react-bootstrap/Button'
+import TabObj from '../../tabs.js'
 import { useTable, useSortBy } from 'react-table'
 import Table from 'react-bootstrap/Table'
 
@@ -353,16 +355,14 @@ class siteOverview extends React.Component {
         <h1>Site overview</h1>
         <a href="/site/case-view">case detail view</a>
         <a href="/site/add-case"> add a case</a>
+        <TabObj selectFunc={(index, label) => console.log(label + 'selected')}/>
         <p>Victim Tab</p>
         <MyTable columns={this.state.victim_columns} data={this.state.cases} />
         <p>Abuser Tab</p>
         <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
         <p>Risk Factors Tab</p>
         {console.log(this.state.cases)}
-        <MyTable
-          columns={this.state.risk_factor_columns}
-          data={this.state.cases}
-        />
+        <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
         <p>Outcomes Tab</p>
         <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
       </div>
