@@ -377,7 +377,6 @@ class siteOverview extends React.Component {
     return (
       <div>
         <h1>Site overview</h1>
-        <a href="/site/case-view">case detail view</a>
         <a href="/site/add-case"> add a case</a>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
