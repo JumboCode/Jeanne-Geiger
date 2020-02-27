@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
-import { Tabs, Tab } from 'react-bootstrap-tabs'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import TabObj from '../../tabs.js'
 
 const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
@@ -133,24 +133,7 @@ class siteAddCase extends React.Component {
       <div>
         <h1>Adding a Case to a Community</h1>
 
-        <Tabs defaultActiveKey= "Victim" onSelect={(index, label) => this.showTab(index)}>
-          <Tab label="Victim" >
-            <div class="container">
-            </div>
-          </Tab>
-          <Tab label="Abuser">
-            <div class="container">
-            </div>
-          </Tab>
-          <Tab label="Risk Factors" >
-            <div class="container">
-            </div>
-          </Tab>
-          <Tab label="Outcomes">
-            <div class="container">
-            </div>
-          </Tab>
-        </Tabs>
+        <TabObj selectFunc={(index, label) => this.showTab(index)}/>
 
         <form id='CasePost'>
           <div id='OutcomesForm' className='tabcontent'>
