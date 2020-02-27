@@ -57,7 +57,7 @@ function MyTable ({ columns, data }) {
           {firstPageRows.map((row, i) => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
+              <tr data-href={'/site/case-view?case_id=' + data[i].case_id} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
@@ -70,6 +70,16 @@ function MyTable ({ columns, data }) {
       </Table>
       <br />
       <div>Showing the first 20 results of {rows.length} rows</div>
+
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          document.querySelectorAll('tr[data-href]').forEach(row => {
+            row.addEventListener('click', () => {
+              window.location.href = row.dataset.href
+            })
+          })
+        })
+      </script>
     </>
   )
 }
