@@ -380,19 +380,21 @@ class siteOverview extends React.Component {
       <div>
         <NavigationBar />
         <a href="/site/add-case"> add a case</a>
-        <TabObj selectFunc={(index, label) => this.showTab(index)}/>
-        <div id='Victim' className='tabcontent'>
-          <Filter />
-          <MyTable columns={this.state.victim_columns} data={this.state.cases} />
-        </div>
-        <div id='Abuser' className='tabcontent'>
-          <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
-        </div>
-        <div id='Outcomes' className='tabcontent'>
-          <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
-        </div>
-        <div id='RiskFactors' className='tabcontent'>
-          <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
+        <div class = "container">
+          <TabObj selectFunc={(index, label) => this.showTab(index)}/>
+          <div id='Victim' className='tabcontent'>
+            <Filter />
+            <MyTable columns={this.state.victim_columns} data={this.state.cases} />
+          </div>
+          <div id='Abuser' className='tabcontent'>
+            <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
+          </div>
+          <div id='Outcomes' className='tabcontent'>
+            <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
+          </div>
+          <div id='RiskFactors' className='tabcontent'>
+            <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
+          </div>
         </div>
       </div>
     )
