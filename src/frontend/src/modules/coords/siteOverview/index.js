@@ -383,15 +383,18 @@ class siteOverview extends React.Component {
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <Filter />
-          <MyTable columns={this.state.victim_columns} data={this.state.cases} />
+          <MyTable columns={this.state.victim_columns} data={this.state.cases}/>
         </div>
         <div id='Abuser' className='tabcontent'>
+          <Filter />
           <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
         </div>
         <div id='Outcomes' className='tabcontent'>
+          <Filter />
           <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
+          <Filter />
           <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
         </div>
       </div>
