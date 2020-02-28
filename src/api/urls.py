@@ -15,6 +15,7 @@ urlpatterns = [
     path('DVHRTRiskFactorCounts/', views.DVHRTRiskFactorCounts.as_view(), name="DVHRTRiskFactorCounts"),
     path('DVHRTCriminalJusticeOutcomes/', views.DVHRTCriminalJusticeOutcomes.as_view(), name="DVHRTCriminalJusticeOutcomes"),
     path('current_user/', current_user),
+    # path('password/', views.change_password, name='change_password'),
     path('users/', UserList.as_view()),
 ]
 
