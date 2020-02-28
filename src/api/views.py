@@ -281,7 +281,7 @@ class FrontendAppView(View):
     """
 
     def get(self, request):
-        try:REACT_APP_DIR
+        try:
             with open(os.path.join(settings.BASE_DIR, 'build', 'index.html')) as f:
                 return HttpResponse(f.read())
         except FileNotFoundError:
