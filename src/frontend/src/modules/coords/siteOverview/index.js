@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
+import Filter from '../../filter/filter.js'
+import NavigationBar from '../../navbar/NavigationBar.js'
+import Button from 'react-bootstrap/Button'
+import TabObj from '../../tabs.js'
 import { useTable, useSortBy } from 'react-table'
 import Table from 'react-bootstrap/Table'
 
@@ -57,7 +61,7 @@ function MyTable ({ columns, data }) {
           {firstPageRows.map((row, i) => {
             prepareRow(row)
             return (
-              <tr {...row.getRowProps()}>
+              <tr data-href={'/site/case-view?case_id=' + data[i].case_id} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
@@ -70,6 +74,16 @@ function MyTable ({ columns, data }) {
       </Table>
       <br />
       <div>Showing the first 20 results of {rows.length} rows</div>
+
+      <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          document.querySelectorAll('tr[data-href]').forEach(row => {
+            row.addEventListener('click', () => {
+              window.location.href = row.dataset.href
+            })
+          })
+        })
+      </script>
     </>
   )
 }
@@ -330,6 +344,7 @@ class siteOverview extends React.Component {
   }
 
   componentDidMount () {
+    this.showTab(0)
     fetch(CASES_URL)
       .then(results => {
         return results.json()
@@ -337,24 +352,48 @@ class siteOverview extends React.Component {
       .then(data => this.setState({ cases: data }))
   }
 
+  getTabInfo (tabName) {
+    var i, tabcontent, tablinks
+
+    // Get all elements with class='tabcontent' and hide them
+    tabcontent = document.getElementsByClassName('tabcontent')
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none'
+    }
+
+    // Get all elements with class='tablinks' and remove the class 'active'
+    tablinks = document.getElementsByClassName('tablinks')
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '')
+    }
+
+    // Show the current tab, and add an 'active' class to the button that opened the tab
+    document.getElementById(tabName).style.display = 'block'
+  }
+
+  showTab (index) {
+    if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
+  }
+
   render () {
     return (
       <div>
-        <h1>Site overview</h1>
-        <a href="/site/case-view">case detail view</a>
+        <NavigationBar />
         <a href="/site/add-case"> add a case</a>
-        <p>Victim Tab</p>
-        <MyTable columns={this.state.victim_columns} data={this.state.cases} />
-        <p>Abuser Tab</p>
-        <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
-        <p>Risk Factors Tab</p>
-        {console.log(this.state.cases)}
-        <MyTable
-          columns={this.state.risk_factor_columns}
-          data={this.state.cases}
-        />
-        <p>Outcomes Tab</p>
-        <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
+        <TabObj selectFunc={(index, label) => this.showTab(index)}/>
+        <div id='Victim' className='tabcontent'>
+          <Filter />
+          <MyTable columns={this.state.victim_columns} data={this.state.cases} />
+        </div>
+        <div id='Abuser' className='tabcontent'>
+          <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
+        </div>
+        <div id='Outcomes' className='tabcontent'>
+          <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
+        </div>
+        <div id='RiskFactors' className='tabcontent'>
+          <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
+        </div>
       </div>
     )
   }

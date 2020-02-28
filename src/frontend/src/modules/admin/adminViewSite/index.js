@@ -3,6 +3,9 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
+import NavigationBar from '../../navbar/NavigationBar.js'
+import Button from 'react-bootstrap/Button'
+import TabObj from '../../tabs.js'
 
 const Wrapper = styled.div`
   display: grid;
@@ -55,7 +58,20 @@ class adminViewSite extends React.Component {
     console.log('DATA', data)
   }
 
+  getInfoUrl (tabName) {
+    if (tabName === 'Victim') {
+      return VICTIM_INFO_URL
+    } else if (tabName === 'Abuser') {
+      return ABUSER_INFO_URL
+    } else if (tabName === 'Risk Factors') {
+      return RISK_FACTOR_INFO_URL
+    } else { /* tabName == 'Outcomes' */
+      return OUTCOME_INFO_URL
+    }
+  }
+
   getTabInfo (tabName, url) {
+    if (tabName === 'Risk Factors') tabName = 'RiskFactors'
     var i, tabcontent, tablinks
 
     fetch(
@@ -68,7 +84,6 @@ class adminViewSite extends React.Component {
       return results.text()
     }).then(text => {
       this.doSetState(tabName, JSON.parse(text))
-      console.log('TEXT', text)
     })
 
     // Get all elements with class='tabcontent' and hide them
@@ -90,16 +105,17 @@ class adminViewSite extends React.Component {
   }
 
   getCommunity (comId, comName) {
+    this.setState({ community_id: comId })
+    this.setState({ community_name: comName })
     document.getElementById('community_list').style.display = 'none'
     document.getElementById('tab').style.display = 'block'
     document.getElementById('back_to_com_list').style.display = 'block'
-    this.setState({ community_id: comId })
-    this.setState({ community_name: comName })
   }
 
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>Viewing a site</h1>
         <div id='community_list'>
           <ul className="community_list">
@@ -115,11 +131,9 @@ class adminViewSite extends React.Component {
           <h2>{this.state.community_name} DVHRT</h2>
           <button type='button' onClick={() => window.location.reload()}> View another community</button>
         </div>
+
         <div id='tab'>
-          <button className='tablinks' onClick={() => this.getTabInfo('Victim', VICTIM_INFO_URL)}>Victim</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('Abuser', ABUSER_INFO_URL)}>Abuser</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('RiskFactors', RISK_FACTOR_INFO_URL)}>Risk Factors</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('Outcomes', OUTCOME_INFO_URL)}>Outcomes</button>
+          <TabObj selectFunc={(index, label) => this.getTabInfo(label, this.getInfoUrl(label))}/>
         </div>
 
         <div id='Victim' className='tabcontent'>

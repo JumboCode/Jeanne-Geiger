@@ -1,0 +1,69 @@
+.NavigationBarContainer {
+  position: relative;
+  top: 0;
+  width: 100%;
+  background-color: purple;
+  color: #000;
+  padding: 20px 25px;
+}
+
+.NavSearchBar {
+  position: absolute;
+  left: 65%;
+  bottom: 35%;
+  width: 25%;
+  height: 30%;
+  color: purple;
+  text-color: white;
+  border-width: 1px;
+  border-color: white;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+.NavSearchBar:focus {
+  outline: none !important;
+}
+
+.settingsbutton {
+  position: absolute;
+  width: 2.5%;
+  left: 92%;
+  bottom: 28%;
+}
+
+input::placeholder {
+  color: white;
+  font-size: 1em;
+}
+
+input[type='text'],
+textarea {
+  color: white;
+  background-color: purple;
+}
+
+text1 {
+  position: relative;
+  right: 270px;
+  top: 35px;
+  color: white;
+  font-size: 13px;
+  font-family: 'Archivo', sans-serif;
+}
+
+@media only screen and (max-width: 840px) {
+  .NavigationBarItemContainer {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 0;
+    color: #000;
+    padding: 5px 15px;
+    font-size: 16px;
+  }
+  .ItemLeft {
+    display: none;
+  }
+}
