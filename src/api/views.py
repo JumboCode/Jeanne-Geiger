@@ -450,4 +450,4 @@ class UserList(APIView):
     #         form = PasswordChangeForm(request.user)
     #     return render(request, 'accounts/change_password.html', {
     #         'form': form
-        })
+    #    })
