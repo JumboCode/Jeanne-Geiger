@@ -169,7 +169,6 @@ class detailView extends React.Component {
               <p>Has he/she choked (strangled) you multiple times? </p>
               <p>Do you believe he/she is capable of killing you? </p>
               <p>Does he/she own a gun? </p>
-                
               <p>Has he/she ever threatened or tried to commit suicide? </p>
               <p>Is he/she unemployed? </p> 
               <p>Has he/she avoided being arrested for domestic violence? </p> 
@@ -205,9 +204,6 @@ class detailView extends React.Component {
               <p>{this.state.case.risk_factor_id.pregnant_abuse}</p>
               <p>{this.state.case.risk_factor_id.children_threatened}</p>
               <p>{this.state.case.risk_factor_id.has_spied}</p>
-
-
-
             </Col>
           </Row>
           
