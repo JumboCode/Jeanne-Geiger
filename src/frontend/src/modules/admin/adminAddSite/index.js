@@ -18,23 +18,16 @@ class adminAddSite extends React.Component {
     }
   }
 
-//   componentDidMount () {
-//     this.showTab(0)
-//     fetch(COMMUNITY_LIST_URL
-//     ).then(results => {
-//       return results.json()
-//     }).then(data => {
-//       for (var i = 0; i < data.length; i++) {
-//         if (data[i].community_id === 1) {
-//           this.setState({ referral_sources: data[i].referral_sources })
-//         }
-//       }
-//     })
-//   }
-
   doSubmit () {
-    var siteInfo = '&community_name=' + document.getElementById('community_name').value +
-                   '&referral_source=' + document.getElementById('referral_source').value // might need to change for array of strings
+    var referral_sources = [];
+    var rs = document.getElementsByClassName('rs');
+
+    for (var i = 0; i < rs.length; i++) {
+        referral_sources.push(rs[i].value);
+    }
+
+    var siteInfo = 'community_name=' + document.getElementById('community_name').value +
+                   '&referral_sources={' + referral_sources + '}'
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', SITE_POST_URL, true)
@@ -55,7 +48,9 @@ class adminAddSite extends React.Component {
               <Form.Row>
                 <Col>
                   <TextInputObj id='community_name' title='Community Name'/>
-                  <TextInputObj id='referral_sources' title='Referral Sources'/>
+                  <TextInputObj id='referral_source1' class='rs' title='Referral Source 1'/>
+                  <TextInputObj id='referral_source2' class='rs' title='Referral Source 2'/>
+                  <TextInputObj id='referral_source3' class='rs' title='Referral Source 3'/>
                 </Col>
               </Form.Row>
             </div>
