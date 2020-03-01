@@ -1,21 +1,19 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import backLogo from './BackButton.png'
 import './back.css'
 
-
-//This class defines a back button that goes back one page
-//in the user's browser history when called
+// This class defines a back button that goes back one page
+// in the user's browser history when called
 export default class BackButton extends React.Component {
   handleClick = () => {
-    window.history.back();
+    window.history.back()
   }
 
-  render() {
+  render () {
     return (
-      <div className="backbutton"> 
+      <div className="backbutton">
         <img src={backLogo} alt="Back Button" onClick={this.handleClick}/>
       </div>
-    );
+    )
   }
-
 }
