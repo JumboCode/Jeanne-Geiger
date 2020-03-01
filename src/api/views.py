@@ -1,4 +1,5 @@
 import logging
+import os
 from django.views.generic import View
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.conf import settings
@@ -17,57 +18,258 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 
-
 class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
-    
+
     def get(self, request, *args, **kwargs):
         queryset = Outcomes.objects.all()
         serializer_class = OutcomesSerializer(queryset, many=True)
 
         return Response(serializer_class.data)
-    
-
+      
     def post(self, request, *args, **kwargs):
         get_outcome_id = request.POST.get("outcome_id")
         try:
             outcomeData = Outcomes.objects.get(outcome_id=get_outcome_id)
-        except:
-            outcomeData = Outcomes(connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
-                                engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
-                                charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
-                                pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
-                                sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
-                                sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
+        except Outcomes.DoesNotExist:
+            outcomeData = Outcomes(
+                connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
+                engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
+                charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
+                pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
+                sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
+                sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
             outcomeData.save()
-        return HttpResponse('success')
+        return JsonResponse({'outcome_id' : outcomeData.outcome_id})
 
 class CommunitiesList(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
     serializer_class = CommunitiesSerializer
-    
+
     def get(self, request, *args, **kwargs):
         queryset = Communities.objects.all()
         serializer_class = CommunitiesSerializer(queryset, many=True)
 
         return Response(serializer_class.data)
 
+
+
+class OneCase(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        get_case_id = request.META.get('HTTP_CASEID')     
+        case = Cases.objects.get(case_id=get_case_id)
+        serializer_class = CasesSerializer(case)
+
+        return Response(serializer_class.data)
+
+class CasesByCommunity(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+
+    def get(self, request, *args, **kwargs):
+        test_community_id = 1        # hard-coded test_community_id for now        
+        cases = Cases.objects.filter(community_id=test_community_id)
+        serializer_class = CasesSerializer(cases, many=True)
+
+        return Response(serializer_class.data)
+
+class CasesList(generics.ListCreateAPIView):
+    queryset = Cases.objects.all()
+    serializer_class = CasesSerializer
+    
+    def get(self, request, *args, **kwargs):
+        queryset = Cases.objects.all()
+        serializer_class = CasesSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
     def post(self, request, *args, **kwargs):
-        get_community_id = request.POST.get("community_id")
-
+        get_case_id = request.POST.get("case_id")
         try:
-            communityData = Communities.objects.get(community_id=get_community_id)
-        except:
-            communityData = Communities(
-                community_name = request.POST.get("community_name"),
-                referral_sources = request.POST.get("referral_sources")
+            caseData = Cases.objects.get(case_id=get_case_id)
+        except Cases.DoesNotExist:
+            community = Communities.objects.get(community_id=request.POST.get("community_id"))
+            
+            outcomes = Outcomes(
+                connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
+                engagement_in_ongoing_domestic_violence_services = request.POST.get("engagement_in_ongoing_domestic_violence_services"),
+                charges_filed_at_or_after_case_acceptance = request.POST.get("charges_filed_at_or_after_case_acceptance"),
+                pretrial_hearing_outcome = request.POST.get("pretrial_hearing_outcome"),
+                sentencing_outcomes_disposition = request.POST.get("sentencing_outcomes_disposition"),
+                sentencing_outcomes_sentence = request.POST.get("sentencing_outcomes_sentence"),
             )
-            communityData.save()
+            outcomes.save()
 
-        return JsonResponse({'community_id' : communityData.community_id})
+            victim = Persons(
+                is_victim = True,
+                name = request.POST.get("v_name"),
+                dob = request.POST.get("v_dob"),
+                gender = request.POST.get("v_gender"),
+                race_ethnicity = request.POST.get("v_race_ethnicity"),
+                age_at_case_acceptance = request.POST.get("v_age_at_case_acceptance"),
+                primary_language = request.POST.get("v_primary_language"),
+                town = request.POST.get("v_town")
+            )
+            victim.save()
 
+            abuser = Persons(
+                is_victim = False,
+                name = request.POST.get("a_name"),
+                dob = request.POST.get("a_dob"),
+                gender = request.POST.get("a_gender"),
+                race_ethnicity = request.POST.get("a_race_ethnicity"),
+                age_at_case_acceptance = request.POST.get("a_age_at_case_acceptance"),
+                primary_language = request.POST.get("a_primary_language"),
+                town = request.POST.get("a_town")
+            )
+            abuser.save()
+
+            risk_factors = RiskFactors(
+                violence_increased = request.POST.get("violence_increased"),
+                attempted_leaving = request.POST.get("attempted_leaving"),
+                control_activites = request.POST.get("control_activites"),
+                attempted_murder = request.POST.get("attempted_murder"),
+                threatened_murder = request.POST.get("threatened_murder"),
+                weapon_threat = request.POST.get("weapon_threat"),
+                attempted_choke = request.POST.get("attempted_choke"),
+                multiple_choked = request.POST.get("multiple_choked"),
+                killing_capable = request.POST.get("killing_capable"),
+                owns_gun = request.POST.get("owns_gun"),
+                suicide_threat_or_attempt = request.POST.get("suicide_threat_or_attempt"),
+                is_unemployed = request.POST.get("is_unemployed"),
+                avoided_arrest = request.POST.get("avoided_arrest"),
+                unrelated_child = request.POST.get("unrelated_child"),
+                uses_illegal_drugs = request.POST.get("uses_illegal_drugs"),
+                is_alcoholic = request.POST.get("is_alcoholic"),
+                forced_sex = request.POST.get("forced_sex"),
+                constantly_jealous = request.POST.get("constantly_jealous"),
+                pregnant_abuse = request.POST.get("pregnant_abuse"),
+                children_threatened = request.POST.get("children_threatened"),
+                has_spied = request.POST.get("has_spied")
+            )
+            risk_factors.save()
+
+            caseData = Cases(
+                outcome_id = outcomes,
+                community_id = community,
+                victim_id = victim,
+                abuser_id = abuser,
+                risk_factor_id = risk_factors,
+                relationship_type = request.POST.get("relationship_type"),
+                relationship_len = request.POST.get("relationship_len"),
+                minor_in_home = request.POST.get("minor_in_home"),
+                referral_source = request.POST.get("referral_source"),
+                date_accepted = request.POST.get("date_accepted"),
+            )
+            caseData.save()
+
+        return JsonResponse({'case_id' : caseData.case_id})
+
+class RiskFactorsList(generics.ListCreateAPIView):
+    queryset = RiskFactors.objects.all()
+    serializer_class = RiskFactorsSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = RiskFactors.objects.all()
+        serializer_class = RiskFactorsSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+    def post(self, request, *args, **kwargs):
+        get_rf_id = request.POST.get("risk_factor_id")
+        try:
+            rfData = RiskFactors.objects.get(risk_factor_id=get_rf_id)
+        except:
+            rfData = RiskFactors(
+                violence_increased = request.POST.get("violence_increased"),
+                attempted_leaving = request.POST.get("attempted_leaving"),
+                control_activites = request.POST.get("control_activites"),
+                attempted_murder = request.POST.get("attempted_murder"),
+                threatened_murder = request.POST.get("threatened_murder"),
+                weapon_threat = request.POST.get("weapon_threat"),
+                attempted_choke = request.POST.get("attempted_choke"),
+                multiple_choked = request.POST.get("multiple_choked"),
+                killing_capable = request.POST.get("killing_capable"),
+                owns_gun = request.POST.get("owns_gun"),
+                suicide_threat_or_attempt = request.POST.get("suicide_threat_or_attempt"),
+                is_unemployed = request.POST.get("is_unemployed"),
+                avoided_arrest = request.POST.get("avoided_arrest"),
+                unrelated_child = request.POST.get("unrelated_child"),
+                uses_illegal_drugs = request.POST.get("uses_illegal_drugs"),
+                is_alcoholic = request.POST.get("is_alcoholic"),
+                forced_sex = request.POST.get("forced_sex"),
+                constantly_jealous = request.POST.get("constantly_jealous"),
+                pregnant_abuse = request.POST.get("pregnant_abuse"),
+                children_threatened = request.POST.get("children_threatened"),
+                has_spied = request.POST.get("has_spied"),
+            )
+            rfData.save()
+        return JsonResponse({'risk_factor_id' : rfData.risk_factor_id})
+
+class AbuserList(generics.ListCreateAPIView):
+    queryset = Persons.objects.filter(is_victim=False)
+    serializer_class = PersonsSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = Persons.objects.filter(is_victim=False)
+        serializer_class = PersonsSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        print(request.POST.get("person_id"))
+        get_person_id = request.POST.get("person_id")
+        try:
+            personData = Persons.objects.get(person_id=get_person_id)
+        except Persons.DoesNotExist:
+            personData = Persons(
+                is_victim = request.POST.get("is_victim"),
+                name = request.POST.get("name"),
+                dob = request.POST.get("dob"),
+                gender = request.POST.get("gender"),
+                race_ethnicity = request.POST.get("race_ethnicity"),
+                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
+                primary_language = request.POST.get("primary_language"),
+                town = request.POST.get("town"),
+            )
+            personData.save()
+        return JsonResponse({'person_id' : personData.person_id})
+
+class VictimList(generics.ListCreateAPIView):
+    queryset = Persons.objects.filter(is_victim=True)
+    serializer_class = PersonsSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = Persons.objects.filter(is_victim=True)
+        serializer_class = PersonsSerializer(queryset, many=True)
+
+        return Response(serializer_class.data)
+
+    def post(self, request, *args, **kwargs):
+        get_person_id = request.POST.get("person_id")
+        try:
+            personData = Persons.objects.get(person_id=get_person_id)
+        except:
+            personData = Persons(
+                is_victim = request.POST.get("is_victim"),
+                name = request.POST.get("name"),
+                dob = request.POST.get("dob"),
+                gender = request.POST.get("gender"),
+                race_ethnicity = request.POST.get("race_ethnicity"),
+                age_at_case_acceptance = request.POST.get("age_at_case_acceptance"),
+                primary_language = request.POST.get("primary_language"),
+                town = request.POST.get("town"),
+            )
+            personData.save()
+
+        return JsonResponse({'person_id' : personData.person_id})
+      
 class FrontendAppView(View):
     """
     Serves the compiled frontend entry point (only works if you have run `yarn
@@ -435,19 +637,3 @@ class UserList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def change_password(request):
-    #     if request.method == 'POST':
-    #         form = PasswordChangeForm(request.user, request.POST)
-    #         if form.is_valid():
-    #             user = form.save()
-    #             update_session_auth_hash(request, user)  # Important!
-    #             messages.success(request, 'Your password was successfully updated!')
-    #             return redirect('change_password')
-    #         else:
-    #             messages.error(request, 'Please correct the error below.')
-    #     else:
-    #         form = PasswordChangeForm(request.user)
-    #     return render(request, 'accounts/change_password.html', {
-    #         'form': form
-    #    })

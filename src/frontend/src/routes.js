@@ -11,11 +11,16 @@ import adminViewSite from './modules/admin/adminViewSite'
 
 import siteOverview from './modules/coords/siteOverview'
 import detailView from './modules/coords/detailView'
+import siteAddCase from './modules/coords/siteAddCase'
 
 import accRecovery from './modules/accRecovery'
+
 import Authenticate from './Authenticate.js'
+
+import { AuthContext } from './contexts/auth'
+
 // import PublicRoute from 'Public';
-// import PrivateRoute from 'Private';
+import PrivateRoute from './Private'
 
 export default class AppRouter extends React.Component {
   render () {
@@ -34,6 +39,7 @@ export default class AppRouter extends React.Component {
           <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
         </Switch>
       </BrowserRouter>
+
     )
   }
 }

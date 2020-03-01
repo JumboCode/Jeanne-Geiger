@@ -2,6 +2,20 @@ import React, { Component } from 'react'
 import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
+import styled from 'styled-components'
+import NavigationBar from '../../navbar/NavigationBar.js'
+import Button from 'react-bootstrap/Button'
+import TabObj from '../../tabs.js'
+
+const Wrapper = styled.div`
+  display: grid;
+  margin-left: 7%;
+  column-gap : .5%
+  grid-template-columns: repeat(3, 210px);
+  grid-template-rows: repeat(2, 210px);
+  grid-auto-flow: column;
+  text-decoration: none;
+`
 
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
@@ -33,16 +47,31 @@ class adminViewSite extends React.Component {
   doSetState (tabName, data) {
     if (tabName === 'Victim') {
       this.setState({ victim_info: data })
+      console.log(this.state.victim_info)
     } else if (tabName === 'Abuser') {
       this.setState({ abuser_info: data })
     } else if (tabName === 'RiskFactors') {
       this.setState({ risk_factor_info: data })
-    } else { // tabName == 'Outcomes'
+    } else { /* tabName == 'Outcomes' */
       this.setState({ outcome_info: data })
+    }
+    console.log('DATA', data)
+  }
+
+  getInfoUrl (tabName) {
+    if (tabName === 'Victim') {
+      return VICTIM_INFO_URL
+    } else if (tabName === 'Abuser') {
+      return ABUSER_INFO_URL
+    } else if (tabName === 'Risk Factors') {
+      return RISK_FACTOR_INFO_URL
+    } else { /* tabName == 'Outcomes' */
+      return OUTCOME_INFO_URL
     }
   }
 
   getTabInfo (tabName, url) {
+    if (tabName === 'Risk Factors') tabName = 'RiskFactors'
     var i, tabcontent, tablinks
 
     fetch(
@@ -72,19 +101,21 @@ class adminViewSite extends React.Component {
     // Show the current tab, and add an 'active' class to the button that opened the tab
     document.getElementById(tabName).style.display = 'block'
     // evt.currentTarget.className += ' active';
+    console.log('COMMUNITY ID', this.state)
   }
 
   getCommunity (comId, comName) {
+    this.setState({ community_id: comId })
+    this.setState({ community_name: comName })
     document.getElementById('community_list').style.display = 'none'
     document.getElementById('tab').style.display = 'block'
     document.getElementById('back_to_com_list').style.display = 'block'
-    this.setState({ community_id: comId })
-    this.setState({ community_name: comName })
   }
 
   render () {
     return (
       <div>
+        <NavigationBar />
         <h1>Viewing a site</h1>
         <div id='community_list'>
           <ul className="community_list">
@@ -100,35 +131,32 @@ class adminViewSite extends React.Component {
           <h2>{this.state.community_name} DVHRT</h2>
           <button type='button' onClick={() => window.location.reload()}> View another community</button>
         </div>
+
         <div id='tab'>
-          <button className='tablinks' onClick={() => this.getTabInfo('Victim', VICTIM_INFO_URL)}>Victim</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('Abuser', ABUSER_INFO_URL)}>Abuser</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('RiskFactors', RISK_FACTOR_INFO_URL)}>Risk Factors</button>
-          <button className='tablinks' onClick={() => this.getTabInfo('Outcomes', OUTCOME_INFO_URL)}>Outcomes</button>
+          <TabObj selectFunc={(index, label) => this.getTabInfo(label, this.getInfoUrl(label))}/>
         </div>
 
         <div id='Victim' className='tabcontent'>
           <h2>DVHRT High Risk Victim Information</h2>
-          <p>Gender</p>
-          <ObjectTable tableRows = {[
-            ['Female', this.state.victim_info.Female],
-            ['Male', this.state.victim_info.Male],
-            ['Other', this.state.victim_info.Other],
-            ['Total Count', this.state.victim_info['Total Gender Count']]]}/>
-          <p>Race/Ethnicity</p>
-          <ObjectTable tableRows = {[
-            ['American Indian/Alaska Native', this.state.victim_info['American Indian/Alaska Native']],
-            ['Asian', this.state.victim_info.Asian],
-            ['Black/African American', this.state.victim_info['Black/African American']],
-            ['Hispanic or Latino', this.state.victim_info['Hispanic or Latino']],
-            ['Native Hawaiian/Pacific Islander', this.state.victim_info['Native Hawaiian/Pacific Islander']],
-            ['White', this.state.victim_info.White],
-            ['Unknown', this.state.victim_info['Other/Unknown']],
-            ['Total', this.state.victim_info['Total Ethnicity Count']]]}/>
-          <p>Domestic Violence Service Utilization</p>
-          <ObjectTable tableRows = {[
-            ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
-            ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
+          <Wrapper>
+            <ObjectTable Title = "Gender" tableRows = {[
+              ['Female', this.state.victim_info.Female],
+              ['Male', this.state.victim_info.Male],
+              ['Other', this.state.victim_info.Other],
+              ['Total Count', this.state.victim_info['Total Gender Count']]]}/>
+            <ObjectTable Title = "Race/Ethnicity" tableRows = {[
+              ['American Indian/Alaska Native', this.state.victim_info['American Indian/Alaska Native']],
+              ['Asian', this.state.victim_info.Asian],
+              ['Black/African American', this.state.victim_info['Black/African American']],
+              ['Hispanic or Latino', this.state.victim_info['Hispanic or Latino']],
+              ['Native Hawaiian/Pacific Islander', this.state.victim_info['Native Hawaiian/Pacific Islander']],
+              ['White', this.state.victim_info.White],
+              ['Unknown', this.state.victim_info['Other/Unknown']],
+              ['Total', this.state.victim_info['Total Ethnicity Count']]]}/>
+            <ObjectTable Title = "Domestic Violence Service Utilization" tableRows = {[
+              ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
+              ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
+          </Wrapper>
         </div>
 
         <div id='Abuser' className='tabcontent'>
