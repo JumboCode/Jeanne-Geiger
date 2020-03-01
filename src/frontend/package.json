@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "https://localhost:8000",
   "dependencies": {
+    "babel-eslint": "^10.1.0",
     "bootstrap": "^4.4.1",
     "extend-shallow": "^3.0.2",
     "react": "^16.12.0",
