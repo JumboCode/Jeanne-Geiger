@@ -1,2 +1,2 @@
-release: cd src && python3 manage.py makemigrations && python3 manage.py migrate && cd frontend && npm install --only=dev 
+release: python src/manage.py migrate
 web: cd src && gunicorn dvhrt.wsgi --log-file - 
