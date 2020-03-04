@@ -19,15 +19,15 @@ class adminAddSite extends React.Component {
   }
 
   doSubmit () {
-    var referral_sources = [];
-    var rs = document.getElementsByClassName('rs');
+    var referralSources = []
+    var rs = document.getElementsByClassName('rs')
 
     for (var i = 0; i < rs.length; i++) {
-        referral_sources.push(rs[i].value);
+      referralSources.push(rs[i].value)
     }
 
     var siteInfo = 'community_name=' + document.getElementById('community_name').value +
-                   '&referral_sources={' + referral_sources + '}'
+                   '&referral_sources={' + referralSources + '}'
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', SITE_POST_URL, true)
