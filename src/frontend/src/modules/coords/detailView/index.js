@@ -65,32 +65,32 @@ class detailView extends React.Component {
           <Row>
             <Col>
               <p>Name: </p>
-                <h3>{this.state.case.victim_id.name}</h3>
+              <h3>{this.state.case.victim_id.name}</h3>
               <p>Gender: </p>
-                <h3>{this.state.case.victim_id.gender}</h3>
+              <h3>{this.state.case.victim_id.gender}</h3>
               <p>DOB: </p>
-                <h3>{this.state.case.victim_id.dob}</h3>
+              <h3>{this.state.case.victim_id.dob}</h3>
               <p>Race/Ethnicity: </p>
-                <h3> {this.state.case.victim_id.race_ethnicity}</h3>
+              <h3> {this.state.case.victim_id.race_ethnicity}</h3>
               <p>Age at Case Acceptance: </p>
-                <h3> {this.state.case.victim_id.age_at_case_acceptance}</h3>
+              <h3> {this.state.case.victim_id.age_at_case_acceptance}</h3>
               <p>Primary Language:</p>
-                <h3>{this.state.case.victim_id.primary_language}</h3>
+              <h3>{this.state.case.victim_id.primary_language}</h3>
             </Col>
 
             <Col>
               <p>Town: </p>
-                <h3> {this.state.case.victim_id.town}</h3>
+              <h3> {this.state.case.victim_id.town}</h3>
               <p>Relationship Type: </p>
-                <h3> {this.state.case.relationship_type}</h3>
+              <h3> {this.state.case.relationship_type}</h3>
               <p>Relationship Length: </p>
-                <h3> {this.state.case.relationship_len}</h3>
+              <h3> {this.state.case.relationship_len}</h3>
               <p>Minor in Home: </p>
-               <h3> {this.state.case.minor_in_home}</h3>
+              <h3> {this.state.case.minor_in_home}</h3>
               <p>Referral Source: </p>
-                <h3> {this.state.case.referral_source}</h3>
+              <h3> {this.state.case.referral_source}</h3>
               <p>Date at Case Acceptance: </p>
-                <h3> {this.state.case.date_accepted}</h3>
+              <h3> {this.state.case.date_accepted}</h3>
             </Col>
           </Row>
         </div>
@@ -104,29 +104,27 @@ class detailView extends React.Component {
         <div>
           <Row>
             <Col>
-            <p>Name: </p>
+              <p>Name: </p>
               <h3> {this.state.case.abuser_id.name}</h3>
-            <p>DOB: </p>
+              <p>DOB: </p>
               <h3> {this.state.case.abuser_id.dob}</h3>
-            <p>Gender: </p>
+              <p>Gender: </p>
               <h3> {this.state.case.abuser_id.gender}</h3>
             </Col>
 
             <Col>
-            <p>Race/Ethnicity: </p>
+              <p>Race/Ethnicity: </p>
               <h3>{this.state.case.abuser_id.race_ethnicity}</h3>
-            <p>Age at Case Acceptance: </p>
+              <p>Age at Case Acceptance: </p>
               <h3>{this.state.case.abuser_id.age_at_case_acceptance}</h3>
-            <p>Primary Language: </p>
+              <p>Primary Language: </p>
               <h3>{this.state.case.abuser_id.primary_language}</h3>
-            <p>Town: </p>
+              <p>Town: </p>
               <h3>{this.state.case.abuser_id.town}</h3>
 
             </Col>
           </Row>
 
-          
-          
         </div>
       )
     }
@@ -136,12 +134,33 @@ class detailView extends React.Component {
     if (this.state.case.outcome_id !== undefined) {
       return (
         <div>
-          <p>Connection to Domestic Violence Services: {this.state.case.outcome_id.connection_to_domestic_violence_services}</p>
-          <p>Engagement in Ongoing Domestic Violence Services: {this.state.case.outcome_id.engagement_in_ongoing_domestic_violence_services}</p>
-          <p>Charges File at or After Case Acceptance: {this.state.case.outcome_id.charges_filed_at_or_after_case_acceptance}</p>
-          <p>Sentencing Outcomes Disposition: {this.state.case.outcome_id.sentencing_outcomes_disposition}</p>
-          <p>Sentencing Outcomes Sentence: {this.state.case.outcome_id.sentencing_outcomes_sentence}</p>
+          <Row>
+            <Col>
+              <p>Victim Name: </p>
+              <h3>{this.state.case.victim_id.name}</h3>
+              <p>Abuser Name: </p>
+              <h3>{this.state.case.abuser_id.name}</h3>
+            </Col>
+
+            <Col xs={8}>
+              <p>Connection to Domestic Violence Services: </p>
+              <p>Engagement in Ongoing Domestic Violence Services: </p>
+              <p>Charges File at or After Case Acceptance: </p>
+              <p>Sentencing Outcomes Disposition: </p>
+              <p>Sentencing Outcomes Sentence: </p>
+            </Col>
+
+            <Col>
+              <p>{this.state.case.outcome_id.connection_to_domestic_violence_services}</p>
+              <p>{this.state.case.outcome_id.engagement_in_ongoing_domestic_violence_services}</p>
+              <p>{this.state.case.outcome_id.charges_filed_at_or_after_case_acceptance}</p>
+              <p>{this.state.case.outcome_id.sentencing_outcomes_disposition}</p>
+              <p>{this.state.case.outcome_id.sentencing_outcomes_sentence}</p>
+            </Col>
+          </Row>
+
         </div>
+
       )
     }
   }
@@ -153,9 +172,9 @@ class detailView extends React.Component {
           <Row>
             <Col>
               <p>Victim Name: </p>
-                  <h3>{this.state.case.victim_id.name}</h3>
+              <h3>{this.state.case.victim_id.name}</h3>
               <p>Abuser Name: </p>
-                <h3>{this.state.case.abuser_id.name}</h3>
+              <h3>{this.state.case.abuser_id.name}</h3>
             </Col>
 
             <Col xs={8}>
@@ -170,8 +189,8 @@ class detailView extends React.Component {
               <p>Do you believe he/she is capable of killing you? </p>
               <p>Does he/she own a gun? </p>
               <p>Has he/she ever threatened or tried to commit suicide? </p>
-              <p>Is he/she unemployed? </p> 
-              <p>Has he/she avoided being arrested for domestic violence? </p> 
+              <p>Is he/she unemployed? </p>
+              <p>Has he/she avoided being arrested for domestic violence? </p>
               <p>Do you have a child that is not his/hers? </p>
               <p>Does he/she use illegal drugs? </p>
               <p>Is he/she an alcoholic or problem drinker? </p>
@@ -206,7 +225,7 @@ class detailView extends React.Component {
               <p>{this.state.case.risk_factor_id.has_spied}</p>
             </Col>
           </Row>
-          
+
         </div>
       )
     }
