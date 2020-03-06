@@ -58,7 +58,7 @@ class Popup extends React.Component {
                           Town
             </label>
 
-        </div>
+          </div>
 
           <button className='exit_button' onClick={this.props.closePopup}>X</button>
 

@@ -64,7 +64,7 @@ class Popup extends React.Component {
               <span class="checkmark"></span>
                           Sentencing Outcomes Sentence
             </label>
-        </div>
+          </div>
 
           <button className='exit_button' onClick={this.props.closePopup}>X</button>
 

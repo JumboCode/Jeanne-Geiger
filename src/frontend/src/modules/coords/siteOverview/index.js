@@ -393,11 +393,11 @@ class siteOverview extends React.Component {
           <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
         </div>
         <div id='Outcomes' className='tabcontent'>
-            <OUTFilter />
+          <OUTFilter />
           <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
-            <RFFilter />
+          <RFFilter />
           <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
         </div>
       </div>

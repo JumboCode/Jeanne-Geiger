@@ -8,171 +8,171 @@ class Popup extends React.Component {
         <div className='popup\_inner'>
                 What filters would you like to display?
 
-            <div className='container'>
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+          <div className='container'>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Victim Name
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Abuser Name
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Physical Violence Increased
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Left in Past Year
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Control Activities
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Tried to Kill
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Threat to Kill
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Used Weapon
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Tried Choke
-                </label>
+            </label>
 
-                <label class="check_container">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Has Choked Multiple Times
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Able to Kill
-                </label>
+            </label>
 
-            </div>
-            <div className='container2'>
+          </div>
+          <div className='container2'>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Owns Gun
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Threat or Tried Suicide
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Unemployed
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Avoided Arrest
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Child not theirs
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Use Drugs
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Alcoholic
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Forced Sex
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Jealous
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Beaten While Pregnant
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Threaten Children
-                </label>
+            </label>
 
-                <label class="check_container2">
-                <input type="checkbox">
-                </input>
-                <span class="checkmark"></span>
+            <label class="check_container2">
+              <input type="checkbox">
+              </input>
+              <span class="checkmark"></span>
                 Spied or Left Notes
-                </label>
-            </div>
+            </label>
+          </div>
 
           <button className='exit_button' onClick={this.props.closePopup}>X</button>
 
