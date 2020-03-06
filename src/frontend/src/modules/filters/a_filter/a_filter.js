@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import './filter.css'
+import './a_filter.css'
 import Popup from './popup.js'
 
-class Filter extends Component {
+class AFilter extends Component {
   constructor (props) {
     super(props)
     this.state = { showPopup: false }
@@ -34,4 +34,4 @@ class Filter extends Component {
   }
 }
 
-export default Filter
+export default AFilter
