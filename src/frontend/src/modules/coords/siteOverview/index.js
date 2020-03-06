@@ -188,91 +188,91 @@ class siteOverview extends React.Component {
         },
         {
           Header:
-            'Has the physical violence increased in severity or frequency over the past year?',
+            'Increased Violence',
           accessor: 'risk_factor_id.violence_increased'
         },
         {
           Header:
-            'Have you left him/her after living together in the past year?',
+            'Recent Separation',
           accessor: 'risk_factor_id.attempted_leaving'
         },
         {
-          Header: 'Does he/she control most or all of your daily activities?',
+          Header: 'Controls Daily Activities',
           accessor: 'risk_factor_id.control_activites'
         },
         {
-          Header: 'Has he/she tried to kill you?',
+          Header: 'Tried to kill',
           accessor: 'risk_factor_id.attempted_murder'
         },
         {
-          Header: 'Has he/she ever threatened to kill you?',
+          Header: 'Threats to kill',
           accessor: 'risk_factor_id.threatened_murder'
         },
         {
           Header:
-            'Has he/she used a weapon against you or threatened you with a lethal weapon?',
+            'Weapon Use/Threats',
           accessor: 'risk_factor_id.weapon_threat'
         },
         {
-          Header: 'Has he/she ever tried to choke (strangle) you?',
+          Header: 'Strangulation',
           accessor: 'risk_factor_id.attempted_choke'
         },
         {
-          Header: 'Has he/she choked (strangled) you multiple times?',
+          Header: 'Multiple Strangulations',
           accessor: 'risk_factor_id.multiple_choked'
         },
         {
-          Header: 'Do you believe he/she is capable of killing you?',
+          Header: 'Capable of Killing',
           accessor: 'risk_factor_id.killing_capable'
         },
         {
-          Header: 'Does he/she own a gun?',
+          Header: 'Gun Ownership',
           accessor: 'risk_factor_id.owns_gun'
         },
         {
-          Header: 'Has he/she ever threatened or tried to commit suicide?',
+          Header: 'Threats/Attempts Suicide',
           accessor: 'risk_factor_id.suicide_threat_or_attempt'
         },
         {
-          Header: 'Is he/she unemployed?',
+          Header: 'Unemployed',
           accessor: 'risk_factor_id.is_unemployed'
         },
         {
-          Header: 'Has he/she avoided being arrested for domestic violence?',
+          Header: 'Avoided Arrest',
           accessor: 'risk_factor_id.avoided_arrest'
         },
         {
-          Header: 'Do you have a child that is not his/hers?',
+          Header: 'Child not theirs',
           accessor: 'risk_factor_id.unrelated_child'
         },
         {
-          Header: 'Does he/she use illegal drugs?',
+          Header: 'Illegal Drug Use',
           accessor: 'risk_factor_id.uses_illegal_drugs'
         },
         {
-          Header: 'Is he/she an alcoholic or problem drinker?',
+          Header: 'Alcoholic',
           accessor: 'risk_factor_id.is_alcoholic'
         },
         {
           Header:
-            'Has he/she ever forced you to have sex when you did not wish to do so?',
+            'Forced Sex',
           accessor: 'risk_factor_id.forced_sex'
         },
         {
-          Header: 'Is he/she violently or constantly jealous?',
+          Header: 'Jealousy',
           accessor: 'risk_factor_id.constantly_jealous'
         },
         {
-          Header: 'Has he/she ever beaten you while you were pregnant?',
+          Header: 'Beaten while Pregnant',
           accessor: 'risk_factor_id.pregnant_abuse'
         },
         {
-          Header: 'Threatens to harm victim’s children?',
+          Header: 'Threats to Small Children',
           accessor: 'risk_factor_id.children_threatened'
         },
         {
           Header:
-            'Does he/she spy on you, leaving threatening notes or messages?',
+            'Stalking Behavior',
           accessor: 'risk_factor_id.has_spied'
         }
       ],
