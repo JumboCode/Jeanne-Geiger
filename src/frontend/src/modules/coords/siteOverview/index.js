@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
-import Filter from '../../filter/filter.js'
+import VFilter from '../../filters/v_filter/filter.js'
+import AFilter from '../../filters/a_filter/a_filter.js'
+import RFFilter from '../../filters/rf_filter/rf_filter.js'
+import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
@@ -382,16 +385,19 @@ class siteOverview extends React.Component {
         <a href="/site/add-case"> add a case</a>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <Filter />
-          <MyTable columns={this.state.victim_columns} data={this.state.cases} />
+          <VFilter />
+          <MyTable columns={this.state.victim_columns} data={this.state.cases}/>
         </div>
         <div id='Abuser' className='tabcontent'>
+          <AFilter />
           <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
         </div>
         <div id='Outcomes' className='tabcontent'>
+          <OUTFilter />
           <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
+          <RFFilter />
           <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
         </div>
       </div>
@@ -400,3 +406,5 @@ class siteOverview extends React.Component {
 }
 
 export default siteOverview
+// Outcome filter <Filter />
+// rf filter

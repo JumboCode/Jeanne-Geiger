@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import './filter.css'
+import './a_filter.css'
 import Popup from './popup.js'
 
-class Filter extends Component {
+class AFilter extends Component {
   constructor (props) {
     super(props)
     this.state = { showPopup: false }
@@ -17,8 +17,8 @@ class Filter extends Component {
   render () {
     return (
       <div className="filter_container">
-        <button type="button" onClick={this.togglePopup.bind(this)}>
-                    filter results
+        <button type="button" className="filter_button" onClick={this.togglePopup.bind(this)}>
+                    Filter Results
         </button>
 
         {this.state.showPopup
@@ -34,4 +34,4 @@ class Filter extends Component {
   }
 }
 
-export default Filter
+export default AFilter
