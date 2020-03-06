@@ -13,9 +13,24 @@ const SITE_POST_URL = 'http://127.0.0.1:8000/api/communities/'
 class adminAddSite extends React.Component {
   constructor () {
     super()
+
+    this.referralSourceFieldsData = []
+
     this.state = {
-      referral_sources: []
+      referralSourceFields: this.referralSourceFieldsData
     }
+
+    this.addReferralSource = this.addReferralSource.bind(this)
+  }
+
+  addReferralSource () {
+    var num = document.getElementsByClassName('rs').length + 1
+    var elementID = 'referralSource' + num
+
+    this.referralSourceFieldsData.push(<div id={elementID}><pre><TextInputObj class='rs' title='Referral Source'/></pre></div>)
+    this.setState({
+      referralSourceFields: this.referralSourceFieldsData
+    })
   }
 
   doSubmit () {
@@ -23,7 +38,9 @@ class adminAddSite extends React.Component {
     var rs = document.getElementsByClassName('rs')
 
     for (var i = 0; i < rs.length; i++) {
-      referralSources.push(rs[i].value)
+      if (rs[i].value != "") {
+        referralSources.push(rs[i].value)
+      }
     }
 
     var siteInfo = 'community_name=' + document.getElementById('community_name').value +
@@ -48,9 +65,11 @@ class adminAddSite extends React.Component {
               <Form.Row>
                 <Col>
                   <TextInputObj id='community_name' title='Community Name'/>
-                  <TextInputObj id='referral_source1' class='rs' title='Referral Source 1'/>
-                  <TextInputObj id='referral_source2' class='rs' title='Referral Source 2'/>
-                  <TextInputObj id='referral_source3' class='rs' title='Referral Source 3'/>
+                  <TextInputObj id='referralSource1' class='rs' title='Referral Source'/>
+                  <div id="referral-sources-container">
+                    {this.referralSourceFieldsData}
+                  </div>
+                  <button type="button" onClick={() => this.addReferralSource()} value="addReferralSource">Add Referral Source</button>
                 </Col>
               </Form.Row>
             </div>
