@@ -30,7 +30,7 @@ SECRET_KEY = '%37to9jwjy*x4ai*+zt@lz$rm+8hko!7l*6=o4(y-f^6#@!h1)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'dvhrt.herokuapp.com'] # for localhost running of the server
+ALLOWED_HOSTS = [''] # for localhost running of the server
 
 
 # Application definition
@@ -173,8 +173,11 @@ STATIC_URL = '/static/'
 
 
 # Place static in the same location as webpack build files
-STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
-STATICFILES_DIRS = []
+# STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'staticfiles')
+]
 
 # If you want to serve user uploaded files add these settings
 MEDIA_URL = '/media/'
