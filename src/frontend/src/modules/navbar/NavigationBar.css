@@ -2,7 +2,7 @@
   position: relative;
   top: 0;
   width: 100%;
-  background-color: purple;
+  background-color: #303;
   color: #000;
   padding: 20px 25px;
 }
@@ -37,11 +37,6 @@ input::placeholder {
   font-size: 1em;
 }
 
-input[type='text'],
-textarea {
-  color: white;
-  background-color: purple;
-}
 
 text1 {
   position: relative;

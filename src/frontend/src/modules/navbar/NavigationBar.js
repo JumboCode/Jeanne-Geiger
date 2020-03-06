@@ -24,10 +24,6 @@ class NavigationBar extends Component {
     return (
       <div className="NavigationBarContainer">
         <Logo width="17%"/>
-        <form>
-          <input type="text" name="name" className="NavSearchBar" placeholder=" Search"/>
-        </form>
-        <Settings className="settingsbutton"/>
       </div>
     )
   }
