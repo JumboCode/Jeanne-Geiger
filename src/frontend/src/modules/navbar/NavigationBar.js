@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react'
 import { useAuth0 } from "../react-auth0-spa";
 import { ReactComponent as Logo } from './logo.svg'
@@ -35,3 +36,4 @@ class NavigationBar extends Component {
 }
 
 export default NavigationBar
+*/
