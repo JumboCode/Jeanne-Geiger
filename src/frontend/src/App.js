@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
+import auth0buttons from "./modules/logIn/auth0buttons";
+import { useAuth0 } from "./react-auth0-spa";
 
 /* import { adminComOverview } from './modules/admin/adminComOverview'
 import { adminHomepage } from './modules/admin/adminHomepage'
