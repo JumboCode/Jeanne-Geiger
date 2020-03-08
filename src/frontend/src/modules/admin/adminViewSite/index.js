@@ -6,6 +6,12 @@ import styled from 'styled-components'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
+import DatePopUp from '../../datePopUp/datePopUp.js'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 
 const Wrapper = styled.div`
   display: grid;
@@ -128,10 +134,21 @@ class adminViewSite extends React.Component {
         </div>
 
         <div id='back_to_com_list'>
-          <h2>{this.state.community_name} DVHRT</h2>
+          
+          <Row>
+            <Col xs = {9}>
+            <h2> {this.state.community_name} DVHRT</h2>
+            </Col>
+            <Col>
+              <DateRangePicker startDate="1/1/2020" endDate="3/1/2020">
+                <button>Date pop up!!</button>
+              </DateRangePicker>  
+            </Col>
+          </Row>
+           
           <button type='button' onClick={() => window.location.reload()}> View another community</button>
         </div>
-
+    
         <div id='tab'>
           <TabObj selectFunc={(index, label) => this.getTabInfo(label, this.getInfoUrl(label))}/>
         </div>

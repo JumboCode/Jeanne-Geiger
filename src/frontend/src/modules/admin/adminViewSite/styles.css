@@ -9,3 +9,8 @@
 #tab {
   display: none;
 }
+
+.DatePopUp {
+  border: 5px pink;
+  position: right;
+}
