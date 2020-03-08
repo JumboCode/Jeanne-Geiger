@@ -118,6 +118,11 @@ class adminViewSite extends React.Component {
     document.getElementById('back_to_com_list').style.display = 'block'
   }
 
+  handleDatePickApply(event, picker) {
+    alert(picker.startDate);
+    console.log(picker.startDate);
+  }
+
   render () {
     return (
       <div>
@@ -140,7 +145,7 @@ class adminViewSite extends React.Component {
             <h2> {this.state.community_name} DVHRT</h2>
             </Col>
             <Col>
-              <DateRangePicker startDate="1/1/2020" endDate="3/1/2020">
+              <DateRangePicker startDate="1/1/2020" endDate="3/1/2020" onApply={this.handleDatePickApply}>
                 <button>Date pop up!!</button>
               </DateRangePicker>  
             </Col>
