@@ -7,86 +7,9 @@ import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
 import { useTable, useSortBy } from 'react-table'
 import Table from 'react-bootstrap/Table'
+import OverviewTable from '../../overviewTable/overviewTable.js'
 
 const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
-
-// source: https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/sorting
-function MyTable ({ columns, data }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow
-  } = useTable(
-    {
-      columns,
-      data
-    },
-    useSortBy
-  )
-
-  // We don't want to render all 2000 rows for this example, so cap
-  // it at 20 for this use case
-  const firstPageRows = rows.slice(0, 20)
-
-  return (
-    <>
-      <Table striped border hover {...getTableProps()}>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
-                <th
-                  scope="col"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render('Header')}
-                  {/* Add a sort direction indicator */}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row, i) => {
-            prepareRow(row)
-            return (
-              <tr data-href={'/site/case-view?case_id=' + data[i].case_id} {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  )
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
-      <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
-
-      <script>
-      document.addEventListener("DOMContentLoaded", () => {
-          document.querySelectorAll('tr[data-href]').forEach(row => {
-            row.addEventListener('click', () => {
-              window.location.href = row.dataset.href
-            })
-          })
-        })
-      </script>
-    </>
-  )
-}
 
 class siteOverview extends React.Component {
   constructor () {
@@ -383,16 +306,16 @@ class siteOverview extends React.Component {
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <Filter />
-          <MyTable columns={this.state.victim_columns} data={this.state.cases} />
+          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
-          <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
+          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent'>
-          <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
+          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
-          <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
+          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
       </div>
     )
