@@ -16,12 +16,12 @@ class adminHomepage extends React.Component {
         {
           Header: 'Site Name',
           accessor: 'community_name'
-        },
+        }
         // {
         //   Header: 'Last Updated',
         //   accessor: 'community_id'
         // },
-      ],
+      ]
     }
   }
 
@@ -34,6 +34,7 @@ class adminHomepage extends React.Component {
       this.setState({ communities: data })
     })
   }
+
   render () {
     return (
       <div>

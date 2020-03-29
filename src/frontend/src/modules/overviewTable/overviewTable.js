@@ -1,20 +1,17 @@
 import { useTable, useSortBy } from 'react-table'
 import Table from 'react-bootstrap/Table'
-import React from 'react';
-
-
-
+import React from 'react'
 
 const OverviewTable = (props) => {
   return MyTable(props.columns, props.data, props.linkName)
 }
 
-function getLink(linkName, dataset) {
+function getLink (linkName, dataset) {
   if (linkName === 'adminOverview') {
-    return '/admin/view-site?com_id=' + dataset.community_id
+    return '/admin/view-site?com_id=' + dataset.community_id + '&com_name=' + dataset.community_name
   } else if (linkName === 'siteOverview') {
     return '/site/case-view?case_id=' + dataset.case_id
-  } 
+  }
 }
 
 // source: https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/sorting
@@ -80,7 +77,7 @@ function MyTable (columns, data, linkName) {
         </tbody>
       </Table>
       <br />
-      <div>Showing the first {20 < rows.length ? 20 : rows.length} results of {rows.length} rows</div>
+      <div>Showing the first {rows.length > 20 ? 20 : rows.length} results of {rows.length} rows</div>
 
       <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -94,6 +91,5 @@ function MyTable (columns, data, linkName) {
     </>
   )
 }
-
 
 export default OverviewTable
