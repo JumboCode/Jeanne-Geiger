@@ -306,19 +306,19 @@ class siteOverview extends React.Component {
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <VFilter />
-          <MyTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
           <AFilter />
-          <MyTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent'>
           <OUTFilter />
-          <MyTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
           <RFFilter />
-          <MyTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
+          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
       </div>
     )
