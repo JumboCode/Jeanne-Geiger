@@ -1,28 +1,46 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
-import { Button, Card } from 'react-bootstrap'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import OverviewTable from '../../overviewTable/overviewTable.js'
+
+const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 
 class adminHomepage extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      communities: [],
+      columns: [
+        {
+          Header: 'Site Name',
+          accessor: 'community_name'
+        }
+        // {
+        //   Header: 'Last Updated',
+        //   accessor: 'community_id'
+        // },
+      ]
+    }
+  }
+
+  componentDidMount () {
+    fetch(COMMUNITY_LIST_URL
+    ).then(results => {
+      return results.json()
+    }).then(data => {
+      console.log(data)
+      this.setState({ communities: data })
+    })
+  }
+
   render () {
     return (
       <div>
         <NavigationBar />
-        <h1>admin page</h1>
         <a href="/admin/add-site">Add a site</a>
-        <a href="/admin/view-site">View a site</a>
-        <h1>{this.props.path}</h1>
-        <div class = 'container'>
-          <Card>
-            <Card.Header>Cleveland DVHRT</Card.Header>
-            <Card.Body>
-              Big Blue Rectangle goes here!
-              <br /> More things will go here!
-            </Card.Body>
-          </Card>
-        </div>
+        <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
       </div>
     )
   }
