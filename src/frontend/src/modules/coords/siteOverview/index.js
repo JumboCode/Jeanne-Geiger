@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
-import Filter from '../../filter/filter.js'
+import VFilter from '../../filters/v_filter/filter.js'
+import AFilter from '../../filters/a_filter/a_filter.js'
+import RFFilter from '../../filters/rf_filter/rf_filter.js'
+import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
@@ -302,17 +305,20 @@ class siteOverview extends React.Component {
         <a href="/site/add-case"> add a case</a>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <Filter />
-          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <VFilter />
+          <MyTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
-          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <AFilter />
+          <MyTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent'>
-          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OUTFilter />
+          <MyTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
-          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <RFFilter />
+          <MyTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
       </div>
     )

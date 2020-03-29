@@ -4,7 +4,10 @@
   "description": "deployment package.json",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd src/frontend && npm install && npm run build",
+    "build": "cd src/frontend && npm run build",
+    "start": "cd src/frontend && npm start"
   },
   "repository": {
     "type": "git",
