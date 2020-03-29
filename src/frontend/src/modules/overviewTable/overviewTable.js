@@ -80,7 +80,7 @@ function MyTable (columns, data, linkName) {
         </tbody>
       </Table>
       <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
+      <div>Showing the first {20 < rows.length ? 20 : rows.length} results of {rows.length} rows</div>
 
       <script>
         document.addEventListener("DOMContentLoaded", () => {
