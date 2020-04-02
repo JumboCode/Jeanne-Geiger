@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import 'bootstrap-daterangepicker/daterangepicker.css';
+import 'bootstrap-daterangepicker/daterangepicker.css'
 import './datePopUp.css'
 
 class DatePopUp extends Component {
   constructor (props) {
     super(props)
-    this.state = { 
+    this.state = {
 
-      showPopup: false 
+      showPopup: false
     }
   }
 
-  handleApply(event, picker) {
-    console.log(picker.startDate);
+  handleApply (event, picker) {
+    console.log(picker.startDate)
   }
-
 
   render () {
     return (

@@ -1,6 +1,5 @@
-import React from 'react';
-import './popup.css';
-
+import React from 'react'
+import './popup.css'
 
 const DateInputObj = (props) => {
   return (
@@ -12,25 +11,24 @@ const DateInputObj = (props) => {
 }
 
 class Popup extends React.Component {
-    render() {
-        return (
-            <div class='popup'>
-                <div class='popup\_inner'>
-                  <p class="title"> Select the date and end dates for the report you would like to generate.</p>
+  render () {
+    return (
+      <div class='popup'>
+        <div class='popup\_inner'>
+          <p class="title"> Select the date and end dates for the report you would like to generate.</p>
 
-                    <div class='container'>
-                      <DateInputObj title='End Date' id='start_date'/>
-                      <DateInputObj title='Start Date' id='end_date'/>
-                      <h1>{this.props.text}</h1>
-                    <button class='close_button' onClick={this.props.closePopup}>Generate</button>
-                    </div>
-                    <button class='exit_button' onClick={this.props.closePopup}>X</button>
+          <div class='container'>
+            <DateInputObj title='End Date' id='start_date'/>
+            <DateInputObj title='Start Date' id='end_date'/>
+            <h1>{this.props.text}</h1>
+            <button class='close_button' onClick={this.props.closePopup}>Generate</button>
+          </div>
+          <button class='exit_button' onClick={this.props.closePopup}>X</button>
 
-                    
-                </div>
-            </div>
-        );
-    }
+        </div>
+      </div>
+    )
+  }
 }
 
-export default Popup;
+export default Popup

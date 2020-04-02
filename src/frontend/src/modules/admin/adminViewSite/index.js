@@ -9,7 +9,6 @@ import Filter from '../../filters/date_filter/filter.js'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-
 const Wrapper = styled.div`
   display: grid;
   margin-left: 7%;
@@ -108,7 +107,7 @@ class adminViewSite extends React.Component {
         <Row class="row">
           <Col xs = {8}>
             <div>
-            <h1 class="header">{this.state.community_name}</h1>
+              <h1 class="header">{this.state.community_name}</h1>
             </div>
           </Col>
           <Col xs = {3}>
