@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 import styled from 'styled-components'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
+import Filter from '../../filters/date_filter/filter.js'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -105,13 +106,13 @@ class adminViewSite extends React.Component {
       <div>
         <NavigationBar />
         <Row class="row">
-          <Col xs = {9}>
+          <Col xs = {8}>
             <div>
             <h1 class="header">{this.state.community_name}</h1>
             </div>
           </Col>
-          <Col>
-            <button class="date_range_button">Analyze by Date</button>
+          <Col xs = {3}>
+            <Filter/>
           </Col>
         </Row>
 
