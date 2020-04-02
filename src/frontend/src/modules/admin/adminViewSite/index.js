@@ -5,6 +5,9 @@ import { render } from 'react-dom'
 import styled from 'styled-components'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 
 const Wrapper = styled.div`
   display: grid;
@@ -101,7 +104,16 @@ class adminViewSite extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <h1>{this.community_name}</h1>
+        <Row class="row">
+          <Col xs = {9}>
+            <div>
+            <h1 class="header">{this.state.community_name}</h1>
+            </div>
+          </Col>
+          <Col>
+            <button class="date_range_button">Analyze by Date</button>
+          </Col>
+        </Row>
 
         <TabObj selectFunc={(index, label) => this.getTabInfo(label)}/>
 
