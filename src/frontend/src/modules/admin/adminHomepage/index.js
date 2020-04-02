@@ -39,7 +39,7 @@ class adminHomepage extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <a href="/admin/add-site" ><div class="add_a_case_button">Add a New Site +</div></a>
+        <a href="/admin/add-site" ><div class="add_a_site_button">Add a New Site +</div></a>
         <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
       </div>
     )
