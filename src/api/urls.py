@@ -6,6 +6,9 @@ from . import views
 from .views import *
 
 urlpatterns = [
+    path('public', views.public),
+    path('private', views.private),
+    path('private-scoped', views.private_scoped),
     # ... the rest of the urlpatterns ...
     # must be catch-all for pushState to work
     path('cases/', views.CasesList.as_view(), name="cases"),
