@@ -159,14 +159,17 @@ django_heroku.settings(locals())
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
+    'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
-    ]
+    )
 }
 
 
@@ -200,7 +203,7 @@ JWT_AUTH = {
     'JWT_DECODE_HANDLER':
         'auth0authorization.utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'dvhrt',
+    'JWT_AUDIENCE': 'https://agross09.auth0.com/api/v2/',
     'JWT_ISSUER': 'https://' + JWT_ACCOUNT + '.auth0.com/',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }

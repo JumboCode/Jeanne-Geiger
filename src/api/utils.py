@@ -23,4 +23,4 @@ def jwt_decode_token(token):
         raise Exception('Public key not found.')
 
     issuer = 'https://{}/'.format(JWT_ACCOUNT + '.auth0.com')
-    return jwt.decode(token, public_key, audience='dvhrt', issuer=issuer, algorithms=['RS256'])
+    return jwt.decode(token, public_key, audience='https://agross09.auth0.com/api/v2/', issuer=issuer, algorithms=['RS256'])

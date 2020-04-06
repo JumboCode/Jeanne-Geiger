@@ -72,7 +72,6 @@ class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
 
-    # @api_view(['GET'])
     def get(self, request, *args, **kwargs):
         queryset = Outcomes.objects.all()
         serializer_class = OutcomesSerializer(queryset, many=True)
