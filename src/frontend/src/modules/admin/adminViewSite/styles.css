@@ -1,0 +1,26 @@
+.date_range_button {
+  float:right;
+  left: 13%;
+  bottom: 70%;
+  background-color: #333;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 9em;
+  height: 1.5em;
+  border-radius: 13px;
+  margin:.5em;
+}
+
+.row {
+  height:3em;
+  margin:1em;
+}
+
+.header {
+  margin:0;
+  size:1em;
+}
