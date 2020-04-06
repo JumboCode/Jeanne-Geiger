@@ -13,7 +13,6 @@ DVHRT’s problem is they want to move from static, insecure spreadsheets to a m
 ## Team members
 * Barry Eom (Project Lead)
 * Julia Hedrick
-* Khaliun Narangerel
 * Andrew Gross
 * Trevor Russo
 * Nicole Kennedy
@@ -118,3 +117,8 @@ If you're still lost, here's more on making a [pull request](https://help.github
 - (If not) clear npm cache with `npm cache clear`
 - Now `npm install`
 
+### Heroku Production
+For testing, run the following to test:
+`heroku logs --tail --app dvhrt`
+`heroku releases:output --app dvhrt`
+[Force makemigrations oh heroku](https://stackoverflow.com/questions/38134535/django-on-heroku-relation-does-not-exist)

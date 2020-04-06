@@ -87,9 +87,6 @@ class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
     community_name = models.CharField(max_length=100, default="")
     referral_sources = ArrayField(models.CharField(max_length=100, default=""))
-    # referral_sources1 = models.CharField(max_length=100, null=True, blank=True)
-    # referral_sources2 = models.CharField(max_length=100, null=True, blank=True)
-    # referral_sources3 = models.CharField(max_length=100, null=True, blank=True)
 
 class Persons(models.Model):
     gender_choices = (

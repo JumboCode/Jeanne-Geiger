@@ -30,12 +30,14 @@ SECRET_KEY = '%37to9jwjy*x4ai*+zt@lz$rm+8hko!7l*6=o4(y-f^6#@!h1)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'] # for localhost running of the server
+ALLOWED_HOSTS = [''] # for localhost running of the server
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'api',
+    'dvhrt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
-    'api',
     'rest_framework',
     'corsheaders',
 ]
@@ -67,12 +68,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'communityid',
+    'caseid',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'http//:localhost:8000/',
-    'http//:localhost:3000/',
-)
+CORS_ORIGIN_WHITELIST = [
+    'https://localhost:8000',
+    'https://localhost:3000',
+]
 
 ROOT_URLCONF = 'dvhrt.urls'
 
@@ -171,8 +173,17 @@ STATIC_URL = '/static/'
 
 
 # Place static in the same location as webpack build files
-STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
-STATICFILES_DIRS = []
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build/static')
+]
+
+# STATICFILES_DIRS = [
+#      os.path.join(BASE_DIR, 'staticfiles')
+#  ]
 
 # If you want to serve user uploaded files add these settings
 MEDIA_URL = '/media/'
