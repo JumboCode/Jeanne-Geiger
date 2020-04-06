@@ -4,6 +4,7 @@ import './styles.css'
 import { Button, Card } from 'react-bootstrap'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import NavBar from '../../logIn/NavBar.js'
 
 class adminHomepage extends React.Component {
   render () {

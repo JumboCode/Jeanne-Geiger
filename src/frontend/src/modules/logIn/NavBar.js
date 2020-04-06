@@ -40,7 +40,7 @@ const NavBar = () => {
             <PrivateRoute exact path="/site" component = {siteOverview} type = "siteView"/>
             <PrivateRoute exact path="/site/case-view" component = {detailView} type = "detailView"/>
             <PrivateRoute exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>
-            <PrivateRoute exact path="/acc-recovery" component = {accRecovery} type = "accRec"/>
+            {/* <PrivateRoute exact path="/acc-recovery" component = {accRecovery} type = "accRec"/> */}
           </Switch>
         </BrowserRouter>
       </span>

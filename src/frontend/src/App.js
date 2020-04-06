@@ -19,7 +19,7 @@ function App() {
             <NavBar />
           </header>
           <Switch>
-            <PrivateRoute path="/" exact />
+            <Route path="/" exact />
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>
         </Router>
