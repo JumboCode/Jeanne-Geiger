@@ -1,25 +1,25 @@
-/*
+
 import React, { Component } from 'react'
-import { useAuth0 } from "../react-auth0-spa";
+// import { useAuth0 } from "../react-auth0-spa";
 import { ReactComponent as Logo } from './logo.svg'
 import { ReactComponent as Settings } from './SettingsIcon.svg'
 import './NavigationBar.css'
-//
-// class NavigationBarItem extends Component {
-//     render() {
-//
-//         const c = this.props.float;
-//         const c2 = "NavigationBarItemContainer " + c;
-//
-//         return (
-//             <div className={c2}>
-//                 <a href={this.props.link} className="NavigationBarItemAnchor">
-//                     <div className="NavigationBarItemText">{this.props.text}</div>
-//                 </a>
-//             </div>
-//         );
-//     }
-// }
+
+class NavigationBarItem extends Component {
+    render() {
+
+        const c = this.props.float;
+        const c2 = "NavigationBarItemContainer " + c;
+
+        return (
+            <div className={c2}>
+                <a href={this.props.link} className="NavigationBarItemAnchor">
+                    <div className="NavigationBarItemText">{this.props.text}</div>
+                </a>
+            </div>
+        );
+    }
+}
 
 class NavigationBar extends Component {
   render () {
@@ -36,4 +36,4 @@ class NavigationBar extends Component {
 }
 
 export default NavigationBar
-*/
+
