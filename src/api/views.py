@@ -20,9 +20,7 @@ def date_range(request):
     # hard coded for now, change to get parameters from request
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
-    print(start_date)
-    print(end_date)
-
+    
     # default: last 30 days 
     if (start_date is None) or (end_date is None) or (start_date == 'null') or (end_date == 'null') or (start_date == 'undefined') or (end_date == 'undefined'):
         print("default")
