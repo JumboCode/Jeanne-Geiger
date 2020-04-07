@@ -18,10 +18,18 @@ class Popup extends React.Component {
           <p class="title"> Select the date and end dates for the report you would like to generate.</p>
 
           <div class='container'>
-            <DateInputObj title='End Date' id='start_date'/>
-            <DateInputObj title='Start Date' id='end_date'/>
+            <DateInputObj title='Start Date' id='start_date'/>
+            <DateInputObj title='End Date' id='end_date'/>
             <h1>{this.props.text}</h1>
-            <button class='close_button' onClick={this.props.closePopup}>Generate</button>
+            <button class='close_button' 
+              onClick={() => {
+                var params = new URLSearchParams(window.location.search);
+                params.set('start_date', document.getElementById('start_date').value);
+                params.set('end_date', document.getElementById('end_date').value);
+                window.location.search = params.toString();
+              }}>
+              Generate
+            </button>
           </div>
           <button class='exit_button' onClick={this.props.closePopup}>X</button>
 
