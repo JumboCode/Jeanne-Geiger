@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import { TextInputObj } from './util.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import Plus from './plus.png'
+import Remove from './remove.png'
 
 const SITE_POST_URL = 'placeholder'
 
 class adminAddSite extends React.Component {
+  state = {
+    sources: []
+  }
+
   doSitePost() {
     return 'site_name=' + document.getElementById('site_name').value +
     '&coord_name=' + document.getElementById('coord_name').value +
@@ -16,17 +22,14 @@ class adminAddSite extends React.Component {
     '&referral_1=' + document.getElementById('referral_1').value +
     '&referral_2=' + document.getElementById('referral_2').value
   }
+  
+  addSource() {
+    this.setState({sources: [...this.state.sources, ""]})
+  }
 
-  doSubmit () {
-    var siteInfo = this.doSitePost()
-
-    var sitePostRequest = new XMLHttpRequest()
-    sitePostRequest.open('POST', SITE_POST_URL, true)
-    sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    sitePostRequest.send(siteInfo)
-    sitePostRequest.onload = function () {
-      return JSON.parse(sitePostRequest.responseText).site_id
-    }
+  handleRemove(index) {
+    this.state.sources.splice(index, 1)
+    this.setState({sources: this.state.sources})
   }
 
   render () {
@@ -43,8 +46,22 @@ class adminAddSite extends React.Component {
               <TextInputObj title='Coordinator Email' id='coord_email'/>
             </Col>
             <Col>
-              <TextInputObj title='Referral Source 1' id='referral_1'/>
-              <TextInputObj title='Referral Source 2' id='referral_2'/>
+              {
+                this.state.sources.map((source, i) => {
+                  return (
+                    <div key={i}>
+                      <TextInputObj class="referral" title={'Referral Source ' + (i + 1)} id={'referral_' + (i + 1)} />
+                      <div class="buttons">
+                        <button class="removeSource" onClick={(e)=>this.handleRemove(i)}><img class="logo" src={Remove} /></button>
+                      </div>
+                    </div>
+                  )
+                })
+              }
+              <div class="buttons">
+                <button class="addSource" onClick={(e)=>this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+              </div>
+
             </Col>
           </Form.Row>
         </div>
@@ -54,6 +71,7 @@ class adminAddSite extends React.Component {
         </div>
       </div>
     )
+
   }
 }
 
