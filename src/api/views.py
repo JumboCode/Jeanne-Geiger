@@ -16,17 +16,20 @@ from .serializers import *
 from .models import *
 
 import datetime
-
 def date_range(request):
     # hard coded for now, change to get parameters from request
-    start_date = "2020-01-01"   # request.META.get('HTTP_STARTDATE')
-    end_date = "2020-01-29"     # request.META.get('HTTP_ENDDATE')
+    start_date = request.META.get('HTTP_STARTDATE')
+    end_date = request.META.get('HTTP_ENDDATE')
+    print(start_date)
+    print(end_date)
 
     # default: last 30 days 
-    if (start_date is None) or (end_date is None):
+    if (start_date is None) or (end_date is None) or (start_date == 'null') or (end_date == 'null') or (start_date == 'undefined') or (end_date == 'undefined'):
         print("default")
-        end_date = datetime.date.today()
-        start_date = end_date - datetime.timedelta(days=30)
+        end_date = datetime.datetime.today().strftime('%Y-%m-%d')
+        start_date = (datetime.datetime.today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d')
+        print(start_date)
+        print(end_date)
 
     return start_date, end_date
 
@@ -316,7 +319,7 @@ class DVHRTGeneralCountView(generics.ListCreateAPIView):
     """Returns the number of cases accepted
     """
     def get(self, request, *args, **kwargs):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_count = len(Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]))
         case_dict = {"case_count":case_count}
@@ -324,7 +327,7 @@ class DVHRTGeneralCountView(generics.ListCreateAPIView):
 
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         r_dict = {}
         referral_sources = []
         community_q_set = Communities.objects.filter(community_id=c_id)
@@ -357,7 +360,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         return JsonResponse(victim_info)
 
     def get_vicitm_genders(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         genders_to_counts = {
@@ -379,7 +382,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         return genders_to_counts
 
     def get_victim_ethnicities(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         ethnicities_to_counts = {
@@ -416,7 +419,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         return counts
 
     def get_domestic_violence_service_utilization(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]).select_related('outcome_id')
         dvsu = {
@@ -446,7 +449,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
         return JsonResponse(abuser_info)
 
     def get_abuser_genders(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         genders_to_counts = {
@@ -468,7 +471,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
         return genders_to_counts
 
     def get_abuser_ethnicities(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         ethnicities_to_counts = {
@@ -508,7 +511,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
 class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]).select_related('risk_factor_id')
 
@@ -547,7 +550,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
 
     # Charges Filed at or after case acceptance 
     def get_charges_filed(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
@@ -569,7 +572,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         return outcome_counts
 
     def get_pretrial_hearing_outcomes(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
@@ -598,7 +601,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         return outcome_counts
 
     def get_disposition_outcomes(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
@@ -626,7 +629,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
         return disposition_outcome_counts
 
     def get_sentencing_outcomes(self, request):
-        c_id = 1 # request.META.get('HTTP_COMMUNITYID')
+        c_id = request.META.get('HTTP_COMMUNITYID')
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0

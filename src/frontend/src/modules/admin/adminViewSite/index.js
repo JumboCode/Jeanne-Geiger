@@ -32,7 +32,9 @@ class adminViewSite extends React.Component {
       risk_factor_info: [],
       outcome_info: [],
       community_id: [],
-      community_name: []
+      community_name: [], 
+      start_date: [],
+      end_date: []
     }
   }
 
@@ -43,13 +45,17 @@ class adminViewSite extends React.Component {
     })
 
     this.setState({ community_name: vars.com_name }, () => {
-      this.setState({ community_id: vars.com_id }, () => {
-        this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-        this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-        this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-        this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+      this.setState({ start_date: vars.start_date }, () => {
+        this.setState({ end_date: vars.end_date }, () => {
+          this.setState({ community_id: vars.com_id }, () => {
+            this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+            this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+            this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+            this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
 
-        this.getTabInfo('Victim')
+            this.getTabInfo('Victim')
+          })
+        })
       })
     })
   }
@@ -58,7 +64,9 @@ class adminViewSite extends React.Component {
     fetch(
       url, {
         headers: {
-          communityid: this.state.community_id
+          communityid: this.state.community_id,
+          startdate: this.state.start_date,
+          enddate: this.state.end_date
         }
       }
     ).then(results => {
