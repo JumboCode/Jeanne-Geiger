@@ -39,7 +39,7 @@
     margin:.5em;
 }
 
-.addSource {
+.add {
     left: 13%;
     bottom: 70%;
     background-color: white;
@@ -55,7 +55,7 @@
     margin:.5em;
 }
 
-.removeSource {
+.remove {
     background-color: white;
     border: none;
 
