@@ -73,3 +73,9 @@
     bottom: 0;
     text-align: center;
 }
+.submit {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5em;
+    padding-top: 2em;
+}

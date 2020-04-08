@@ -139,7 +139,7 @@ class adminAddSite extends React.Component {
             </Col>
           </Form.Row>
         </div>
-        <div class="buttons">
+        <div class="submit">
           <button class="cancel_button">Cancel</button>
           <button type="save" class="save_button" onClick={() => this.doSubmit()} value="save">Save</button>
         </div>
