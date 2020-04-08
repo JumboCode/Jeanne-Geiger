@@ -16,14 +16,35 @@ class adminAddSite extends React.Component {
     coords: []
   }
 
-  // Get both the first referral source and added sources separately
-  // Same with Coords
-  doSitePost() {
-    return 'site_name=' + document.getElementById('site_name').value +
-    '&coord_name=' + document.getElementById('coord_name').value +
-    '&coord_email=' + document.getElementById('coord_email').value +
-    '&referral_1=' + document.getElementById('referral_1').value +
-    '&referral_2=' + document.getElementById('referral_2').value
+  doSubmit() {
+    var referralSources = this.getSourceData()
+    var coordData = this.getCoordData()
+    var nameData = coordData[0]
+    var emailData = coordData[1]
+    var coord_string = '&coord_info={'
+    for (var i = 0; i < nameData.length; i++) {
+      coord_string = coord_string + nameData[i] + ':' + emailData[i] + ','
+    }
+    coord_string = coord_string + '}'
+    var siteInfo = 'community_name=' + document.getElementById('site_name').value +
+                   coord_string + '&referral_sources={' + referralSources + "}"
+    console.log(siteInfo)
+    // var sitePostRequest = new XMLHttpRequest()
+    // sitePostRequest.open('POST', SITE_POST_URL, true)
+    // sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    // sitePostRequest.send(siteInfo)
+    // sitePostRequest.onload = function () {
+    //   return JSON.parse(sitePostRequest.responseText).community_id
+    // }
+  }
+
+  getSourceData() {
+    var data = []
+    data.push(document.getElementById('referral_1').value)
+    for (var i = 0; i < this.state.sources.length; i++) {
+      data.push(document.getElementById('referral_' + (i + 2)).value)
+    }
+    return data
   }
   
   addSource() {
@@ -31,8 +52,25 @@ class adminAddSite extends React.Component {
   }
 
   removeSource(index) {
-    this.state.sources.splice(index, 1)
+    var data = this.getSourceData()
+    console.log(data)
+    for (var i = index + 1; i < this.state.sources.length; i++) {
+      document.getElementById('referral_' + (i + 1)).value = data[i + 1]
+    }
+    this.state.sources.pop()
     this.setState({sources: this.state.sources})
+  }
+
+  getCoordData() {
+    var nameData = []
+    var emailData = []
+    nameData.push(document.getElementById('coord_name_1').value)
+    emailData.push(document.getElementById('coord_email_1').value)
+    for (var i = 0; i < this.state.coords.length; i++) {
+      nameData.push(document.getElementById('coord_name_' + (i + 2)).value)
+      emailData.push(document.getElementById('coord_email_' + (i + 2)).value)
+    }
+    return [nameData, emailData]
   }
 
   addCoord() {
@@ -40,8 +78,14 @@ class adminAddSite extends React.Component {
   }
 
   removeCoord(index) {
-    const values = [...]
-    this.state.coords.splice(index, 1)
+    var coordData = this.getCoordData()
+    var nameData = coordData[0]
+    var emailData = coordData[1]
+    for (var i = index + 1; i < this.state.coords.length; i++) {
+      document.getElementById('coord_name_' + (i + 1)).value = nameData[i + 1]
+      document.getElementById('coord_email_' + (i + 1)).value = emailData[i + 1]
+    }
+    this.state.coords.pop()
     this.setState({coords: this.state.coords})
   }
 
@@ -80,7 +124,7 @@ class adminAddSite extends React.Component {
                 this.state.sources.map((source, i) => {
                   return (
                     <div key={i}>
-                      <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 1)} />
+                      <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                       <div class="buttons">
                         <button class="remove" onClick={(e)=>this.removeSource(i)}><img class="logo" src={Remove} /></button>
                       </div>
@@ -101,7 +145,6 @@ class adminAddSite extends React.Component {
         </div>
       </div>
     )
-
   }
 }
 
