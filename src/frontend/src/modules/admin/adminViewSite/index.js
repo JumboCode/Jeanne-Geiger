@@ -3,6 +3,7 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
+import BackButton from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 
@@ -101,6 +102,7 @@ class adminViewSite extends React.Component {
     return (
       <div>
         <NavigationBar />
+        <BackButton />
         <h1>{this.community_name}</h1>
 
         <TabObj selectFunc={(index, label) => this.getTabInfo(label)}/>

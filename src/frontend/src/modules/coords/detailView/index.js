@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import BackButton from '../../Back/back.js'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
 
@@ -235,6 +236,7 @@ class detailView extends React.Component {
     return (
       <div>
         <NavigationBar />
+        <BackButton />
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <div id='Victim' className='tabcontent'>
