@@ -3,6 +3,7 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
+import BackButton from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import Filter from '../../filters/date_filter/filter.js'
@@ -112,6 +113,7 @@ class adminViewSite extends React.Component {
     return (
       <div>
         <NavigationBar />
+        <BackButton />
         <Row class="row">
           <Col xs = {8}>
             <div>

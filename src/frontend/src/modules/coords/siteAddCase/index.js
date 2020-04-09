@@ -3,6 +3,7 @@ import './styles.css'
 import { render } from 'react-dom'
 import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import BackButton from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -133,6 +134,7 @@ class siteAddCase extends React.Component {
     return (
       <div>
         <NavigationBar />
+        <BackButton />
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <form id='CasePost'>
