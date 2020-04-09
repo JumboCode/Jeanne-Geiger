@@ -5,7 +5,8 @@
 		"fields" : {
 			"community_id" : 1,
 			"community_name": "Community1", 
-			"referral_sources" : ["ref1", "ref2", "ref3"]
+            "referral_sources" : ["ref1", "ref2", "ref3"],
+            "coordinators": [["name1", "email1"]]
 		}
 	},
 	{
@@ -14,7 +15,8 @@
 		"fields" : {
 			"community_id" : 2,
 			"community_name": "Community2", 
-			"referral_sources" : ["barry", "julia", "andrew"]
+            "referral_sources" : ["barry", "julia", "andrew"],
+            "coordinators": [["name1", "email1"], ["name2", "email2"]]
 		}
 	},
 	{
@@ -23,7 +25,8 @@
 		"fields" : {
 			"community_id" : 3,
 			"community_name": "Community3", 
-			"referral_sources" : ["meha", "izzi"]
+            "referral_sources" : ["meha", "izzi"],
+            "coordinators": [["name1", "email1"], ["name2", "email2"], ["name3", "email3"]]
 		}
 	},
 	{

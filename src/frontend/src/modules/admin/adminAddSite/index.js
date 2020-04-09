@@ -8,7 +8,7 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import Plus from './plus.png'
 import Remove from './remove.png'
 
-const SITE_POST_URL = 'placeholder'
+const SITE_POST_URL = 'http://127.0.0.1:8000/api/communities/'
 
 class adminAddSite extends React.Component {
   state = {
@@ -19,23 +19,22 @@ class adminAddSite extends React.Component {
   doSubmit() {
     var referralSources = this.getSourceData()
     var coordData = this.getCoordData()
-    var nameData = coordData[0]
-    var emailData = coordData[1]
-    var coord_string = '&coord_info={'
-    for (var i = 0; i < nameData.length; i++) {
-      coord_string = coord_string + nameData[i] + ':' + emailData[i] + ','
-    }
-    coord_string = coord_string + '}'
+
+    var coordinators = coordData[0].map(function(e, i) {
+        return '{' + [e, coordData[1][i]] + '}';
+      });
+
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
-                   coord_string + '&referral_sources={' + referralSources + "}"
-    console.log(siteInfo)
-    // var sitePostRequest = new XMLHttpRequest()
-    // sitePostRequest.open('POST', SITE_POST_URL, true)
-    // sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    // sitePostRequest.send(siteInfo)
-    // sitePostRequest.onload = function () {
-    //   return JSON.parse(sitePostRequest.responseText).community_id
-    // }
+                   '&coordinators={' + coordinators + "}" + 
+                   '&referral_sources={' + referralSources + '}'
+
+    var sitePostRequest = new XMLHttpRequest()
+    sitePostRequest.open('POST', SITE_POST_URL, true)
+    sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    sitePostRequest.send(siteInfo)
+    sitePostRequest.onload = function () {
+        return JSON.parse(sitePostRequest.responseText).community_id
+    }
   }
 
   getSourceData() {
@@ -53,7 +52,6 @@ class adminAddSite extends React.Component {
 
   removeSource(index) {
     var data = this.getSourceData()
-    console.log(data)
     for (var i = index + 1; i < this.state.sources.length; i++) {
       document.getElementById('referral_' + (i + 1)).value = data[i + 1]
     }
