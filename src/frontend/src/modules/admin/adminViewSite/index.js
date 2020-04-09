@@ -36,8 +36,52 @@ class adminViewSite extends React.Component {
       community_name: []
     }
   }
+//   var settings = {
+//     "async": true,
+//     "crossDomain": true,
+//     "url": "https://agross09.auth0.com/oauth/token",
+//     "method": "POST",
+//     "headers": {
+//       "content-type": "application/json"
+//     },
+//     "data": "{\"client_id\":\"BwrZIQwgzuadFtMjw1AnmdhxKomFLVOS\",\"client_secret\":\"vnBc_t3Nj1kyyL0m0-Hu9Km5G6clj2ThKpywyIJxZy28mP8Fl2oy8l2zBmlP1ahr\",\"audience\":\"https://agross09.auth0.com/api/v2/\",\"grant_type\":\"client_credentials\"}"
+//   }
+//   $.ajax(settings).done(function (response) {
+//     console.log(response);
+//   });
 
+ async getToken(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+        "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *client
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+  
   componentDidMount () {
+    var url = "https://agross09.auth0.com/oauth/token"
+    var data = {"client_id": "BwrZIQwgzuadFtMjw1AnmdhxKomFLVOS", "client_secret": "vnBc_t3Nj1kyyL0m0-Hu9Km5G6clj2ThKpywyIJxZy28mP8Fl2oy8l2zBmlP1ahr", "audience" : "https://agross09.auth0.com/api/v2/", "grant_type": "client_credentials"}
+    var response = this.getToken(url, data)
+    console.log(data);
+    console.log("getting token");
+    console.log(response)
+
     fetch(COMMUNITY_LIST_URL
     ).then(results => {
       return results.json()
