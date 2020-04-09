@@ -86,6 +86,7 @@ class Cases(models.Model):
 class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
     community_name = models.CharField(max_length=100, default="")
+    coordinators = ArrayField(ArrayField(models.CharField(max_length=100, default={}), size=2))
     referral_sources = ArrayField(models.CharField(max_length=100, default=""))
 
 class Persons(models.Model):
