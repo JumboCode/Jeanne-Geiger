@@ -7,6 +7,7 @@ import AppRouter from './routes.js'
 import Profile from "./modules/logIn/Profile.js"
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./utils/history";
+import ExternalApi from './ExternalApi'
 
 
 
@@ -21,6 +22,7 @@ function App() {
           <Switch>
             <Route path="/" exact />
             <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute exact path="/external-api" component = {ExternalApi} type = "ExternalApi"/>
           </Switch>
         </Router>
       </div>

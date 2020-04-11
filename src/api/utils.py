@@ -4,7 +4,7 @@ import json
 import jwt
 import requests
 from django.contrib.auth import authenticate
-from ../dvhrt/settings import JWT_ACCOUNT
+from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH
 
 def jwt_get_username_from_payload_handler(payload):
     username = payload.get('sub').replace('|', '.')
@@ -23,4 +23,4 @@ def jwt_decode_token(token):
         raise Exception('Public key not found.')
 
     issuer = 'https://{}/'.format(JWT_ACCOUNT + '.auth0.com')
-    return jwt.decode(token, public_key, audience='https://agross09.auth0.com/api/v2/', issuer=issuer, algorithms=['RS256'])
+    return jwt.decode(token, public_key, audience=JWT_AUTH["JWT_AUDIENCE"], issuer=issuer, algorithms=[JWT_AUTH["JWT_ALGORITHM"]])

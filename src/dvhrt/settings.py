@@ -75,6 +75,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:8000',
     'https://localhost:3000',
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'dvhrt.urls'
@@ -199,11 +200,11 @@ JWT_ACCOUNT = 'agross09'
 
 JWT_AUTH = {
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-        'auth0authorization.utils.jwt_get_username_from_payload_handler',
+        'api.utils.jwt_get_username_from_payload_handler',
     'JWT_DECODE_HANDLER':
-        'auth0authorization.utils.jwt_decode_token',
+        'api.utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE': 'https://agross09.auth0.com/api/v2/',
+    'JWT_AUDIENCE': 'https://jeanne-geiger-api/',
     'JWT_ISSUER': 'https://' + JWT_ACCOUNT + '.auth0.com/',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
