@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
+import ExternalApi from '../../../ExternalApi.js'
 
 const Wrapper = styled.div`
   display: grid;
@@ -38,10 +39,16 @@ class adminViewSite extends React.Component {
   }
   
   componentDidMount () {
-    fetch(COMMUNITY_LIST_URL
-    ).then(results => {
-      return results.json()
-    }).then(data => this.setState({ community_list: data }))
+    ExternalApi(COMMUNITY_LIST_URL
+        ).then(results => {
+            console.log(results)
+          return results.json()
+        }).then(data => this.setState({ community_list: data }))
+
+    // fetch(COMMUNITY_LIST_URL
+    // ).then(results => {
+    //   return results.json()
+    // }).then(data => this.setState({ community_list: data }))
   }
 
   doSetState (tabName, data) {
