@@ -23,22 +23,26 @@ import './NavigationBar.css'
  * 
 */
 class NavigationBar extends Component {
-  handleClick () {
+  logoClick () {
     var path = window.location.pathname
     var host = window.location.hostname
     if (path.slice(1, 5) == "site") {
-      window.location.assign("/site")
+      window.location.replace("/site")
     }
     else {
-      window.location.assign("/admin")
+      window.location.replace("/admin")
     }
   }
 
+  logout () {
+    window.location.replace("/")
+  }
 
   render () {
     return (
       <div className="NavigationBarContainer">
-        <Logo width="17%" onClick={(e) => this.handleClick(e)}/>
+        <Logo width="17%" onClick={(e) => this.logoClick(e)}/>
+        <button id="logout" onClick={(e) => this.logout(e)}>Logout</button>
       </div>
     )
   }
