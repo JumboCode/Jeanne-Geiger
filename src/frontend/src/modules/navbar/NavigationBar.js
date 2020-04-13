@@ -18,12 +18,27 @@ import './NavigationBar.css'
 //         );
 //     }
 // }
-
+/*
+ * Replace /site and /admin with window.location.hostname/site and .../admin
+ * 
+*/
 class NavigationBar extends Component {
+  handleClick () {
+    var path = window.location.pathname
+    var host = window.location.hostname
+    if (path.slice(1, 5) == "site") {
+      window.location.assign("/site")
+    }
+    else {
+      window.location.assign("/admin")
+    }
+  }
+
+
   render () {
     return (
       <div className="NavigationBarContainer">
-        <Logo width="17%"/>
+        <Logo width="17%" onClick={(e) => this.handleClick(e)}/>
       </div>
     )
   }
