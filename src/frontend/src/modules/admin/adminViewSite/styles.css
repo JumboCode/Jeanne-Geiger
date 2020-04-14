@@ -1,5 +1,5 @@
 .date_range_button {
-  float:right;
+  float: right;
   left: 13%;
   bottom: 70%;
   background-color: #333;
@@ -12,15 +12,15 @@
   width: 9em;
   height: 1.5em;
   border-radius: 13px;
-  margin:.5em;
+  margin: 0.5em;
 }
 
 .row {
-  height:3em;
-  margin:1em;
+  height: 3em;
+  margin: 1em;
 }
 
 .header {
-  margin:0;
-  size:1em;
+  margin: 0;
+  size: 1em;
 }

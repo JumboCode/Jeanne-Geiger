@@ -18,12 +18,30 @@ import './NavigationBar.css'
 //         );
 //     }
 // }
-
+/*
+ * Replace /site and /admin with window.location.hostname/site and .../admin
+ *
+*/
 class NavigationBar extends Component {
+  logoClick () {
+    var path = window.location.pathname
+    var host = window.location.hostname
+    if (path.slice(1, 5) === 'site') {
+      window.location.replace('/site')
+    } else {
+      window.location.replace('/admin')
+    }
+  }
+
+  logout () {
+    window.location.replace('/')
+  }
+
   render () {
     return (
       <div className="NavigationBarContainer">
-        <Logo width="17%"/>
+        <Logo class="LogoWrapper" width="17%" onClick={(e) => this.logoClick(e)}/>
+        <button id="logout" onClick={(e) => this.logout(e)}>Logout</button>
       </div>
     )
   }
