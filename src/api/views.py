@@ -250,7 +250,7 @@ class CasesList(generics.ListCreateAPIView):
             )
             caseData.save()
 
-        return JsonResponse({'case_id' : get_case_id})
+        return JsonResponse({'case_id' : caseData.case_id})
 
 class RiskFactorsList(generics.ListCreateAPIView):
     queryset = RiskFactors.objects.all()

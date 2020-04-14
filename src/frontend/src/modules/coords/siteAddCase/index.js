@@ -6,12 +6,10 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import BackButton from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
 
 // Urls:
 const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
-// const CASE_EDIT_URL = 'http://127.0.0.1:8000/api/CaseEdit/'
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
 
@@ -54,7 +52,7 @@ class siteAddCase extends React.Component {
     })
   }
 
-  // From url, determines if the page is for adding or editing. Returns true, updates 
+  // From url, determines if the page is for adding cases or editing them. Returns true, updates 
   // this.state.case_id and prepopulates fields if path is for edit. Otherwise, returns false. 
   isEditCaseView() {
     var vars = {}
@@ -67,19 +65,22 @@ class siteAddCase extends React.Component {
     // Update case_id from the url 
     this.setState({ case_id: vars.case_id})
 
-    // Get case specific info to prepopulate fields with
+    // Get case specific info, update state and prepopulate fields
     fetch(GET_CASE_URL, {
       headers: {
         caseid: vars.case_id
       }
     })
       .then(results => { return results.json() })
-      .then(data => this.setState({ case: data })).then(() => this.prepopulate())
+      .then(data => this.setState({ case: data }))
+      .then(() => this.prepopulate())
 
 
     return true
   }
 
+  // String needs to be sliced because it ends with a ', ' from the serializer. Multi fields need the selected
+  // tag in order to pre-populate. Selected options corresponds to the existing datas 
   setSelectedOptions(mutliselect_field, selected_options) {
     for (var i = 0; i < selected_options.length; i++) {
       var value = RACE_ETHNICITY_TITLE_TO_VALUE[selected_options[i].slice(0, -2)]
