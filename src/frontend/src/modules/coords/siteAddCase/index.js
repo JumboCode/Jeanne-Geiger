@@ -103,9 +103,10 @@ class siteAddCase extends React.Component {
   }
 
   doSubmit () {
-    var f = document.getElementsByTagName('form')[0];
-    if(!f.checkValidity()) 
-      return;
+    var f = document.getElementsByTagName('form')[0]
+    if (!f.checkValidity()) {
+      return
+    }
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')

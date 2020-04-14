@@ -11,25 +11,29 @@ import Remove from './remove.png'
 const SITE_POST_URL = 'http://127.0.0.1:8000/api/communities/'
 
 class adminAddSite extends React.Component {
-  state = {
-    sources: [],
-    coords: []
+  constructor () {
+    super()
+    this.state = {
+      sources: [],
+      coords: []
+    }
   }
 
-  doSubmit() {
-    var f = document.getElementsByTagName('form')[0];
-    if(!f.checkValidity()) 
-      return;
-      
+  doSubmit () {
+    var f = document.getElementsByTagName('form')[0]
+    if (!f.checkValidity()) {
+      return
+    }
+
     var referralSources = this.getSourceData()
     var coordData = this.getCoordData()
 
-    var coordinators = coordData[0].map(function(e, i) {
-        return '{' + [e, coordData[1][i]] + '}';
-      });
+    var coordinators = coordData[0].map(function (e, i) {
+      return '{' + [e, coordData[1][i]] + '}'
+    })
 
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
-                   '&coordinators={' + coordinators + "}" + 
+                   '&coordinators={' + coordinators + '}' +
                    '&referral_sources={' + referralSources + '}'
 
     var sitePostRequest = new XMLHttpRequest()
@@ -37,11 +41,11 @@ class adminAddSite extends React.Component {
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.send(siteInfo)
     sitePostRequest.onload = function () {
-        return JSON.parse(sitePostRequest.responseText).community_id
+      return JSON.parse(sitePostRequest.responseText).community_id
     }
   }
 
-  getSourceData() {
+  getSourceData () {
     var data = []
     data.push(document.getElementById('referral_1').value)
     for (var i = 0; i < this.state.sources.length; i++) {
@@ -49,21 +53,21 @@ class adminAddSite extends React.Component {
     }
     return data
   }
-  
-  addSource() {
-    this.setState({sources: [...this.state.sources, ""]})
+
+  addSource () {
+    this.setState({ sources: [...this.state.sources, ''] })
   }
 
-  removeSource(index) {
+  removeSource (index) {
     var data = this.getSourceData()
     for (var i = index + 1; i < this.state.sources.length; i++) {
       document.getElementById('referral_' + (i + 1)).value = data[i + 1]
     }
     this.state.sources.pop()
-    this.setState({sources: this.state.sources})
+    this.setState({ sources: this.state.sources })
   }
 
-  getCoordData() {
+  getCoordData () {
     var nameData = []
     var emailData = []
     nameData.push(document.getElementById('coord_name_1').value)
@@ -75,11 +79,11 @@ class adminAddSite extends React.Component {
     return [nameData, emailData]
   }
 
-  addCoord() {
-    this.setState({coords: [...this.state.coords, ""]})
+  addCoord () {
+    this.setState({ coords: [...this.state.coords, ''] })
   }
 
-  removeCoord(index) {
+  removeCoord (index) {
     var coordData = this.getCoordData()
     var nameData = coordData[0]
     var emailData = coordData[1]
@@ -88,7 +92,7 @@ class adminAddSite extends React.Component {
       document.getElementById('coord_email_' + (i + 1)).value = emailData[i + 1]
     }
     this.state.coords.pop()
-    this.setState({coords: this.state.coords})
+    this.setState({ coords: this.state.coords })
   }
 
   render () {
@@ -111,14 +115,14 @@ class adminAddSite extends React.Component {
                         <TextInputObj title={'Coordinator ' + (i + 2) + ' Name'} id={'coord_name_' + (i + 2)} />
                         <TextInputObj title={'Coordinator ' + (i + 2) + ' Email'} id={'coord_email_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e)=>this.removeCoord(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" onClick={(e) => this.removeCoord(i)}><img class="logo" src={Remove} /></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e)=>this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
+                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
                 </div>
               </Col>
               <Col>
@@ -129,14 +133,14 @@ class adminAddSite extends React.Component {
                       <div key={i}>
                         <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e)=>this.removeSource(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e)=>this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+                  <button class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
                 </div>
 
               </Col>
@@ -146,7 +150,7 @@ class adminAddSite extends React.Component {
             <button class="cancel_button">Cancel</button>
             <button type="submit" class="save_button" onClick={() => this.doSubmit()} value="Submit">Submit</button>
           </div>
-      </form>
+        </form>
       </div>
     )
   }
