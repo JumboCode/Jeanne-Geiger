@@ -41,7 +41,7 @@ class NavigationBar extends Component {
   render () {
     return (
       <div className="NavigationBarContainer">
-        <Logo width="17%" onClick={(e) => this.logoClick(e)}/>
+        <Logo class="LogoWrapper" width="17%" onClick={(e) => this.logoClick(e)}/>
         <button id="logout" onClick={(e) => this.logout(e)}>Logout</button>
       </div>
     )

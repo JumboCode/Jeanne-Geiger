@@ -23,7 +23,13 @@
 
 .Logo {
   float: left;
+  cursor: pointer;
 }
+
+.LogoWrapper {
+  cursor: pointer;
+}
+
 
 .NavSearchBar:focus {
   outline: none !important;
