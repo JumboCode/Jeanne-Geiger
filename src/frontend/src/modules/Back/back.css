@@ -12,9 +12,9 @@
 
 .backbutton img {
   width: 3%;
-  filter: invert(100%);
+  cursor: pointer;
 }
 
 .backbutton img:hover {
-  filter: invert(0%);
+  filter: grayscale(100%);
 }
