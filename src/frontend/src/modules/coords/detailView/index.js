@@ -18,7 +18,7 @@ class detailView extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({ case_id: this.getCaseIdFromUrl()})
+    this.setState({ case_id: this.getCaseIdFromUrl() })
     this.showTab(0)
     fetch(GET_CASE_URL, {
       headers: {
@@ -239,7 +239,7 @@ class detailView extends React.Component {
       <div>
         <NavigationBar />
         <BackButton />
-        <a href={"/site/edit-case?case_id=" + this.state.case_id}>Edit Case</a>
+        <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <div id='Victim' className='tabcontent'>

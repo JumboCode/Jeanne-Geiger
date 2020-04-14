@@ -14,17 +14,17 @@ const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
 
 // Title to Value mappings:
-const GENDER_TITLE_TO_VALUE = {'Female': 1, 'Male': 2, 'Other': 3}
-const RACE_ETHNICITY_TITLE_TO_VALUE = {'American Indian/Alaska Native': 1, 'Asian': 2, 'Black/African American': 3, 'Hispanic or Latino': 4, 'Native Hawaiian/Pacific Islander': 5, 'White': 6, 'Other/Unknown': 7}
-const AGE_AT_ACC_TITLE_TO_VALUE = {'13 or younger': 1, '14-17': 2, '18-19': 3, '20-29': 4, '30-39': 5, '40-49': 6, '50-59': 7, '60+': 8, 'Unknown': 9}
-const PRIMARY_LANGUAGE_TITLE_TO_VALUE = {'English': 1, 'Spanish/Spanish Creole': 2, 'Arabic': 3, 'Cambodian/Khmer': 4, 'Chinese': 5, 'French/French Creole': 6, 'German': 7, 'Greek': 8, 'Italian': 9, 'Polish': 10, 'Portugese/Portugese Creole': 11, 'Russian': 12, 'Vietnamese': 13, 'Other/Unknown': 14}
-const REL_TYPE_TITLE_TO_VALUE = {'Current Spouse/Intimate Partner': 1, 'Former Spouse/Intimate Partner': 2, 'Current Dating Relationship': 3, 'Former Dating Relationship': 4, 'Other': 5}
-const REL_LEN_TITLE_TO_VALUE = {'<1 year': 1, '1-5 years': 2, '6-9 years': 3, '10-14 years': 4, '15-19 years': 5, '20-29 years': 6, '30+ years': 7}
-const BOOL_TITLE_TO_VALUE = {'Yes': 'True', 'No': 'False'}
-const CHARGES_TITLE_TO_VALUE = {'Police Response: Charges Filed': 1, 'Police Response: No Charges Filed': 2, 'No Police Response: Not Applicable': 3}
-const PRETRIAL_OUTCOME_TITLE_TO_VALUE = {'Released on Bail': 1, 'Released on Personal Recognizance': 2, 'Detained/Pretrial Detention Statute': 3, 'Detained/Bail Unmet': 4, 'Detained/Other': 5, 'Pending Pretrial Hearing': 6}
-const SENT_OUT_DISP_TITLE_TO_VALUE = {'Charges Dismissed': 1, 'Not Guilty': 2, 'Deferred Adjudication': 3, 'Plead/Found Guilty': 4, 'Pending Disposition': 5}
-const SENT_OUT_SENT_TITLE_TO_VALUE = {'Incarceration': 1, 'Probation': 2, 'Incarceration Followed by Probation': 3}
+const GENDER_TITLE_TO_VALUE = { Female: 1, Male: 2, Other: 3 }
+const RACE_ETHNICITY_TITLE_TO_VALUE = { 'American Indian/Alaska Native': 1, Asian: 2, 'Black/African American': 3, 'Hispanic or Latino': 4, 'Native Hawaiian/Pacific Islander': 5, White: 6, 'Other/Unknown': 7 }
+const AGE_AT_ACC_TITLE_TO_VALUE = { '13 or younger': 1, '14-17': 2, '18-19': 3, '20-29': 4, '30-39': 5, '40-49': 6, '50-59': 7, '60+': 8, Unknown: 9 }
+const PRIMARY_LANGUAGE_TITLE_TO_VALUE = { English: 1, 'Spanish/Spanish Creole': 2, Arabic: 3, 'Cambodian/Khmer': 4, Chinese: 5, 'French/French Creole': 6, German: 7, Greek: 8, Italian: 9, Polish: 10, 'Portugese/Portugese Creole': 11, Russian: 12, Vietnamese: 13, 'Other/Unknown': 14 }
+const REL_TYPE_TITLE_TO_VALUE = { 'Current Spouse/Intimate Partner': 1, 'Former Spouse/Intimate Partner': 2, 'Current Dating Relationship': 3, 'Former Dating Relationship': 4, Other: 5 }
+const REL_LEN_TITLE_TO_VALUE = { '<1 year': 1, '1-5 years': 2, '6-9 years': 3, '10-14 years': 4, '15-19 years': 5, '20-29 years': 6, '30+ years': 7 }
+const BOOL_TITLE_TO_VALUE = { Yes: 'True', No: 'False' }
+const CHARGES_TITLE_TO_VALUE = { 'Police Response: Charges Filed': 1, 'Police Response: No Charges Filed': 2, 'No Police Response: Not Applicable': 3 }
+const PRETRIAL_OUTCOME_TITLE_TO_VALUE = { 'Released on Bail': 1, 'Released on Personal Recognizance': 2, 'Detained/Pretrial Detention Statute': 3, 'Detained/Bail Unmet': 4, 'Detained/Other': 5, 'Pending Pretrial Hearing': 6 }
+const SENT_OUT_DISP_TITLE_TO_VALUE = { 'Charges Dismissed': 1, 'Not Guilty': 2, 'Deferred Adjudication': 3, 'Plead/Found Guilty': 4, 'Pending Disposition': 5 }
+const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarceration Followed by Probation': 3 }
 
 class siteAddCase extends React.Component {
   constructor () {
@@ -37,7 +37,7 @@ class siteAddCase extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({ is_edit_case_view: this.isEditCaseView()})
+    this.setState({ is_edit_case_view: this.isEditCaseView() })
     this.showTab(0)
     // TODO: add function in views.py for getting referral sources based on community id
     fetch(COMMUNITY_LIST_URL
@@ -52,18 +52,17 @@ class siteAddCase extends React.Component {
     })
   }
 
-  // From url, determines if the page is for adding cases or editing them. Returns true, updates 
-  // this.state.case_id and prepopulates fields if path is for edit. Otherwise, returns false. 
-  isEditCaseView() {
+  // From url, determines if the page is for adding cases or editing them. Returns true, updates
+  // this.state.case_id and prepopulates fields if path is for edit. Otherwise, returns false.
+  isEditCaseView () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
     })
-    if (vars.case_id === undefined)
-      return false
+    if (vars.case_id === undefined) { return false }
 
-    // Update case_id from the url 
-    this.setState({ case_id: vars.case_id})
+    // Update case_id from the url
+    this.setState({ case_id: vars.case_id })
 
     // Get case specific info, update state and prepopulate fields
     fetch(GET_CASE_URL, {
@@ -75,73 +74,72 @@ class siteAddCase extends React.Component {
       .then(data => this.setState({ case: data }))
       .then(() => this.prepopulate())
 
-
     return true
   }
 
   // String needs to be sliced because it ends with a ', ' from the serializer. Multi fields need the selected
-  // tag in order to pre-populate. Selected options corresponds to the existing datas 
-  setSelectedOptions(mutliselect_field, selected_options) {
-    for (var i = 0; i < selected_options.length; i++) {
-      var value = RACE_ETHNICITY_TITLE_TO_VALUE[selected_options[i].slice(0, -2)]
-      mutliselect_field.options[value - 1].selected = true
+  // tag in order to pre-populate. Selected options corresponds to the existing datas
+  setSelectedOptions (mutliselectField, selectedOptions) {
+    for (var i = 0; i < selectedOptions.length; i++) {
+      var value = RACE_ETHNICITY_TITLE_TO_VALUE[selectedOptions[i].slice(0, -2)]
+      mutliselectField.options[value - 1].selected = true
     }
   }
 
-  prepopulate() {
-    // victim prepopulate 
-    document.getElementById("v_name").value = this.state.case.victim_id.name
-    document.getElementById("v_dob").value = this.state.case.victim_id.dob
-    document.getElementById("v_gender").value = GENDER_TITLE_TO_VALUE[this.state.case.victim_id.gender]
-    this.setSelectedOptions(document.getElementById("v_race_ethnicity"),this.state.case.victim_id.race_ethnicity)
-    document.getElementById("v_age_at_case_acceptance").value = AGE_AT_ACC_TITLE_TO_VALUE[this.state.case.victim_id.age_at_case_acceptance]
-    document.getElementById("v_primary_language").value = PRIMARY_LANGUAGE_TITLE_TO_VALUE[this.state.case.victim_id.primary_language]
-    document.getElementById("v_town").value = this.state.case.victim_id.town
-    document.getElementById("relationship_type").value = REL_TYPE_TITLE_TO_VALUE[this.state.case.relationship_type]
-    document.getElementById("relationship_len").value = REL_LEN_TITLE_TO_VALUE[this.state.case.relationship_len]
-    document.getElementById("minor_in_home").value = BOOL_TITLE_TO_VALUE[this.state.case.minor_in_home]
-    document.getElementById("referral_source").value = this.state.case.referral_source
-    document.getElementById("date_accepted").value = this.state.case.date_accepted
+  prepopulate () {
+    // victim prepopulate
+    document.getElementById('v_name').value = this.state.case.victim_id.name
+    document.getElementById('v_dob').value = this.state.case.victim_id.dob
+    document.getElementById('v_gender').value = GENDER_TITLE_TO_VALUE[this.state.case.victim_id.gender]
+    this.setSelectedOptions(document.getElementById('v_race_ethnicity'), this.state.case.victim_id.race_ethnicity)
+    document.getElementById('v_age_at_case_acceptance').value = AGE_AT_ACC_TITLE_TO_VALUE[this.state.case.victim_id.age_at_case_acceptance]
+    document.getElementById('v_primary_language').value = PRIMARY_LANGUAGE_TITLE_TO_VALUE[this.state.case.victim_id.primary_language]
+    document.getElementById('v_town').value = this.state.case.victim_id.town
+    document.getElementById('relationship_type').value = REL_TYPE_TITLE_TO_VALUE[this.state.case.relationship_type]
+    document.getElementById('relationship_len').value = REL_LEN_TITLE_TO_VALUE[this.state.case.relationship_len]
+    document.getElementById('minor_in_home').value = BOOL_TITLE_TO_VALUE[this.state.case.minor_in_home]
+    document.getElementById('referral_source').value = this.state.case.referral_source
+    document.getElementById('date_accepted').value = this.state.case.date_accepted
 
     // abuser prepopulate
-    document.getElementById("a_name").value = this.state.case.abuser_id.name
-    document.getElementById("a_dob").value = this.state.case.abuser_id.dob
-    document.getElementById("a_gender").value = GENDER_TITLE_TO_VALUE[this.state.case.abuser_id.gender]
-    this.setSelectedOptions(document.getElementById("a_race_ethnicity"),this.state.case.abuser_id.race_ethnicity)
-    document.getElementById("a_age_at_case_acceptance").value = AGE_AT_ACC_TITLE_TO_VALUE[this.state.case.abuser_id.age_at_case_acceptance]
-    document.getElementById("a_primary_language").value = PRIMARY_LANGUAGE_TITLE_TO_VALUE[this.state.case.abuser_id.primary_language]
-    document.getElementById("a_town").value = this.state.case.abuser_id.town
+    document.getElementById('a_name').value = this.state.case.abuser_id.name
+    document.getElementById('a_dob').value = this.state.case.abuser_id.dob
+    document.getElementById('a_gender').value = GENDER_TITLE_TO_VALUE[this.state.case.abuser_id.gender]
+    this.setSelectedOptions(document.getElementById('a_race_ethnicity'), this.state.case.abuser_id.race_ethnicity)
+    document.getElementById('a_age_at_case_acceptance').value = AGE_AT_ACC_TITLE_TO_VALUE[this.state.case.abuser_id.age_at_case_acceptance]
+    document.getElementById('a_primary_language').value = PRIMARY_LANGUAGE_TITLE_TO_VALUE[this.state.case.abuser_id.primary_language]
+    document.getElementById('a_town').value = this.state.case.abuser_id.town
 
     // riskfactor prepopulate
-    document.getElementById("violence_increased").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.violence_increased]
-    document.getElementById("attempted_leaving").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_leaving]
-    document.getElementById("control_activites").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.control_activites]
-    document.getElementById("attempted_murder").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_murder]                 
-    document.getElementById("threatened_murder").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.threatened_murder]
-    document.getElementById("weapon_threat").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.weapon_threat]
-    document.getElementById("attempted_choke").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_choke]
-    document.getElementById("multiple_choked").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.multiple_choked]
-    document.getElementById("killing_capable").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.killing_capable]
-    document.getElementById("owns_gun").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.owns_gun]
-    document.getElementById("suicide_threat_or_attempt").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.suicide_threat_or_attempt]
-    document.getElementById("is_unemployed").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_unemployed]
-    document.getElementById("avoided_arrest").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.avoided_arrest]
-    document.getElementById("unrelated_child").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.unrelated_child]
-    document.getElementById("uses_illegal_drugs").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.uses_illegal_drugs]
-    document.getElementById("is_alcoholic").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_alcoholic]
-    document.getElementById("forced_sex").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.forced_sex]
-    document.getElementById("constantly_jealous").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.constantly_jealous]
-    document.getElementById("pregnant_abuse").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.pregnant_abuse]
-    document.getElementById("children_threatened").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.children_threatened]
-    document.getElementById("has_spied").value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.has_spied]
+    document.getElementById('violence_increased').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.violence_increased]
+    document.getElementById('attempted_leaving').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_leaving]
+    document.getElementById('control_activites').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.control_activites]
+    document.getElementById('attempted_murder').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_murder]
+    document.getElementById('threatened_murder').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.threatened_murder]
+    document.getElementById('weapon_threat').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.weapon_threat]
+    document.getElementById('attempted_choke').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_choke]
+    document.getElementById('multiple_choked').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.multiple_choked]
+    document.getElementById('killing_capable').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.killing_capable]
+    document.getElementById('owns_gun').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.owns_gun]
+    document.getElementById('suicide_threat_or_attempt').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.suicide_threat_or_attempt]
+    document.getElementById('is_unemployed').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_unemployed]
+    document.getElementById('avoided_arrest').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.avoided_arrest]
+    document.getElementById('unrelated_child').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.unrelated_child]
+    document.getElementById('uses_illegal_drugs').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.uses_illegal_drugs]
+    document.getElementById('is_alcoholic').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_alcoholic]
+    document.getElementById('forced_sex').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.forced_sex]
+    document.getElementById('constantly_jealous').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.constantly_jealous]
+    document.getElementById('pregnant_abuse').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.pregnant_abuse]
+    document.getElementById('children_threatened').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.children_threatened]
+    document.getElementById('has_spied').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.has_spied]
 
     // outcome prepopulate
-    document.getElementById("connection_to_dvs").value = BOOL_TITLE_TO_VALUE[this.state.case.outcome_id.connection_to_domestic_violence_services]
-    document.getElementById("engagement_in_ongoing_dvs").value = BOOL_TITLE_TO_VALUE[this.state.case.outcome_id.engagement_in_ongoing_domestic_violence_services]
-    document.getElementById("charges").value = CHARGES_TITLE_TO_VALUE[this.state.case.outcome_id.charges_filed_at_or_after_case_acceptance]
-    document.getElementById("pretrial_outcome").value = PRETRIAL_OUTCOME_TITLE_TO_VALUE[this.state.case.outcome_id.pretrial_hearing_outcome]
-    document.getElementById("sentencing_outcomes_disposition").value = SENT_OUT_DISP_TITLE_TO_VALUE[this.state.case.outcome_id.sentencing_outcomes_disposition]
-    document.getElementById("sentencing_outcomes_sentence").value = SENT_OUT_SENT_TITLE_TO_VALUE[this.state.case.outcome_id.sentencing_outcomes_sentence] 
+    document.getElementById('connection_to_dvs').value = BOOL_TITLE_TO_VALUE[this.state.case.outcome_id.connection_to_domestic_violence_services]
+    document.getElementById('engagement_in_ongoing_dvs').value = BOOL_TITLE_TO_VALUE[this.state.case.outcome_id.engagement_in_ongoing_domestic_violence_services]
+    document.getElementById('charges').value = CHARGES_TITLE_TO_VALUE[this.state.case.outcome_id.charges_filed_at_or_after_case_acceptance]
+    document.getElementById('pretrial_outcome').value = PRETRIAL_OUTCOME_TITLE_TO_VALUE[this.state.case.outcome_id.pretrial_hearing_outcome]
+    document.getElementById('sentencing_outcomes_disposition').value = SENT_OUT_DISP_TITLE_TO_VALUE[this.state.case.outcome_id.sentencing_outcomes_disposition]
+    document.getElementById('sentencing_outcomes_sentence').value = SENT_OUT_SENT_TITLE_TO_VALUE[this.state.case.outcome_id.sentencing_outcomes_sentence]
   }
 
   getTabInfo (tabName) {
@@ -227,15 +225,15 @@ class siteAddCase extends React.Component {
                   '&referral_source=' + document.getElementById('referral_source').value +
                   '&date_accepted=' + document.getElementById('date_accepted').value
 
-    if (this.state.is_edit_case_view){
-      caseInfo = "case_id=" + this.state.case_id + "&" + caseInfo
+    if (this.state.is_edit_case_view) {
+      caseInfo = 'case_id=' + this.state.case_id + '&' + caseInfo
     }
 
     var casePostRequest = new XMLHttpRequest()
     casePostRequest.open('POST', CASE_POST_URL, true)
     casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
 
-    casePostRequest.onload = function () { window.location.href = "/site/case-view?case_id=" +  JSON.parse(casePostRequest.responseText).case_id}
+    casePostRequest.onload = function () { window.location.href = '/site/case-view?case_id=' + JSON.parse(casePostRequest.responseText).case_id }
     casePostRequest.send(caseInfo)
   }
 
@@ -342,9 +340,9 @@ class siteAddCase extends React.Component {
             </div>
           </form>
 
-            <div>
-              <button onClick={() => this.doSubmit()} >Submit</button>
-            </div>
+          <div>
+            <button onClick={() => this.doSubmit()} >Submit</button>
+          </div>
         </div>
       </div>
 
