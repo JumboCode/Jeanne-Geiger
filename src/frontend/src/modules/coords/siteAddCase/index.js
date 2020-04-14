@@ -214,8 +214,6 @@ class siteAddCase extends React.Component {
   }
 
   doSubmit () {
-    var url = CASE_POST_URL
-    var method = 'POST'
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
@@ -234,7 +232,7 @@ class siteAddCase extends React.Component {
     }
 
     var casePostRequest = new XMLHttpRequest()
-    casePostRequest.open(method, url, true)
+    casePostRequest.open('POST', CASE_POST_URL, true)
     casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
 
     casePostRequest.onload = function () { window.location.href = "/site/case-view?case_id=" +  JSON.parse(casePostRequest.responseText).case_id}
