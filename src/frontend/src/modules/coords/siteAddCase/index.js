@@ -80,14 +80,19 @@ class siteAddCase extends React.Component {
     return true
   }
 
+  setSelectedOptions(mutliselect_field, selected_options) {
+    for (var i = 0; i < selected_options.length; i++) {
+      var value = RACE_ETHNICITY_TITLE_TO_VALUE[selected_options[i].slice(0, -2)]
+      mutliselect_field.options[value - 1].selected = true
+    }
+  }
+
   prepopulate() {
-    console.log(this.state.case)
     // victim prepopulate 
     document.getElementById("v_name").value = this.state.case.victim_id.name
     document.getElementById("v_dob").value = this.state.case.victim_id.dob
     document.getElementById("v_gender").value = GENDER_TITLE_TO_VALUE[this.state.case.victim_id.gender]
-    // TODO: map
-    // document.getElementById("v_race_ethnicity").value = RACE_ETHNICITY_TITLE_TO_VALUE[this.state.case.victim_id.race_ethnicity]
+    this.setSelectedOptions(document.getElementById("v_race_ethnicity"),this.state.case.victim_id.race_ethnicity)
     document.getElementById("v_age_at_case_acceptance").value = AGE_AT_ACC_TITLE_TO_VALUE[this.state.case.victim_id.age_at_case_acceptance]
     document.getElementById("v_primary_language").value = PRIMARY_LANGUAGE_TITLE_TO_VALUE[this.state.case.victim_id.primary_language]
     document.getElementById("v_town").value = this.state.case.victim_id.town
@@ -101,8 +106,7 @@ class siteAddCase extends React.Component {
     document.getElementById("a_name").value = this.state.case.abuser_id.name
     document.getElementById("a_dob").value = this.state.case.abuser_id.dob
     document.getElementById("a_gender").value = GENDER_TITLE_TO_VALUE[this.state.case.abuser_id.gender]
-    // TODO: map
-    // document.getElementById("a_race_ethnicity").value = RACE_ETHNICITY_TITLE_TO_VALUE[this.state.case.abuser_id.race_ethnicity]
+    this.setSelectedOptions(document.getElementById("a_race_ethnicity"),this.state.case.abuser_id.race_ethnicity)
     document.getElementById("a_age_at_case_acceptance").value = AGE_AT_ACC_TITLE_TO_VALUE[this.state.case.abuser_id.age_at_case_acceptance]
     document.getElementById("a_primary_language").value = PRIMARY_LANGUAGE_TITLE_TO_VALUE[this.state.case.abuser_id.primary_language]
     document.getElementById("a_town").value = this.state.case.abuser_id.town
@@ -228,19 +232,12 @@ class siteAddCase extends React.Component {
       caseInfo = "case_id=" + this.state.case_id + "&" + caseInfo
     }
 
-
     var casePostRequest = new XMLHttpRequest()
     casePostRequest.open(method, url, true)
     casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
 
-    //casePostRequest.onreadystatechange = this.foo(this.state.is_edit_case_view, casePostRequest)
-
     casePostRequest.onload = function () { window.location.href = "/site/case-view?case_id=" +  JSON.parse(casePostRequest.responseText).case_id}
     casePostRequest.send(caseInfo)
-  }
-
-  reload(req) {
-    window.location.href = "/site/case-view?case_id=" +  JSON.parse(req.responseText).case_id
   }
 
   showTab (index) {
