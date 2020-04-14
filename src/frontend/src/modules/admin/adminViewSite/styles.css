@@ -16,11 +16,16 @@
 }
 
 .row {
-  height: 3em;
+  height: 4em;
   margin: 1em;
 }
 
 .header {
   margin: 0;
   size: 1em;
+}
+
+.backbutton img {
+  width: 5%;
+  cursor: pointer;
 }

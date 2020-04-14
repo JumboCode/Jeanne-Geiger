@@ -1,3 +1,4 @@
 .filter_container {
-  position: relative;
+  position: static;
+  top:30%;
 }

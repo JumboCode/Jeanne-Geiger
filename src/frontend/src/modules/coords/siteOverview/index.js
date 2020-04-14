@@ -302,9 +302,16 @@ class siteOverview extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <a href="/site/add-case">
-          <div class="add_a_case">Add a Case +</div>
-        </a>
+        <div class="row">
+          <div class="col-8">
+          /* SITE NAME SHOULD GO HERE */
+          </div>
+          <div class="col-4">
+            <a href="/site/add-case">
+              <div class="add_a_case">Add a Case +</div>
+            </a>
+          </div>
+        </div>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <VFilter />

@@ -1,5 +1,6 @@
 .container {
-  margin: 10px !important;
+  margin: 0!important;
+  position: static!important;
 }
 
 .add_a_case {

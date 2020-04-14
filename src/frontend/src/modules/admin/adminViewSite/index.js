@@ -113,17 +113,17 @@ class adminViewSite extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <BackButton />
-        <Row class="row">
-          <Col xs = {8}>
-            <div>
-              <h1 class="header">{this.state.community_name}</h1>
-            </div>
-          </Col>
-          <Col xs = {3}>
+        <div class="row">
+          <div class="col-4">
+             <BackButton class="button"/>
+          </div>
+          <div class="col-4">
+            <h1 class="header">{this.state.community_name}</h1>
+          </div>
+          <div class="col-3">
             <Filter/>
-          </Col>
-        </Row>
+          </div>
+        </div>
 
         <TabObj selectFunc={(index, label) => this.getTabInfo(label)}/>
 
