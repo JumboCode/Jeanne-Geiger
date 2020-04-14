@@ -4,7 +4,7 @@ const TextInputObj = (props) => {
   return (
     <div class="form-group">
       <label for={props.id}>{props.title}</label>
-      <input type="text" class="form-control" id={props.id} placeholder={'Enter ' + props.title}></input>
+      <input type="text" class="form-control" id={props.id} placeholder={'Enter ' + props.title} required></input>
     </div>
   )
 }
