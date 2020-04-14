@@ -20,22 +20,21 @@ import './NavigationBar.css'
 // }
 /*
  * Replace /site and /admin with window.location.hostname/site and .../admin
- * 
+ *
 */
 class NavigationBar extends Component {
   logoClick () {
     var path = window.location.pathname
     var host = window.location.hostname
-    if (path.slice(1, 5) == "site") {
-      window.location.replace("/site")
-    }
-    else {
-      window.location.replace("/admin")
+    if (path.slice(1, 5) === 'site') {
+      window.location.replace('/site')
+    } else {
+      window.location.replace('/admin')
     }
   }
 
   logout () {
-    window.location.replace("/")
+    window.location.replace('/')
   }
 
   render () {

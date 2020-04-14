@@ -33,7 +33,7 @@ class adminViewSite extends React.Component {
       risk_factor_info: [],
       outcome_info: [],
       community_id: [],
-      community_name: [], 
+      community_name: [],
       start_date: [],
       end_date: []
     }

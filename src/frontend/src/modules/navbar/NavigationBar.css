@@ -30,7 +30,6 @@
   cursor: pointer;
 }
 
-
 .NavSearchBar:focus {
   outline: none !important;
 }
