@@ -115,7 +115,7 @@ class adminViewSite extends React.Component {
         <NavigationBar />
         <div class="row">
           <div class="col-4">
-             <BackButton class="button"/>
+            <BackButton class="button"/>
           </div>
           <div class="col-4">
             <h1 class="header">{this.state.community_name}</h1>
