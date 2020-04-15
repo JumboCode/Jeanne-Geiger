@@ -15,6 +15,9 @@ class siteOverview extends React.Component {
   constructor () {
     super()
     this.state = {
+      // TODO: remove hardcode
+      community_id: 1,
+      community_name: 'Community1',
       cases: [],
       victim_columns: [
         {
@@ -268,7 +271,11 @@ class siteOverview extends React.Component {
 
   componentDidMount () {
     this.showTab(0)
-    fetch(CASES_URL)
+    fetch(CASES_URL, {
+      headers: {
+        communityid: this.state.community_id
+      }
+    })
       .then(results => {
         return results.json()
       })
@@ -304,7 +311,7 @@ class siteOverview extends React.Component {
         <NavigationBar />
         <div class="row">
           <div class="col-8">
-          /* SITE NAME SHOULD GO HERE */
+          /* SITE NAME SHOULD GO HERE */ <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>View Summary</a>
           </div>
           <div class="col-4">
             <a href="/site/add-case">
