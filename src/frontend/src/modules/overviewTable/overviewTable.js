@@ -37,7 +37,7 @@ function MyTable (columns, data, linkName) {
   return (
     <>
       <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", function() {
           document.querySelectorAll('tr[data-href]').forEach(row => {
             row.addEventListener('click', () => {
               window.location.href = row.dataset.href
