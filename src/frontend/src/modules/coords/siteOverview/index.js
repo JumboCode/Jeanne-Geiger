@@ -311,7 +311,7 @@ class siteOverview extends React.Component {
         <NavigationBar />
         <div class="row">
           <div class="col-8">
-          /* SITE NAME SHOULD GO HERE */ <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>View Summary</a>
+            {this.state.community_name} <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>View Summary</a>
           </div>
           <div class="col-4">
             <a href="/site/add-case">
