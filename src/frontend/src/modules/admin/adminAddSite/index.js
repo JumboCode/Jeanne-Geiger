@@ -144,12 +144,12 @@ class adminAddSite extends React.Component {
               </Col>
             </Form.Row>
           </div>
-          </form>
-          <div class="final">
-            <button class="cancel_button" onClick={() => window.location.href = '/admin'}>Cancel</button>
-            <button type="submit" class="save_button" onClick={() => this.doSubmit()} value="Submit">Submit</button>
-          </div>
-        
+        </form>
+        <div class="final">
+          <button class="cancel_button" onClick={ function () { window.location.href = '/admin' }}>Cancel</button>
+          <button type="submit" class="save_button" onClick={() => this.doSubmit()} value="Submit">Submit</button>
+        </div>
+
       </div>
     )
   }
