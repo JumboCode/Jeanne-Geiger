@@ -67,14 +67,20 @@ class CommunitiesList(generics.ListCreateAPIView):
 
         return Response(serializer_class.data)
 
-    # def post(self, request, *args, **kwargs):
-    #     get_community_id = request.POST.get("community_id")
-    #     try:
-    #         communityData = Communities.objects.get(community_id=get_community_id)
-    #     except:
-    #         communityData = Communities(referral_sources = request.POST.get("referral_sources"))
-    #         communityData.save()
-    #     return HttpResponse('success')
+    def post(self, request, *args, **kwargs):
+        get_community_id = request.POST.get("community_id")
+
+        try:
+            communityData = Communities.objects.get(community_id=get_community_id)
+        except:
+            communityData = Communities(
+                community_name = request.POST.get("community_name"),
+                coordinators = request.POST.get("coordinators"),
+                referral_sources = request.POST.get("referral_sources")
+            )
+            communityData.save()
+
+        return JsonResponse({'community_id' : communityData.community_id})
 
 class OneCase(generics.ListCreateAPIView):
     queryset = Cases.objects.all()

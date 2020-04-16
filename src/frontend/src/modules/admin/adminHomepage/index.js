@@ -30,7 +30,6 @@ class adminHomepage extends React.Component {
     ).then(results => {
       return results.json()
     }).then(data => {
-      console.log(data)
       this.setState({ communities: data })
     })
   }
