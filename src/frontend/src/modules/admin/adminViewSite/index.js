@@ -3,8 +3,12 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
+import BackButton from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
+import Filter from '../../filters/date_filter/filter.js'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const Wrapper = styled.div`
   display: grid;
@@ -29,7 +33,9 @@ class adminViewSite extends React.Component {
       risk_factor_info: [],
       outcome_info: [],
       community_id: [],
-      community_name: []
+      community_name: [],
+      start_date: [],
+      end_date: []
     }
   }
 
@@ -40,13 +46,17 @@ class adminViewSite extends React.Component {
     })
 
     this.setState({ community_name: vars.com_name }, () => {
-      this.setState({ community_id: vars.com_id }, () => {
-        this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-        this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-        this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-        this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+      this.setState({ start_date: vars.start_date }, () => {
+        this.setState({ end_date: vars.end_date }, () => {
+          this.setState({ community_id: vars.com_id }, () => {
+            this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+            this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+            this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+            this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
 
-        this.getTabInfo('Victim')
+            this.getTabInfo('Victim')
+          })
+        })
       })
     })
   }
@@ -55,7 +65,9 @@ class adminViewSite extends React.Component {
     fetch(
       url, {
         headers: {
-          communityid: this.state.community_id
+          communityid: this.state.community_id,
+          startdate: this.state.start_date,
+          enddate: this.state.end_date
         }
       }
     ).then(results => {
@@ -101,7 +113,17 @@ class adminViewSite extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <h1>{this.community_name}</h1>
+        <div class="row">
+          <div class="col-4">
+            <BackButton class="button"/>
+          </div>
+          <div class="col-4">
+            <h1 class="header">{this.state.community_name}</h1>
+          </div>
+          <div class="col-3">
+            <Filter/>
+          </div>
+        </div>
 
         <TabObj selectFunc={(index, label) => this.getTabInfo(label)}/>
 

@@ -15,6 +15,9 @@ class siteOverview extends React.Component {
   constructor () {
     super()
     this.state = {
+      // TODO: remove hardcode
+      community_id: 1,
+      community_name: 'Community1',
       cases: [],
       victim_columns: [
         {
@@ -268,7 +271,11 @@ class siteOverview extends React.Component {
 
   componentDidMount () {
     this.showTab(0)
-    fetch(CASES_URL)
+    fetch(CASES_URL, {
+      headers: {
+        communityid: this.state.community_id
+      }
+    })
       .then(results => {
         return results.json()
       })
@@ -302,9 +309,16 @@ class siteOverview extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <a href="/site/add-case">
-          <div class="add_a_case">Add a Case +</div>
-        </a>
+        <div class="row">
+          <div class="col-8">
+            {this.state.community_name} <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>View Summary</a>
+          </div>
+          <div class="col-4">
+            <a href="/site/add-case">
+              <div class="add_a_case">Add a Case +</div>
+            </a>
+          </div>
+        </div>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <VFilter />

@@ -222,7 +222,8 @@
 			"relationship_type": 1,
 			"relationship_len": 1,
 			"minor_in_home": true,
-			"referral_source" : "barry"
+            "referral_source" : "barry",
+            "date_accepted": "2020-01-01"
 		}
 	},
 	{
@@ -238,7 +239,8 @@
 			"relationship_type": 2,
 			"relationship_len": 2,
 			"minor_in_home": false,
-			"referral_source" : "barry"
+            "referral_source" : "barry",
+            "date_accepted": "2020-01-10"
 		}
  	},
  	{
@@ -254,7 +256,8 @@
 			"relationship_type": 3,
 			"relationship_len": 3,
 			"minor_in_home": true,
-			"referral_source" : "barry"
+            "referral_source" : "barry",
+            "date_accepted": "2020-01-20"
 		}
 	},
 	{
@@ -270,7 +273,8 @@
 			"relationship_type": 4,
 			"relationship_len": 4,
 			"minor_in_home": false,
-			"referral_source" : "barry"
+            "referral_source" : "barry",
+            "date_accepted": "2020-01-30"
 		}
 	},
 	{
@@ -286,7 +290,8 @@
 			"relationship_type": 3,
 			"relationship_len": 5,
 			"minor_in_home": true,
-			"referral_source" : "barry"
+            "referral_source" : "barry",
+            "date_accepted": "2020-02-01"
 		}
 	},
 	{
@@ -302,7 +307,8 @@
 			"relationship_type": 2,
 			"relationship_len": 6,
 			"minor_in_home": false,
-			"referral_source" : "barry"
+            "referral_source" : "barry",
+            "date_accepted": "2020-02-10"
 		}
 	},
 	{

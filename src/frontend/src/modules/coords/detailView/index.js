@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import BackButton from '../../Back/back.js'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
 
@@ -11,11 +12,13 @@ class detailView extends React.Component {
   constructor () {
     super()
     this.state = {
-      case: []
+      case: [],
+      case_id: []
     }
   }
 
   componentDidMount () {
+    this.setState({ case_id: this.getCaseIdFromUrl() })
     this.showTab(0)
     fetch(GET_CASE_URL, {
       headers: {
@@ -178,7 +181,7 @@ class detailView extends React.Component {
             </Col>
 
             <Col xs={8}>
-              <p> Has the physical violence increased in severity or frequency over the past year? </p>
+              <p>Has the physical violence increased in severity or frequency over the past year? </p>
               <p>Have you left him/her after living together in the past year? </p>
               <p>Does he/she control most or all of your daily activities? </p>
               <p>Has he/she tried to kill you? </p>
@@ -235,6 +238,8 @@ class detailView extends React.Component {
     return (
       <div>
         <NavigationBar />
+        <BackButton />
+        <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <div id='Victim' className='tabcontent'>

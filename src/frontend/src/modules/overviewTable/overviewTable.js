@@ -36,6 +36,15 @@ function MyTable (columns, data, linkName) {
 
   return (
     <>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          document.querySelectorAll('tr[data-href]').forEach(row => {
+            row.addEventListener('click', () => {
+              window.location.href = row.dataset.href
+            })
+          })
+        })
+      </script>
       <Table striped border hover {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
@@ -78,16 +87,6 @@ function MyTable (columns, data, linkName) {
       </Table>
       <br />
       <div>Showing the first {rows.length > 20 ? 20 : rows.length} results of {rows.length} rows</div>
-
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          document.querySelectorAll('tr[data-href]').forEach(row => {
-            row.addEventListener('click', () => {
-              window.location.href = row.dataset.href
-            })
-          })
-        })
-      </script>
     </>
   )
 }
