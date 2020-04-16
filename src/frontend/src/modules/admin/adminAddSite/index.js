@@ -39,10 +39,8 @@ class adminAddSite extends React.Component {
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', SITE_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
-    sitePostRequest.onload = function () {
-      return JSON.parse(sitePostRequest.responseText).community_id
-    }
   }
 
   getSourceData () {
@@ -146,11 +144,12 @@ class adminAddSite extends React.Component {
               </Col>
             </Form.Row>
           </div>
+          </form>
           <div class="final">
-            <button class="cancel_button">Cancel</button>
+            <button class="cancel_button" onClick={() => window.location.href = '/admin'}>Cancel</button>
             <button type="submit" class="save_button" onClick={() => this.doSubmit()} value="Submit">Submit</button>
           </div>
-        </form>
+        
       </div>
     )
   }
