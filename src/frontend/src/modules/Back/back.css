@@ -1,6 +1,4 @@
 .backbutton {
-  display: flex;
-  flex-direction: column;
   position: relative;
   top: 10px;
   left: 30px;
@@ -12,9 +10,9 @@
 
 .backbutton img {
   width: 3%;
-  cursor: pointer;
 }
 
-.backbutton img:hover {
+.backbutton:hover {
   filter: grayscale(100%);
+  cursor: pointer;
 }

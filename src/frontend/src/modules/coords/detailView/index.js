@@ -3,6 +3,7 @@ import './styles.css'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import BackButton from '../../Back/back.js'
+import editButton from './editButton.png'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
 
@@ -234,12 +235,18 @@ class detailView extends React.Component {
     }
   }
 
+  openEditClick() {
+    window.location.href = '/site/edit-case?case_id=' + this.state.case_id
+  }
+
   render () {
     return (
       <div>
         <NavigationBar />
-        <BackButton />
-        <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
+        <div class="buttonsContainer">
+          <BackButton />
+          <input type="image" id="editButton" src={editButton} onClick={(e) => this.openEditClick(e)}/>
+        </div>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <div id='Victim' className='tabcontent'>

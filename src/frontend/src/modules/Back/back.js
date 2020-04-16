@@ -11,9 +11,7 @@ export default class BackButton extends React.Component {
 
   render () {
     return (
-      <div className="backbutton">
-        <img src={backLogo} alt="Back Button" onClick={(e) => this.handleClick(e)}/>
-      </div>
+        <img className="backbutton" src={backLogo} alt="Back Button" onClick={(e) => this.handleClick(e)}/>
     )
   }
 }
