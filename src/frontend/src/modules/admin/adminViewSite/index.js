@@ -25,25 +25,25 @@ const RISK_FACTOR_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/'
 const OUTCOME_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/'
 
 class adminViewSite extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       victim_info: [],
       abuser_info: [],
       risk_factor_info: [],
       outcome_info: [],
-      community_list: [],
+      community_list: this.props.community_list ? this.props.community_list : ["Default"],
       community_id: [],
       community_name: []
     }
   }
   
   componentDidMount () {
-    ExternalApi(COMMUNITY_LIST_URL
-        ).then(results => {
-            console.log(results)
-          return results.json()
-        }).then(data => this.setState({ community_list: data }))
+    // ExternalApi(COMMUNITY_LIST_URL
+    //     ).then(results => {
+    //         console.log(results)
+    //       return results.json()
+    //     }).then(data => this.setState({ community_list: data }))
 
     // fetch(COMMUNITY_LIST_URL
     // ).then(results => {

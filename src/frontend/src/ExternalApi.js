@@ -1,14 +1,14 @@
 // src/views/ExternalApi.js
 
 import React, { useState } from "react";
-import { useAuth0 } from "./react-auth0-spa";
+// import { useAuth0 } from "./react-auth0-spa";
 
-async function useExternalApi (url="", data={}) {
+async function callExternalApi (url="", token) {
 
-  const { getTokenSilently } = useAuth0();
+  // const { getTokenSilently } = useAuth0();
     
     try {
-      const token = await getTokenSilently();
+      // const token = await getTokenSilently();
       console.log(token)
       console.log(url);
       const response = await fetch(url, {
@@ -25,9 +25,9 @@ async function useExternalApi (url="", data={}) {
     }
 };
 
-function ExternalApi({ url, data }) {
-    let response = useExternalApi(url, data)
-    return response
-}
+// function ExternalApi({ url, data }) {
+//     let response = useExternalApi(url, data)
+//     return response
+// }
 
-export default ExternalApi;
+export default callExternalApi;
