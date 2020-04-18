@@ -13,7 +13,8 @@ class detailView extends React.Component {
     super()
     this.state = {
       case: [],
-      case_id: []
+      case_id: [], 
+      active_status: []
     }
   }
 
@@ -27,6 +28,7 @@ class detailView extends React.Component {
     })
       .then(results => { return results.json() })
       .then(data => this.setState({ case: data }))
+      .then(this.setState({ active_status: this.state.case.active_status}))
   }
 
   getCaseIdFromUrl () {
@@ -53,12 +55,38 @@ class detailView extends React.Component {
       tablinks[i].className = tablinks[i].className.replace(' active', '')
     }
 
-    // Show the current tab, and add an 'active' class to the button that opened the tab
+    // Show the current tab
     document.getElementById(tabName).style.display = 'block'
   }
 
   showTab (index) {
     if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
+  }
+
+  getCaseActiveStatus () {
+    if (this.state.case !== undefined) {
+      if (this.state.case.active_status) {
+        return (
+          <div>
+            <p id='active'>Active</p>
+          </div>
+        )
+      }
+      if (this.state.case.active_status === false) {
+        return (
+          <div>
+            <p id='inactive'>Inactive</p>
+          </div>
+        )
+      }
+    } 
+
+    return (
+        <div>
+          <p> </p>
+        </div>
+      )
+
   }
 
   getVictimTabInfo () {
@@ -240,6 +268,9 @@ class detailView extends React.Component {
         <NavigationBar />
         <BackButton />
         <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
+        <div id='active_status'>
+          {this.getCaseActiveStatus()}
+        </div>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <div id='Victim' className='tabcontent'>

@@ -6,3 +6,11 @@ p {
   font-size: 15px;
   color: rgb(83, 83, 83);
 }
+
+#active {
+	color: green;
+}
+
+#inactive {
+	color: orange;
+}
