@@ -25,6 +25,10 @@ class siteOverview extends React.Component {
           accessor: 'date_accepted'
         },
         {
+          Header: 'Status',
+          accessor: 'active_status'
+        },
+        {
           Header: 'Name',
           accessor: 'victim_id.name'
         },
@@ -70,6 +74,14 @@ class siteOverview extends React.Component {
         }
       ],
       abuser_columns: [
+        {
+          Header: 'Date Created',
+          accessor: 'date_accepted'
+        },
+        {
+          Header: 'Status',
+          accessor: 'active_status'
+        },
         {
           Header: 'Name',
           accessor: 'abuser_id.name'
@@ -204,21 +216,16 @@ class siteOverview extends React.Component {
       ],
       outcomes_columns: [
         {
-          Header: 'Abuser Information',
-          columns: [
-            {
-              Header: 'Date Created',
-              accessor: 'date_accepted'
-            },
-            {
-              Header: 'Victim Name',
-              accessor: 'victim_id.name'
-            },
-            {
-              Header: 'Abuser Name',
-              accessor: 'abuser_id.name'
-            }
-          ]
+          Header: 'Date Created',
+          accessor: 'date_accepted'
+        },
+        {
+          Header: 'Victim Name',
+          accessor: 'victim_id.name'
+        },
+        {
+          Header: 'Abuser Name',
+          accessor: 'abuser_id.name'
         },
         {
           Header: 'Victim Outcomes',
@@ -279,7 +286,7 @@ class siteOverview extends React.Component {
       .then(results => {
         return results.json()
       })
-      .then(data => this.setState({ cases: data }))
+      .then(data => {console.log(data); this.setState({ cases: data })})
   }
 
   getTabInfo (tabName) {
