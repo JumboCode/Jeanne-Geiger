@@ -7,10 +7,10 @@ p {
   color: rgb(83, 83, 83);
 }
 
-#active {
+#Active {
 	color: green;
 }
 
-#inactive {
+#Inactive {
 	color: orange;
 }

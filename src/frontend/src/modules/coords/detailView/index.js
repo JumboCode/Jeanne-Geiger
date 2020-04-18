@@ -14,7 +14,6 @@ class detailView extends React.Component {
     this.state = {
       case: [],
       case_id: [], 
-      active_status: []
     }
   }
 
@@ -28,7 +27,6 @@ class detailView extends React.Component {
     })
       .then(results => { return results.json() })
       .then(data => this.setState({ case: data }))
-      .then(this.setState({ active_status: this.state.case.active_status}))
   }
 
   getCaseIdFromUrl () {
@@ -65,20 +63,12 @@ class detailView extends React.Component {
 
   getCaseActiveStatus () {
     if (this.state.case !== undefined) {
-      if (this.state.case.active_status) {
-        return (
-          <div>
-            <p id='active'>Active</p>
-          </div>
-        )
-      }
-      if (this.state.case.active_status === false) {
-        return (
-          <div>
-            <p id='inactive'>Inactive</p>
-          </div>
-        )
-      }
+      console.log(this.state.case.active_status)
+      return (
+        <div>
+          <p id={this.state.case.active_status}>{this.state.case.active_status}</p>
+        </div>
+      )
     } 
 
     return (
@@ -141,11 +131,11 @@ class detailView extends React.Component {
               <h3> {this.state.case.abuser_id.dob}</h3>
               <p>Gender: </p>
               <h3> {this.state.case.abuser_id.gender}</h3>
+              <p>Race/Ethnicity: </p>
+              <h3>{this.state.case.abuser_id.race_ethnicity}</h3>
             </Col>
 
             <Col>
-              <p>Race/Ethnicity: </p>
-              <h3>{this.state.case.abuser_id.race_ethnicity}</h3>
               <p>Age at Case Acceptance: </p>
               <h3>{this.state.case.abuser_id.age_at_case_acceptance}</h3>
               <p>Primary Language: </p>

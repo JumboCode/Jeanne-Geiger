@@ -15,6 +15,18 @@ const DropdownObj = (props) => {
   )
 }
 
+const StatusObj = (props) => {
+  return (
+    <div id="active_status_obj" class="form-group">
+      <label for="active_status">Active Status</label>
+      <select class="form-control" id="active_status" name="Active Status">
+        <option value='True'>Active</option>
+        <option value='False'>Inactive</option>
+      </select>
+    </div>
+  )
+}
+
 const TextInputObj = (props) => {
   return (
     <div class="form-group">
@@ -47,4 +59,4 @@ const MultSelectionObj = (props) => {
   )
 }
 
-export { DropdownObj, TextInputObj, DateInputObj, MultSelectionObj }
+export { DropdownObj, TextInputObj, DateInputObj, MultSelectionObj, StatusObj }
