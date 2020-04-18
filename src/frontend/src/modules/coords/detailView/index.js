@@ -38,7 +38,6 @@ class detailView extends React.Component {
   }
 
   getTabInfo (tabName) {
-    console.log(tabName)
     var i, tabcontent, tablinks
 
     // Get all elements with class='tabcontent' and hide them
@@ -63,7 +62,6 @@ class detailView extends React.Component {
 
   getCaseActiveStatus () {
     if (this.state.case !== undefined) {
-      console.log(this.state.case.active_status)
       return (
         <div>
           <p id={this.state.case.active_status}>{this.state.case.active_status}</p>
