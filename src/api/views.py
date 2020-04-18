@@ -76,7 +76,9 @@ class CommunitiesList(generics.ListCreateAPIView):
             communityData = Communities(
                 community_name = request.POST.get("community_name"),
                 coordinators = request.POST.get("coordinators"),
-                referral_sources = request.POST.get("referral_sources")
+                referral_sources = request.POST.get("referral_sources"),
+                date_created = datetime.datetime.today().strftime('%Y-%m-%d'),
+                last_updated = datetime.datetime.today().strftime('%Y-%m-%d'),
             )
             communityData.save()
 
@@ -118,6 +120,10 @@ class CasesList(generics.ListCreateAPIView):
         get_case_id = request.POST.get("case_id")
         try: ## case exists, update values
             caseData = Cases.objects.get(case_id=get_case_id)
+
+            ## update community
+            caseData.community_id.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
+            caseData.community_id.save()
 
             ## update victim 
             caseData.victim_id.name = request.POST.get("v_name")

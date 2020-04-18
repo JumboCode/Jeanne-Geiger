@@ -93,6 +93,8 @@ class Communities(models.Model):
     community_name = models.CharField(max_length=100, default="")
     coordinators = ArrayField(ArrayField(models.CharField(max_length=100, default=""), size=2), default=list)
     referral_sources = ArrayField(models.CharField(max_length=100, default=""))
+    date_created = models.DateField(null=True, blank=True)
+    last_updated = models.DateField(null=True, blank=True)
 
 class Persons(models.Model):
     gender_choices = (
