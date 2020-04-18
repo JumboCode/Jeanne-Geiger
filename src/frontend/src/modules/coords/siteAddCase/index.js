@@ -34,6 +34,7 @@ class siteAddCase extends React.Component {
       referral_sources: [],
       is_edit_case_view: false,
       case_id: [],
+      // TODO: remove hardcode
       community_id: 1
     }
   }

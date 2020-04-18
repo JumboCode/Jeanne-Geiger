@@ -14,13 +14,17 @@ class adminHomepage extends React.Component {
       communities: [],
       columns: [
         {
+          Header: 'Date Created',
+          accessor: 'date_created'
+        },
+        {
           Header: 'Site Name',
           accessor: 'community_name'
-        }
-        // {
-        //   Header: 'Last Updated',
-        //   accessor: 'community_id'
-        // },
+        },
+        {
+          Header: 'Last Updated',
+          accessor: 'last_updated'
+        },
       ]
     }
   }

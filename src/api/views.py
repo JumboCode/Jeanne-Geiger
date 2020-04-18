@@ -187,8 +187,10 @@ class CasesList(generics.ListCreateAPIView):
             caseData.date_accepted = request.POST.get("date_accepted")
             caseData.save()
 
-        except Cases.DoesNotExist:
+        except Cases.DoesNotExist: # case doesn't exist, create a new one
             community = Communities.objects.get(community_id=request.POST.get("community_id"))
+            community.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
+            community.save()
             
             outcomes = Outcomes(
                 connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
