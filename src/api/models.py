@@ -81,7 +81,7 @@ class Cases(models.Model):
     minor_in_home = models.BooleanField(default=1, choices=BOOL)
     referral_source = models.CharField(max_length=100, default="")
     date_accepted = models.DateField(null=True, blank=True)
-    is_active = models.BooleanField(default=True, choices=BOOL)
+    active_status = models.BooleanField(default=True, choices=BOOL)
 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
