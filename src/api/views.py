@@ -173,6 +173,7 @@ class CasesList(generics.ListCreateAPIView):
             caseData.risk_factor_id.save()
 
             ## update case data
+            caseData.active_status = request.POST.get("active_status")
             caseData.relationship_type = request.POST.get("relationship_type")
             caseData.relationship_len = request.POST.get("relationship_len")
             caseData.minor_in_home = request.POST.get("minor_in_home")
@@ -248,6 +249,7 @@ class CasesList(generics.ListCreateAPIView):
                 victim_id = victim,
                 abuser_id = abuser,
                 risk_factor_id = risk_factors,
+                active_status = request.POST.get("active_status"),
                 relationship_type = request.POST.get("relationship_type"),
                 relationship_len = request.POST.get("relationship_len"),
                 minor_in_home = request.POST.get("minor_in_home"),

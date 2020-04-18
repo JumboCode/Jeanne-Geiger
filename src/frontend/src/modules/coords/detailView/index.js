@@ -38,7 +38,6 @@ class detailView extends React.Component {
   }
 
   getTabInfo (tabName) {
-    console.log(tabName)
     var i, tabcontent, tablinks
 
     // Get all elements with class='tabcontent' and hide them
@@ -53,12 +52,28 @@ class detailView extends React.Component {
       tablinks[i].className = tablinks[i].className.replace(' active', '')
     }
 
-    // Show the current tab, and add an 'active' class to the button that opened the tab
+    // Show the current tab
     document.getElementById(tabName).style.display = 'block'
   }
 
   showTab (index) {
     if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
+  }
+
+  getCaseActiveStatus () {
+    if (this.state.case !== undefined) {
+      return (
+        <div>
+          <p id={this.state.case.active_status}>{this.state.case.active_status}</p>
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        <p> </p>
+      </div>
+    )
   }
 
   getVictimTabInfo () {
@@ -113,11 +128,11 @@ class detailView extends React.Component {
               <h3> {this.state.case.abuser_id.dob}</h3>
               <p>Gender: </p>
               <h3> {this.state.case.abuser_id.gender}</h3>
+              <p>Race/Ethnicity: </p>
+              <h3>{this.state.case.abuser_id.race_ethnicity}</h3>
             </Col>
 
             <Col>
-              <p>Race/Ethnicity: </p>
-              <h3>{this.state.case.abuser_id.race_ethnicity}</h3>
               <p>Age at Case Acceptance: </p>
               <h3>{this.state.case.abuser_id.age_at_case_acceptance}</h3>
               <p>Primary Language: </p>
@@ -240,6 +255,9 @@ class detailView extends React.Component {
         <NavigationBar />
         <BackButton />
         <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
+        <div id='active_status'>
+          {this.getCaseActiveStatus()}
+        </div>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <div id='Victim' className='tabcontent'>
