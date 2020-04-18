@@ -27,14 +27,13 @@ const SENT_OUT_DISP_TITLE_TO_VALUE = { 'Charges Dismissed': 1, 'Not Guilty': 2, 
 const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarceration Followed by Probation': 3 }
 const ACTIVE_TITLE_TO_VALUE = { Active: 'True', Inactive: 'False' }
 
-
 class siteAddCase extends React.Component {
   constructor () {
     super()
     this.state = {
       referral_sources: [],
       is_edit_case_view: false,
-      case_id: [], 
+      case_id: [],
       community_id: 1
     }
   }
@@ -221,7 +220,7 @@ class siteAddCase extends React.Component {
     if (!f.checkValidity()) {
       return
     }
-    var active_status = 'True'
+    var activeStatus = 'True'
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
@@ -237,10 +236,10 @@ class siteAddCase extends React.Component {
 
     if (this.state.is_edit_case_view) {
       caseInfo = 'case_id=' + this.state.case_id + '&' + caseInfo
-      active_status = document.getElementById('active_status').value
+      activeStatus = document.getElementById('active_status').value
     }
 
-    caseInfo += '&active_status=' + active_status
+    caseInfo += '&active_status=' + activeStatus
 
     var casePostRequest = new XMLHttpRequest()
     casePostRequest.open('POST', CASE_POST_URL, true)

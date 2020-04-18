@@ -286,7 +286,7 @@ class siteOverview extends React.Component {
       .then(results => {
         return results.json()
       })
-      .then(data => {console.log(data); this.setState({ cases: data })})
+      .then(data => { console.log(data); this.setState({ cases: data }) })
   }
 
   getTabInfo (tabName) {

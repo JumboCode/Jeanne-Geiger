@@ -13,7 +13,7 @@ class detailView extends React.Component {
     super()
     this.state = {
       case: [],
-      case_id: [], 
+      case_id: []
     }
   }
 
@@ -69,14 +69,13 @@ class detailView extends React.Component {
           <p id={this.state.case.active_status}>{this.state.case.active_status}</p>
         </div>
       )
-    } 
+    }
 
     return (
-        <div>
-          <p> </p>
-        </div>
-      )
-
+      <div>
+        <p> </p>
+      </div>
+    )
   }
 
   getVictimTabInfo () {
