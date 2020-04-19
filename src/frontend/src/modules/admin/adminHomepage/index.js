@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
 
-const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
+const COMMUNITY_LIST_URL    = 'http://127.0.0.1:8000/api/communities/'
+const ACTIVE_CASE_COUNT_URL = 'http://127.0.0.1:8000/api/ActiveCaseCountView/'
 
 class adminHomepage extends React.Component {
   constructor () {
@@ -25,6 +26,10 @@ class adminHomepage extends React.Component {
           Header: 'Last Updated',
           accessor: 'last_updated'
         },
+        {
+          Header: '# of Active Cases',
+          accessor: 'num_active'
+        }
       ]
     }
   }
@@ -33,8 +38,23 @@ class adminHomepage extends React.Component {
     fetch(COMMUNITY_LIST_URL
     ).then(results => {
       return results.json()
-    }).then(data => {
-      this.setState({ communities: data })
+    }).then(communities => {
+      // communities is a list of community objects
+      // for each community object , get its active case count and add it to 
+      // the per community data
+      Promise.all(communities.map(community =>
+        fetch(ACTIVE_CASE_COUNT_URL, {
+            headers: {
+              communityid: community.community_id,
+            }
+          })
+          .then(results => {
+            return results.text()
+          })                 
+          .then(text => {
+            community.num_active = JSON.parse(text).case_count
+          })
+      )).then(() => this.setState({ communities: communities}))
     })
   }
 

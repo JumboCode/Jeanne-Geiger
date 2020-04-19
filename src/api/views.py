@@ -389,15 +389,11 @@ class FrontendAppView(View):
                 status=501,
             )
 
-class DVHRTGeneralCountView(generics.ListCreateAPIView):
-    """Returns the number of cases accepted
-    """
+class ActiveCaseCountView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
-        start_date, end_date = date_range(request)
-        case_count = len(Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]))
-        case_dict = {"case_count":case_count}
-        return JsonResponse(case_dict)
+        case_count = len(Cases.objects.filter(community_id=c_id, active_status=True))
+        return JsonResponse({'case_count': case_count})
 
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
