@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import editButton from './editButton.png'
 import { BackButton } from '../../Back/back.js'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
@@ -249,12 +250,18 @@ class detailView extends React.Component {
     }
   }
 
+  openEditClick () {
+    window.location.href = '/site/edit-case?case_id=' + this.state.case_id
+  }
+
   render () {
     return (
       <div>
         <NavigationBar />
-        <BackButton link='/site' />
-        <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
+        <div class="buttonsContainer">
+          <BackButton link='site'/>
+          <input type="image" id="editButton" src={editButton} onClick={() => this.openEditClick()}/>
+        </div>
         <div id='active_status'>
           {this.getCaseActiveStatus()}
         </div>
