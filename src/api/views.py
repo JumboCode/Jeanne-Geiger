@@ -22,11 +22,8 @@ def date_range(request):
     
     # default: last 30 days 
     if (start_date is None) or (end_date is None) or (start_date == 'null') or (end_date == 'null') or (start_date == 'undefined') or (end_date == 'undefined'):
-        print("default")
         end_date = datetime.datetime.today().strftime('%Y-%m-%d')
         start_date = (datetime.datetime.today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d')
-        print(start_date)
-        print(end_date)
 
     return start_date, end_date
 
@@ -591,6 +588,7 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
             'attempted_choke'  : 0,
             'multiple_choked'  : 0,
             'owns_gun'         : 0,
+            'total'            : 0,
         }
 
         for case in case_set:
@@ -603,6 +601,7 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
                 rf_counts['multiple_choked'] += 1
             if rf.owns_gun:
                 rf_counts['owns_gun'] += 1
+            rf_counts['total'] += 1
 
 
         return JsonResponse(rf_counts)
