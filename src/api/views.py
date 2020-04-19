@@ -595,14 +595,16 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
             rf = case.risk_factor_id
             if rf.attempted_murder:
                 rf_counts['attempted_murder'] += 1
+                rf_counts['total'] += 1
             if rf.attempted_choke:
                 rf_counts['attempted_choke'] += 1
+                rf_counts['total'] += 1
             if rf.multiple_choked:
                 rf_counts['multiple_choked'] += 1
+                rf_counts['total'] += 1
             if rf.owns_gun:
                 rf_counts['owns_gun'] += 1
-            rf_counts['total'] += 1
-
+                rf_counts['total'] += 1
 
         return JsonResponse(rf_counts)
 
