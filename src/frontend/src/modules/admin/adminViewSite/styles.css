@@ -33,3 +33,7 @@
   width: 5%;
   cursor: pointer;
 }
+
+.percentage {
+  display: none;
+}
