@@ -250,13 +250,17 @@ class detailView extends React.Component {
     }
   }
 
+  openEditClick () {
+    window.location.href = '/site/edit-case?case_id=' + this.state.case_id
+  }
+
   render () {
     return (
       <div>
         <NavigationBar />
         <div class="buttonsContainer">
           <BackButton link='site'/>
-          <input type="image" id="editButton" src={editButton} onClick={function() {window.location.href = '/site/edit-case?case_id=' + this.state.case_id}}/>
+          <input type="image" id="editButton" src={editButton} onClick={() => this.openEditClick()}/>
         </div>
         <div id='active_status'>
           {this.getCaseActiveStatus()}

@@ -8,7 +8,7 @@ h3 {
   width: 100%;
 }
 
-#editButton:hover{
+#editButton:hover {
   filter: grayscale(100%);
 }
 

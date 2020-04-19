@@ -20,7 +20,7 @@
   margin: 1em;
 }
 
-#editButton:hover{
+#editButton:hover {
   filter: grayscale(100%);
 }
 
