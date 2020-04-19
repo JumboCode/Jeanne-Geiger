@@ -5,7 +5,7 @@ import Popup from './popup.js'
 class VFilter extends Component {
   constructor (props) {
     super(props)
-    this.state = { showPopup: false, bar: props.foo }
+    this.state = { showPopup: false, callback_func: props.cb }
   }
 
   openPopup () {
@@ -22,7 +22,7 @@ class VFilter extends Component {
       showPopup: false
     })
     if (cols != [])
-      this.state.bar(cols)
+      this.state.callback_func(cols)
   }
   foo() {
     console.log("close")
