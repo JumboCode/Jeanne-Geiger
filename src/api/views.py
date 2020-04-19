@@ -184,6 +184,7 @@ class CasesList(generics.ListCreateAPIView):
             caseData.minor_in_home = request.POST.get("minor_in_home")
             caseData.referral_source = request.POST.get("referral_source")
             caseData.date_accepted = request.POST.get("date_accepted")
+            caseData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
             caseData.save()
 
         except Cases.DoesNotExist: # case doesn't exist, create a new one
@@ -262,6 +263,7 @@ class CasesList(generics.ListCreateAPIView):
                 minor_in_home = request.POST.get("minor_in_home"),
                 referral_source = request.POST.get("referral_source"),
                 date_accepted = request.POST.get("date_accepted"),
+                last_updated = datetime.datetime.today().strftime('%Y-%m-%d'),
             )
             caseData.save()
 
