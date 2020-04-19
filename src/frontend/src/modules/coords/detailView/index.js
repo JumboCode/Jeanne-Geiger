@@ -61,11 +61,19 @@ class detailView extends React.Component {
     if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
   }
 
-  getCaseActiveStatus () {
+  showStatusAndLastUpdated () {
     if (this.state.case !== undefined) {
+      var lastUpdated = this.state.case.last_updated
+
+      // rearrange date from YYYY-MM-DD to MM-DD-YYYY
+      if (this.state.case.last_updated !== undefined) {
+        var dateSubparts = this.state.case.last_updated.split('-')
+        lastUpdated = dateSubparts[1] + '-' + dateSubparts[2] + '-' + dateSubparts[0]
+      }
+
       return (
         <div>
-          <p id={this.state.case.active_status}>{this.state.case.active_status}</p>
+          <p> <span id={this.state.case.active_status}>{this.state.case.active_status}</span> | Last Updated {lastUpdated}</p>
         </div>
       )
     }
@@ -259,11 +267,11 @@ class detailView extends React.Component {
       <div>
         <NavigationBar />
         <div class="buttonsContainer">
-          <BackButton link='site'/>
+          <BackButton link='/site'/>
           <input type="image" id="editButton" src={editButton} onClick={() => this.openEditClick()}/>
         </div>
         <div id='active_status'>
-          {this.getCaseActiveStatus()}
+          {this.showStatusAndLastUpdated()}
         </div>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>

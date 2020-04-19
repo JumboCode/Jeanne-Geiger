@@ -87,6 +87,8 @@ class Cases(models.Model):
     referral_source = models.CharField(max_length=100, default="")
     date_accepted = models.DateField(null=True, blank=True)
     active_status = models.BooleanField(default=True, choices=STATUS)
+    last_updated = models.DateField(null=True, blank=True)
+
 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
