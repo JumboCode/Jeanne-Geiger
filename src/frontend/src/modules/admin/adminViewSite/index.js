@@ -3,7 +3,7 @@ import './styles.css'
 import ObjectTable from './table.js'
 import { render } from 'react-dom'
 import styled from 'styled-components'
-import BackButton from '../../Back/back.js'
+import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import Filter from '../../filters/date_filter/filter.js'
@@ -109,13 +109,23 @@ class adminViewSite extends React.Component {
     document.getElementById(tabName).style.display = 'block'
   }
 
+  getBackButtonLink () {
+    var path = window.location.pathname
+    var host = window.location.hostname
+    if (path.slice(1, 5) === 'site') {
+      return '/site'
+    } else {
+      return '/admin'
+    }
+  }
+
   render () {
     return (
       <div>
         <NavigationBar />
         <div class="row">
           <div class="col-4">
-            <BackButton class="button"/>
+            <BackButton class="button" link={this.getBackButtonLink()}/>
           </div>
           <div class="col-4">
             <h1 class="header">{this.state.community_name}</h1>
