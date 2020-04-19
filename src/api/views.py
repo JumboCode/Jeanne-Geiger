@@ -17,7 +17,6 @@ from .models import *
 
 import datetime
 def date_range(request):
-    # hard coded for now, change to get parameters from request
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
     
@@ -76,7 +75,9 @@ class CommunitiesList(generics.ListCreateAPIView):
             communityData = Communities(
                 community_name = request.POST.get("community_name"),
                 coordinators = request.POST.get("coordinators"),
-                referral_sources = request.POST.get("referral_sources")
+                referral_sources = request.POST.get("referral_sources"),
+                date_created = datetime.datetime.today().strftime('%Y-%m-%d'),
+                last_updated = datetime.datetime.today().strftime('%Y-%m-%d'),
             )
             communityData.save()
 
@@ -118,6 +119,10 @@ class CasesList(generics.ListCreateAPIView):
         get_case_id = request.POST.get("case_id")
         try: ## case exists, update values
             caseData = Cases.objects.get(case_id=get_case_id)
+
+            ## update community
+            caseData.community_id.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
+            caseData.community_id.save()
 
             ## update victim 
             caseData.victim_id.name = request.POST.get("v_name")
@@ -181,8 +186,10 @@ class CasesList(generics.ListCreateAPIView):
             caseData.date_accepted = request.POST.get("date_accepted")
             caseData.save()
 
-        except Cases.DoesNotExist:
+        except Cases.DoesNotExist: # case doesn't exist, create a new one
             community = Communities.objects.get(community_id=request.POST.get("community_id"))
+            community.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
+            community.save()
             
             outcomes = Outcomes(
                 connection_to_domestic_violence_services = request.POST.get("connection_to_domestic_violence_services"),
@@ -381,15 +388,11 @@ class FrontendAppView(View):
                 status=501,
             )
 
-class DVHRTGeneralCountView(generics.ListCreateAPIView):
-    """Returns the number of cases accepted
-    """
+class ActiveCaseCountView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
-        start_date, end_date = date_range(request)
-        case_count = len(Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]))
-        case_dict = {"case_count":case_count}
-        return JsonResponse(case_dict)
+        case_count = len(Cases.objects.filter(community_id=c_id, active_status=True))
+        return JsonResponse({'case_count': case_count})
 
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
