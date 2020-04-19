@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import BackButton from '../../Back/back.js'
+import { BackButton } from '../../Back/back.js'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
 
@@ -253,7 +253,7 @@ class detailView extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <BackButton />
+        <BackButton link='/site' />
         <a href={'/site/edit-case?case_id=' + this.state.case_id}>Edit Case</a>
         <div id='active_status'>
           {this.getCaseActiveStatus()}

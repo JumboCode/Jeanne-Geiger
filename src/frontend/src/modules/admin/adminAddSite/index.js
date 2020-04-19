@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import { TextInputObj } from './util.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import BackButton from '../../Back/back.js'
+import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import Plus from './plus.png'
 import Remove from './remove.png'
@@ -100,7 +100,7 @@ class adminAddSite extends React.Component {
         <NavigationBar />
         <h2 class="title">Add New Site</h2>
         <h1>{this.props.type}</h1>
-        <BackButton />
+        <BackButton link='/admin' />
         <form>
           <div class="container">
             <Form.Row>
