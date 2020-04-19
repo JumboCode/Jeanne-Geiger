@@ -161,11 +161,11 @@ class adminViewSite extends React.Component {
               ['Unknown', this.state.victim_info['Other/Unknown']],
               ['Total', this.state.victim_info['Total Ethnicity Count']]]}/>
             <ObjectTable Title = "Domestic Violence Service Utilization"
-              total={this.state.victim_info.connection_to_domestic_violence_services + this.state.victim_info.engagement_in_ongoing_domestic_violence_services}
+              total={this.state.victim_info.total}
               tableRows = {[
                 ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
                 ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services],
-                ['Total', this.state.victim_info.connection_to_domestic_violence_services + this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
+                ['Total', this.state.victim_info.total]]}/>
           </Wrapper>
         </div>
 

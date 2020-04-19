@@ -493,14 +493,17 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
         dvsu = {
             "connection_to_domestic_violence_services" : 0,
             "engagement_in_ongoing_domestic_violence_services" : 0,
+            "total": 0,
         }
 
         for case in case_set:
             outcome = case.outcome_id
             if outcome.engagement_in_ongoing_domestic_violence_services:
                 dvsu["engagement_in_ongoing_domestic_violence_services"] += 1
+                dvsu["total"] += 1
             if outcome.connection_to_domestic_violence_services:
                 dvsu["connection_to_domestic_violence_services"] += 1
+                dvsu["total"] += 1
 
         return dvsu
 
