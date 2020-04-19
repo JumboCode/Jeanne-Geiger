@@ -77,6 +77,7 @@ class CasesSerializer(serializers.ModelSerializer):
 	relationship_type = serializers.CharField(source='get_relationship_type_display')
 	relationship_len = serializers.CharField(source='get_relationship_len_display')
 	minor_in_home = serializers.CharField(source='get_minor_in_home_display')
+	active_status = serializers.CharField(source='get_active_status_display')
 
 	victim_id      = PersonsSerializer()
 	abuser_id      = PersonsSerializer()

@@ -29,3 +29,11 @@ p {
   font-size: 15px;
   color: rgb(83, 83, 83);
 }
+
+#Active {
+  color: green;
+}
+
+#Inactive {
+  color: orange;
+}

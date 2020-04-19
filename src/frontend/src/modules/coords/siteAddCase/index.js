@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
-import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj } from './util.js'
+import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj, StatusObj } from './util.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import BackButton from '../../Back/back.js'
+import { BackButton } from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import TabObj from '../../tabs.js'
@@ -25,6 +25,7 @@ const CHARGES_TITLE_TO_VALUE = { 'Police Response: Charges Filed': 1, 'Police Re
 const PRETRIAL_OUTCOME_TITLE_TO_VALUE = { 'Released on Bail': 1, 'Released on Personal Recognizance': 2, 'Detained/Pretrial Detention Statute': 3, 'Detained/Bail Unmet': 4, 'Detained/Other': 5, 'Pending Pretrial Hearing': 6 }
 const SENT_OUT_DISP_TITLE_TO_VALUE = { 'Charges Dismissed': 1, 'Not Guilty': 2, 'Deferred Adjudication': 3, 'Plead/Found Guilty': 4, 'Pending Disposition': 5 }
 const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarceration Followed by Probation': 3 }
+const ACTIVE_TITLE_TO_VALUE = { Active: 'True', Inactive: 'False' }
 
 class siteAddCase extends React.Component {
   constructor () {
@@ -32,7 +33,9 @@ class siteAddCase extends React.Component {
     this.state = {
       referral_sources: [],
       is_edit_case_view: false,
-      case_id: []
+      case_id: [],
+      // TODO: remove hardcode
+      community_id: 1
     }
   }
 
@@ -45,7 +48,7 @@ class siteAddCase extends React.Component {
       return results.json()
     }).then(data => {
       for (var i = 0; i < data.length; i++) {
-        if (data[i].community_id === 1) {
+        if (data[i].community_id === this.state.community_id) {
           this.setState({ referral_sources: data[i].referral_sources })
         }
       }
@@ -73,6 +76,7 @@ class siteAddCase extends React.Component {
       .then(results => { return results.json() })
       .then(data => this.setState({ case: data }))
       .then(() => this.prepopulate())
+      .then(document.getElementById('active_status_obj').style.display = 'block')
 
     return true
   }
@@ -100,6 +104,7 @@ class siteAddCase extends React.Component {
     document.getElementById('minor_in_home').value = BOOL_TITLE_TO_VALUE[this.state.case.minor_in_home]
     document.getElementById('referral_source').value = this.state.case.referral_source
     document.getElementById('date_accepted').value = this.state.case.date_accepted
+    document.getElementById('active_status').value = ACTIVE_TITLE_TO_VALUE[this.state.case.active_status]
 
     // abuser prepopulate
     document.getElementById('a_name').value = this.state.case.abuser_id.name
@@ -216,13 +221,14 @@ class siteAddCase extends React.Component {
     if (!f.checkValidity()) {
       return
     }
+    var activeStatus = 'True'
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
     var rfParams = this.doRiskFactorsPost()
 
     var caseInfo = oParams + '&' + aParams + '&' + vParams + '&' + rfParams + '&' +
-                  '&community_id=' + 1 +
+                  '&community_id=' + this.state.community_id +
                   '&relationship_type=' + document.getElementById('relationship_type').value +
                   '&relationship_len=' + document.getElementById('relationship_len').value +
                   '&minor_in_home=' + document.getElementById('minor_in_home').value +
@@ -231,7 +237,10 @@ class siteAddCase extends React.Component {
 
     if (this.state.is_edit_case_view) {
       caseInfo = 'case_id=' + this.state.case_id + '&' + caseInfo
+      activeStatus = document.getElementById('active_status').value
     }
+
+    caseInfo += '&active_status=' + activeStatus
 
     var casePostRequest = new XMLHttpRequest()
     casePostRequest.open('POST', CASE_POST_URL, true)
@@ -249,7 +258,7 @@ class siteAddCase extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <BackButton />
+        <BackButton link='/site'/>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <form id='CasePost'>
@@ -338,6 +347,7 @@ class siteAddCase extends React.Component {
                     <DropdownObj id='minor_in_home' title='Minor in Home' choices={[['Yes', 'True'], ['No', 'False']]}/>
                     <DropdownObj id='referral_source' title='Referral Source' choices={this.state.referral_sources.map(listitem => [listitem, listitem])}/>
                     <DateInputObj title='Date of Case Acceptance' id='date_accepted'/>
+                    <StatusObj/>
                   </Col>
                 </Form.Row>
               </div>
