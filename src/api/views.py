@@ -17,7 +17,6 @@ from .models import *
 
 import datetime
 def date_range(request):
-    # hard coded for now, change to get parameters from request
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
     
