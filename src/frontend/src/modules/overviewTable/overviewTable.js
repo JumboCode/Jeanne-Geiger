@@ -3,7 +3,8 @@ import Table from 'react-bootstrap/Table'
 import React from 'react'
 
 const OverviewTable = (props) => {
-  return MyTable(props.columns, props.data, props.linkName)
+  var filtered = props.columns.filter(obj => !props.filter_columns.includes(obj.Header))
+  return MyTable(filtered, props.data, props.linkName)
 }
 
 function getLink (linkName, dataset) {

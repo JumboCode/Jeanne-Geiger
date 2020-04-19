@@ -19,6 +19,7 @@ class siteOverview extends React.Component {
       community_id: 1,
       community_name: 'Community1',
       cases: [],
+      filtered_victim_colums: [], // the columns the user DOES not wants to see
       victim_columns: [
         {
           Header: 'Date Created',
@@ -312,6 +313,11 @@ class siteOverview extends React.Component {
     if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
   }
 
+  vicitim_filter(cols) {
+    console.log(cols)
+    this.setState({ filtered_victim_colums: cols }, this.getTabInfo('Victim'))
+  }
+
   render () {
     return (
       <div>
@@ -328,20 +334,20 @@ class siteOverview extends React.Component {
         </div>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <VFilter />
-          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <VFilter foo={(c) => this.vicitim_filter(c)} />
+          <OverviewTable columns={this.state.victim_columns} filter_columns={this.state.filtered_victim_colums} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
           <AFilter />
-          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.abuser_columns} filter_columns={[]} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent'>
           <OUTFilter />
-          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.outcomes_columns} filter_columns={[]} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
           <RFFilter />
-          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
+          <OverviewTable columns={this.state.risk_factor_columns} filter_columns={[]} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
       </div>
     )

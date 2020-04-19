@@ -66,7 +66,7 @@ class detailView extends React.Component {
       var lastUpdated = this.state.case.last_updated
 
       // rearrange date from YYYY-MM-DD to MM-DD-YYYY
-      if (this.state.case.last_updated !== undefined) {
+      if (this.state.case.last_updated !== undefined && this.state.case.last_updated !== null) {
         var dateSubparts = this.state.case.last_updated.split('-')
         lastUpdated = dateSubparts[1] + '-' + dateSubparts[2] + '-' + dateSubparts[0]
       }
