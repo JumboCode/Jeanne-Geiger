@@ -2,7 +2,7 @@ import React from 'react'
 import './popup.css'
 
 class Popup extends React.Component {
-getListOfRequestedCols () {
+  getListOfRequestedCols () {
     var cols = []
     if (!document.getElementById('rffilter_date_created').checked) { cols.push('Date Created') }
     if (!document.getElementById('rffilter_vname').checked) { cols.push('Victim Name') }
@@ -107,7 +107,7 @@ getListOfRequestedCols () {
 
           </div>
           <div className='container2'>
-          
+
             <label class="check_container2">
               <input id="rffilter_cap_of_killing" type="checkbox"></input>
               <span class="checkmark"></span>
@@ -117,7 +117,7 @@ getListOfRequestedCols () {
             <label class="check_container2">
               <input id="rffilter_gun_ownership" type="checkbox"></input>
               <span class="checkmark"></span>
-                Gun Ownership 
+                Gun Ownership
             </label>
 
             <label class="check_container2">
