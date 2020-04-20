@@ -2,26 +2,17 @@ import React from 'react'
 import './popup.css'
 
 class Popup extends React.Component {
-    getListOfRequestedCols() {
+  getListOfRequestedCols () {
     var cols = []
-    if (!document.getElementById('afilter_date_created').checked) 
-      cols.push('Date Created')
-    if (!document.getElementById('afilter_status').checked) 
-      cols.push('Status')
-    if (!document.getElementById('afilter_name').checked) 
-      cols.push('Name')
-    if (!document.getElementById('afilter_dob').checked) 
-      cols.push('DOB')
-    if (!document.getElementById('afilter_gender').checked) 
-      cols.push('Gender')
-    if (!document.getElementById('afilter_race_ethnicity').checked) 
-      cols.push('Race/Ethnicity')
-    if (!document.getElementById('afilter_age_at_acc').checked) 
-      cols.push('Age at Case Acceptance')
-    if (!document.getElementById('afilter_prim_lang').checked) 
-      cols.push('Primary Language')
-    if (!document.getElementById('afilter_town').checked) 
-      cols.push('Town')
+    if (!document.getElementById('afilter_date_created').checked) { cols.push('Date Created') }
+    if (!document.getElementById('afilter_status').checked) { cols.push('Status') }
+    if (!document.getElementById('afilter_name').checked) { cols.push('Name') }
+    if (!document.getElementById('afilter_dob').checked) { cols.push('DOB') }
+    if (!document.getElementById('afilter_gender').checked) { cols.push('Gender') }
+    if (!document.getElementById('afilter_race_ethnicity').checked) { cols.push('Race/Ethnicity') }
+    if (!document.getElementById('afilter_age_at_acc').checked) { cols.push('Age at Case Acceptance') }
+    if (!document.getElementById('afilter_prim_lang').checked) { cols.push('Primary Language') }
+    if (!document.getElementById('afilter_town').checked) { cols.push('Town') }
 
     return cols
   }

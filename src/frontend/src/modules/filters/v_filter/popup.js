@@ -2,34 +2,21 @@ import React from 'react'
 import './popup.css'
 
 class Popup extends React.Component {
-  getListOfRequestedCols() {
+  getListOfRequestedCols () {
     var cols = []
-    if (!document.getElementById('vfilter_date_created').checked) 
-      cols.push('Date Created')
-    if (!document.getElementById('vfilter_status').checked) 
-      cols.push('Status')
-    if (!document.getElementById('vfilter_name').checked) 
-      cols.push('Name')
-    if (!document.getElementById('vfilter_dob').checked) 
-      cols.push('DOB')
-    if (!document.getElementById('vfilter_gender').checked) 
-      cols.push('Gender')
-    if (!document.getElementById('vfilter_race_ethnicity').checked) 
-      cols.push('Race/Ethnicity')
-    if (!document.getElementById('vfilter_age_at_acc').checked) 
-      cols.push('Age at Case Acceptance')
-    if (!document.getElementById('vfilter_prim_lang').checked) 
-      cols.push('Primary Language')
-    if (!document.getElementById('vfilter_town').checked) 
-      cols.push('Town')
-    if (!document.getElementById('vfilter_rel_type').checked) 
-      cols.push('Relationship Type')
-    if (!document.getElementById('vfilter_rel_len').checked) 
-      cols.push('Relationship Length')
-    if (!document.getElementById('vfilter_minor_in_home').checked) 
-      cols.push('Minor in Home')
-    if (!document.getElementById('vfilter_ref_source').checked) 
-      cols.push('Referral Source')
+    if (!document.getElementById('vfilter_date_created').checked) { cols.push('Date Created') }
+    if (!document.getElementById('vfilter_status').checked) { cols.push('Status') }
+    if (!document.getElementById('vfilter_name').checked) { cols.push('Name') }
+    if (!document.getElementById('vfilter_dob').checked) { cols.push('DOB') }
+    if (!document.getElementById('vfilter_gender').checked) { cols.push('Gender') }
+    if (!document.getElementById('vfilter_race_ethnicity').checked) { cols.push('Race/Ethnicity') }
+    if (!document.getElementById('vfilter_age_at_acc').checked) { cols.push('Age at Case Acceptance') }
+    if (!document.getElementById('vfilter_prim_lang').checked) { cols.push('Primary Language') }
+    if (!document.getElementById('vfilter_town').checked) { cols.push('Town') }
+    if (!document.getElementById('vfilter_rel_type').checked) { cols.push('Relationship Type') }
+    if (!document.getElementById('vfilter_rel_len').checked) { cols.push('Relationship Length') }
+    if (!document.getElementById('vfilter_minor_in_home').checked) { cols.push('Minor in Home') }
+    if (!document.getElementById('vfilter_ref_source').checked) { cols.push('Referral Source') }
 
     return cols
   }

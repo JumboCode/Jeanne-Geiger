@@ -16,20 +16,19 @@ class AFilter extends Component {
   }
 
   closePopup (cols) {
-    console.log("close")
+    console.log('close')
     console.log(cols)
     this.setState({
       showPopup: false
     })
-    if (cols != [])
-      this.state.callback_func(cols)
+    if (cols !== []) { this.state.callback_func(cols) }
   }
-  foo() {
-    console.log("close")
+
+  foo () {
+    console.log('close')
     this.setState({
       showPopup: false
     })
-
   }
 
   render () {

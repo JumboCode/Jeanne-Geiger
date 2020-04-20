@@ -128,13 +128,11 @@ class siteOverview extends React.Component {
           accessor: 'abuser_id.name'
         },
         {
-          Header:
-            'Increased Violence',
+          Header: 'Increased Violence',
           accessor: 'risk_factor_id.violence_increased'
         },
         {
-          Header:
-            'Recent Separation',
+          Header: 'Recent Separation',
           accessor: 'risk_factor_id.attempted_leaving'
         },
         {
@@ -142,16 +140,15 @@ class siteOverview extends React.Component {
           accessor: 'risk_factor_id.control_activites'
         },
         {
-          Header: 'Tried to kill',
+          Header: 'Tried to Kill',
           accessor: 'risk_factor_id.attempted_murder'
         },
         {
-          Header: 'Threats to kill',
+          Header: 'Threats to Kill',
           accessor: 'risk_factor_id.threatened_murder'
         },
         {
-          Header:
-            'Weapon Use/Threats',
+          Header: 'Weapon Use/Threats',
           accessor: 'risk_factor_id.weapon_threat'
         },
         {
@@ -316,16 +313,8 @@ class siteOverview extends React.Component {
     if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
   }
 
-  filter_updates(tabname, cols) {
-    if (tabname === 'Victim')
-      this.setState({ filtered_victim_colums: cols }, this.getTabInfo('Victim'))
-    else if (tabname === 'Abuser')
-      this.setState({ filtered_abuser_columns: cols }, this.getTabInfo('Abuser'))
-    else if (tabname === 'RiskFactors')
-      this.setState({ filtered_risk_factor_columns: cols }, this.getTabInfo('RiskFactors'))
-    else // if (tabname === 'Outcomes')
-      this.setState({ filtered_outcome_columns: cols }, this.getTabInfo('Outcomes'))
-
+  filterUpdates (tabname, cols) {
+    if (tabname === 'Victim') { this.setState({ filtered_victim_colums: cols }, this.getTabInfo('Victim')) } else if (tabname === 'Abuser') { this.setState({ filtered_abuser_columns: cols }, this.getTabInfo('Abuser')) } else if (tabname === 'RiskFactors') { this.setState({ filtered_risk_factor_columns: cols }, this.getTabInfo('RiskFactors')) } else { this.setState({ filtered_outcome_columns: cols }, this.getTabInfo('Outcomes')) }
   }
 
   render () {
@@ -344,19 +333,19 @@ class siteOverview extends React.Component {
         </div>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <VFilter cb={(c) => this.filter_updates('Victim', c)} />
+          <VFilter cb={(c) => this.filterUpdates('Victim', c)} />
           <OverviewTable columns={this.state.victim_columns} filter_columns={this.state.filtered_victim_colums} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
-          <AFilter  cb={(c) => this.filter_updates('Abuser', c)}/>
+          <AFilter cb={(c) => this.filterUpdates('Abuser', c)}/>
           <OverviewTable columns={this.state.abuser_columns} filter_columns={this.state.filtered_abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent'>
-          <OUTFilter cb={(c) => this.filter_updates('Outcomes', c)}/>
+          <OUTFilter cb={(c) => this.filterUpdates('Outcomes', c)}/>
           <OverviewTable columns={this.state.outcomes_columns} filter_columns={this.state.filtered_outcome_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
-          <RFFilter cb={(c) => this.filter_updates('RiskFactors', c)}/>
+          <RFFilter cb={(c) => this.filterUpdates('RiskFactors', c)}/>
           <OverviewTable columns={this.state.risk_factor_columns} filter_columns={this.state.filtered_risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
       </div>
