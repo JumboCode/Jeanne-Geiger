@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
 import { ReactComponent as Logo } from './logo.svg'
+import {useAuth0} from '../../react-auth0-spa';
 
 /*
 class SignIn extends React.Component {

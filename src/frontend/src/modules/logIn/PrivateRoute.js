@@ -1,14 +1,27 @@
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa.js";
+import {useCookies} from 'react-cookie';
+
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { loading, isAuthenticated, loginWithRedirect, getTokenSilently} = useAuth0();
+  const [cookies, setCookie] = useCookies();
+
   console.log(isAuthenticated)
 
   useEffect(() => {
-    if (loading || isAuthenticated) {
+    if (loading) {
       return;
+    }
+    if (isAuthenticated) {
+      getTokenSilently().then((token) => {
+        setCookie('token', token, {path: '/'});
+      });
+      return;
+      // return (
+      //   <Redirect to="/dashboard"/>
+      // );
     }
     const fn = async () => {
       await loginWithRedirect({

@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react'
-// import { useAuth0 } from "../react-auth0-spa";
 import { ReactComponent as Logo } from './logo.svg'
 import { ReactComponent as Settings } from './SettingsIcon.svg'
 import './NavigationBar.css'

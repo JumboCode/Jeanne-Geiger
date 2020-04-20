@@ -6,9 +6,7 @@ import Login from '../admin/adminAddSite';
 
 import adminAddSite from '../admin/adminAddSite'
 import adminHomepage from '../admin/adminHomepage'
-// import adminViewSite from '../admin/adminViewSite'
-import adminViewSiteFn from '../admin/adminViewSiteFn'
-
+import adminViewSite from '../admin/adminViewSite'
 
 import siteOverview from '../coords/siteOverview'
 import detailView from '../coords/detailView'
@@ -38,7 +36,7 @@ const NavBar = () => {
           <Switch>
             <PrivateRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
             <PrivateRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
-            <PrivateRoute exact path="/admin/view-site" component = {adminViewSiteFn} type = "adminviewsite"/>
+            <PrivateRoute exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
             <PrivateRoute exact path="/site" component = {siteOverview} type = "siteView"/>
             <PrivateRoute exact path="/site/case-view" component = {detailView} type = "detailView"/>
             <PrivateRoute exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>

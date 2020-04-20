@@ -7,6 +7,8 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
 import ExternalApi from '../../../ExternalApi.js'
+import {withCookies, Cookies} from 'react-cookie';
+import {instanceOf} from 'prop-types';
 
 const Wrapper = styled.div`
   display: grid;
@@ -25,6 +27,9 @@ const RISK_FACTOR_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/'
 const OUTCOME_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/'
 
 class adminViewSite extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor (props) {
     super(props)
     this.state = {
@@ -32,23 +37,22 @@ class adminViewSite extends React.Component {
       abuser_info: [],
       risk_factor_info: [],
       outcome_info: [],
-      community_list: this.props.community_list ? this.props.community_list : ["Default"],
+      community_list: [],
       community_id: [],
       community_name: []
     }
   }
   
   componentDidMount () {
-    // ExternalApi(COMMUNITY_LIST_URL
-    //     ).then(results => {
-    //         console.log(results)
-    //       return results.json()
-    //     }).then(data => this.setState({ community_list: data }))
-
-    // fetch(COMMUNITY_LIST_URL
-    // ).then(results => {
-    //   return results.json()
-    // }).then(data => this.setState({ community_list: data }))
+    const {cookies} = this.props
+    const token = cookies.get('token')
+    fetch(COMMUNITY_LIST_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(results => {
+      return results.json()
+    }).then(data => this.setState({ community_list: data }))
   }
 
   doSetState (tabName, data) {
@@ -229,4 +233,4 @@ class adminViewSite extends React.Component {
   }
 }
 
-export default adminViewSite
+export default withCookies(adminViewSite);
