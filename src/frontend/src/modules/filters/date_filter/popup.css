@@ -1,0 +1,46 @@
+.popup {
+  position: fixed;
+  width: 40%;
+  height: 30% !important;
+  top: 30%;
+  left: 30%;
+  margin: auto;
+  border-width: 5px;
+  background-color: #f5f5f5 !important;
+  padding: 1em !important;
+}
+.popup\_inner {
+  position: absolute;
+  margin: auto;
+}
+
+.title {
+  margin: 1em;
+  margin-bottom: -0.5em !important;
+}
+
+.close_button {
+  border-radius: 0.1em;
+  position: fixed;
+  bottom: 146% !important;
+  height: 2em !important;
+  font-size: 1em;
+}
+
+.exit_button {
+  border-radius: 1em;
+  font-size: 120%;
+  position: absolute;
+  bottom: 90% !important;
+}
+
+.container {
+  position: relative;
+  margin: 4em !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.check_container {
+  position: relative;
+}

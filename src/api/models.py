@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.postgres.fields import JSONField
 from datetime import datetime
 
 BOOL = (
@@ -70,6 +69,11 @@ class Cases(models.Model):
         (6, '20-29 years'),
         (7, '30+ years'),
     ]
+
+    STATUS = [
+        (True, 'Active'),
+        (False, 'Inactive')
+    ]
   
     case_id = models.AutoField(primary_key=True)
     community_id = models.ForeignKey('Communities', related_name='communities', on_delete=models.CASCADE)
@@ -82,11 +86,17 @@ class Cases(models.Model):
     minor_in_home = models.BooleanField(default=1, choices=BOOL)
     referral_source = models.CharField(max_length=100, default="")
     date_accepted = models.DateField(null=True, blank=True)
+    active_status = models.BooleanField(default=True, choices=STATUS)
+    last_updated = models.DateField(null=True, blank=True)
+
 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
     community_name = models.CharField(max_length=100, default="")
+    coordinators = ArrayField(ArrayField(models.CharField(max_length=100, default=""), size=2), default=list)
     referral_sources = ArrayField(models.CharField(max_length=100, default=""))
+    date_created = models.DateField(null=True, blank=True)
+    last_updated = models.DateField(null=True, blank=True)
 
 class Persons(models.Model):
     gender_choices = (

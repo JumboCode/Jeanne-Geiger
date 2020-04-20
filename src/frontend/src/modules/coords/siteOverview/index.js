@@ -1,102 +1,32 @@
 import React, { Component } from 'react'
 import './styles.css'
 import { render } from 'react-dom'
-import Filter from '../../filter/filter.js'
+import VFilter from '../../filters/v_filter/filter.js'
+import AFilter from '../../filters/a_filter/a_filter.js'
+import RFFilter from '../../filters/rf_filter/rf_filter.js'
+import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import Button from 'react-bootstrap/Button'
 import TabObj from '../../tabs.js'
-import { useTable, useSortBy } from 'react-table'
-import Table from 'react-bootstrap/Table'
+import OverviewTable from '../../overviewTable/overviewTable.js'
 
 const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
-
-// source: https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/sorting
-function MyTable ({ columns, data }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow
-  } = useTable(
-    {
-      columns,
-      data
-    },
-    useSortBy
-  )
-
-  // We don't want to render all 2000 rows for this example, so cap
-  // it at 20 for this use case
-  const firstPageRows = rows.slice(0, 20)
-
-  return (
-    <>
-      <Table striped border hover {...getTableProps()}>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
-                <th
-                  scope="col"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render('Header')}
-                  {/* Add a sort direction indicator */}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row, i) => {
-            prepareRow(row)
-            return (
-              <tr data-href={'/site/case-view?case_id=' + data[i].case_id} {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  )
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
-      <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
-
-      <script>
-      document.addEventListener("DOMContentLoaded", () => {
-          document.querySelectorAll('tr[data-href]').forEach(row => {
-            row.addEventListener('click', () => {
-              window.location.href = row.dataset.href
-            })
-          })
-        })
-      </script>
-    </>
-  )
-}
 
 class siteOverview extends React.Component {
   constructor () {
     super()
     this.state = {
+      // TODO: remove hardcode
+      community_id: 1,
+      community_name: 'Community1',
       cases: [],
       victim_columns: [
         {
           Header: 'Date Created',
           accessor: 'date_accepted'
+        },
+        {
+          Header: 'Status',
+          accessor: 'active_status'
         },
         {
           Header: 'Name',
@@ -144,6 +74,14 @@ class siteOverview extends React.Component {
         }
       ],
       abuser_columns: [
+        {
+          Header: 'Date Created',
+          accessor: 'date_accepted'
+        },
+        {
+          Header: 'Status',
+          accessor: 'active_status'
+        },
         {
           Header: 'Name',
           accessor: 'abuser_id.name'
@@ -278,21 +216,16 @@ class siteOverview extends React.Component {
       ],
       outcomes_columns: [
         {
-          Header: 'Abuser Information',
-          columns: [
-            {
-              Header: 'Date Created',
-              accessor: 'date_accepted'
-            },
-            {
-              Header: 'Victim Name',
-              accessor: 'victim_id.name'
-            },
-            {
-              Header: 'Abuser Name',
-              accessor: 'abuser_id.name'
-            }
-          ]
+          Header: 'Date Created',
+          accessor: 'date_accepted'
+        },
+        {
+          Header: 'Victim Name',
+          accessor: 'victim_id.name'
+        },
+        {
+          Header: 'Abuser Name',
+          accessor: 'abuser_id.name'
         },
         {
           Header: 'Victim Outcomes',
@@ -345,11 +278,15 @@ class siteOverview extends React.Component {
 
   componentDidMount () {
     this.showTab(0)
-    fetch(CASES_URL)
+    fetch(CASES_URL, {
+      headers: {
+        communityid: this.state.community_id
+      }
+    })
       .then(results => {
         return results.json()
       })
-      .then(data => this.setState({ cases: data }))
+      .then(data => { console.log(data); this.setState({ cases: data }) })
   }
 
   getTabInfo (tabName) {
@@ -379,20 +316,32 @@ class siteOverview extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <a href="/site/add-case"> add a case</a>
+        <div class="row">
+          <div class="col-8">
+            {this.state.community_name} <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>View Summary</a>
+          </div>
+          <div class="col-4">
+            <a href="/site/add-case">
+              <div class="add_a_case">Add a Case +</div>
+            </a>
+          </div>
+        </div>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <Filter />
-          <MyTable columns={this.state.victim_columns} data={this.state.cases} />
+          <VFilter />
+          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
-          <MyTable columns={this.state.abuser_columns} data={this.state.cases} />
+          <AFilter />
+          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent'>
-          <MyTable columns={this.state.outcomes_columns} data={this.state.cases} />
+          <OUTFilter />
+          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent'>
-          <MyTable columns={this.state.risk_factor_columns} data={this.state.cases}/>
+          <RFFilter />
+          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
       </div>
     )

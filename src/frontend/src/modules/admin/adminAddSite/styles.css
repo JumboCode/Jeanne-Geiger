@@ -1,0 +1,80 @@
+.title {
+  margin: 1em;
+  text-align: center;
+}
+.container {
+  margin: 10px !important;
+}
+.cancel_button {
+  left: 13%;
+  bottom: 70%;
+  background-color: white;
+  border: thin;
+  border-style: solid;
+  border-color: black;
+  border-radius: 70%;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 5em;
+  height: 2em;
+  border-radius: 13px;
+  margin: 0.5em;
+}
+.save_button {
+  left: 13%;
+  bottom: 70%;
+  background-color: purple;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 5em;
+  height: 2em;
+  border-radius: 13px;
+  margin: 0.5em;
+}
+
+.add {
+  left: 13%;
+  bottom: 70%;
+  background-color: white;
+  border: none;
+  color: #999;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 15em;
+  height: 2em;
+  border-radius: 13px;
+  margin: 0.5em;
+}
+
+.remove {
+  background-color: white;
+  border: none;
+}
+
+.logo {
+  width: 1.5em;
+}
+
+.referral {
+  display: inline;
+}
+
+.buttons {
+  bottom: 0;
+  text-align: center;
+}
+.final {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 5em;
+  padding-top: 2em;
+}

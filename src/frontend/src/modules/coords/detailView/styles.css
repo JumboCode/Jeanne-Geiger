@@ -1,0 +1,39 @@
+h3 {
+  font-size: 20px;
+}
+
+.buttonsContainer {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#editButton:hover {
+  filter: grayscale(100%);
+}
+
+.backbutton {
+  vertical-align: middle;
+}
+
+#editButton {
+  width: 8%;
+  height: 8%;
+  display: inline;
+  vertical-align: middle;
+  left: 82%;
+  position: relative;
+}
+
+p {
+  font-size: 15px;
+  color: rgb(83, 83, 83);
+}
+
+#Active {
+  color: green;
+}
+
+#Inactive {
+  color: orange;
+}

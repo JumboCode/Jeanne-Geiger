@@ -71,6 +71,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'communityid',
     'caseid',
+    'startdate',
+    'enddate',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -180,11 +182,17 @@ STATIC_URL = '/static/'
 
 
 # Place static in the same location as webpack build files
-# STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
 REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
 STATICFILES_DIRS = [
-    os.path.join(REACT_APP_DIR, 'staticfiles')
+    os.path.join(REACT_APP_DIR, 'build/static')
 ]
+
+# STATICFILES_DIRS = [
+#      os.path.join(BASE_DIR, 'staticfiles')
+#  ]
 
 # If you want to serve user uploaded files add these settings
 MEDIA_URL = '/media/'

@@ -2,7 +2,7 @@
   position: relative;
   top: 0;
   width: 100%;
-  background-color: purple;
+  background-color: #73296e;
   color: #000;
   padding: 20px 25px;
 }
@@ -21,6 +21,15 @@
   border-radius: 10px;
 }
 
+.Logo {
+  float: left;
+  cursor: pointer;
+}
+
+.LogoWrapper {
+  cursor: pointer;
+}
+
 .NavSearchBar:focus {
   outline: none !important;
 }
@@ -32,15 +41,20 @@
   bottom: 28%;
 }
 
+#logout {
+  text-align: right;
+  color: white !important;
+  font-size: 20px;
+  float: right;
+  margin-top: 15px;
+  background-color: #73296e;
+  border: none;
+  outline: none !important;
+}
+
 input::placeholder {
   color: white;
   font-size: 1em;
-}
-
-input[type='text'],
-textarea {
-  color: white;
-  background-color: purple;
 }
 
 text1 {

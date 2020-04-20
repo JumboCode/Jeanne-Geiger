@@ -1,11 +1,39 @@
-.tabcontent {
-  display: none;
+.date_range_button {
+  float: right;
+  left: 13%;
+  bottom: 70%;
+  background-color: #333;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 9em;
+  height: 1.5em;
+  border-radius: 13px;
+  margin: 0.5em;
 }
 
-#back_to_com_list {
-  display: none;
+.row {
+  height: 4em;
+  margin: 1em;
 }
 
-#tab {
+#editButton:hover {
+  filter: grayscale(100%);
+}
+
+.header {
+  margin: 0;
+  size: 1em;
+}
+
+.backbutton img {
+  width: 5%;
+  cursor: pointer;
+}
+
+.percentage {
   display: none;
 }

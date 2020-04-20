@@ -25,8 +25,8 @@
     "yarn": "^1.19.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "set HTTPS=true&&react-scripts start",
+    "build": "set HTTPS=true&&react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint": "eslint \"src/**/*.js\"",
