@@ -2,6 +2,13 @@ import React from 'react'
 import './popup.css'
 
 class Popup extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { already_unchecked: props.already_unchecked }
+    console.log(this.state.already_unchecked)
+    //prepopulate
+  }
+
   getListOfRequestedCols () {
     var cols = []
     if (!document.getElementById('vfilter_date_created').checked) { cols.push('Date Created') }

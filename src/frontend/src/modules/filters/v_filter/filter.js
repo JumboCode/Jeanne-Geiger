@@ -5,27 +5,23 @@ import Popup from './popup.js'
 class VFilter extends Component {
   constructor (props) {
     super(props)
-    this.state = { showPopup: false, callback_func: props.cb }
+    this.state = { showPopup: false, callback_func: props.cb, already_unchecked: props.prepopulate }
   }
 
   openPopup () {
-    console.log('open')
     this.setState({
       showPopup: true
     })
   }
 
-  closePopup (cols) {
-    console.log('close')
-    console.log(cols)
+  closePopupWithDone (cols) {
     this.setState({
       showPopup: false
     })
     if (cols !== []) { this.state.callback_func(cols) }
   }
 
-  foo () {
-    console.log('close')
+  closePopupWithX () {
     this.setState({
       showPopup: false
     })
@@ -39,10 +35,10 @@ class VFilter extends Component {
         </button>
 
         {this.state.showPopup
-          ? <Popup
+          ? <Popup already_unchecked={this.state.already_unchecked}
 
-            closePopupWithDone={this.closePopup.bind(this)}
-            closePopupWithX={this.foo.bind(this)}
+            closePopupWithDone={this.closePopupWithDone.bind(this)}
+            closePopupWithX={this.closePopupWithX.bind(this)}
           />
           : null
         }

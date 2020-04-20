@@ -19,7 +19,7 @@ class siteOverview extends React.Component {
       community_id: 1,
       community_name: 'Community1',
       cases: [],
-      filtered_victim_colums: [], // the columns the user DOES not wants to see
+      filtered_victim_columns: [], // the columns the user DOES not wants to see
       victim_columns: [
         {
           Header: 'Date Created',
@@ -287,7 +287,7 @@ class siteOverview extends React.Component {
       .then(results => {
         return results.json()
       })
-      .then(data => { console.log(data); this.setState({ cases: data }) })
+      .then(data => this.setState({ cases: data }))
   }
 
   getTabInfo (tabName) {
@@ -314,7 +314,7 @@ class siteOverview extends React.Component {
   }
 
   filterUpdates (tabname, cols) {
-    if (tabname === 'Victim') { this.setState({ filtered_victim_colums: cols }, this.getTabInfo('Victim')) } else if (tabname === 'Abuser') { this.setState({ filtered_abuser_columns: cols }, this.getTabInfo('Abuser')) } else if (tabname === 'RiskFactors') { this.setState({ filtered_risk_factor_columns: cols }, this.getTabInfo('RiskFactors')) } else { this.setState({ filtered_outcome_columns: cols }, this.getTabInfo('Outcomes')) }
+    if (tabname === 'Victim') { this.setState({ filtered_victim_columns: cols }, this.getTabInfo('Victim')) } else if (tabname === 'Abuser') { this.setState({ filtered_abuser_columns: cols }, this.getTabInfo('Abuser')) } else if (tabname === 'RiskFactors') { this.setState({ filtered_risk_factor_columns: cols }, this.getTabInfo('RiskFactors')) } else { this.setState({ filtered_outcome_columns: cols }, this.getTabInfo('Outcomes')) }
   }
 
   render () {
@@ -333,8 +333,8 @@ class siteOverview extends React.Component {
         </div>
         <TabObj selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <VFilter cb={(c) => this.filterUpdates('Victim', c)} />
-          <OverviewTable columns={this.state.victim_columns} filter_columns={this.state.filtered_victim_colums} data={this.state.cases} linkName={'siteOverview'} />
+          <VFilter prepopulate={this.state.filtered_victim_columns} cb={(c) => this.filterUpdates('Victim', c)} />
+          <OverviewTable columns={this.state.victim_columns} filter_columns={this.state.filtered_victim_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
           <AFilter cb={(c) => this.filterUpdates('Abuser', c)}/>
