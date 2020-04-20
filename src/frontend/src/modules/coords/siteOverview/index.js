@@ -299,19 +299,18 @@ class siteOverview extends React.Component {
   }
 
   render () {
-      const obj = this.state;
-      let name;
-      if(obj.cases.length > 0){
-          name = obj.cases[0].community_id.community_name;
-      }
-      else{
-        name = "Community Name";
-      }
+    const obj = this.state
+    let name
+    if (obj.cases.length > 0) {
+      name = obj.cases[0].community_id.community_name
+    } else {
+      name = 'Community Name'
+    }
     return (
       <div>
         <NavigationBar />
         <div>
-            <h1 class="header">{name}</h1>
+          <h1 class="header">{name}</h1>
         </div>
         <a href="/site/add-case">
           <div class="add_a_case">Add a Case +</div>
