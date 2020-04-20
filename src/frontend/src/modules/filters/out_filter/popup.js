@@ -2,7 +2,7 @@ import React from 'react'
 import './popup.css'
 
 class Popup extends React.Component {
-  getListOfRequestedCols() {
+  getListOfRequestedCols () {
     var cols = []
     if (!document.getElementById('ofilter_date_created').checked) { cols.push('Date Created') }
     if (!document.getElementById('ofilter_vname').checked) { cols.push('Victim Name') }

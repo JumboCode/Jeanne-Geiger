@@ -4,7 +4,7 @@ import React from 'react'
 
 const OverviewTable = (props) => {
   console.log(props.columns)
-  var filtered = props.columns.filter(obj => !props.filter_columns.includes(obj.Header) )
+  var filtered = props.columns.filter(obj => !props.filter_columns.includes(obj.Header))
   return MyTable(filtered, props.data, props.linkName)
 }
 
