@@ -3,7 +3,8 @@ import Table from 'react-bootstrap/Table'
 import React from 'react'
 
 const OverviewTable = (props) => {
-  var filtered = props.columns.filter(obj => !props.filter_columns.includes(obj.Header))
+  console.log(props.columns)
+  var filtered = props.columns.filter(obj => !props.filter_columns.includes(obj.Header) )
   return MyTable(filtered, props.data, props.linkName)
 }
 
