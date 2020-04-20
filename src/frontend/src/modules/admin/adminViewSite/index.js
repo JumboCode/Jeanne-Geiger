@@ -42,31 +42,31 @@ class adminViewSite extends React.Component {
       vars[key] = value
     })
 
-    this.setState({ community_name: vars.com_name }, () => {
-      this.setState({ community_id: vars.com_id }, () => {
-        this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-        this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-        this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-        this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
-
-        this.getTabInfo('Victim')
-      })
-    })
+    // this.setState({ community_name: vars.com_name }, () => {
+    //   this.setState({ community_id: vars.com_id }, () => {
+    //     this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+    //     this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+    //     this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+    //     this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+    //
+    //     this.getTabInfo('Victim')
+    //   })
+    // })
   }
 
-  fetchTabData (url, tabName) {
-    fetch(
-      url, {
-        headers: {
-          communityid: this.state.community_id
-        }
-      }
-    ).then(results => {
-      return results.text()
-    }).then(text => {
-      this.doSetState(tabName, JSON.parse(text))
-    })
-  }
+  // fetchTabData (url, tabName) {
+  //   fetch(
+  //     url, {
+  //       headers: {
+  //         communityid: this.state.community_id
+  //       }
+  //     }
+  //   ).then(results => {
+  //     return results.text()
+  //   }).then(text => {
+  //     this.doSetState(tabName, JSON.parse(text))
+  //   })
+  // }
 
   doSetState (tabName, data) {
     if (tabName === 'Victim') {
@@ -101,13 +101,21 @@ class adminViewSite extends React.Component {
   }
 
   render () {
+      const obj = this.state;
+      let name;
+      if(obj.community_name.length > 0){
+          name = obj.community_name[0];
+      }
+      else{
+        name = "Community Name";
+      }
     return (
       <div>
         <NavigationBar />
         <Row class="row">
           <Col xs = {8}>
             <div>
-              <h1 class="header">{this.state.community_name}</h1>
+              <h1 class="header">{name}</h1>
             </div>
           </Col>
           <Col xs = {3}>
