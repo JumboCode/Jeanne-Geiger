@@ -2,6 +2,13 @@
   margin: 10px !important;
 }
 
+#submit {
+  width: 12%;
+  height: 12%;
+  position: relative;
+  left: 88%;
+}
+
 #active_status_obj {
   display: none;
 }

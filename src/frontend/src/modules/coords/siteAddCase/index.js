@@ -5,6 +5,7 @@ import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj, StatusObj } 
 import NavigationBar from '../../navbar/NavigationBar.js'
 import { BackButton } from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
+import submitButton from './confirmCase.png'
 import Col from 'react-bootstrap/Col'
 import TabObj from '../../tabs.js'
 
@@ -260,6 +261,7 @@ class siteAddCase extends React.Component {
         <NavigationBar />
         <BackButton link='/site'/>
         <div class = "container">
+        <input type="image" id="submit" src={submitButton} onClick={() => this.doSubmit()}/>
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <form id='CasePost'>
             <div id='OutcomesForm' className='tabcontent'>
