@@ -46,15 +46,6 @@ class adminViewSite extends React.Component {
   }
   
   componentDidMount () {
-    const {cookies} = this.props
-    const token = cookies.get('token')
-    fetch(COMMUNITY_LIST_URL, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then(results => {
-      return results.json()
-    }).then(data => this.setState({ community_list: data }))
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
@@ -84,12 +75,15 @@ class adminViewSite extends React.Component {
   }
 
   fetchTabData (url, tabName) {
+    const {cookies} = this.props
+    const token = cookies.get('token')
     fetch(
       url, {
         headers: {
           communityid: this.state.community_id,
           startdate: this.state.start_date,
-          enddate: this.state.end_date
+          enddate: this.state.end_date,
+          Authorization: `Bearer ${token}`
         }
       }
     ).then(results => {
