@@ -17,7 +17,7 @@ class Filter extends Component {
 
   render () {
     return (
-      <div className="filter_container">
+      <div className="date-filter-container">
         <button type="button" class="date_range_button" onClick={this.togglePopup.bind(this)}>
                      Date Range &nbsp; &nbsp;<img class="calendar" src={dateRange} />
         </button>
