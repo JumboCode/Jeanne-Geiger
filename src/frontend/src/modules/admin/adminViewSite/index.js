@@ -44,12 +44,28 @@ class adminViewSite extends React.Component {
       end_date: []
     }
   }
+
+  formatDate (date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
   
   componentDidMount () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
     })
+    var startdate = this.formatDate('January 1, 2019')
+    var enddate = this.formatDate('January 1, 2021')
 
     if (vars.start_date !== undefined && vars.end_date !== undefined) {
       var percentageCols = document.getElementsByClassName('percentage')
@@ -58,25 +74,40 @@ class adminViewSite extends React.Component {
       }
     }
 
-    this.setState({ community_name: vars.com_name }, () => {
-      this.setState({ start_date: vars.start_date }, () => {
-        this.setState({ end_date: vars.end_date }, () => {
-          this.setState({ community_id: vars.com_id }, () => {
-            this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-            this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-            this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-            this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+    //This is hardcoded info:
 
-            this.getTabInfo('Victim')
-          })
-        })
-      })
-    })
+    this.setState( { start_date: startdate, end_date: enddate, community_id: 1, community_name: "Community1"}, () => {
+      this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+      this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+      this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+      this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+
+      this.getTabInfo('Victim')
+    } )
+
+    //Original code: 
+    
+    // this.setState({ community_name: vars.com_name }, () => {
+    //   this.setState({ start_date: vars.start_date }, () => {
+    //     this.setState({ end_date: vars.end_date }, () => {
+    //       this.setState({ community_id: vars.com_id }, () => {
+    //         this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+    //         this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+    //         this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+    //         this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+
+    //         this.getTabInfo('Victim')
+    //       })
+    //     })
+    //   })
+    // })
   }
 
+
+
   fetchTabData (url, tabName) {
-    const {cookies} = this.props
-    const token = cookies.get('token')
+    const { cookies } = this.props
+    var token = cookies.get('token')
     fetch(
       url, {
         headers: {
