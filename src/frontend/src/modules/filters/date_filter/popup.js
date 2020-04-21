@@ -31,7 +31,7 @@ class Popup extends React.Component {
               Generate
             </button>
           </div>
-          <button class='exit_button' onClick={this.props.closePopup}>X</button>
+          <button class='exit_button' onClick={this.props.closePopup}>x</button>
 
         </div>
       </div>
