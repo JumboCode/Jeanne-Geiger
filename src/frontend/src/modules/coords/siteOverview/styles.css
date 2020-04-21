@@ -1,3 +1,7 @@
+.filter_container {
+  top:-10px;
+}
+
 .container {
   margin: 0 !important;
   position: static !important;
