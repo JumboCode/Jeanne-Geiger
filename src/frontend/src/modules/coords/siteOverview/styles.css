@@ -1,5 +1,5 @@
 .filter_container {
-  top:-10px;
+  top: -10px;
 }
 
 .container {
@@ -30,7 +30,6 @@
 
 .stack {
   display: block;
-  height:2em;
-  margin:0;
+  height: 2em;
+  margin: 0;
 }
-

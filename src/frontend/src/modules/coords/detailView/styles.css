@@ -3,7 +3,7 @@ h3 {
 }
 
 .container {
-  max-width: 1500px!important;
+  max-width: 1500px !important;
 }
 
 .backButtonsContainer {
@@ -29,7 +29,7 @@ h3 {
 }
 
 .title-section {
-  text-align: center!important;
+  text-align: center !important;
 }
 
 #editButton {

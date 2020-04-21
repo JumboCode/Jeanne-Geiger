@@ -1,7 +1,7 @@
 .filter_container {
   position: static;
-  left:50%!important;
-  top:10%!important;
+  left: 50% !important;
+  top: 10% !important;
 }
 
 .date_range_button {
@@ -19,5 +19,5 @@
 }
 
 .calendar {
-  width:14%;
+  width: 14%;
 }
