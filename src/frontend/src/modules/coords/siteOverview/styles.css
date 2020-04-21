@@ -3,6 +3,10 @@
   position: static !important;
 }
 
+.header {
+  text-align: center;
+}
+
 .add_a_case {
   float: right;
   left: 13%;
@@ -19,3 +23,10 @@
   border-radius: 13px;
   margin: 0.2em;
 }
+
+.stack {
+  display: block;
+  height:2em;
+  margin:0;
+}
+
