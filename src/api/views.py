@@ -19,9 +19,10 @@ import datetime
 def date_range(request):
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
+    print("start: " + start_date + "end: " + end_date)
     
     # default: last 30 days 
-    if (start_date is None) or (end_date is None) or (start_date == 'null') or (end_date == 'null') or (start_date == 'undefined') or (end_date == 'undefined'):
+    if (start_date is None) or (end_date is None) or (start_date == 'null') or (end_date == 'null') or (start_date == 'undefined') or (end_date == 'undefined') or (start_date == '') or (end_date == ''):
         end_date = datetime.datetime.today().strftime('%Y-%m-%d')
         start_date = (datetime.datetime.today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d')
 

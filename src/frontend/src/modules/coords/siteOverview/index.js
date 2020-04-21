@@ -8,14 +8,21 @@ import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
 
 class siteOverview extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor () {
     super()
     this.state = {
       // TODO: remove hardcode
+      // Get auth0 data when loading this component to specify which community
+      //  id is loaded for the user that assigned it
       community_id: 1,
       community_name: 'Community1',
       cases: [],
@@ -278,8 +285,11 @@ class siteOverview extends React.Component {
 
   componentDidMount () {
     this.showTab(0)
+    const { cookies } = this.props
+    var token = cookies.get('token')
     fetch(CASES_URL, {
       headers: {
+        Authorization: `Bearer ${token}`,
         communityid: this.state.community_id
       }
     })
@@ -348,4 +358,4 @@ class siteOverview extends React.Component {
   }
 }
 
-export default siteOverview
+export default withCookies(siteOverview)

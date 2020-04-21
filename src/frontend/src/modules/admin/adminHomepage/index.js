@@ -5,11 +5,16 @@ import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import NavBar from '../../logIn/NavBar.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 const ACTIVE_CASE_COUNT_URL = 'http://127.0.0.1:8000/api/ActiveCaseCountView/'
 
 class adminHomepage extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor () {
     super()
     this.state = {
@@ -47,8 +52,14 @@ class adminHomepage extends React.Component {
         window.location.reload()
       }
     })
+    const { cookies } = this.props
+    var token = cookies.get('token')
 
-    fetch(COMMUNITY_LIST_URL
+    fetch(COMMUNITY_LIST_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
     ).then(results => {
       return results.json()
     }).then(communities => {
@@ -58,6 +69,7 @@ class adminHomepage extends React.Component {
       Promise.all(communities.map(community =>
         fetch(ACTIVE_CASE_COUNT_URL, {
           headers: {
+            Authorization: `Bearer ${token}`,
             communityid: community.community_id
           }
         })
@@ -82,4 +94,4 @@ class adminHomepage extends React.Component {
   }
 }
 
-export default adminHomepage
+export default withCookies(adminHomepage)

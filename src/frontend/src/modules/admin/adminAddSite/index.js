@@ -6,8 +6,8 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import {withCookies, Cookies} from 'react-cookie';
-import {instanceOf} from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 import Plus from './plus.png'
 import Remove from './remove.png'
@@ -24,13 +24,6 @@ class adminAddSite extends React.Component {
       sources: [],
       coords: []
     }
-  }
-
-  get_token () {
-    const {cookies} = this.props
-    const token = cookies.get('token')
-    console.log(token)
-    return token
   }
 
   doSubmit () {
@@ -50,9 +43,13 @@ class adminAddSite extends React.Component {
                    '&coordinators={' + coordinators + '}' +
                    '&referral_sources={' + referralSources + '}'
 
+    const { cookies } = this.props
+    var token = cookies.get('token')
+
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', SITE_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
     sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
   }

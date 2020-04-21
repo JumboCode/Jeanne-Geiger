@@ -7,8 +7,8 @@ import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import ExternalApi from '../../../ExternalApi.js'
-import {withCookies, Cookies} from 'react-cookie';
-import {instanceOf} from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import Filter from '../../filters/date_filter/filter.js'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -75,22 +75,20 @@ class adminViewSite extends React.Component {
     }
 
     //This is hardcoded info:
+    // this.setState( { community_id: 1, community_name: "Community1"}, () => {
+    //   this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+    //   this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+    //   this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+    //   this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
 
-    this.setState( { start_date: startdate, end_date: enddate, community_id: 1, community_name: "Community1"}, () => {
-      this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-      this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-      this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-      this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
-
-      this.getTabInfo('Victim')
-    } )
+    //   this.getTabInfo('Victim')
+    // } )
 
     //Original code: 
-    
-    // this.setState({ community_name: vars.com_name }, () => {
+    // this.setState({ community_name: "Community1" }, () => {
     //   this.setState({ start_date: vars.start_date }, () => {
     //     this.setState({ end_date: vars.end_date }, () => {
-    //       this.setState({ community_id: vars.com_id }, () => {
+    //       this.setState({ community_id: 1 }, () => {
     //         this.fetchTabData(VICTIM_INFO_URL, 'Victim')
     //         this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
     //         this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
@@ -101,6 +99,21 @@ class adminViewSite extends React.Component {
     //     })
     //   })
     // })
+
+    this.setState({ community_name: vars.com_name }, () => {
+      this.setState({ start_date: vars.start_date }, () => {
+        this.setState({ end_date: vars.end_date }, () => {
+          this.setState({ community_id: vars.com_id }, () => {
+            this.fetchTabData(VICTIM_INFO_URL, 'Victim')
+            this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
+            this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
+            this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
+
+            this.getTabInfo('Victim')
+          })
+        })
+      })
+    })
   }
 
 

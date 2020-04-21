@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa.js";
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
+import { Redirect } from 'react-router-dom';
 
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
@@ -19,9 +20,6 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
         setCookie('token', token, {path: '/'});
       });
       return;
-      // return (
-      //   <Redirect to="/dashboard"/>
-      // );
     }
     const fn = async () => {
       await loginWithRedirect({
