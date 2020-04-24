@@ -6,10 +6,12 @@ import { Redirect } from 'react-router-dom';
 
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, isAuthenticated, loginWithRedirect, getTokenSilently} = useAuth0();
+  const { user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0();
   const [cookies, setCookie] = useCookies();
 
   console.log(isAuthenticated)
+  console.log(user)
+
 
   useEffect(() => {
     if (loading) {

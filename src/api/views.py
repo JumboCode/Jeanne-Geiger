@@ -1,6 +1,7 @@
 import logging
 import os
 
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
@@ -14,6 +15,7 @@ from rest_framework.views import APIView, Response
 
 from .serializers import *
 from .models import *
+from .utils import requires_scope
 
 import datetime
 def date_range(request):
@@ -28,6 +30,7 @@ def date_range(request):
 
     return start_date, end_date
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class OutcomeList(generics.ListCreateAPIView):
     queryset = Outcomes.objects.all()
     serializer_class = OutcomesSerializer
@@ -54,6 +57,7 @@ class OutcomeList(generics.ListCreateAPIView):
             outcomeData.save()
         return JsonResponse({'outcome_id' : outcomeData.outcome_id})
 
+@method_decorator(requires_scope('admin'), name='post')
 class CommunitiesList(generics.ListCreateAPIView):
     print("IN COMMUNITIESLIST CLASS")
     queryset = Communities.objects.all()
@@ -84,6 +88,7 @@ class CommunitiesList(generics.ListCreateAPIView):
 
         return JsonResponse({'community_id' : communityData.community_id})
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class OneCase(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
@@ -95,6 +100,7 @@ class OneCase(generics.ListCreateAPIView):
 
         return Response(serializer_class.data)
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class CasesByCommunity(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
@@ -106,6 +112,7 @@ class CasesByCommunity(generics.ListCreateAPIView):
 
         return Response(serializer_class.data)
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class CasesList(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
@@ -270,6 +277,7 @@ class CasesList(generics.ListCreateAPIView):
 
         return JsonResponse({'case_id' : caseData.case_id})
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class RiskFactorsList(generics.ListCreateAPIView):
     queryset = RiskFactors.objects.all()
     serializer_class = RiskFactorsSerializer
@@ -311,6 +319,7 @@ class RiskFactorsList(generics.ListCreateAPIView):
             rfData.save()
         return JsonResponse({'risk_factor_id' : rfData.risk_factor_id})
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class AbuserList(generics.ListCreateAPIView):
     queryset = Persons.objects.filter(is_victim=False)
     serializer_class = PersonsSerializer
@@ -341,6 +350,7 @@ class AbuserList(generics.ListCreateAPIView):
             personData.save()
         return JsonResponse({'person_id' : personData.person_id})
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class VictimList(generics.ListCreateAPIView):
     queryset = Persons.objects.filter(is_victim=True)
     serializer_class = PersonsSerializer
@@ -391,12 +401,14 @@ class FrontendAppView(View):
                 status=501,
             )
 
+@method_decorator(requires_scope('admin'), name='dispatch')
 class ActiveCaseCountView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
         case_count = len(Cases.objects.filter(community_id=c_id, active_status=True))
         return JsonResponse({'case_count': case_count})
 
+@method_decorator(requires_scope('coord'), name='dispatch')
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
@@ -420,6 +432,7 @@ class DVHRTReferalSourceView(generics.ListCreateAPIView):
 
         return JsonResponse(r_dict)
 
+@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('victim_id')
 
@@ -511,6 +524,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 
         return dvsu
 
+@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('abuser_id')
 
@@ -583,7 +597,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
         return counts
 
-
+@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
@@ -615,6 +629,7 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
 
         return JsonResponse(rf_counts)
 
+@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('outcome_id')
 
