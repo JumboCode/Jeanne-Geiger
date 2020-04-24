@@ -20,6 +20,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
     if (isAuthenticated) {
       getTokenSilently().then((token) => {
         setCookie('token', token, {path: '/'});
+        console.log("update token")
       });
       return;
     }

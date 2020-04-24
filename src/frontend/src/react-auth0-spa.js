@@ -16,6 +16,7 @@ export const Auth0Provider = ({
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [user, setUser] = useState();
   const [auth0Client, setAuth0] = useState();
+  const [roles, setRoles] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
 
@@ -77,9 +78,11 @@ export const Auth0Provider = ({
         isAuthenticated,
         user,
         loading,
+        roles,
         popupOpen,
         loginWithPopup,
         handleRedirectCallback,
+        setRoles,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
