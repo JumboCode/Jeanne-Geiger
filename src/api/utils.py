@@ -45,13 +45,10 @@ def requires_scope(required_scope):
         @wraps(f)
         def decorated(*args, **kwargs):
             token = get_token_auth_header(args[0])
-            # decoded = jwt_decode_token(token)
             decoded = jwt.decode(token, verify=False)
             if decoded.get("permissions"):
                 token_scopes = decoded["permissions"]
                 for token_scope in token_scopes:
-                    print("scope: \n")
-                    print(token_scope)
                     if token_scope == required_scope:
                         return f(*args, **kwargs)
             response = JsonResponse({'message': 'You don\'t have access to this resource'})
@@ -59,3 +56,8 @@ def requires_scope(required_scope):
             return response
         return decorated
     return require_scope
+
+def get_email(request):
+    token = get_token_auth_header(request)
+    decoded = jwt.decode(token, verify=False)
+    return decoded.get('https://jeanne-geiger-api//email')
