@@ -23,8 +23,8 @@ class siteOverview extends React.Component {
       // TODO: remove hardcode
       // Get auth0 data when loading this component to specify which community
       //  id is loaded for the user that assigned it
-      community_id: 1,
-      community_name: 'Community1',
+      community_id: null,
+      community_name: '',
       cases: [],
       victim_columns: [
         {
@@ -290,13 +290,15 @@ class siteOverview extends React.Component {
     fetch(CASES_URL, {
       headers: {
         Authorization: `Bearer ${token}`,
-        communityid: this.state.community_id
       }
     })
       .then(results => {
         return results.json()
       })
-      .then(data => { console.log(data); this.setState({ cases: data }) })
+      .then(data => { 
+        console.log(data); 
+        this.setState({ cases: data, community_id: data[0]['community_id'].community_id, community_name: data[0]['community_id'].community_name }); 
+      })
   }
 
   getTabInfo (tabName) {

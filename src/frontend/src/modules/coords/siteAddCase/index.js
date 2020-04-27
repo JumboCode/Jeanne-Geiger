@@ -39,8 +39,7 @@ class siteAddCase extends React.Component {
       referral_sources: [],
       is_edit_case_view: false,
       case_id: [],
-      // TODO: remove hardcode
-      community_id: 1
+      community_id: null,
     }
   }
 
@@ -57,6 +56,7 @@ class siteAddCase extends React.Component {
     }).then(results => {
       return results.json()
     }).then(data => {
+      this.setState({community_id: data['community_id']})
       for (var i = 0; i < data.length; i++) {
         if (data[i].community_id === this.state.community_id) {
           this.setState({ referral_sources: data[i].referral_sources })
