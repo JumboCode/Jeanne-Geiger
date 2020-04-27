@@ -61,10 +61,11 @@ class adminHomepage extends React.Component {
       }
     }
     ).then(results => {
+      // console.log(results.json())
       return results.json()
     }).then(communities => {
       // communities is a list of community objects
-      // for each community object , get its active case count and add it to
+      // for each community object, get its active case count and add it to
       // the per community data
       Promise.all(communities.map(community =>
         fetch(ACTIVE_CASE_COUNT_URL, {

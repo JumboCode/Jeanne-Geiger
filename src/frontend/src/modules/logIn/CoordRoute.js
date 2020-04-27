@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom';
 const CoordRoute = ({ component: Component, path, ...rest }) => {
   const { roles, setRoles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0();
   const [cookies, setCookie] = useCookies();
-  console.log(isAuthenticated)
 
   useEffect(() => {
     if (loading) {
@@ -16,7 +15,6 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
     }
     if (isAuthenticated) {
       setRoles(user['https://jeanne-geiger-api//roles'])
-      console.log(roles)
       getTokenSilently().then((token) => {
         setCookie('token', token, {path: '/'});
       });
@@ -30,13 +28,9 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
     fn();
   }, [loading, isAuthenticated, loginWithRedirect, path, roles]);
 
-//   if (isAuthenticated) {
-//     roles = user['https://jeanne-geiger-api//roles']
-//   }  && 'Coordinator' in roles
-  console.log(roles)
   const render = props =>
-    (isAuthenticated === true && roles && roles.includes('Coordinator')) ? <Component {...props} /> : null;
-
+    (loading ? null : !roles ? null: (isAuthenticated && roles.includes('Coordinator') ? 
+      <Component {...props} /> : <Redirect to='/'/>));
   return <Route path={path} render={render} {...rest} />;
 };
 

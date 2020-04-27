@@ -9,16 +9,12 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
   const { roles, setRoles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0();
   const [cookies, setCookie] = useCookies();
 
-  console.log(isAuthenticated)
-
-
   useEffect(() => {
     if (loading) {
       return;
     }
     if (isAuthenticated) {
       setRoles(user['https://jeanne-geiger-api//roles'])
-      console.log(roles)
       getTokenSilently().then((token) => {
         setCookie('token', token, {path: '/'});
       });
@@ -30,10 +26,11 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
       });
     };
     fn();
-  }, [loading, isAuthenticated, loginWithRedirect, path]);
+  }, [loading, isAuthenticated, loginWithRedirect, path, roles]);
 
   const render = props =>
-    (isAuthenticated === true && roles && roles.includes('Admin')) ? <Component {...props} /> : null;
+    (loading ? null : !roles ? null: (isAuthenticated && roles.includes('DVHRT_ADMIN') ? 
+      <Component {...props} /> : <Redirect to='/'/>));
 
   return <Route path={path} render={render} {...rest} />;
 };
