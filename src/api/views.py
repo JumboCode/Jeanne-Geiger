@@ -15,7 +15,7 @@ from rest_framework.views import APIView, Response
 
 from .serializers import *
 from .models import *
-from .utils import requires_scope, get_email
+from .utils import requires_scope, get_email, get_site
 import pprint
 
 import datetime
@@ -30,9 +30,8 @@ def date_range(request):
 
     return start_date, end_date
 
-def verify_email(request, community_id):
+def verify_user(request, community_id):
     coord_email = get_email(request)
-
     coord_email = 'email1'
 
     community = Communities.objects.get(community_id=community_id)
@@ -101,11 +100,12 @@ class OneCase(generics.ListCreateAPIView):
     serializer_class = CasesSerializer
     
     def get(self, request, *args, **kwargs):
-        get_case_id = request.META.get('HTTP_CASEID')     
+        get_case_id = request.META.get('HTTP_CASEID')
+        community_id = get_site(request)
         case = Cases.objects.get(case_id=get_case_id)
         serializer_class = CasesSerializer(case)
 
-        if verify_email(request, case.community_id.community_id):
+        if (community_id == case.community_id.community_id and verify_user(request, community_id)):
             return Response(serializer_class.data)
 
         return HttpResponse('Forbidden', status=403) 
@@ -116,11 +116,11 @@ class CasesByCommunity(generics.ListCreateAPIView):
     serializer_class = CasesSerializer
 
     def get(self, request, *args, **kwargs):
-        community_id = request.META.get('HTTP_COMMUNITYID')
+        community_id = get_site(request)
         cases = Cases.objects.filter(community_id=community_id)
         serializer_class = CasesSerializer(cases, many=True)
 
-        if verify_email(request, community_id):
+        if verify_user(request, community_id):
             return Response(serializer_class.data)
 
         return HttpResponse('Forbidden', status=403) 
@@ -131,18 +131,21 @@ class CasesList(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
     
-    def get(self, request, *args, **kwargs):
-        queryset = Cases.objects.all()
-        serializer_class = CasesSerializer(queryset, many=True)
+    # def get(self, request, *args, **kwargs):
+    #     queryset = Cases.objects.all()
+    #     serializer_class = CasesSerializer(queryset, many=True)
 
-        return Response(serializer_class.data)
+    #     return Response(serializer_class.data)
 
     def post(self, request, *args, **kwargs):
         get_case_id = request.POST.get("case_id")
+        community_id = get_site(request)
+        if not verify_user(request, community_id):
+            return HttpResponse('Forbidden', status=403) 
         try: ## case exists, update values
             caseData = Cases.objects.get(case_id=get_case_id)
 
-            if not verify_email(request, caseData.community_id.community_id):
+            if (caseData.community_id.community_id != community_id):
                 return HttpResponse('Forbidden', status=403) 
 
             ## update community
@@ -213,10 +216,7 @@ class CasesList(generics.ListCreateAPIView):
             caseData.save()
 
         except Cases.DoesNotExist: # case doesn't exist, create a new one
-            community = Communities.objects.get(community_id=request.POST.get("community_id"))
-
-            if not verify_email(request, community.community_id):
-                return HttpResponse('Forbidden', status=403) 
+            community = Communities.objects.get(community_id=community_id)
 
             community.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
             community.save()

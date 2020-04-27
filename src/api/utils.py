@@ -61,3 +61,8 @@ def get_email(request):
     token = get_token_auth_header(request)
     decoded = jwt.decode(token, verify=False)
     return decoded.get('https://jeanne-geiger-api//email')
+
+def get_site(request):
+    token = get_token_auth_header(request)
+    decoded = jwt.decode(token, verify=False)
+    return decoded.get('https://jeanne-geiger-api//site')
