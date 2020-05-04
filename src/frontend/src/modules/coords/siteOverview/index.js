@@ -335,7 +335,7 @@ class siteOverview extends React.Component {
             </div>
           </div>
         </div>
-        <TabObj selectFunc={(index, label) => this.showTab(index)}/>
+        <TabObj clasName="overflowtab" selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <VFilter />
           <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
@@ -344,11 +344,11 @@ class siteOverview extends React.Component {
           <AFilter />
           <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
-        <div id='Outcomes' className='tabcontent'>
+        <div id='Outcomes' className='tabcontent '>
           <OUTFilter />
           <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
-        <div id='RiskFactors' className='tabcontent'>
+        <div id='RiskFactors' className='tabcontent overflowtab'>
           <RFFilter />
           <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>

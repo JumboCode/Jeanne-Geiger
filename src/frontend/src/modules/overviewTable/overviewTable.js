@@ -45,7 +45,7 @@ function MyTable (columns, data, linkName) {
           })
         })
       </script>
-      <Table striped border hover {...getTableProps()}>
+      <Table striped border hover {...getTableProps()} >
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

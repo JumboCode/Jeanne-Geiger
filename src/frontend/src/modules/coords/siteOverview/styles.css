@@ -33,3 +33,7 @@
   height: 2em;
   margin: 0;
 }
+
+.overflowtab {
+  overflow-x:auto;
+}
