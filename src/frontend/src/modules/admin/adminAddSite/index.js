@@ -39,9 +39,16 @@ class adminAddSite extends React.Component {
       return '{' + [e, coordData[1][i]] + '}'
     })
 
+    var coordinatorsJson = []
+    coordData[0].map(function (e, i) {
+      var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
+      coordinatorsJson.push(coord)
+    })
+
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
                    '&coordinators={' + coordinators + '}' +
-                   '&referral_sources={' + referralSources + '}'
+                   '&referral_sources={' + referralSources + '}' +
+                   '&coord_data={\"data\": [' + coordinatorsJson + ']}'
 
     const { cookies } = this.props
     var token = cookies.get('token')

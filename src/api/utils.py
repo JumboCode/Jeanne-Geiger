@@ -3,7 +3,7 @@ import json
 import jwt
 import requests
 from django.contrib.auth import authenticate
-from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH
+from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH, MANAGEMENT_CLIENT_ID, MANAGEMENT_CLIENT_SECRET
 from functools import wraps
 from django.http import JsonResponse
 
@@ -30,6 +30,13 @@ def jwt_decode_token(token):
 def get_token_auth_header(request):
     """Obtains the Access Token from the Authorization Header
     """
+    auth = request.META.get("HTTP_AUTHORIZATION", None)
+    parts = auth.split()
+    token = parts[1]
+
+    return token
+
+def get_token_2(request):
     auth = request.META.get("HTTP_AUTHORIZATION", None)
     parts = auth.split()
     token = parts[1]
@@ -66,3 +73,59 @@ def get_site(request):
     token = get_token_auth_header(request)
     decoded = jwt.decode(token, verify=False)
     return decoded.get('https://jeanne-geiger-api//site')
+
+def get_management_token():
+    payload = {
+        "grant_type": "client_credentials",
+        "client_id": MANAGEMENT_CLIENT_ID,
+        "client_secret": MANAGEMENT_CLIENT_SECRET,
+        "audience": "https://agross09.auth0.com/api/v2/"
+    }
+    headers = { 
+        'content-type': "application/x-www-form-urlencoded"
+    }
+    r = requests.post('https://agross09.auth0.com/oauth/token', headers=headers, data=payload)
+    return r.json()["access_token"]
+
+#unsure if coordinator id will change over time
+def get_role_id():
+    headers = {
+    'content-type': "application/json",
+    'authorization': f"Bearer {management_token}",
+    'cache-control': "no-cache"
+    }
+    r = requests.get('https://agross09.auth0.com/api/v2/roles', headers=headers)
+    print(r.json())
+    return r.json()
+
+def create_user(coordinator, community_id, management_token):
+    payload = {
+        "email": coordinator["email"],
+        "email_verified": False,
+        "name": coordinator["name"],
+        "connection": "Username-Password-Authentication",
+        "password": "DVHRT2020??",
+        "verify_email": True,
+        "user_metadata": {
+            "site" : community_id
+        }
+    }
+    headers = {
+        'content-type': "application/json",
+        'authorization': f"Bearer {management_token}",
+        'cache-control': "no-cache"
+    }
+    r = requests.post("https://agross09.auth0.com/api/v2/users", headers=headers, data=json.dumps(payload))
+    return r.json()['user_id']
+
+def set_user_roles(user_id, management_token):
+    payload = {
+        'roles': ['rol_FrafLuFFTewJsSMM']
+    }
+    headers = {
+        'content-type': "application/json",
+        'authorization': f"Bearer {management_token}",
+        'cache-control': "no-cache"
+    }
+    r = requests.post(f"https://agross09.auth0.com/api/v2/users/{user_id}/roles", headers=headers, data=json.dumps(payload))
+    return r

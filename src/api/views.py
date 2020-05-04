@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -15,8 +16,9 @@ from rest_framework.views import APIView, Response
 
 from .serializers import *
 from .models import *
-from .utils import requires_scope, get_email, get_site
-import pprint
+from .utils import *
+import http.client
+import requests
 
 import datetime
 def date_range(request):
@@ -78,10 +80,11 @@ class CommunitiesList(generics.ListCreateAPIView):
         serializer_class = CommunitiesSerializer(queryset, many=True)
         return Response(serializer_class.data)
 
+
     def post(self, request, *args, **kwargs):
         get_community_id = request.POST.get("community_id")
         try:
-            communityData = Communities.objects.get(community_id=get_community_id)
+          communityData = Communities.objects.get(community_id=get_community_id)
         except:
             communityData = Communities(
                 community_name = request.POST.get("community_name"),
@@ -91,7 +94,13 @@ class CommunitiesList(generics.ListCreateAPIView):
                 last_updated = datetime.datetime.today().strftime('%Y-%m-%d'),
             )
             communityData.save()
-
+            coordinators = json.loads(request.POST.get("coord_data"))
+            management_token = get_management_token()
+            
+            for coordinator in coordinators["data"]:
+                user_id = create_user(coordinator, communityData.community_id, management_token)
+                r = set_user_roles(user_id, management_token)
+            
         return JsonResponse({'community_id' : communityData.community_id})
 
 @method_decorator(requires_scope('coord'), name='dispatch')
