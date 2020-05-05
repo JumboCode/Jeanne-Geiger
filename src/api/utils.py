@@ -116,6 +116,7 @@ def create_user(coordinator, community_id, management_token):
         'cache-control': "no-cache"
     }
     r = requests.post("https://agross09.auth0.com/api/v2/users", headers=headers, data=json.dumps(payload))
+    print(r.json()['user_id'])
     return r.json()['user_id']
 
 def set_user_roles(user_id, management_token):
@@ -129,3 +130,23 @@ def set_user_roles(user_id, management_token):
     }
     r = requests.post(f"https://agross09.auth0.com/api/v2/users/{user_id}/roles", headers=headers, data=json.dumps(payload))
     return r
+
+def get_user_id(user_email, management_token):
+    headers = {
+        'content-type': "application/json",
+        'authorization': f"Bearer {management_token}",
+        'cache-control': "no-cache"
+    }
+
+    user = requests.get(f"https://agross09.auth0.com/api/v2/users?q=email%3A%22{user_email}%22&search_engine=v3", headers=headers)
+
+    user_id = user.json()[0]["user_id"]
+    return user_id
+
+def remove_user(user_id, management_token):
+    headers = {
+        'content-type': "application/json",
+        'authorization': f"Bearer {management_token}",
+        'cache-control': "no-cache"
+    }
+    r = requests.delete(f"https://agross09.auth0.com/api/v2/users/{user_id}", headers=headers)
