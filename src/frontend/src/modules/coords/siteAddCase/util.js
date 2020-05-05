@@ -20,8 +20,9 @@ const StatusObj = (props) => {
     <div id="active_status_obj" class="form-group">
       <label for="active_status">Active Status</label>
       <select class="form-control" id="active_status" name="Active Status">
-        <option value='True'>Active</option>
-        <option value='False'>Inactive</option>
+        <option value='0'>Active</option>
+        <option value='1'>Inactive</option>
+        <option value='2'>Closed</option>
       </select>
     </div>
   )
