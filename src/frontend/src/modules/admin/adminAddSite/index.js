@@ -9,7 +9,9 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import Plus from './plus.png'
 import Remove from './remove.png'
 
-const SITE_POST_URL = 'http://127.0.0.1:8000/api/communities/'
+
+// const SITE_POST_URL = 'http://127.0.0.1:8000/api/communities/'
+const SITE_POST_URL = 'dvhrt.herokuapp.com/api/communities/'
 
 class adminAddSite extends React.Component {
   constructor () {
