@@ -130,6 +130,7 @@ dmypy.json
 
 #Node Modules
 src/frontend/node_modules/
+node_modules/
 
 #.vs_code
 .vs_code/
