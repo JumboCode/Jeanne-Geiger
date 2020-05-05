@@ -51,3 +51,7 @@ p {
 #Inactive {
   color: orange;
 }
+
+#Closed {
+  color: red;
+}

@@ -25,7 +25,7 @@ const CHARGES_TITLE_TO_VALUE = { 'Police Response: Charges Filed': 1, 'Police Re
 const PRETRIAL_OUTCOME_TITLE_TO_VALUE = { 'Released on Bail': 1, 'Released on Personal Recognizance': 2, 'Detained/Pretrial Detention Statute': 3, 'Detained/Bail Unmet': 4, 'Detained/Other': 5, 'Pending Pretrial Hearing': 6 }
 const SENT_OUT_DISP_TITLE_TO_VALUE = { 'Charges Dismissed': 1, 'Not Guilty': 2, 'Deferred Adjudication': 3, 'Plead/Found Guilty': 4, 'Pending Disposition': 5 }
 const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarceration Followed by Probation': 3 }
-const ACTIVE_TITLE_TO_VALUE = { Active: 'True', Inactive: 'False' }
+const ACTIVE_TITLE_TO_VALUE = { Active: 0, Inactive: 1, Closed: 2 }
 
 class siteAddCase extends React.Component {
   constructor () {
