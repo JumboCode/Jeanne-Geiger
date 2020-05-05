@@ -390,7 +390,7 @@ class FrontendAppView(View):
 class ActiveCaseCountView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
-        case_count = len(Cases.objects.filter(community_id=c_id, active_status=True))
+        case_count = len(Cases.objects.filter(community_id=c_id, active_status=0))
         return JsonResponse({'case_count': case_count})
 
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
