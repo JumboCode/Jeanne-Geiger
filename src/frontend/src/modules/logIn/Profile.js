@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
-import { useAuth0 } from "../../react-auth0-spa.js";
+import React, { Fragment } from 'react'
+import { useAuth0 } from '../../react-auth0-spa.js'
 
 const Profile = () => {
-  const { loading, user } = useAuth0();
+  const { loading, user } = useAuth0()
 
   if (loading || !user) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -16,7 +16,7 @@ const Profile = () => {
       <p>{user.email}</p>
       <code>{JSON.stringify(user, null, 2)}</code>
     </Fragment>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
