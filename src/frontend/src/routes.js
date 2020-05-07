@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, BrowserRouter, Switch, Link } from 'react-router-dom'
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
 
 import Login from './modules/logIn'
 
@@ -11,12 +11,8 @@ import siteOverview from './modules/coords/siteOverview'
 import detailView from './modules/coords/detailView'
 import siteAddCase from './modules/coords/siteAddCase'
 
-import accRecovery from './modules/accRecovery'
-
 import { AuthContext } from './contexts/auth'
 
-// import PublicRoute from 'Public';
-import PrivateRoute from './modules/logIn/PrivateRoute.js'
 import CoordRoute from './modules/logIn/CoordRoute.js'
 import AdminRoute from './modules/logIn/AdminRoute.js'
 
@@ -30,10 +26,11 @@ export default class AppRouter extends React.Component {
             <AdminRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
             <AdminRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
             <AdminRoute exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
+            <CoordRoute exact path="/site/edit-case" component = {siteAddCase} type = "siteAddCase"/>
+            <CoordRoute exact path="/site/site-summary" component = {adminViewSite} type = "adminviewsite"/>
             <CoordRoute exact path="/site" component = {siteOverview} type = "siteView"/>
             <CoordRoute exact path="/site/case-view" component = {detailView} type = "detailView"/>
             <CoordRoute exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>
-            {/* <Route exact path="/acc-recovery" component = {accRecovery} type = "accRec"/> */}
           </Switch>
         </BrowserRouter>
       </AuthContext.Provider>

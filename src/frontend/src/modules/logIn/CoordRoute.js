@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie'
 
 const CoordRoute = ({ component: Component, path, ...rest }) => {
   const { roles, setRoles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
-  const [cookies, setCookie] = useCookies()
+  const [setCookie] = useCookies()
 
   useEffect(() => {
     if (loading) {
@@ -24,7 +24,7 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
       })
     }
     fn()
-  }, [loading, isAuthenticated, loginWithRedirect, path, roles])
+  }, [getTokenSilently, setCookie, setRoles, user, loading, isAuthenticated, loginWithRedirect, path, roles])
 
   const render = props =>
     (loading ? null : !roles ? null : (isAuthenticated && roles.includes('Coordinator')

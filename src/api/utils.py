@@ -95,7 +95,6 @@ def get_role_id():
     'cache-control': "no-cache"
     }
     r = requests.get('https://agross09.auth0.com/api/v2/roles', headers=headers)
-    print(r.json())
     return r.json()
 
 def create_user(coordinator, community_id, management_token):
@@ -116,7 +115,6 @@ def create_user(coordinator, community_id, management_token):
         'cache-control': "no-cache"
     }
     r = requests.post("https://agross09.auth0.com/api/v2/users", headers=headers, data=json.dumps(payload))
-    print(r.json()['user_id'])
     return r.json()['user_id']
 
 def set_user_roles(user_id, management_token):

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { useAuth0 } from '../../react-auth0-spa.js'
 import { useCookies } from 'react-cookie'
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
-  const [cookies, setCookie] = useCookies()
+  const [setCookie] = useCookies()
 
   console.log(isAuthenticated)
   console.log(user)
@@ -27,7 +27,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
       })
     }
     fn()
-  }, [loading, isAuthenticated, loginWithRedirect, path])
+  }, [getTokenSilently, setCookie, user, loading, isAuthenticated, loginWithRedirect, path])
 
   const render = props =>
     isAuthenticated === true ? <Component {...props} /> : null

@@ -1,17 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
 import ObjectTable from './table.js'
-import { render } from 'react-dom'
 import styled from 'styled-components'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
-import ExternalApi from '../../../ExternalApi.js'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import Filter from '../../filters/date_filter/filter.js'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 const Wrapper = styled.div`
   display: grid;
@@ -44,28 +40,12 @@ class adminViewSite extends React.Component {
       end_date: []
     }
   }
-
-  formatDate (date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
   
   componentDidMount () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
     })
-    var startdate = this.formatDate('January 1, 2019')
-    var enddate = this.formatDate('January 1, 2021')
 
     if (vars.start_date !== undefined && vars.end_date !== undefined) {
       var percentageCols = document.getElementsByClassName('percentage')
@@ -73,32 +53,6 @@ class adminViewSite extends React.Component {
         percentageCols[i].style.display = 'block'
       }
     }
-
-    //This is hardcoded info:
-    // this.setState( { community_id: 1, community_name: "Community1"}, () => {
-    //   this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-    //   this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-    //   this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-    //   this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
-
-    //   this.getTabInfo('Victim')
-    // } )
-
-    //Original code: 
-    // this.setState({ community_name: "Community1" }, () => {
-    //   this.setState({ start_date: vars.start_date }, () => {
-    //     this.setState({ end_date: vars.end_date }, () => {
-    //       this.setState({ community_id: 1 }, () => {
-    //         this.fetchTabData(VICTIM_INFO_URL, 'Victim')
-    //         this.fetchTabData(ABUSER_INFO_URL, 'Abuser')
-    //         this.fetchTabData(OUTCOME_INFO_URL, 'Outcomes')
-    //         this.fetchTabData(RISK_FACTOR_INFO_URL, 'RiskFactors')
-
-    //         this.getTabInfo('Victim')
-    //       })
-    //     })
-    //   })
-    // })
 
     this.setState({ community_name: vars.com_name }, () => {
       this.setState({ start_date: vars.start_date }, () => {

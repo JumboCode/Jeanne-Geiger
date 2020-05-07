@@ -1,11 +1,8 @@
 // src/modules/auth0button.js
 import React from 'react'
-import { Route, BrowserRouter, Switch, Link } from 'react-router-dom'
-import PrivateRoute from './PrivateRoute.js'
+import { BrowserRouter, Switch } from 'react-router-dom'
 import CoordRoute from './CoordRoute.js'
 import AdminRoute from './AdminRoute.js'
-import Login from '../admin/adminAddSite'
-
 import adminAddSite from '../admin/adminAddSite'
 import adminHomepage from '../admin/adminHomepage'
 import adminViewSite from '../admin/adminViewSite'
@@ -14,10 +11,6 @@ import siteOverview from '../coords/siteOverview'
 import detailView from '../coords/detailView'
 import siteAddCase from '../coords/siteAddCase'
 
-import accRecovery from '../accRecovery'
-//            <Route exact path="/" component = {Login} type = "login"/>
-
-// import { AuthContext } from '../'
 import { useAuth0 } from '../../react-auth0-spa.js'
 
 const NavBar = () => {

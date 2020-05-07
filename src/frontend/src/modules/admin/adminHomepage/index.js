@@ -1,9 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
-import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import NavBar from '../../logIn/NavBar.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';

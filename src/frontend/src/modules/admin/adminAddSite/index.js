@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import { TextInputObj } from './util.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'

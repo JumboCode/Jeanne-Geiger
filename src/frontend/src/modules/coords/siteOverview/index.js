@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import VFilter from '../../filters/v_filter/filter.js'
 import AFilter from '../../filters/a_filter/a_filter.js'
 import RFFilter from '../../filters/rf_filter/rf_filter.js'
