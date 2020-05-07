@@ -1,4 +1,24 @@
-.filter_container {
+.date-filter-container {
   position: static;
-  top: 30%;
+  left: 50px !important;
+  top: 10% !important;
+}
+
+.date_range_button {
+  left: 50%;
+  background-color: #333;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 11em;
+  height: 2em;
+  border-radius: 1em;
+  margin: 0.5em;
+}
+
+.calendar {
+  width: 14%;
 }

@@ -71,8 +71,9 @@ class Cases(models.Model):
     ]
 
     STATUS = [
-        (True, 'Active'),
-        (False, 'Inactive')
+        (0, 'Active'),
+        (1, 'Inactive'),
+        (2, 'Closed')
     ]
   
     case_id = models.AutoField(primary_key=True)
@@ -86,7 +87,7 @@ class Cases(models.Model):
     minor_in_home = models.BooleanField(default=1, choices=BOOL)
     referral_source = models.CharField(max_length=100, default="")
     date_accepted = models.DateField(null=True, blank=True)
-    active_status = models.BooleanField(default=True, choices=STATUS)
+    active_status = models.IntegerField(default=0, choices=STATUS)
     last_updated = models.DateField(null=True, blank=True)
 
 

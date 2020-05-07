@@ -1,7 +1,7 @@
 .popup {
   position: fixed;
   width: 40%;
-  height: 30% !important;
+  height: 40% !important;
   top: 30%;
   left: 30%;
   margin: auto;
@@ -23,13 +23,13 @@
   border-radius: 0.1em;
   position: fixed;
   bottom: 146% !important;
-  height: 2em !important;
+  height: 1em !important;
   font-size: 1em;
 }
 
 .exit_button {
-  border-radius: 1em;
-  font-size: 120%;
+  border-radius: 50%;
+  font-size: 1em;
   position: absolute;
   bottom: 90% !important;
 }

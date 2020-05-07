@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './filter.css'
 import Popup from './popup.js'
+import dateRange from './calendar.png'
 
 class Filter extends Component {
   constructor (props) {
@@ -16,9 +17,9 @@ class Filter extends Component {
 
   render () {
     return (
-      <div className="filter_container">
-        <button type="button" onClick={this.togglePopup.bind(this)}>
-                    filter results
+      <div className="date-filter-container">
+        <button type="button" class="date_range_button" onClick={this.togglePopup.bind(this)}>
+                     Date Range &nbsp; &nbsp;<img class="calendar" src={dateRange} />
         </button>
 
         {this.state.showPopup
