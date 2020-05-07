@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import VFilter from '../../filters/v_filter/filter.js'
 import AFilter from '../../filters/a_filter/a_filter.js'
 import RFFilter from '../../filters/rf_filter/rf_filter.js'
@@ -8,18 +7,25 @@ import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 // const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
 const CASES_URL = 'http://dvhrt.herokuapp.com/api/CasesByCommunity/'
 
 
 class siteOverview extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor () {
     super()
     this.state = {
       // TODO: remove hardcode
-      community_id: 1,
-      community_name: 'Community1',
+      // Get auth0 data when loading this component to specify which community
+      //  id is loaded for the user that assigned it
+      community_id: null,
+      community_name: '',
       cases: [],
       victim_columns: [
         {
@@ -280,15 +286,20 @@ class siteOverview extends React.Component {
 
   componentDidMount () {
     this.showTab(0)
+    const { cookies } = this.props
+    var token = cookies.get('token')
     fetch(CASES_URL, {
       headers: {
-        communityid: this.state.community_id
+        Authorization: `Bearer ${token}`,
       }
     })
       .then(results => {
         return results.json()
       })
-      .then(data => { console.log(data); this.setState({ cases: data }) })
+      .then(data => { 
+        console.log(data); 
+        this.setState({ cases: data, community_id: data[0]['community_id'].community_id, community_name: data[0]['community_id'].community_name }); 
+      })
   }
 
   getTabInfo (tabName) {
@@ -359,4 +370,4 @@ class siteOverview extends React.Component {
   }
 }
 
-export default siteOverview
+export default withCookies(siteOverview)

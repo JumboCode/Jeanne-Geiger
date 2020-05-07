@@ -1,11 +1,13 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import { TextInputObj } from './util.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+
 import Plus from './plus.png'
 import Remove from './remove.png'
 
@@ -14,6 +16,9 @@ import Remove from './remove.png'
 const SITE_POST_URL = 'http://dvhrt.herokuapp.com/api/communities/'
 
 class adminAddSite extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor () {
     super()
     this.state = {
@@ -35,13 +40,24 @@ class adminAddSite extends React.Component {
       return '{' + [e, coordData[1][i]] + '}'
     })
 
+    var coordinatorsJson = []
+    coordData[0].map(function (e, i) {
+      var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
+      coordinatorsJson.push(coord)
+    })
+
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
                    '&coordinators={' + coordinators + '}' +
-                   '&referral_sources={' + referralSources + '}'
+                   '&referral_sources={' + referralSources + '}' +
+                   '&coord_data={\"data\": [' + coordinatorsJson + ']}'
+
+    const { cookies } = this.props
+    var token = cookies.get('token')
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', SITE_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
     sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
   }
@@ -158,4 +174,4 @@ class adminAddSite extends React.Component {
   }
 }
 
-export default adminAddSite
+export default withCookies(adminAddSite);

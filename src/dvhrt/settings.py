@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_jwt',
     'corsheaders',
 ]
 
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -76,6 +78,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:8000',
     'https://localhost:3000',
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'dvhrt.urls'
@@ -160,13 +163,17 @@ django_heroku.settings(locals())
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
+    'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
-    ]
+    )
 }
 
 
@@ -192,3 +199,21 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'build', 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+]
+
+JWT_ACCOUNT = 'agross09'
+
+JWT_AUTH = {
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
+        'api.utils.jwt_get_username_from_payload_handler',
+    'JWT_DECODE_HANDLER':
+        'api.utils.jwt_decode_token',
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': 'https://jeanne-geiger-api/',
+    'JWT_ISSUER': 'https://' + JWT_ACCOUNT + '.auth0.com/',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
