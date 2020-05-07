@@ -9,9 +9,12 @@ import Col from 'react-bootstrap/Col'
 import TabObj from '../../tabs.js'
 
 // Urls:
-const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
-const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
-const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+// const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
+// const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
+// const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+const CASE_POST_URL = 'http://dvhrt.herokuapp.com/api/cases/'
+const COMMUNITY_LIST_URL = 'http://dvhrt.herokuapp.com/api/communities/'
+const GET_CASE_URL = 'http://ldvhrt.herokuapp.com/api/one-case/'
 
 // Title to Value mappings:
 const GENDER_TITLE_TO_VALUE = { Female: 1, Male: 2, Other: 3 }

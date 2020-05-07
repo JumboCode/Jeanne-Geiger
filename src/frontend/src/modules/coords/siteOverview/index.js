@@ -9,7 +9,9 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
 
-const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
+// const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
+const CASES_URL = 'http://dvhrt.herokuapp.com/api/CasesByCommunity/'
+
 
 class siteOverview extends React.Component {
   constructor () {

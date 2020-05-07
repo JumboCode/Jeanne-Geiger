@@ -7,8 +7,8 @@ import OverviewTable from '../../overviewTable/overviewTable.js'
 
 // const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
 // const ACTIVE_CASE_COUNT_URL = 'http://127.0.0.1:8000/api/ActiveCaseCountView/'
-const COMMUNITY_LIST_URL = 'dvhrt.herokuapp.com/api/communities/'
-const ACTIVE_CASE_COUNT_URL = 'dvhrt.herokuapp.com/api/ActiveCaseCountView/'
+const COMMUNITY_LIST_URL = 'http://dvhrt.herokuapp.com/api/communities/'
+const ACTIVE_CASE_COUNT_URL = 'http://dvhrt.herokuapp.com/api/ActiveCaseCountView/'
 
 class adminHomepage extends React.Component {
   constructor () {

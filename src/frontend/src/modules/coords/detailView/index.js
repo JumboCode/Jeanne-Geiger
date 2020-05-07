@@ -7,7 +7,8 @@ import { BackButton } from '../../Back/back.js'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
 
-const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+// const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+const GET_CASE_URL = 'http://dvhrt.herokuapp.com/api/one-case/'
 
 class detailView extends React.Component {
   constructor () {
