@@ -9,7 +9,8 @@ import { Row, Col } from 'react-bootstrap'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 
-const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+// const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+const GET_CASE_URL = 'http://dvhrt.herokuapp.com/api/one-case/'
 
 class detailView extends React.Component {
   static propTypes = {
@@ -274,12 +275,27 @@ class detailView extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <div class="buttonsContainer">
-          <BackButton link='/site'/>
-          <input type="image" id="editButton" src={editButton} onClick={() => this.openEditClick()}/>
-        </div>
-        <div id='active_status'>
-          {this.showStatusAndLastUpdated()}
+        <div class="row">
+          <div class="col-3">
+            <div class="backButtonsContainer">
+              <BackButton link='/site'/>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="title-section">
+              <h1>
+                Case {this.state.case.date_accepted}
+              </h1>
+              <div id='active_status'>
+                {this.showStatusAndLastUpdated()}
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="editButtonsContainer">
+              <input type="image" id="editButton" src={editButton} onClick={() => this.openEditClick()}/>
+            </div>
+          </div>
         </div>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>

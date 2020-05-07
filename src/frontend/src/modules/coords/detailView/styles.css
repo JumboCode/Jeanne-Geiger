@@ -2,10 +2,22 @@ h3 {
   font-size: 20px;
 }
 
-.buttonsContainer {
+.container {
+  max-width: 1500px !important;
+}
+
+.backButtonsContainer {
   position: relative;
   display: inline-block;
-  width: 100%;
+  width: 200%;
+}
+
+.editButtonsContainer {
+  position: relative;
+  display: inline-block;
+  width: 150%;
+  left: 20%;
+  top: 20%;
 }
 
 #editButton:hover {
@@ -16,12 +28,14 @@ h3 {
   vertical-align: middle;
 }
 
+.title-section {
+  text-align: center !important;
+}
+
 #editButton {
-  width: 8%;
-  height: 8%;
+  width: 20%;
   display: inline;
   vertical-align: middle;
-  left: 82%;
   position: relative;
 }
 
@@ -36,4 +50,8 @@ p {
 
 #Inactive {
   color: orange;
+}
+
+#Closed {
+  color: red;
 }

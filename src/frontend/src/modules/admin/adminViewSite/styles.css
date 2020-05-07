@@ -1,18 +1,4 @@
-.date_range_button {
-  float: right;
-  left: 13%;
-  bottom: 70%;
-  background-color: #333;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width: 9em;
-  height: 1.5em;
-  border-radius: 13px;
-  margin: 0.5em;
+#buttton {
 }
 
 .row {

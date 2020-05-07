@@ -11,7 +11,9 @@ import OverviewTable from '../../overviewTable/overviewTable.js'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 
-const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
+// const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
+const CASES_URL = 'http://dvhrt.herokuapp.com/api/CasesByCommunity/'
+
 
 class siteOverview extends React.Component {
   static propTypes = {
@@ -329,16 +331,25 @@ class siteOverview extends React.Component {
       <div>
         <NavigationBar />
         <div class="row">
-          <div class="col-8">
-            {this.state.community_name} <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>View Summary</a>
+          <div class="col-4">
           </div>
           <div class="col-4">
-            <a href="/site/add-case">
-              <div class="add_a_case">Add a Case +</div>
-            </a>
+            <h1 class="header">{this.state.community_name}</h1>
+          </div>
+          <div class="col-4">
+            <div class="stack row">
+              <a href="/site/add-case">
+                <div class="add_a_case">Add a Case +</div>
+              </a>
+            </div>
+            <div class="stack row">
+              <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>
+                <div class="add_a_case">View Summary</div>
+              </a>
+            </div>
           </div>
         </div>
-        <TabObj selectFunc={(index, label) => this.showTab(index)}/>
+        <TabObj clasName="overflowtab" selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
           <VFilter />
           <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
@@ -347,11 +358,11 @@ class siteOverview extends React.Component {
           <AFilter />
           <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
-        <div id='Outcomes' className='tabcontent'>
+        <div id='Outcomes' className='tabcontent '>
           <OUTFilter />
           <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
-        <div id='RiskFactors' className='tabcontent'>
+        <div id='RiskFactors' className='tabcontent overflowtab'>
           <RFFilter />
           <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
