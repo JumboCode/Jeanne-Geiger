@@ -16,9 +16,6 @@ import dotenv
 import dj_database_url
 from rest_framework.settings import api_settings
 from corsheaders.defaults import default_headers
-from boto.s3.connection import S3Connection
-
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,8 +28,7 @@ if ENV:
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-s3 = S3Connection(os.environ['SECRET_KEY'])
-SECRET_KEY = s3['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
