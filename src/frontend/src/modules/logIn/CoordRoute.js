@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie'
 
 const CoordRoute = ({ component: Component, path, ...rest }) => {
   const { roles, setRoles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
-  const [setCookie] = useCookies()
+  const [cookies, setCookie] = useCookies()
 
   useEffect(() => {
     if (loading) {

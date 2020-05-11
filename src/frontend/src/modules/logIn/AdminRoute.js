@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie'
 
 const AdminRoute = ({ component: Component, path, ...rest }) => {
   const { roles, setRoles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
-  const [setCookie] = useCookies()
+  const [cookies, setCookie] = useCookies()
 
   useEffect(() => {
     if (loading) {
@@ -18,6 +18,7 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
       })
       return
     }
+
     const fn = async () => {
       await loginWithRedirect({
         appState: { targetUrl: path }
