@@ -27,11 +27,11 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
   }, [getTokenSilently, setCookie, user, loading, isAuthenticated, loginWithRedirect, path, roles])
 
   const render = props =>
-    (loading ? 
-        null : (!isAuthenticated) ?
-            <Redirect to='/'/> : (roles.includes('DVHRT_ADMIN') ? 
-                    <Component {...props} /> : (roles.includes('Coordinator') ? 
-                        <Redirect to='/site'/> : <Redirect to='/'/>)))
+    (loading
+      ? null : (!isAuthenticated)
+        ? <Redirect to='/'/> : (roles.includes('DVHRT_ADMIN')
+          ? <Component {...props} /> : (roles.includes('Coordinator')
+            ? <Redirect to='/site'/> : <Redirect to='/'/>)))
 
   return <Route path={path} render={render} {...rest} />
 }
