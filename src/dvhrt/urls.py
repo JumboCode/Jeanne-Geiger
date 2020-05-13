@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     re_path(r'^', FrontendAppView.as_view()),
+    url(r'.*\.js$', java_script),
+    url(r'.*\.css$', css)
 ]
 
 

@@ -22,6 +22,17 @@ import http.client
 import requests
 
 import datetime
+
+def java_script(request):
+    filename = request.path.strip("/")
+    data = open(filename, "rb").read()
+    return HttpResponse(data, mimetype="application/x-javascript")
+
+def css(request):
+    filename = request.path.strip("/")
+    data = open(filename, "rb").read()
+    return HttpResponse(data, mimetype="text/css")
+
 def date_range(request):
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
