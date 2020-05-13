@@ -16,10 +16,6 @@ import dotenv
 import dj_database_url
 from rest_framework.settings import api_settings
 from corsheaders.defaults import default_headers
-import mimetypes
-
-mimetypes.add_type("text/css", ".css", True)
-mimetypes.add_type("application/x-javascript", ".js", True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
