@@ -21,7 +21,7 @@
 // export default class AppRouter extends React.Component {
 //   render () {
 //     return (
-      
+
 //         <BrowserRouter>
 //           <Switch>
 //             <Route exact path="/" component = {Login} type = "login"/>

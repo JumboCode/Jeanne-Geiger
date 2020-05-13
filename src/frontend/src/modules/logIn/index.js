@@ -39,8 +39,8 @@ const Login = () => {
           </p1>
         </div>
         <div className="button_container">
-            <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://dvhrt.herokuapp.com/site/' })}>Coordinator</button>
-            <button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://dvhrt.herokuapp.com/admin/' })}>Admin</button>
+          <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://dvhrt.herokuapp.com/site/' })}>Coordinator</button>
+          <button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://dvhrt.herokuapp.com/admin/' })}>Admin</button>
         </div>
       </div>
     </div>
@@ -48,8 +48,3 @@ const Login = () => {
 }
 
 export default Login
-
-
-
-{/* <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://localhost:3000/site/' })}>Coordinator</button>
-<button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://localhost:3000/admin/' })}>Admin</button> */}

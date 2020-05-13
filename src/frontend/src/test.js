@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Test = () => {
-    console.log("hellooo");
+  console.log('hellooo')
   return (
-        <p> Hello World</p>
+    <p> Hello World</p>
   )
 }
 

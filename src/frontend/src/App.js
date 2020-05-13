@@ -10,7 +10,7 @@ function App () {
     <div className="App">
       {/* Don't forget to include the history module */}
       <Router history={history}>
-          <NavBar />
+        <NavBar />
       </Router>
     </div>
   )
