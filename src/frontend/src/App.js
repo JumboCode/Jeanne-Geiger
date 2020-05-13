@@ -10,10 +10,7 @@ function App () {
     <div className="App">
       {/* Don't forget to include the history module */}
       <Router history={history}>
-        <header>
           <NavBar />
-        </header>
-        <Route exact path="/" component={Routes}/>
       </Router>
     </div>
   )
