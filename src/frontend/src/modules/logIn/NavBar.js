@@ -18,9 +18,9 @@ const NavBar = () => {
 
   return (
     <div className='auth0button'>
-      {!isAuthenticated && (
-        <button onClick={() => loginWithRedirect({})}>Log in</button>
-      )}
+      {/* {!isAuthenticated && (
+        <button onClick={() => loginWithRedirect({redirect_uri: 'http://localhost:3000/site'})}>Log in NavBar</button>
+      )} */}
 
       {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
 

@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
 import NavBar from './modules/logIn/NavBar'
-import { useAuth0 } from './react-auth0-spa'
-import PrivateRoute from './modules/logIn/PrivateRoute.js'
-import AppRouter from './routes.js'
-import Profile from './modules/logIn/Profile.js'
+import Routes from './routes.js'
 import { Router, Route, Switch } from 'react-router-dom'
 import history from './utils/history'
-import ExternalApi from './ExternalApi'
 
 function App () {
   return (
@@ -17,11 +13,7 @@ function App () {
         <header>
           <NavBar />
         </header>
-        <Switch>
-          <Route path="/" exact />
-          <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute exact path="/external-api" component = {ExternalApi} type = "ExternalApi"/>
-        </Switch>
+        <Route exact path="/" component={Routes}/>
       </Router>
     </div>
   )

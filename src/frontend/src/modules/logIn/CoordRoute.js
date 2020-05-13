@@ -4,15 +4,14 @@ import { useAuth0 } from '../../react-auth0-spa.js'
 import { useCookies } from 'react-cookie'
 
 const CoordRoute = ({ component: Component, path, ...rest }) => {
-  const { roles, setRoles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
-  const [setCookie] = useCookies()
+  const { roles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
+  const [cookies, setCookie] = useCookies()
 
   useEffect(() => {
     if (loading) {
       return
     }
     if (isAuthenticated) {
-      setRoles(user['https://jeanne-geiger-api//roles'])
       getTokenSilently().then((token) => {
         setCookie('token', token, { path: '/' })
       })
@@ -24,11 +23,15 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
       })
     }
     fn()
-  }, [getTokenSilently, setCookie, setRoles, user, loading, isAuthenticated, loginWithRedirect, path, roles])
+  }, [getTokenSilently, setCookie, user, loading, isAuthenticated, loginWithRedirect, path, roles])
 
   const render = props =>
-    (loading ? null : !roles ? null : (isAuthenticated && roles.includes('Coordinator')
-      ? <Component {...props} /> : <Redirect to='/'/>))
+    (loading
+      ? null : (!isAuthenticated)
+        ? <Redirect to='/'/> : (roles.includes('Coordinator')
+          ? <Component {...props} /> : (roles.includes('DVHRT_ADMIN')
+            ? <Redirect to='/admin'/> : <Redirect to='/'/>)))
+
   return <Route path={path} render={render} {...rest} />
 }
 
