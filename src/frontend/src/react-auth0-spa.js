@@ -38,6 +38,7 @@ export const Auth0Provider = ({
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser()
         setUser(user)
+        setRoles(user['https://jeanne-geiger-api//roles'])
       }
 
       setLoading(false)
