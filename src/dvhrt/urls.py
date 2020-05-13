@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.generic.base import RedirectView
 from api.views import *
-
+from django.conf.urls import url
 
 urlpatterns = [
 	# path('', RedirectView.as_view(url='/api/')),
