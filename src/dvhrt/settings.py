@@ -12,23 +12,26 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import django_heroku
+import dotenv
+import dj_database_url
 from rest_framework.settings import api_settings
 from corsheaders.defaults import default_headers
-
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# IMPORTANT for postgres Heroku
+dotenv_file = os.path.join(BASE_DIR, ".env")
+ENV = os.path.isfile(dotenv_file)
+if ENV:
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%37to9jwjy*x4ai*+zt@lz$rm+8hko!7l*6=o4(y-f^6#@!h1)'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [''] # for localhost running of the server
 
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',  # < As per whitenoise documentation
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_jwt',
     'corsheaders',
 ]
 
@@ -103,16 +107,8 @@ WSGI_APPLICATION = 'dvhrt.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dvhrtdb',
-        'USER': 'dvhrtdbadmin',
-        'PASSWORD': 'I_want_to_buy_a_onesie_8',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 FIXTURE_DIRS = (
@@ -152,30 +148,28 @@ USE_L10N = True
 
 USE_TZ = True
 
-django_heroku.settings(locals())
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
     ]
 }
 
 
-
 STATIC_URL = '/static/'
 
-
 # Place static in the same location as webpack build files
-
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
 REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
@@ -183,12 +177,33 @@ STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build/static')
 ]
 
-# STATICFILES_DIRS = [
-#      os.path.join(BASE_DIR, 'staticfiles')
-#  ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # If you want to serve user uploaded files add these settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'build', 'media')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
+# This is new
+del DATABASES['default']['OPTIONS']['sslmode']
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+]
+
+# auth0 settings
+JWT_ACCOUNT = 'agross09'
+
+JWT_AUTH = {
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER':
+        'api.utils.jwt_get_username_from_payload_handler',
+    'JWT_DECODE_HANDLER':
+        'api.utils.jwt_decode_token',
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_AUDIENCE': 'https://jeanne-geiger-api/',
+    'JWT_ISSUER': 'https://' + JWT_ACCOUNT + '.auth0.com/',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}

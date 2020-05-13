@@ -7,11 +7,16 @@ import { BackButton } from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import TabObj from '../../tabs.js'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 // Urls:
-const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
-const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
-const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+// const CASE_POST_URL = 'http://127.0.0.1:8000/api/cases/'
+// const COMMUNITY_LIST_URL = 'http://127.0.0.1:8000/api/communities/'
+// const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+const CASE_POST_URL = 'http://dvhrt.herokuapp.com/api/cases/'
+const COMMUNITY_LIST_URL = 'http://dvhrt.herokuapp.com/api/communities/'
+const GET_CASE_URL = 'http://dvhrt.herokuapp.com/api/one-case/'
 
 // Title to Value mappings:
 const GENDER_TITLE_TO_VALUE = { Female: 1, Male: 2, Other: 3 }
@@ -28,25 +33,33 @@ const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarcer
 const ACTIVE_TITLE_TO_VALUE = { Active: 0, Inactive: 1, Closed: 2 }
 
 class siteAddCase extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor () {
     super()
     this.state = {
       referral_sources: [],
       is_edit_case_view: false,
       case_id: [],
-      // TODO: remove hardcode
-      community_id: 1
+      community_id: null,
     }
   }
 
   componentDidMount () {
     this.setState({ is_edit_case_view: this.isEditCaseView() })
     this.showTab(0)
+    const { cookies } = this.props
+    var token = cookies.get('token')
     // TODO: add function in views.py for getting referral sources based on community id
-    fetch(COMMUNITY_LIST_URL
-    ).then(results => {
+    fetch(COMMUNITY_LIST_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(results => {
       return results.json()
     }).then(data => {
+      this.setState({community_id: data['community_id']})
       for (var i = 0; i < data.length; i++) {
         if (data[i].community_id === this.state.community_id) {
           this.setState({ referral_sources: data[i].referral_sources })
@@ -66,10 +79,13 @@ class siteAddCase extends React.Component {
 
     // Update case_id from the url
     this.setState({ case_id: vars.case_id })
+    const { cookies } = this.props
+    var token = cookies.get('token')
 
     // Get case specific info, update state and prepopulate fields
     fetch(GET_CASE_URL, {
       headers: {
+        Authorization: `Bearer ${token}`,
         caseid: vars.case_id
       }
     })
@@ -241,11 +257,12 @@ class siteAddCase extends React.Component {
     }
 
     caseInfo += '&active_status=' + activeStatus
-
+    const { cookies } = this.props
+    var token = cookies.get('token')
     var casePostRequest = new XMLHttpRequest()
     casePostRequest.open('POST', CASE_POST_URL, true)
     casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-
+    casePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
     casePostRequest.onload = function () { window.location.href = '/site/case-view?case_id=' + JSON.parse(casePostRequest.responseText).case_id }
     casePostRequest.send(caseInfo)
   }
@@ -364,4 +381,4 @@ class siteAddCase extends React.Component {
   }
 }
 
-export default siteAddCase
+export default withCookies(siteAddCase)

@@ -6,10 +6,16 @@ import editButton from './editButton.png'
 import { BackButton } from '../../Back/back.js'
 import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
-const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+// const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
+const GET_CASE_URL = 'http://dvhrt.herokuapp.com/api/one-case/'
 
 class detailView extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
   constructor () {
     super()
     this.state = {
@@ -21,9 +27,12 @@ class detailView extends React.Component {
   componentDidMount () {
     this.setState({ case_id: this.getCaseIdFromUrl() })
     this.showTab(0)
+    const { cookies } = this.props
+    var token = cookies.get('token')
     fetch(GET_CASE_URL, {
       headers: {
-        caseid: this.getCaseIdFromUrl()
+        caseid: this.getCaseIdFromUrl(),
+        Authorization: `Bearer ${token}`
       }
     })
       .then(results => { return results.json() })
@@ -308,4 +317,4 @@ class detailView extends React.Component {
   }
 }
 
-export default detailView
+export default withCookies(detailView)

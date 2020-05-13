@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
 import ObjectTable from './table.js'
-import { render } from 'react-dom'
 import styled from 'styled-components'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import Filter from '../../filters/date_filter/filter.js'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 const Wrapper = styled.div`
   display: grid;
@@ -19,14 +18,22 @@ const Wrapper = styled.div`
   grid-auto-flow: column;
   text-decoration: none;
 `
-const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
-const ABUSER_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskAbuserInfo/'
-const RISK_FACTOR_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/'
-const OUTCOME_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/'
+// const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
+// const ABUSER_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskAbuserInfo/'
+// const RISK_FACTOR_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/'
+// const OUTCOME_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/'
+const VICTIM_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTHighRiskVictimInfo/'
+const ABUSER_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTHighRiskAbuserInfo/'
+const RISK_FACTOR_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTRiskFactorCounts/'
+const OUTCOME_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTCriminalJusticeOutcomes/'
+
 
 class adminViewSite extends React.Component {
-  constructor () {
-    super()
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+  constructor (props) {
+    super(props)
     this.state = {
       victim_info: [],
       abuser_info: [],
@@ -38,7 +45,7 @@ class adminViewSite extends React.Component {
       end_date: []
     }
   }
-
+  
   componentDidMount () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -68,13 +75,18 @@ class adminViewSite extends React.Component {
     })
   }
 
+
+
   fetchTabData (url, tabName) {
+    const { cookies } = this.props
+    var token = cookies.get('token')
     fetch(
       url, {
         headers: {
           communityid: this.state.community_id,
           startdate: this.state.start_date,
-          enddate: this.state.end_date
+          enddate: this.state.end_date,
+          Authorization: `Bearer ${token}`
         }
       }
     ).then(results => {
@@ -243,4 +255,4 @@ class adminViewSite extends React.Component {
   }
 }
 
-export default adminViewSite
+export default withCookies(adminViewSite);

@@ -17,7 +17,7 @@ DVHRT’s problem is they want to move from static, insecure spreadsheets to a m
 * Trevor Russo
 * Nicole Kennedy
 * Nate Hirsch
-* Trevor Mannhertz
+* Trevor Mannherz
 * Jake Owen
 * Alessandra Jacimovic
 * Panipuck Bhengsri
