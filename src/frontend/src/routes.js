@@ -6,6 +6,7 @@ import Login from './modules/logIn'
 import adminAddSite from './modules/admin/adminAddSite'
 import adminHomepage from './modules/admin/adminHomepage'
 import adminViewSite from './modules/admin/adminViewSite'
+import adminManagePage from './modules/admin/adminManagePage'
 
 import siteOverview from './modules/coords/siteOverview'
 import detailView from './modules/coords/detailView'
@@ -26,6 +27,7 @@ export default class AppRouter extends React.Component {
             <AdminRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
             <AdminRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
             <AdminRoute exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
+            <AdminRoute exact path="/admin/manage-page" component = {adminManagePage} type = "adminmanagepage"/>
             <CoordRoute exact path="/site/edit-case" component = {siteAddCase} type = "siteAddCase"/>
             <CoordRoute exact path="/site/site-summary" component = {adminViewSite} type = "adminviewsite"/>
             <CoordRoute exact path="/site" component = {siteOverview} type = "siteView"/>

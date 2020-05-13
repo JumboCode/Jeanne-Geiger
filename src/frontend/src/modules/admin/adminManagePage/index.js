@@ -11,10 +11,11 @@ import { instanceOf } from 'prop-types';
 import Plus from './plus.png'
 import Remove from './remove.png'
 
+
 // const SITE_POST_URL = 'http://127.0.0.1:8000/api/communities/'
 const SITE_POST_URL = 'http://dvhrt.herokuapp.com/api/communities/'
 
-class adminAddSite extends React.Component {
+class adminManagePage extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
@@ -86,11 +87,11 @@ class adminAddSite extends React.Component {
   getCoordData () {
     var nameData = []
     var emailData = []
-    nameData.push(document.getElementById('coord_name_1').value)
-    emailData.push(document.getElementById('coord_email_1').value)
+    // nameData.push(document.getElementById('coord_name_1').value)
+    // emailData.push(document.getElementById('coord_email_1').value)
     for (var i = 0; i < this.state.coords.length; i++) {
-      nameData.push(document.getElementById('coord_name_' + (i + 2)).value)
-      emailData.push(document.getElementById('coord_email_' + (i + 2)).value)
+      nameData.push(document.getElementById('coord_name_' + (i + 1)).value)
+      emailData.push(document.getElementById('coord_email_' + (i + 1)).value)
     }
     return [nameData, emailData]
   }
@@ -103,11 +104,14 @@ class adminAddSite extends React.Component {
     var coordData = this.getCoordData()
     var nameData = coordData[0]
     var emailData = coordData[1]
+
+    this.state.coords.splice(0, 1);
+
     for (var i = index + 1; i < this.state.coords.length; i++) {
       document.getElementById('coord_name_' + (i + 1)).value = nameData[i + 1]
       document.getElementById('coord_email_' + (i + 1)).value = emailData[i + 1]
     }
-    this.state.coords.pop()
+
     this.setState({ coords: this.state.coords })
   }
 
@@ -115,24 +119,23 @@ class adminAddSite extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <h2 class="title">Add New Site</h2>
+        <h2 class="title">Manage Site</h2>
         <h1>{this.props.type}</h1>
         <BackButton link='/admin' />
         <form>
           <div class="container">
             <Form.Row>
               <Col>
-                <TextInputObj title='Site Name' id='site_name'/>
-                <TextInputObj title='Coordinator 1 Name' id='coord_name_1'/>
-                <TextInputObj title='Coordinator 1 Email' id='coord_email_1'/>
+                <h1>Site Name</h1>
+
                 {
                   this.state.coords.map((coords, i) => {
                     return (
                       <div key={i}>
-                        <TextInputObj title={'Coordinator ' + (i + 2) + ' Name'} id={'coord_name_' + (i + 2)} />
-                        <TextInputObj title={'Coordinator ' + (i + 2) + ' Email'} id={'coord_email_' + (i + 2)} />
+                        <TextInputObj title={'Coordinator ' + ' Name'} id={'coord_name_' + (i + 1)} />
+                        <TextInputObj title={'Coordinator ' + ' Email'} id={'coord_email_' + (i + 1)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e) => this.removeCoord(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} /></button>
                         </div>
                       </div>
                     )
@@ -173,4 +176,4 @@ class adminAddSite extends React.Component {
   }
 }
 
-export default withCookies(adminAddSite);
+export default withCookies(adminManagePage);
