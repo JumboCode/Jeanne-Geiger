@@ -1,10 +1,10 @@
 # auth0authorization/utils.py
 import json
+import os
 import jwt
 import requests
 from django.contrib.auth import authenticate
 from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH
-from boto.s3.connection import S3Connection
 from functools import wraps
 from django.http import JsonResponse
 
@@ -76,11 +76,10 @@ def get_site(request):
     return decoded.get('https://jeanne-geiger-api//site')
 
 def get_management_token():
-    s3 = S3Connection(os.environ['MANAGEMENT_CLIENT_ID'], os.environ['MANAGEMENT_CLIENT_SECRET'])
     payload = {
         "grant_type": "client_credentials",
-        "client_id": s3['MANAGEMENT_CLIENT_ID'],
-        "client_secret": s3['MANAGEMENT_CLIENT_SECRET'],
+        "client_id": os.environ['MANAGEMENT_CLIENT_ID'],
+        "client_secret": os.environ['MANAGEMENT_CLIENT_SECRET'],
         "audience": "https://agross09.auth0.com/api/v2/"
     }
     headers = { 
