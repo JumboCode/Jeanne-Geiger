@@ -31,7 +31,7 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
       ? null : (!isAuthenticated)
         ? <Redirect to='/'/> : (roles.includes('DVHRT_ADMIN')
           ? <Component {...props} /> : (roles.includes('Coordinator')
-            ? <Redirect to='/site'/> : <Redirect to='/'/>)))
+            ? <Redirect to='/site/'/> : <Redirect to='/'/>)))
 
   return <Route path={path} render={render} {...rest} />
 }
