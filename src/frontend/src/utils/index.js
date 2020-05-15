@@ -15,3 +15,11 @@ export const isLogin = () => {
 
   return false
 }
+
+// Local Domain
+// export const DOMAIN = 'http://localhost:8000/' // 'https://127.0.0.1:8000/'
+// export const DOMAIN_FRONT = 'http://localhost:3000/'
+
+// Production Domain
+export const DOMAIN = 'https://dvhrt.herokuapp.com/'
+export const DOMAIN_FRONT = 'https://dvhrt.herokuapp.com/'

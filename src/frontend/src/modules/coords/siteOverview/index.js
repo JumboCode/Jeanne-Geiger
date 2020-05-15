@@ -9,10 +9,9 @@ import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import { DOMAIN } from '../../../utils/index.js'
 
-// const CASES_URL = 'http://localhost:8000/api/CasesByCommunity/'
-const CASES_URL = 'http://dvhrt.herokuapp.com/api/CasesByCommunity/'
-
+const CASES_URL = DOMAIN + 'api/CasesByCommunity/'
 
 class siteOverview extends React.Component {
   static propTypes = {
