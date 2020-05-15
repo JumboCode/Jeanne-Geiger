@@ -10,8 +10,8 @@ import { DOMAIN_FRONT } from '../../utils/index.js'
 const Login = () => {
   const { roles, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
-  const admin_redirect = DOMAIN_FRONT + 'site/'
-  const coord_redirect = DOMAIN_FRONT + 'admin/'
+  const adminRedirect = DOMAIN_FRONT + 'site/'
+  const coordRedirect = DOMAIN_FRONT + 'admin/'
 
   return (
     <div className="login_container">
@@ -35,8 +35,8 @@ const Login = () => {
           </p1>
         </div>
         <div className="button_container">
-          <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: coord_redirect  })}>Coordinator</button>
-          <button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: admin_redirect })}>Admin</button>
+          <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: coordRedirect })}>Coordinator</button>
+          <button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: adminRedirect })}>Admin</button>
         </div>
       </div>
     </div>
