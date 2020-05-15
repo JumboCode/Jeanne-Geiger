@@ -110,7 +110,6 @@ WSGI_APPLICATION = 'dvhrt.wsgi.application'
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
-
 FIXTURE_DIRS = (
     'api/fixtures/',
 )

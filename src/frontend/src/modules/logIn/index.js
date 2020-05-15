@@ -5,18 +5,14 @@ import { ReactComponent as Logo } from './logo.svg'
 import { useAuth0 } from '../../react-auth0-spa'
 
 import { Redirect } from 'react-router-dom'
+import { DOMAIN_FRONT } from '../../utils/index.js'
 
 const Login = () => {
   const { roles, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
-  //   return (
-  //     <div className='auth0button'>
-  //       {!isAuthenticated && (
-  //         <button onClick={() => loginWithRedirect({})}>Log in Login</button>
-  //       )}
+  const adminRedirect = DOMAIN_FRONT + 'site/'
+  const coordRedirect = DOMAIN_FRONT + 'admin/'
 
-  //     </div>
-  //   )
   return (
     <div className="login_container">
       <div className="item_container">
@@ -39,8 +35,8 @@ const Login = () => {
           </p1>
         </div>
         <div className="button_container">
-          <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://dvhrt.herokuapp.com/site/' })}>Coordinator</button>
-          <button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: 'http://dvhrt.herokuapp.com/admin/' })}>Admin</button>
+          <button className="coord_button" onClick={() => loginWithRedirect({ redirect_uri: coordRedirect })}>Coordinator</button>
+          <button className="admin_button" onClick={() => loginWithRedirect({ redirect_uri: adminRedirect })}>Admin</button>
         </div>
       </div>
     </div>

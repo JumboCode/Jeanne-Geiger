@@ -8,9 +8,9 @@ import TabObj from '../../tabs.js'
 import { Row, Col } from 'react-bootstrap'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import { DOMAIN } from '../../../utils/index.js';
 
-// const GET_CASE_URL = 'http://localhost:8000/api/one-case/'
-const GET_CASE_URL = 'http://dvhrt.herokuapp.com/api/one-case/'
+const GET_CASE_URL = DOMAIN + 'api/one-case/'
 
 class detailView extends React.Component {
   static propTypes = {
