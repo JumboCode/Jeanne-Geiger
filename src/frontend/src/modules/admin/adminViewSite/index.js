@@ -8,6 +8,7 @@ import TabObj from '../../tabs.js'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import Filter from '../../filters/date_filter/filter.js'
+import { DOMAIN } from '../../../utils/index.js'
 
 const Wrapper = styled.div`
   display: grid;
@@ -18,15 +19,11 @@ const Wrapper = styled.div`
   grid-auto-flow: column;
   text-decoration: none;
 `
-// const VICTIM_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskVictimInfo/'
-// const ABUSER_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTHighRiskAbuserInfo/'
-// const RISK_FACTOR_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTRiskFactorCounts/'
-// const OUTCOME_INFO_URL = 'http://127.0.0.1:8000/api/DVHRTCriminalJusticeOutcomes/'
-const VICTIM_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTHighRiskVictimInfo/'
-const ABUSER_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTHighRiskAbuserInfo/'
-const RISK_FACTOR_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTRiskFactorCounts/'
-const OUTCOME_INFO_URL = 'http://dvhrt.herokuapp.com/api/DVHRTCriminalJusticeOutcomes/'
 
+const VICTIM_INFO_URL = DOMAIN + 'api/DVHRTHighRiskVictimInfo/'
+const ABUSER_INFO_URL = DOMAIN + 'api/DVHRTHighRiskAbuserInfo/'
+const RISK_FACTOR_INFO_URL = DOMAIN + 'api/DVHRTRiskFactorCounts/'
+const OUTCOME_INFO_URL = DOMAIN + 'api/DVHRTCriminalJusticeOutcomes/'
 
 class adminViewSite extends React.Component {
   static propTypes = {
