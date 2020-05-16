@@ -12,7 +12,7 @@ import { DOMAIN } from '../../../utils/index.js'
 import Plus from './plus.png'
 import Remove from './remove.png'
 
-const SITE_POST_URL = DOMAIN + 'api/communities/'
+const SITE_POST_URL = DOMAIN + 'api/AddCoordinator/'
 
 class adminManageSite extends React.Component {
   static propTypes = {
@@ -39,6 +39,7 @@ class adminManageSite extends React.Component {
   }
 
   doSubmit () {
+    console.log("submit")
     var f = document.getElementsByTagName('form')[0]
     if (!f.checkValidity()) {
       return
