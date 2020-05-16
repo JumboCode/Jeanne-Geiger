@@ -9,6 +9,7 @@ import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import Filter from '../../filters/date_filter/filter.js'
 import { DOMAIN } from '../../../utils/index.js'
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: grid;
@@ -147,6 +148,11 @@ class adminViewSite extends React.Component {
             <h1 class="header">{this.state.community_name}</h1>
           </div>
           <div class="col-3">
+            <Link to={"/admin/manage-site?site=" + this.state.community_id}>
+                <button type="button">
+                    Add new coordinator
+                </button>
+            </Link>
             <Filter/>
           </div>
         </div>

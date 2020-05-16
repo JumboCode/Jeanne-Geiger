@@ -10,6 +10,7 @@ urlpatterns = [
     path('one-case/', views.OneCase.as_view(), name="one-case"),
     path('CasesByCommunity/', views.CasesByCommunity.as_view(), name="CasesByCommunity"),
     path('communities/', views.CommunitiesList.as_view(), name="communities"),
+    path('CommunityData/', views.CommunityData.as_view(), name="CommunityData"),
     path('ActiveCaseCountView/', views.ActiveCaseCountView.as_view(), name="ActiveCaseCountView"),
     path('DVHRTReferalSourceView/', views.DVHRTReferalSourceView.as_view(), name="DVHRTReferalSourceView"),
     path('DVHRTHighRiskVictimInfo/', views.DVHRTHighRiskVictimInfo.as_view(), name="DVHRTHighRiskVictimInfo"),

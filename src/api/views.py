@@ -45,6 +45,22 @@ def verify_user(request, community_id):
     return False
 
 @method_decorator(requires_scope('admin'), name='post')
+class AddCoordinator(generics.ListCreateAPIView):
+    # queryset = Communities.objects.all()
+    # serializer_class = CommunitiesSerializer
+
+    def post(self, request, *args, **kwargs):
+        coordinators = json.loads(request.POST.get("coord_data"))
+        community_id = request.META.get('HTTP_COMMUNITYID')
+        management_token = get_management_token()
+        
+        for coordinator in coordinators["data"]:
+            user_id = create_user(coordinator, community_id, management_token)
+            r = set_user_roles(user_id, management_token)
+
+        return HttpResponse('Success', status=200) 
+
+@method_decorator(requires_scope('admin'), name='post')
 class CommunitiesList(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
     serializer_class = CommunitiesSerializer

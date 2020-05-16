@@ -14,16 +14,28 @@ import Remove from './remove.png'
 
 const SITE_POST_URL = DOMAIN + 'api/communities/'
 
-class adminManagePage extends React.Component {
+class adminManageSite extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
   constructor () {
     super()
+    console.log("hello")
     this.state = {
       sources: [],
       coords: []
     }
+  }
+
+  
+
+  getSiteIdFromUrl () {
+    var vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+      vars[key] = value
+    })
+    console.log("vars.site")
+    return vars.site
   }
 
   doSubmit () {
@@ -31,24 +43,15 @@ class adminManagePage extends React.Component {
     if (!f.checkValidity()) {
       return
     }
-
-    var referralSources = this.getSourceData()
+    
     var coordData = this.getCoordData()
-
-    var coordinators = coordData[0].map(function (e, i) {
-      return '{' + [e, coordData[1][i]] + '}'
-    })
-
     var coordinatorsJson = []
     coordData[0].map(function (e, i) {
       var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
       coordinatorsJson.push(coord)
     })
 
-    var siteInfo = 'community_name=' + document.getElementById('site_name').value +
-                   '&coordinators={' + coordinators + '}' +
-                   '&referral_sources={' + referralSources + '}' +
-                   '&coord_data={\"data\": [' + coordinatorsJson + ']}'
+    var siteInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
 
     const { cookies } = this.props
     var token = cookies.get('token')
@@ -57,6 +60,7 @@ class adminManagePage extends React.Component {
     sitePostRequest.open('POST', SITE_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
+    sitePostRequest.setRequestHeader('COMMUNITYID', this.getSiteIdFromUrl())
     sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
   }
@@ -175,4 +179,4 @@ class adminManagePage extends React.Component {
   }
 }
 
-export default withCookies(adminManagePage);
+export default withCookies(adminManageSite);
