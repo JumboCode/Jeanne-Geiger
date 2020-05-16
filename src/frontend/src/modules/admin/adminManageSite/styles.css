@@ -1,0 +1,19 @@
+.container {
+    margin: 10px !important;
+  }
+
+.add_a_coord_button {
+    left: 50%;
+    bottom: 70%;
+    background-color: #333;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 11em;
+    height: 2em;
+    border-radius: 1em;
+    margin: 0.5em;
+}

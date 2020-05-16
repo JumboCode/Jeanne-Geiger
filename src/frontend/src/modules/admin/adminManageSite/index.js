@@ -20,7 +20,6 @@ class adminManageSite extends React.Component {
   };
   constructor () {
     super()
-    console.log("hello")
     this.state = {
       sources: [],
       coords: []
@@ -34,15 +33,11 @@ class adminManageSite extends React.Component {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
     })
-    console.log(vars.site)
     return vars.site
   }
 
   doSubmit () {
-    console.log("submit")
     var f = document.getElementsByTagName('form')[0]
-    console.log(f)
-    console.log(f.checkValidity());
     if (!f.checkValidity()) {
       return
     }
@@ -61,7 +56,6 @@ class adminManageSite extends React.Component {
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', SITE_POST_URL, true)
-    console.log("creating post opened")
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
     sitePostRequest.setRequestHeader('COMMUNITYID', this.getSiteIdFromUrl())
