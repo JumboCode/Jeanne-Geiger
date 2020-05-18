@@ -10,8 +10,8 @@ import { DOMAIN_FRONT } from '../../utils/index.js'
 const Login = () => {
   const { roles, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
-  const adminRedirect = DOMAIN_FRONT + 'site/'
-  const coordRedirect = DOMAIN_FRONT + 'admin/'
+  const coordRedirect = DOMAIN_FRONT + 'site/'
+  const adminRedirect = DOMAIN_FRONT + 'admin/'
 
   return (
     <div className="login_container">
