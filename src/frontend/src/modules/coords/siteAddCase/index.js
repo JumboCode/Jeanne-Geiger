@@ -52,7 +52,7 @@ class siteAddCase extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({ is_edit_case_view: this.isEditCaseView()})
+    this.setState({ is_edit_case_view: this.isEditCaseView() })
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
@@ -236,7 +236,7 @@ class siteAddCase extends React.Component {
     if (!f.checkValidity()) {
       return
     }
-    var activeStatus = 'True'
+    var activeStatus = 0
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
