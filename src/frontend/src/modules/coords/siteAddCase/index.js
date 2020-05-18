@@ -53,8 +53,6 @@ class siteAddCase extends React.Component {
 
   componentDidMount () {
     this.setState({ is_edit_case_view: this.isEditCaseView()})
-    console.log("Checking the community_id in siteAddCase")
-    console.log(this.state.community_id)
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
@@ -67,13 +65,7 @@ class siteAddCase extends React.Component {
     }).then(results => {
       return results.json()
     }).then(data => {
-      console.log(data)
       this.setState({referral_sources: data})
-      // for (var i = 0; i < data.length; i++) {
-      //   if (data[i].community_id === this.state.community_id) {
-      //     this.setState({ referral_sources: data[i].referral_sources })
-      //  }
-      //}
     })
   }
 
@@ -230,8 +222,6 @@ class siteAddCase extends React.Component {
     for (var i = 0; i < selectedOpts.length; i++) {
       ethnicities.push(parseInt(selectedOpts[i].value))
     }
-    console.log(document.getElementById(raceEthnicity).selectedOptions)
-    console.log(ethnicities)
     return name + '=' + document.getElementById(name).value +
             '&' + DOB + '=' + document.getElementById(DOB).value +
             '&' + gender + '=' + document.getElementById(gender).value +
