@@ -54,7 +54,7 @@ class ReferralSources(generics.ListCreateAPIView):
         community_id = request.META.get("HTTP_COMMUNITYID")
         queryset = Communities.objects.filter(community_id=community_id)
         serializer_class = CommunitiesSerializer(queryset, many=True)
-        return Response(serializer_class.data)
+        return Response(serializer_class.data[0]["referral_sources"])
 
 
     def post(self, request, *args, **kwargs):
