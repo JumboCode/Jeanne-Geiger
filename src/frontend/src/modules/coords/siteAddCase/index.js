@@ -43,16 +43,16 @@ class siteAddCase extends React.Component {
     }
   }
 
-  getCommIdFromUrl () {
+  getComIdFromUrl () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
     })
-    return vars.community_id
+    return vars.com_id
   }
 
   componentDidMount () {
-    this.setState({ is_edit_case_view: this.isEditCaseView(), community_id: this.getCommIdFromUrl()})
+    this.setState({ is_edit_case_view: this.isEditCaseView(), community_id: this.getComIdFromUrl()})
     console.log("Checking the community_id in siteAddCase")
     console.log(this.state.community_id)
     this.showTab(0)
