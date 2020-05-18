@@ -12,7 +12,7 @@ import { instanceOf } from 'prop-types';
 import { DOMAIN } from '../../../utils/index.js'
 
 const CASE_POST_URL = DOMAIN + 'api/cases/'
-const COMMUNITY_LIST_URL = DOMAIN + 'api/communities/'
+const REFERRAL_SOURCES_URL = DOMAIN + 'api/ReferralSources/'
 const GET_CASE_URL = DOMAIN + 'api/one-case/'
 
 // Title to Value mappings:
@@ -43,25 +43,38 @@ class siteAddCase extends React.Component {
     }
   }
 
+  getCommIdFromUrl () {
+    var vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+      vars[key] = value
+    })
+    return vars.community_id
+  }
+
   componentDidMount () {
-    this.setState({ is_edit_case_view: this.isEditCaseView() })
+    this.setState({ is_edit_case_view: this.isEditCaseView(), community_id: this.getCommIdFromUrl()})
+    console.log("Checking the community_id in siteAddCase")
+    console.log(this.state.community_id)
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
     // TODO: add function in views.py for getting referral sources based on community id
-    fetch(COMMUNITY_LIST_URL, {
+
+    fetch(REFERRAL_SOURCES_URL, {
       headers: {
+        communityid: this.state.community_id,
         Authorization: `Bearer ${token}`
       }
     }).then(results => {
       return results.json()
     }).then(data => {
-      this.setState({community_id: data['community_id']})
-      for (var i = 0; i < data.length; i++) {
-        if (data[i].community_id === this.state.community_id) {
-          this.setState({ referral_sources: data[i].referral_sources })
-        }
-      }
+      console.log(data)
+      this.setState({referral_sources: data})
+      // for (var i = 0; i < data.length; i++) {
+      //   if (data[i].community_id === this.state.community_id) {
+      //     this.setState({ referral_sources: data[i].referral_sources })
+      //  }
+      //}
     })
   }
 
