@@ -39,7 +39,7 @@ class siteAddCase extends React.Component {
       referral_sources: [],
       is_edit_case_view: false,
       case_id: [],
-      community_id: null,
+      community_id: this.getComIdFromUrl()
     }
   }
 
@@ -52,13 +52,12 @@ class siteAddCase extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({ is_edit_case_view: this.isEditCaseView(), community_id: this.getComIdFromUrl()})
+    this.setState({ is_edit_case_view: this.isEditCaseView()})
     console.log("Checking the community_id in siteAddCase")
     console.log(this.state.community_id)
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
-    // TODO: add function in views.py for getting referral sources based on community id
 
     fetch(REFERRAL_SOURCES_URL, {
       headers: {
