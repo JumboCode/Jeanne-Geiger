@@ -67,24 +67,23 @@ class OneCommunity(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
-        queryset = Communities.objects.get(community_id=community_id)
+        queryset = Communities.objects.filter(community_id=community_id)
         serializer_class = CommunitiesSerializer(queryset, many=True)
-        return Response(serializer_class.data)
+        return Response(serializer_class.data[0])
 
     def post(self, request, *args, **kwargs):
         community_id = request.POST.get("community_id")
         try:
-          communityData = Communities.objects.get(community_id=community_id)
-          print(communityData)
-          communityData.community_name = request.POST.get("community_name")
-        #   communityData.coordinators = request.POST.get("coordinators")
-          communityData.referral_sources = request.POST.get("referral_sources")
-          communityData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
-          communityData.save()
-          
+          communityData = Communities.objects.filter(community_id=community_id)[0]
         except:
             return HttpResponse('Not Found', status=404) 
-            
+
+        print(communityData)
+        communityData.community_name = request.POST.get("community_name")
+    #   communityData.coordinators = request.POST.get("coordinators")
+        communityData.referral_sources = request.POST.get("referral_sources")
+        communityData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
+        communityData.save() 
         return HttpResponse('Success', status=200)
 
 @method_decorator(requires_scope('admin'), name='post')
