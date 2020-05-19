@@ -20,8 +20,8 @@ from .models import *
 from .utils import *
 import http.client
 import requests
-
 import datetime
+
 def date_range(request):
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
@@ -43,6 +43,42 @@ def verify_user(request, community_id):
         if coord_email in coord:
             return True
     return False
+
+@method_decorator(requires_scope('admin'), name='post')
+@method_decorator(requires_scope('coord'), name='get')
+class ReferralSources(generics.ListCreateAPIView):
+    queryset = Communities.objects.all()
+    serializer_class = CommunitiesSerializer
+
+    def get(self, request, *args, **kwargs):
+        community_id = request.META.get("HTTP_COMMUNITYID")
+        queryset = Communities.objects.filter(community_id=community_id)
+        serializer_class = CommunitiesSerializer(queryset, many=True)
+        return Response(serializer_class.data[0]["referral_sources"])
+
+
+    def post(self, request, *args, **kwargs):
+        # get_community_id = request.POST.get("community_id")
+        # try:
+        #   communityData = Communities.objects.get(community_id=get_community_id)
+        # except:
+        #     communityData = Communities(
+        #         community_name = request.POST.get("community_name"),
+        #         coordinators = request.POST.get("coordinators"),
+        #         referral_sources = request.POST.get("referral_sources"),
+        #         date_created = datetime.datetime.today().strftime('%Y-%m-%d'),
+        #         last_updated = datetime.datetime.today().strftime('%Y-%m-%d'),
+        #     )
+        #     communityData.save()
+        #     coordinators = json.loads(request.POST.get("coord_data"))
+        #     management_token = get_management_token()
+            
+        #     for coordinator in coordinators["data"]:
+        #         user_id = create_user(coordinator, communityData.community_id, management_token)
+        #         r = set_user_roles(user_id, management_token)
+            
+        # return JsonResponse({'community_id' : communityData.community_id})
+        return HttpResponse('Incomplete!', status=500) 
 
 @method_decorator(requires_scope('admin'), name='post')
 class CommunitiesList(generics.ListCreateAPIView):

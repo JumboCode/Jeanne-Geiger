@@ -12,7 +12,7 @@ import { instanceOf } from 'prop-types';
 import { DOMAIN } from '../../../utils/index.js'
 
 const CASE_POST_URL = DOMAIN + 'api/cases/'
-const COMMUNITY_LIST_URL = DOMAIN + 'api/communities/'
+const REFERRAL_SOURCES_URL = DOMAIN + 'api/ReferralSources/'
 const GET_CASE_URL = DOMAIN + 'api/one-case/'
 
 // Title to Value mappings:
@@ -39,8 +39,16 @@ class siteAddCase extends React.Component {
       referral_sources: [],
       is_edit_case_view: false,
       case_id: [],
-      community_id: null,
+      community_id: this.getComIdFromUrl()
     }
+  }
+
+  getComIdFromUrl () {
+    var vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+      vars[key] = value
+    })
+    return vars.com_id
   }
 
   componentDidMount () {
@@ -48,20 +56,16 @@ class siteAddCase extends React.Component {
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
-    // TODO: add function in views.py for getting referral sources based on community id
-    fetch(COMMUNITY_LIST_URL, {
+
+    fetch(REFERRAL_SOURCES_URL, {
       headers: {
+        communityid: this.state.community_id,
         Authorization: `Bearer ${token}`
       }
     }).then(results => {
       return results.json()
     }).then(data => {
-      this.setState({community_id: data['community_id']})
-      for (var i = 0; i < data.length; i++) {
-        if (data[i].community_id === this.state.community_id) {
-          this.setState({ referral_sources: data[i].referral_sources })
-        }
-      }
+      this.setState({referral_sources: data})
     })
   }
 
@@ -218,8 +222,6 @@ class siteAddCase extends React.Component {
     for (var i = 0; i < selectedOpts.length; i++) {
       ethnicities.push(parseInt(selectedOpts[i].value))
     }
-    console.log(document.getElementById(raceEthnicity).selectedOptions)
-    console.log(ethnicities)
     return name + '=' + document.getElementById(name).value +
             '&' + DOB + '=' + document.getElementById(DOB).value +
             '&' + gender + '=' + document.getElementById(gender).value +
@@ -234,7 +236,7 @@ class siteAddCase extends React.Component {
     if (!f.checkValidity()) {
       return
     }
-    var activeStatus = 'True'
+    var activeStatus = 0
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
