@@ -67,14 +67,15 @@ class OneCommunity(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
-        queryset = Communities.objects.filter(community_id=community_id)
+        queryset = Communities.objects.get(community_id=community_id)
         serializer_class = CommunitiesSerializer(queryset, many=True)
-        return Response(serializer_class.data[0])
+        return Response(serializer_class.data)
 
     def post(self, request, *args, **kwargs):
         community_id = request.POST.get("community_id")
         try:
-          communityData = Communities.objects.filter(community_id=community_id)
+          communityData = Communities.objects.get(community_id=community_id)
+          print(communityData)
           communityData.community_name = request.POST.get("community_name")
         #   communityData.coordinators = request.POST.get("coordinators")
           communityData.referral_sources = request.POST.get("referral_sources")
