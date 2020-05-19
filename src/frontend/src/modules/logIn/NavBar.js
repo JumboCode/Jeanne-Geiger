@@ -13,7 +13,6 @@ import detailView from '../coords/detailView'
 import siteAddCase from '../coords/siteAddCase'
 
 import { useAuth0 } from '../../react-auth0-spa.js'
-import Test from './../../test.js'
 import Login from './index.js'
 
 const NavBar = () => {
@@ -31,7 +30,6 @@ const NavBar = () => {
         <span>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/test" component = {Test} type = "test"/>
               <Route exact path="/" component = {Login} type = "login"/>
               <AdminRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
               <AdminRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
