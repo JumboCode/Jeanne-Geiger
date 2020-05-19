@@ -11,6 +11,8 @@ import adminManagePage from '../admin/adminManagePage'
 import siteOverview from '../coords/siteOverview'
 import detailView from '../coords/detailView'
 import siteAddCase from '../coords/siteAddCase'
+import notFound from './NotFound.js'
+import NavigationBar from '../navbar/NavigationBar.js'
 
 import { useAuth0 } from '../../react-auth0-spa.js'
 import Login from './index.js'
@@ -20,12 +22,6 @@ const NavBar = () => {
 
   return (
     <div className='auth0button'>
-      {/* {!isAuthenticated && (
-        <button onClick={() => loginWithRedirect({redirect_uri: 'http://localhost:3000/site'})}>Log in NavBar</button>
-      )} */}
-
-      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-
       {(
         <span>
           <BrowserRouter>
@@ -40,6 +36,7 @@ const NavBar = () => {
               <CoordRoute exact path="/site/site-summary" component = {adminViewSite} type = "adminviewsite"/>
               <CoordRoute exact path="/site/case-view" component = {detailView} type = "detailView"/>
               <CoordRoute exact path="/site/add-case" component = {siteAddCase} type = "siteAddCase"/>
+              <Route path="*" component = {notFound} type = "404" />
             </Switch>
           </BrowserRouter>
         </span>
