@@ -13,6 +13,8 @@ import Plus from './plus.png'
 import Remove from './remove.png'
 
 const SITE_POST_URL = DOMAIN + 'api/AddCoordinator/'
+const GET_REFFERAL_SOURCES_URL = DOMAIN + 'api/ReferralSource/'
+const POST_REFERRAL_SOURCES_URL = DOMAIN + 'api/ReferralSource/'
 
 class adminManageSite extends React.Component {
   static propTypes = {
@@ -21,19 +23,53 @@ class adminManageSite extends React.Component {
   constructor () {
     super()
     this.state = {
+      is_edit_site_view: false,
+      community_id: this.getSiteIdFromUrl(),
       sources: [],
-      coords: []
+      coords: [],
+      data_referral_sources: []
     }
   }
 
-  
+  componentDidMount () {
+    this.setState({ is_edit_site_view: this.isEditSiteView() })
+  }
+
+  isEditSiteView () {
+    const { cookies } = this.props
+    var token = cookies.get('token')
+
+    // Get referral sources, update state and prepopulate fields
+    fetch(GET_REFFERAL_SOURCES_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          communityid: this.state.community_id
+        }
+      })
+      // .then(results => { return results.json() }) // uncomment when backend works 
+      .then(data => this.setState({ data_referral_sources: ["one", "two", "three"] })) // change hard code to data after backend works
+      .then(() => this.prepopulate())
+
+    return true
+  }
 
   getSiteIdFromUrl () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
     })
-    return vars.site
+    return vars.com_id
+  }
+
+  prepopulate () {
+    // site name prepopulate FIX
+    document.getElementById('site_name').value = "site name"
+
+    // referral source prepopulate
+    for (var i = 0; i < this.state.data_referral_sources.length; i++) {
+        if (i > 0) document.getElementById("add-referral").click();
+        document.getElementById('referral_' + (i + 1)).value = this.state.data_referral_sources[i]
+    }
   }
 
   doSubmit () {
@@ -41,7 +77,8 @@ class adminManageSite extends React.Component {
     if (!f.checkValidity()) {
       return
     }
-    
+
+    // add coordinators post request
     var coordData = this.getCoordData()
     var coordinatorsJson = []
     coordData[0].map(function (e, i) {
@@ -58,32 +95,46 @@ class adminManageSite extends React.Component {
     sitePostRequest.open('POST', SITE_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
-    sitePostRequest.setRequestHeader('COMMUNITYID', this.getSiteIdFromUrl())
+    sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
+    // sitePostRequest.onload = function () { window.location.href = '/admin' }
+    sitePostRequest.send(siteInfo)
+
+    // edit referral sources post request
+    var referralSources = this.getSourceData()
+
+    siteInfo = 'community_name=' + document.getElementById('site_name').value +
+                '&referral_sources={' + referralSources + '}'
+
+    var sitePostRequest = new XMLHttpRequest()
+    sitePostRequest.open('POST', POST_REFERRAL_SOURCES_URL, true)
+    sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
+    sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
     sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
   }
 
-//   getSourceData () {
-//     var data = []
-//     data.push(document.getElementById('referral_1').value)
-//     for (var i = 0; i < this.state.sources.length; i++) {
-//       data.push(document.getElementById('referral_' + (i + 2)).value)
-//     }
-//     return data
-//   }
+  getSourceData () {
+    var data = []
+    data.push(document.getElementById('referral_1').value)
+    for (var i = 0; i < this.state.sources.length; i++) {
+      data.push(document.getElementById('referral_' + (i + 2)).value)
+    }
+    return data
+  }
 
-//   addSource () {
-//     this.setState({ sources: [...this.state.sources, ''] })
-//   }
+  addSource () {
+    this.setState({ sources: [...this.state.sources, ''] })
+  }
 
-//   removeSource (index) {
-//     var data = this.getSourceData()
-//     for (var i = index + 1; i < this.state.sources.length; i++) {
-//       document.getElementById('referral_' + (i + 1)).value = data[i + 1]
-//     }
-//     this.state.sources.pop()
-//     this.setState({ sources: this.state.sources })
-//   }
+  removeSource (index) {
+    var data = this.getSourceData()
+    for (var i = index + 1; i < this.state.sources.length; i++) {
+      document.getElementById('referral_' + (i + 1)).value = data[i + 1]
+    }
+    this.state.sources.pop()
+    this.setState({ sources: this.state.sources })
+  }
 
   getCoordData () {
     var nameData = []
@@ -127,8 +178,7 @@ class adminManageSite extends React.Component {
           <div class="container">
             <Form.Row>
               <Col>
-                <h1>Site Name</h1>
-
+                <TextInputObj title='Site Name' id='site_name'/>
                 {
                   this.state.coords.map((coords, i) => {
                     return (
@@ -146,7 +196,7 @@ class adminManageSite extends React.Component {
                   <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
                 </div>
               </Col>
-              {/* <Col>
+              <Col>
                 <TextInputObj class="referral" title='Referral Source 1' id='referral_1' />
                 {
                   this.state.sources.map((source, i) => {
@@ -154,17 +204,16 @@ class adminManageSite extends React.Component {
                       <div key={i}>
                         <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+                  <button id="add-referral" class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
                 </div>
-
-              </Col> */}
+              </Col>
             </Form.Row>
           </div>
         </form>
