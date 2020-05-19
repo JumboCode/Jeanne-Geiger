@@ -74,7 +74,7 @@ class OneCommunity(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         community_id = request.POST.get("community_id")
         try:
-          communityData = Communities.objects.get(community_id=community_id)
+          communityData = Communities.objects.filter(community_id=community_id)
           communityData.community_name = request.POST.get("community_name")
         #   communityData.coordinators = request.POST.get("coordinators")
           communityData.referral_sources = request.POST.get("referral_sources")

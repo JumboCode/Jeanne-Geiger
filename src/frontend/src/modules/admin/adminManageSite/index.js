@@ -108,6 +108,7 @@ class adminManageSite extends React.Component {
     sitePostRequest.open('POST', ONE_COMMUNITY_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
+    console.log(this.state.community_id);
     sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
     // sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
