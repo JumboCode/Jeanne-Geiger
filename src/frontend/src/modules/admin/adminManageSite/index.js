@@ -24,7 +24,7 @@ class adminManageSite extends React.Component {
     super()
     this.state = {
       is_edit_site_view: false,
-      community_id: this.getSiteIdFromUrl(),
+      community_id: this.getComIdFromUrl(),
       sources: [],
       coords: [],
       data_referral_sources: []
@@ -53,7 +53,7 @@ class adminManageSite extends React.Component {
     return true
   }
 
-  getSiteIdFromUrl () {
+  getComIdFromUrl () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
