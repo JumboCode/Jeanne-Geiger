@@ -12,7 +12,7 @@ import { instanceOf } from 'prop-types';
 import { DOMAIN } from '../../../utils/index.js'
 
 const CASE_POST_URL = DOMAIN + 'api/cases/'
-const REFERRAL_SOURCES_URL = DOMAIN + 'api/ReferralSources/'
+const REFERRAL_SOURCES_URL = DOMAIN + 'api/OneCommunity/'
 const GET_CASE_URL = DOMAIN + 'api/one-case/'
 
 // Title to Value mappings:
@@ -65,7 +65,7 @@ class siteAddCase extends React.Component {
     }).then(results => {
       return results.json()
     }).then(data => {
-      this.setState({referral_sources: data})
+      this.setState({referral_sources: data["referral_sources"]})
     })
   }
 

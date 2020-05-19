@@ -81,17 +81,6 @@ class OneCommunity(generics.ListCreateAPIView):
         communityData.save() 
         return HttpResponse('Success', status=200)
 
-@method_decorator(requires_scope('coord'), name='get')
-class ReferralSources(generics.ListCreateAPIView):
-    queryset = Communities.objects.all()
-    serializer_class = CommunitiesSerializer
-
-    def get(self, request, *args, **kwargs):
-        community_id = request.META.get("HTTP_COMMUNITYID")
-        queryset = Communities.objects.filter(community_id=community_id)
-        serializer_class = CommunitiesSerializer(queryset, many=True)
-        return Response(serializer_class.data[0]["referral_sources"])
-
 @method_decorator(requires_scope('admin'), name='post')
 class CommunitiesList(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
