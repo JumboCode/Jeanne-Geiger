@@ -336,7 +336,7 @@ class siteOverview extends React.Component {
           </div>
           <div class="col-4">
             <div class="stack row">
-              <a href="/site/add-case">
+              <a href={"/site/add-case?com_id=" + this.state.community_id}>
                 <div class="add_a_case">Add a Case +</div>
               </a>
             </div>

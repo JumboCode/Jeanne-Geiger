@@ -20,8 +20,8 @@ from .models import *
 from .utils import *
 import http.client
 import requests
-
 import datetime
+
 def date_range(request):
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
@@ -46,9 +46,6 @@ def verify_user(request, community_id):
 
 @method_decorator(requires_scope('admin'), name='post')
 class AddCoordinator(generics.ListCreateAPIView):
-    # queryset = Communities.objects.all()
-    # serializer_class = CommunitiesSerializer
-
     def post(self, request, *args, **kwargs):
         coordinators = json.loads(request.POST.get("coord_data"))
         community_id = request.META.get('HTTP_COMMUNITYID')
@@ -83,6 +80,17 @@ class OneCommunity(generics.ListCreateAPIView):
         communityData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
         communityData.save() 
         return HttpResponse('Success', status=200)
+
+@method_decorator(requires_scope('coord'), name='get')
+class ReferralSources(generics.ListCreateAPIView):
+    queryset = Communities.objects.all()
+    serializer_class = CommunitiesSerializer
+
+    def get(self, request, *args, **kwargs):
+        community_id = request.META.get("HTTP_COMMUNITYID")
+        queryset = Communities.objects.filter(community_id=community_id)
+        serializer_class = CommunitiesSerializer(queryset, many=True)
+        return Response(serializer_class.data[0]["referral_sources"])
 
 @method_decorator(requires_scope('admin'), name='post')
 class CommunitiesList(generics.ListCreateAPIView):
