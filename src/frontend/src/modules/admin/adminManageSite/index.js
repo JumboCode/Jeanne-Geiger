@@ -12,9 +12,8 @@ import { DOMAIN } from '../../../utils/index.js'
 import Plus from './plus.png'
 import Remove from './remove.png'
 
-const SITE_POST_URL = DOMAIN + 'api/AddCoordinator/'
-const GET_REFFERAL_SOURCES_URL = DOMAIN + 'api/ReferralSource/'
-const POST_REFERRAL_SOURCES_URL = DOMAIN + 'api/ReferralSource/'
+const COORDINATOR_POST_URL = DOMAIN + 'api/AddCoordinator/'
+const ONE_COMMUNITY_URL = DOMAIN + 'api/OneCommunity/'
 
 class adminManageSite extends React.Component {
   static propTypes = {
@@ -27,7 +26,7 @@ class adminManageSite extends React.Component {
       community_id: this.getComIdFromUrl(),
       sources: [],
       coords: [],
-      data_referral_sources: []
+      original_data: null
     }
   }
 
@@ -40,14 +39,14 @@ class adminManageSite extends React.Component {
     var token = cookies.get('token')
 
     // Get referral sources, update state and prepopulate fields
-    fetch(GET_REFFERAL_SOURCES_URL, {
+    fetch(ONE_COMMUNITY_URL, {
         headers: {
           Authorization: `Bearer ${token}`,
           communityid: this.state.community_id
         }
       })
-      // .then(results => { return results.json() }) // uncomment when backend works 
-      .then(data => this.setState({ data_referral_sources: ["one", "two", "three"] })) // change hard code to data after backend works
+      .then(results => { return results.json() })
+      .then(data => this.setState({ original_data: data }))
       .then(() => this.prepopulate())
 
     return true
@@ -62,13 +61,13 @@ class adminManageSite extends React.Component {
   }
 
   prepopulate () {
-    // site name prepopulate FIX
-    document.getElementById('site_name').value = "site name"
+    // site name prepopulate
+    document.getElementById('site_name').value = this.state.original_data['referral_sources']
 
     // referral source prepopulate
-    for (var i = 0; i < this.state.data_referral_sources.length; i++) {
+    for (var i = 0; i < this.state.original_data["referral_sources"].length; i++) {
         if (i > 0) document.getElementById("add-referral").click();
-        document.getElementById('referral_' + (i + 1)).value = this.state.data_referral_sources[i]
+        document.getElementById('referral_' + (i + 1)).value = this.state.original_data["referral_sources"][i]
     }
   }
 
@@ -78,6 +77,9 @@ class adminManageSite extends React.Component {
       return
     }
 
+    const { cookies } = this.props
+    var token = cookies.get('token')
+
     // add coordinators post request
     var coordData = this.getCoordData()
     var coordinatorsJson = []
@@ -85,28 +87,22 @@ class adminManageSite extends React.Component {
       var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
       coordinatorsJson.push(coord)
     })
-
-    var siteInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
-
-    const { cookies } = this.props
-    var token = cookies.get('token')
+    var coordInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
 
     var sitePostRequest = new XMLHttpRequest()
-    sitePostRequest.open('POST', SITE_POST_URL, true)
+    sitePostRequest.open('POST', COORDINATOR_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
     sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
-    // sitePostRequest.onload = function () { window.location.href = '/admin' }
-    sitePostRequest.send(siteInfo)
+    sitePostRequest.send(coordInfo)
 
-    // edit referral sources post request
+    // edit site post request
     var referralSources = this.getSourceData()
-
-    siteInfo = 'community_name=' + document.getElementById('site_name').value +
-                '&referral_sources={' + referralSources + '}'
+    var siteInfo = 'community_name=' + document.getElementById('site_name').value +
+                   '&referral_sources={' + referralSources + '}'
 
     var sitePostRequest = new XMLHttpRequest()
-    sitePostRequest.open('POST', POST_REFERRAL_SOURCES_URL, true)
+    sitePostRequest.open('POST', ONE_COMMUNITY_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
     sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
@@ -195,6 +191,7 @@ class adminManageSite extends React.Component {
                 <div class="buttons">
                   <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
                 </div>
+                To delete or edit coordinators, please go to <a href='https://auth0.com' target="_blank">Auth0</a>.
               </Col>
               <Col>
                 <TextInputObj class="referral" title='Referral Source 1' id='referral_1' />

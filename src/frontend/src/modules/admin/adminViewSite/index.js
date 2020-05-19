@@ -149,8 +149,8 @@ class adminViewSite extends React.Component {
           </div>
           <div class="col-3">
             <Link to={"/admin/manage-site?com_id=" + this.state.community_id}>
-                <button type="button" class="add_a_coord_button">
-                    Add new coordinator +
+                <button type="button" class="edit_site_button">
+                    Edit Site
                 </button>
             </Link>
             <Filter/>
