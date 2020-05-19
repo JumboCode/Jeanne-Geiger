@@ -62,7 +62,6 @@ class adminManageSite extends React.Component {
 
   prepopulate () {
     // site name prepopulate
-    console.log(this.state.original_data);
     document.getElementById('site_name').value = this.state.original_data['community_name']
 
     // referral source prepopulate
@@ -89,7 +88,6 @@ class adminManageSite extends React.Component {
       coordinatorsJson.push(coord)
     })
     var coordInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
-    console.log(coordInfo);
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', COORDINATOR_POST_URL, true)
@@ -102,18 +100,14 @@ class adminManageSite extends React.Component {
     var referralSources = this.getSourceData()
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
                    '&referral_sources={' + referralSources + '}'
-    console.log(siteInfo);
-    alert();
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', ONE_COMMUNITY_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
-    console.log(this.state.community_id);
     sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
-    // sitePostRequest.onload = function () { window.location.href = '/admin' }
+    sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
-    console.log(sitePostRequest.response);
   }
 
   getSourceData () {
