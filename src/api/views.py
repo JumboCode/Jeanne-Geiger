@@ -60,7 +60,7 @@ class AddCoordinator(generics.ListCreateAPIView):
 
         return HttpResponse('Success', status=200) 
 
-@method_decorator(requires_scope('coord'), name='post')
+@method_decorator(requires_scope('admin'), name='post')
 class OneCommunity(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
     serializer_class = CommunitiesSerializer
