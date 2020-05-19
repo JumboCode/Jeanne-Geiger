@@ -62,7 +62,7 @@ class adminManageSite extends React.Component {
 
   prepopulate () {
     // site name prepopulate
-    document.getElementById('site_name').value = this.state.original_data['referral_sources']
+    document.getElementById('site_name').value = this.state.original_data['community_name']
 
     // referral source prepopulate
     for (var i = 0; i < this.state.original_data["referral_sources"].length; i++) {
