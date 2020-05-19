@@ -42,7 +42,7 @@ class adminViewSite extends React.Component {
       end_date: []
     }
   }
-  
+
   componentDidMount () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -89,7 +89,9 @@ class adminViewSite extends React.Component {
     ).then(results => {
       return results.text()
     }).then(text => {
-      this.doSetState(tabName, JSON.parse(text))
+        //FIX THIS ******************************************************
+        console.log(text);
+      //this.doSetState(tabName, JSON.parse(text))
     })
   }
 
@@ -155,95 +157,165 @@ class adminViewSite extends React.Component {
 
         <div id='Victim' className='tabcontent'>
           <Wrapper>
-            <ObjectTable Title = "Gender" total={this.state.victim_info['Total Gender Count']} tableRows = {[
+            <div className='victim_table'>
+            <div className='title'>
+                DVHRT High Risk Victim Information
+            </div>
+            <ObjectTable tableRows = {[
               ['Female', this.state.victim_info.Female],
               ['Male', this.state.victim_info.Male],
-              ['Other', this.state.victim_info.Other],
-              ['Total', this.state.victim_info['Total Gender Count']]]}/>
-            <ObjectTable Title = "Race/Ethnicity" total={this.state.victim_info['Total Ethnicity Count']} tableRows = {[
+              ['Other', this.state.victim_info.Other]]}/>
+            <div className='total'>
+                Total: {this.state.victim_info['Total Gender Count']}
+            </div>
+            </div>
+            <div className='victim_table'>
+            <div className='title'>
+                Victim Race/Ethnicity
+            </div>
+            <ObjectTable tableRows = {[
               ['American Indian/Alaska Native', this.state.victim_info['American Indian/Alaska Native']],
               ['Asian', this.state.victim_info.Asian],
               ['Black/African American', this.state.victim_info['Black/African American']],
               ['Hispanic or Latino', this.state.victim_info['Hispanic or Latino']],
               ['Native Hawaiian/Pacific Islander', this.state.victim_info['Native Hawaiian/Pacific Islander']],
               ['White', this.state.victim_info.White],
-              ['Unknown', this.state.victim_info['Other/Unknown']],
-              ['Total', this.state.victim_info['Total Ethnicity Count']]]}/>
-            <ObjectTable Title = "Domestic Violence Service Utilization"
-              total={this.state.victim_info.total}
+              ['Unknown', this.state.victim_info['Other/Unknown']]]}/>
+            <div className='total'>
+                Total: {this.state.victim_info['Total Ethnicity Count']}
+            </div>
+            </div>
+            <div className='victim_table'>
+            <div className='title'>
+                Victim Race/Ethnicity
+            </div>
+            <ObjectTable
               tableRows = {[
                 ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
-                ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services],
-                ['Total', this.state.victim_info.total]]}/>
+                ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
+            <div className='total'>
+                Total: {this.state.victim_info.total}
+            </div>
+            </div>
           </Wrapper>
         </div>
 
         <div id='Abuser' className='tabcontent'>
           <Wrapper>
-            <ObjectTable Title="Gender" total={this.state.abuser_info['Total Gender Count']} tableRows = {[
-              ['Female', this.state.abuser_info.Female],
-              ['Male', this.state.abuser_info.Male],
-              ['Other', this.state.abuser_info.Other],
-              ['Total', this.state.abuser_info['Total Gender Count']]]}/>
-            <ObjectTable Title="Race/Ethnicity" total={this.state.abuser_info['Total Count']} tableRows = {[
-              ['American Indian/Alaska Native', this.state.abuser_info['American Indian/Alaska Native']],
-              ['Asian', this.state.abuser_info.Asian],
-              ['Black/African American', this.state.abuser_info['Black/African American']],
-              ['Hispanic or Latino', this.state.abuser_info['Hispanic or Latino']],
-              ['Native Hawaiian/Pacific Islander', this.state.abuser_info['Native Hawaiian/Pacific Islander']],
-              ['White', this.state.abuser_info.White],
-              ['Unknown', this.state.abuser_info['Other/Unknown']],
-              ['Total', this.state.abuser_info['Total Count']]]}/>
+              <div className='abuser_table'>
+              <div className='title'>
+                  DVHRT High Risk Victim Information
+              </div>
+              <ObjectTable tableRows = {[
+                ['Female', this.state.abuser_info.Female],
+                ['Male', this.state.abuser_info.Male],
+                ['Other', this.state.abuser_info.Other]]}/>
+              <div className='total'>
+                  Total: {this.state.abuser_info['Total Gender Count']}
+              </div>
+              </div>
+
+              <div className='abuser_table'>
+              <div className='title'>
+                  Abuser Race/Ethnicity
+              </div>
+              <ObjectTable tableRows = {[
+                ['American Indian/Alaska Native', this.state.abuser_info['American Indian/Alaska Native']],
+                ['Asian', this.state.abuser_info.Asian],
+                ['Black/African American', this.state.abuser_info['Black/African American']],
+                ['Hispanic or Latino', this.state.abuser_info['Hispanic or Latino']],
+                ['Native Hawaiian/Pacific Islander', this.state.abuser_info['Native Hawaiian/Pacific Islander']],
+                ['White', this.state.abuser_info.White],
+                ['Unknown', this.state.abuser_info['Other/Unknown']]]}/>
+              <div className='total'>
+                  Total: {this.state.abuser_info['Total Count']}
+              </div>
+              </div>
           </Wrapper>
         </div>
 
         <div id='RiskFactors' className='tabcontent'>
           <Wrapper>
-            <ObjectTable total={this.state.risk_factor_info.total}
-              tableRows = {[
-                ['Has he/she tried to kill you?', this.state.risk_factor_info.attempted_murder],
-                ['Has he/she ever tried to choke (strangle) you?', this.state.risk_factor_info.attempted_choke],
-                ['Has he/she choked (strangled) you multiple times?', this.state.risk_factor_info.multiple_choked],
-                ['Does he/she own a gun?', this.state.risk_factor_info.owns_gun],
-                ['Total', this.state.risk_factor_info.total]]}/>
+          <div className='abuser_table'>
+          <div className='title'>
+              Risk Indicators
+          </div>
+          <ObjectTable tableRows = {[
+              ['Has he/she tried to kill you?', this.state.risk_factor_info.attempted_murder],
+              ['Has he/she ever tried to choke (strangle) you?', this.state.risk_factor_info.attempted_choke],
+              ['Has he/she choked (strangled) you multiple times?', this.state.risk_factor_info.multiple_choked],
+              ['Does he/she own a gun?', this.state.risk_factor_info.owns_gun]]}/>
+          <div className='total'>
+              Total: {this.state.risk_factor_info.total}
+          </div>
+          </div>
           </Wrapper>
         </div>
 
         <div id='Outcomes' className='tabcontent'>
           <Wrapper>
-            <ObjectTable Title="Charges Filed At Or After Case Acceptance"
-              total={this.state.outcome_info['Total Charges Filed Count']}
-              tableRows = {[
-                ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
-                ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
-                ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']],
-                ['Total', this.state.outcome_info['Total Charges Filed Count']]]}/>
-            <ObjectTable Title="Pretrial Hearing Outcome In DVHRT Cases"
-              total={this.state.outcome_info['Total Pretrial Hearing Outcomes Count']}
-              tableRows = {[
-                ['Released on Bail', this.state.outcome_info['Released on Bail']],
-                ['Released on Personal Recognizance', this.state.outcome_info['Released on Personal Recognizance']],
-                ['Detained/Pretrial Detention Statute', this.state.outcome_info['Detained/Pretrial Detention Statute']],
-                ['Detained/Bail Unmet', this.state.outcome_info['Detained/Bail Unmet']],
-                ['Detained/Other', this.state.outcome_info['Detained/Other']],
-                ['Pending Pretrial Hearing', this.state.outcome_info['Pending Pretrial Hearing']],
-                ['Total', this.state.outcome_info['Total Pretrial Hearing Outcomes Count']]]}/>
-            <ObjectTable Title="Disposition Outcomes In DVHRT Cases"
-              total={this.state.outcome_info['Total Disposition Outcomes Count']}
-              tableRows = {[
-                ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
-                ['Not Guilty', this.state.outcome_info['Not Guilty']],
-                ['Deferred Adjudication', this.state.outcome_info['Deferred Adjudication']],
-                ['Plead/Found Guilty', this.state.outcome_info['Plead/Found Guilty']],
-                ['Pending Disposition', this.state.outcome_info['Pending Disposition']],
-                ['Total', this.state.outcome_info['Total Disposition Outcomes Count']]]}/>
-            <ObjectTable Title="Sentencing Outcomes In DVHRT Case"
-              total={this.state.outcome_info['Total Sentencing Outcomes Count']}
-              tableRows = {[
-                ['Incarceration', this.state.outcome_info.Incarceration],
-                ['Probation', this.state.outcome_info.Probation],
-                ['Incarceration Followed by Probation', this.state.outcome_info['Incarceration Followed by Probation']],
-                ['Total', this.state.outcome_info['Total Sentencing Outcomes Count']]]}/>
+                <div className='outcome_table'>
+                <div className='title'>
+                    Abuser Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
+                    ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
+                    ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Charges Filed Count']}
+                </div>
+                </div>
+
+                <div className='outcome_table'>
+                <div className='title'>
+                    Bail Hearing Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Released on Bail', this.state.outcome_info['Released on Bail']],
+                    ['Released on Personal Recognizance', this.state.outcome_info['Released on Personal Recognizance']],
+                    ['Detained/Pretrial Detention Statute', this.state.outcome_info['Detained/Pretrial Detention Statute']],
+                    ['Detained/Bail Unmet', this.state.outcome_info['Detained/Bail Unmet']],
+                    ['Detained/Other', this.state.outcome_info['Detained/Other']],
+                    ['Pending Pretrial Hearing', this.state.outcome_info['Pending Pretrial Hearing']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Pretrial Hearing Outcomes Count']}
+                </div>
+                </div>
+
+                <div className='outcome_table'>
+                <div className='title'>
+                    Disposition Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
+                    ['Not Guilty', this.state.outcome_info['Not Guilty']],
+                    ['Deferred Adjudication', this.state.outcome_info['Deferred Adjudication']],
+                    ['Plead/Found Guilty', this.state.outcome_info['Plead/Found Guilty']],
+                    ['Pending Disposition', this.state.outcome_info['Pending Disposition']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Disposition Outcomes Count']}
+                </div>
+                </div>
+
+                <div className='outcome_table'>
+                <div className='title'>
+                    Sentencing Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Incarceration', this.state.outcome_info.Incarceration],
+                    ['Probation', this.state.outcome_info.Probation],
+                    ['Incarceration Followed by Probation', this.state.outcome_info['Incarceration Followed by Probation']],
+                    ['Total', this.state.outcome_info['Total Sentencing Outcomes Count']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Sentencing Outcomes Count']}
+                </div>
+                </div>
+
           </Wrapper>
         </div>
 
