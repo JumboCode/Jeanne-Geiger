@@ -71,6 +71,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "eslint-plugin-standard": "^4.0.1",
+    "parser": "babel-eslint",
     "prettier": "^1.19.1",
     "stylelint": "^11.0.0",
     "stylelint-config-prettier": "^6.0.0",
