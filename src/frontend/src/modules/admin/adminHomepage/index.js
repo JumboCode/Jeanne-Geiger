@@ -79,7 +79,10 @@ class adminHomepage extends React.Component {
           .then(text => {
             community.num_active = JSON.parse(text).case_count
           })
-      )).then(() => this.setState({ communities: communities }))
+      )).then(() => {
+        if (communities)
+          this.setState({ communities: communities })
+      })
     })
   }
 

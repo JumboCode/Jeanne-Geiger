@@ -104,7 +104,7 @@ def create_user(coordinator, community_id, management_token):
         "email_verified": False,
         "name": coordinator["name"],
         "connection": "Username-Password-Authentication",
-        "password": "DVHRT2020??",
+        "password": os.environ["DEFAULT_PASSWORD"],
         "verify_email": True,
         "user_metadata": {
             "site" : community_id
@@ -116,7 +116,20 @@ def create_user(coordinator, community_id, management_token):
         'cache-control': "no-cache"
     }
     r = requests.post("https://agross09.auth0.com/api/v2/users", headers=headers, data=json.dumps(payload))
-    return r.json()['user_id']
+    user_id = r.json()['user_id']
+
+    payload = {
+        "client_id": os.environ['MANAGEMENT_CLIENT_ID'],
+        "email": coordinator["email"],
+        "connection": "Username-Password-Authentication",
+    }
+
+    headers = { 
+        'content-type': "application/json"
+    }
+    r = requests.post("https://agross09.auth0.com/dbconnections/change_password", headers=headers, data=json.dumps(payload))
+
+    return user_id
 
 def set_user_roles(user_id, management_token):
     payload = {
