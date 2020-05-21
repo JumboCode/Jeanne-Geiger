@@ -22,7 +22,8 @@
     "sass": "^1.26.2",
     "styled-components": "^5.0.0",
     "typescript": "^3.8.3",
-    "yarn": "^1.19.2"
+    "yarn": "^1.19.2",
+    "heroku-ssl-redirect": "0.0.4"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",
