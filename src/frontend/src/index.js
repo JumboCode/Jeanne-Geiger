@@ -9,8 +9,7 @@ import history from './utils/history'
 
 
 var sslRedirect = require('heroku-ssl-redirect');
-const app = express();
-app.use(sslRedirect());
+App.use(sslRedirect());
 
 // A function that routes the user to the right place
 // after login
