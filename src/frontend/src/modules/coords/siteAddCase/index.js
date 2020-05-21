@@ -6,6 +6,8 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import { BackButton } from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
 import submitButton from './confirmCase.png'
+import previous from './prev.png'
+import next from './next.png'
 import Col from 'react-bootstrap/Col'
 import TabObj from '../../tabs.js'
 
@@ -36,8 +38,10 @@ class siteAddCase extends React.Component {
       is_edit_case_view: false,
       case_id: [],
       // TODO: remove hardcode
-      community_id: 1
+      community_id: 1,
+      key: "victim"
     }
+     this.changeTab = this.changeTab.bind(this)
   }
 
   componentDidMount () {
@@ -251,8 +255,57 @@ class siteAddCase extends React.Component {
     casePostRequest.send(caseInfo)
   }
 
+  convertKey() {
+    switch(this.state.key){
+      
+      case 'victim':
+        return 0
+        break
+
+      case 'abuser':
+        return 1
+        break
+
+      case 'risk_factors':
+        return 2
+        break
+
+      case 'outcomes':
+        return 3
+        break
+    }
+  }
+
   showTab (index) {
     if (index === 0) { this.getTabInfo('VictimForm') } else if (index === 1) { this.getTabInfo('AbuserForm') } else if (index === 2) { this.getTabInfo('RiskFactorsForm') } else if (index === 3) { this.getTabInfo('OutcomesForm') }
+  }
+
+  changeTab (index) {
+    switch(index) {
+
+      case 0:
+        this.setState({key: "victim"})
+        //this.showTab(0)
+        break
+
+      case 1:
+        this.setState({key: "abuser"})
+        //this.showTab(1)
+        break
+
+      case 2:
+        this.setState({key: "risk_factors"})
+        //this.showTab(2)
+        break
+
+      case 3:
+        this.setState({key: "outcomes"})
+        //this.showTab(3)
+        break
+
+      default:
+        this.changeTab(0)
+    }
   }
 
   render () {
@@ -262,7 +315,7 @@ class siteAddCase extends React.Component {
         <BackButton link='/site'/>
         <div class = "container">
         <input type="image" id="submit" src={submitButton} onClick={() => this.doSubmit()}/>
-          <TabObj selectFunc={(index, label) => this.showTab(index)}/>
+          <TabObj addKey = {this.state.key} selectFunc={(index, label) => this.showTab(index)}/>
           <form id='CasePost'>
             <div id='OutcomesForm' className='tabcontent'>
               <div class = "container">
@@ -357,7 +410,8 @@ class siteAddCase extends React.Component {
           </form>
 
           <div>
-            <button onClick={() => this.doSubmit()} >Submit</button>
+            <input type="image" id="submit" src={previous} onClick={() => this.changeTab(this.convertKey() - 1)}/>
+            <input type="image" id="submit" src={next} onClick={() => this.changeTab(this.convertKey() + 1)}/>
           </div>
         </div>
       </div>
