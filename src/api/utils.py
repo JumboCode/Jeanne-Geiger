@@ -89,7 +89,7 @@ def get_management_token():
     return r.json()["access_token"]
 
 #unsure if coordinator id will change over time
-def get_role_id():
+def get_role_id(management_token):
     headers = {
     'content-type': "application/json",
     'authorization': f"Bearer {management_token}",

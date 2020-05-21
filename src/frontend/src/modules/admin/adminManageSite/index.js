@@ -12,17 +12,62 @@ import { DOMAIN } from '../../../utils/index.js'
 import Plus from './plus.png'
 import Remove from './remove.png'
 
-const SITE_POST_URL = DOMAIN + 'api/communities/'
+const COORDINATOR_POST_URL = DOMAIN + 'api/AddCoordinator/'
+const ONE_COMMUNITY_URL = DOMAIN + 'api/OneCommunity/'
 
-class adminManagePage extends React.Component {
+class adminManageSite extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
   constructor () {
     super()
     this.state = {
+      is_edit_site_view: false,
+      community_id: this.getComIdFromUrl(),
       sources: [],
-      coords: []
+      coords: [],
+      original_data: null
+    }
+  }
+
+  componentDidMount () {
+    this.setState({ is_edit_site_view: this.isEditSiteView() })
+  }
+
+  isEditSiteView () {
+    const { cookies } = this.props
+    var token = cookies.get('token')
+
+    // Get referral sources, update state and prepopulate fields
+    fetch(ONE_COMMUNITY_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          communityid: this.state.community_id
+        }
+      })
+      .then(results => { return results.json() })
+      .then(data => this.setState({ original_data: data }))
+      .then(() => this.prepopulate())
+
+    return true
+  }
+
+  getComIdFromUrl () {
+    var vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+      vars[key] = value
+    })
+    return vars.com_id
+  }
+
+  prepopulate () {
+    // site name prepopulate
+    document.getElementById('site_name').value = this.state.original_data['community_name']
+
+    // referral source prepopulate
+    for (var i = 0; i < this.state.original_data["referral_sources"].length; i++) {
+        if (i > 0) document.getElementById("add-referral").click();
+        document.getElementById('referral_' + (i + 1)).value = this.state.original_data["referral_sources"][i]
     }
   }
 
@@ -32,31 +77,35 @@ class adminManagePage extends React.Component {
       return
     }
 
-    var referralSources = this.getSourceData()
+    const { cookies } = this.props
+    var token = cookies.get('token')
+
+    // add coordinators post request
     var coordData = this.getCoordData()
-
-    var coordinators = coordData[0].map(function (e, i) {
-      return '{' + [e, coordData[1][i]] + '}'
-    })
-
     var coordinatorsJson = []
     coordData[0].map(function (e, i) {
       var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
       coordinatorsJson.push(coord)
     })
-
-    var siteInfo = 'community_name=' + document.getElementById('site_name').value +
-                   '&coordinators={' + coordinators + '}' +
-                   '&referral_sources={' + referralSources + '}' +
-                   '&coord_data={\"data\": [' + coordinatorsJson + ']}'
-
-    const { cookies } = this.props
-    var token = cookies.get('token')
+    var coordInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
 
     var sitePostRequest = new XMLHttpRequest()
-    sitePostRequest.open('POST', SITE_POST_URL, true)
+    sitePostRequest.open('POST', COORDINATOR_POST_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
+    sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
+    sitePostRequest.send(coordInfo)
+
+    // edit site post request
+    var referralSources = this.getSourceData()
+    var siteInfo = 'community_name=' + document.getElementById('site_name').value +
+                   '&referral_sources={' + referralSources + '}'
+
+    var sitePostRequest = new XMLHttpRequest()
+    sitePostRequest.open('POST', ONE_COMMUNITY_URL, true)
+    sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
+    sitePostRequest.setRequestHeader('COMMUNITYID', this.state.community_id)
     sitePostRequest.onload = function () { window.location.href = '/admin' }
     sitePostRequest.send(siteInfo)
   }
@@ -125,8 +174,7 @@ class adminManagePage extends React.Component {
           <div class="container">
             <Form.Row>
               <Col>
-                <h1>Site Name</h1>
-
+                <TextInputObj title='Site Name' id='site_name'/>
                 {
                   this.state.coords.map((coords, i) => {
                     return (
@@ -143,6 +191,7 @@ class adminManagePage extends React.Component {
                 <div class="buttons">
                   <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
                 </div>
+                To delete or edit coordinators, please go to <a href='https://auth0.com' target="_blank">Auth0</a>.
               </Col>
               <Col>
                 <TextInputObj class="referral" title='Referral Source 1' id='referral_1' />
@@ -152,16 +201,15 @@ class adminManagePage extends React.Component {
                       <div key={i}>
                         <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+                  <button id="add-referral" class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
                 </div>
-
               </Col>
             </Form.Row>
           </div>
@@ -175,4 +223,4 @@ class adminManagePage extends React.Component {
   }
 }
 
-export default withCookies(adminManagePage);
+export default withCookies(adminManageSite);

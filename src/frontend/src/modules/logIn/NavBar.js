@@ -6,7 +6,7 @@ import AdminRoute from './AdminRoute.js'
 import adminAddSite from '../admin/adminAddSite'
 import adminHomepage from '../admin/adminHomepage'
 import adminViewSite from '../admin/adminViewSite'
-import adminManagePage from '../admin/adminManagePage'
+import adminManageSite from '../admin/adminManageSite'
 
 import siteOverview from '../coords/siteOverview'
 import detailView from '../coords/detailView'
@@ -34,7 +34,7 @@ const NavBar = () => {
               <AdminRoute exact path="/admin" component = {adminHomepage} type = "adminoverview"/>
               <AdminRoute exact path="/admin/add-site" component = {adminAddSite} type = "adminaddsite"/>
               <AdminRoute exact path="/admin/view-site" component = {adminViewSite} type = "adminviewsite"/>
-              <AdminRoute exact path="/admin/manage-page" component = {adminManagePage} type = "adminmanagepage"/>
+              <AdminRoute exact path="/admin/manage-site" component = {adminManageSite} type = "adminmanagesite"/>
               <CoordRoute exact path="/site" component = {siteOverview} type = "siteView"/>
               <CoordRoute exact path="/site/edit-case" component = {siteAddCase} type = "siteAddCase"/>
               <CoordRoute exact path="/site/site-summary" component = {adminViewSite} type = "adminviewsite"/>
