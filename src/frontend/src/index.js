@@ -6,10 +6,9 @@ import * as serviceWorker from './serviceWorker'
 import { Auth0Provider } from './react-auth0-spa'
 import config from './auth_config.json'
 import history from './utils/history'
+import HttpsRedirect from 'react-https-redirect'
 
 
-var sslRedirect = require('heroku-ssl-redirect');
-App.use(sslRedirect());
 
 // A function that routes the user to the right place
 // after login
@@ -29,7 +28,9 @@ ReactDOM.render(
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >
+  <HttpsRedirect>
     <App />
+    <HttpsRedirect/>
   </Auth0Provider>,
   document.getElementById('root')
 )
