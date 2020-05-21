@@ -217,39 +217,67 @@ class adminViewSite extends React.Component {
 
         <div id='Outcomes' className='tabcontent'>
           <Wrapper>
-            <ObjectTable Title="Charges Filed At Or After Case Acceptance"
-              total={this.state.outcome_info['Total Charges Filed Count']}
-              tableRows = {[
-                ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
-                ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
-                ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']],
-                ['Total', this.state.outcome_info['Total Charges Filed Count']]]}/>
-            <ObjectTable Title="Pretrial Hearing Outcome In DVHRT Cases"
-              total={this.state.outcome_info['Total Pretrial Hearing Outcomes Count']}
-              tableRows = {[
-                ['Released on Bail', this.state.outcome_info['Released on Bail']],
-                ['Released on Personal Recognizance', this.state.outcome_info['Released on Personal Recognizance']],
-                ['Detained/Pretrial Detention Statute', this.state.outcome_info['Detained/Pretrial Detention Statute']],
-                ['Detained/Bail Unmet', this.state.outcome_info['Detained/Bail Unmet']],
-                ['Detained/Other', this.state.outcome_info['Detained/Other']],
-                ['Pending Pretrial Hearing', this.state.outcome_info['Pending Pretrial Hearing']],
-                ['Total', this.state.outcome_info['Total Pretrial Hearing Outcomes Count']]]}/>
-            <ObjectTable Title="Disposition Outcomes In DVHRT Cases"
-              total={this.state.outcome_info['Total Disposition Outcomes Count']}
-              tableRows = {[
-                ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
-                ['Not Guilty', this.state.outcome_info['Not Guilty']],
-                ['Deferred Adjudication', this.state.outcome_info['Deferred Adjudication']],
-                ['Plead/Found Guilty', this.state.outcome_info['Plead/Found Guilty']],
-                ['Pending Disposition', this.state.outcome_info['Pending Disposition']],
-                ['Total', this.state.outcome_info['Total Disposition Outcomes Count']]]}/>
-            <ObjectTable Title="Sentencing Outcomes In DVHRT Case"
-              total={this.state.outcome_info['Total Sentencing Outcomes Count']}
-              tableRows = {[
-                ['Incarceration', this.state.outcome_info.Incarceration],
-                ['Probation', this.state.outcome_info.Probation],
-                ['Incarceration Followed by Probation', this.state.outcome_info['Incarceration Followed by Probation']],
-                ['Total', this.state.outcome_info['Total Sentencing Outcomes Count']]]}/>
+            <div className='outcome_table'>
+                <div className='title'>
+                    Abuser Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
+                    ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
+                    ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Charges Filed Count']}
+                </div>
+                </div>
+
+                <div className='outcome_table'>
+                <div className='title'>
+                    Bail Hearing Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Released on Bail', this.state.outcome_info['Released on Bail']],
+                    ['Released on Personal Recognizance', this.state.outcome_info['Released on Personal Recognizance']],
+                    ['Detained/Pretrial Detention Statute', this.state.outcome_info['Detained/Pretrial Detention Statute']],
+                    ['Detained/Bail Unmet', this.state.outcome_info['Detained/Bail Unmet']],
+                    ['Detained/Other', this.state.outcome_info['Detained/Other']],
+                    ['Pending Pretrial Hearing', this.state.outcome_info['Pending Pretrial Hearing']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Pretrial Hearing Outcomes Count']}
+                </div>
+                </div>
+
+                <div className='outcome_table'>
+                <div className='title'>
+                    Disposition Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
+                    ['Not Guilty', this.state.outcome_info['Not Guilty']],
+                    ['Deferred Adjudication', this.state.outcome_info['Deferred Adjudication']],
+                    ['Plead/Found Guilty', this.state.outcome_info['Plead/Found Guilty']],
+                    ['Pending Disposition', this.state.outcome_info['Pending Disposition']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Disposition Outcomes Count']}
+                </div>
+                </div>
+
+                <div className='outcome_table'>
+                <div className='title'>
+                    Sentencing Outcomes
+                </div>
+                <ObjectTable
+                  tableRows = {[
+                    ['Incarceration', this.state.outcome_info.Incarceration],
+                    ['Probation', this.state.outcome_info.Probation],
+                    ['Incarceration Followed by Probation', this.state.outcome_info['Incarceration Followed by Probation']],
+                    ['Total', this.state.outcome_info['Total Sentencing Outcomes Count']]]}/>
+                <div className='total'>
+                    Total: {this.state.outcome_info['Total Sentencing Outcomes Count']}
+                </div>
+                </div>
           </Wrapper>
         </div>
 
