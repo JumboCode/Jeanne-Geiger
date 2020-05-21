@@ -15,7 +15,7 @@ function App () {
           <NavBar />
         </Router>
       </div>
-    <HttpsRedirect/>
+    </HttpsRedirect>
   )
 }
 
