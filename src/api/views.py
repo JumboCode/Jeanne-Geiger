@@ -33,17 +33,6 @@ def date_range(request):
 
     return start_date, end_date
 
-def verify_user(request, community_id):
-    coord_email = get_email(request)
-    coord_email = 'email1'
-
-    community = Communities.objects.get(community_id=community_id)
-    community_coords = community.coordinators
-    for coord in community_coords:
-        if coord_email in coord:
-            return True
-    return False
-
 @method_decorator(requires_scope('admin'), name='post')
 class AddCoordinator(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
@@ -70,15 +59,14 @@ class OneCommunity(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
-        try:
-            communityData = Communities.objects.filter(community_id=community_id)[0]
-        except:
-            return HttpResponse('Not Found', status=404)
-
         communityData.community_name = request.POST.get("community_name")
         communityData.referral_sources = request.POST.get("referral_sources")
         communityData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
         communityData.save() 
+        try:
+            communityData = Communities.objects.filter(community_id=community_id)[0]
+        except:
+            return HttpResponse('Not Found', status=404)
         return HttpResponse('Success', status=200)
 
 @method_decorator(requires_scope('admin'), name='post')
@@ -121,14 +109,15 @@ class OneCase(generics.ListCreateAPIView):
     
     def get(self, request, *args, **kwargs):
         get_case_id = request.META.get('HTTP_CASEID')
-        community_id = get_site(request)
+        try:
+            community_id = get_site(request)
+        except:
+            return HttpResponse('Forbidden', status=403) 
         case = Cases.objects.get(case_id=get_case_id)
         serializer_class = CasesSerializer(case)
 
-        if (community_id == case.community_id.community_id and verify_user(request, community_id)):
+        if (community_id == case.community_id.community_id):
             return Response(serializer_class.data)
-
-        return HttpResponse('Forbidden', status=403) 
 
 @method_decorator(requires_scope('coord'), name='dispatch')
 class CasesByCommunity(generics.ListCreateAPIView):
@@ -136,14 +125,22 @@ class CasesByCommunity(generics.ListCreateAPIView):
     serializer_class = CasesSerializer
 
     def get(self, request, *args, **kwargs):
-        community_id = get_site(request)
+        try:
+            community_id = get_site(request)
+        except:
+            return HttpResponse('Forbidden', status=403) 
         cases = Cases.objects.filter(community_id=community_id)
+        community = Communities.objects.filter(community_id=community_id)
+        serializer_class = CommunitiesSerializer(community, many=True)
+        community_name = serializer_class.data[0]['community_name']
         serializer_class = CasesSerializer(cases, many=True)
 
-        if verify_user(request, community_id):
-            return Response(serializer_class.data)
+        response = { 'data': serializer_class.data,
+                     'community_id': community_id,
+                     'community_name': community_name }
 
-        return HttpResponse('Forbidden', status=403) 
+        return Response(json.dumps(response))
+
 
 
 @method_decorator(requires_scope('coord'), name='dispatch')
@@ -154,8 +151,6 @@ class CasesList(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         get_case_id = request.POST.get("case_id")
         community_id = get_site(request)
-        if not verify_user(request, community_id):
-            return HttpResponse('Forbidden', status=403) 
         try: ## case exists, update values
             caseData = Cases.objects.get(case_id=get_case_id)
 

@@ -295,9 +295,12 @@ class siteOverview extends React.Component {
       .then(results => {
         return results.json()
       })
-      .then(data => { 
-        console.log(data); 
-        this.setState({ cases: data, community_id: data[0]['community_id'].community_id, community_name: data[0]['community_id'].community_name }); 
+      .then(results => { 
+        var data = JSON.parse(results)
+        if (data['data']) {
+          this.setState({ cases: data['data'] })
+        }
+        this.setState({ community_id: data['community_id'], community_name: data['community_name'] }); 
       })
   }
 
