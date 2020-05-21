@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker'
 import { Auth0Provider } from './react-auth0-spa'
 import config from './auth_config.json'
 import history from './utils/history'
-import HttpsRedirect from 'react-https-redirect'
+
 
 
 
@@ -21,7 +21,6 @@ const onRedirectCallback = appState => {
 }
 
 ReactDOM.render(
-  <HttpsRedirect>
     <Auth0Provider
       domain={config.domain}
       client_id={config.clientId}
@@ -33,7 +32,6 @@ ReactDOM.render(
       <App />
       
     </Auth0Provider>,
-  <HttpsRedirect/>
   document.getElementById('root')
 )
 
