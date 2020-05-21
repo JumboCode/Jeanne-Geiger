@@ -8,7 +8,7 @@ import config from './auth_config.json'
 import history from './utils/history'
 
 
-var sslRedirect = require(‘heroku-ssl-redirect’);
+var sslRedirect = require('heroku-ssl-redirect');
 const app = express();
 app.use(sslRedirect());
 
