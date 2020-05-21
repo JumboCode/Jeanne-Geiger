@@ -4,7 +4,7 @@ import os
 import jwt
 import requests
 from django.contrib.auth import authenticate
-from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH
+from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH, COORD_ROLE_ID
 from functools import wraps
 from django.http import JsonResponse
 
@@ -75,6 +75,11 @@ def get_site(request):
     decoded = jwt.decode(token, verify=False)
     return decoded.get('https://jeanne-geiger-api//site')
 
+def get_roles(request):
+    token = get_token_auth_header(request)
+    decoded = jwt.decode(token, verify=False)
+    return decoded.get('https://jeanne-geiger-api//roles')
+
 def get_management_token():
     payload = {
         "grant_type": "client_credentials",
@@ -88,8 +93,7 @@ def get_management_token():
     r = requests.post('https://agross09.auth0.com/oauth/token', headers=headers, data=payload)
     return r.json()["access_token"]
 
-#unsure if coordinator id will change over time
-def get_role_id(management_token):
+def get_role_info(management_token):
     headers = {
     'content-type': "application/json",
     'authorization': f"Bearer {management_token}",
@@ -133,7 +137,7 @@ def create_user(coordinator, community_id, management_token):
 
 def set_user_roles(user_id, management_token):
     payload = {
-        'roles': ['rol_FrafLuFFTewJsSMM']
+        'roles': [COORD_ROLE_ID]
     }
     headers = {
         'content-type': "application/json",
