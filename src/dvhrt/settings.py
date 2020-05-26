@@ -207,4 +207,4 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
-COORD_ROLE_ID = 'rol_FrafLuFFTewJsSMM'
+COORD_ROLE_ID = 'rol_J08W6BJZRessqcYt'
