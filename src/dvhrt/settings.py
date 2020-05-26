@@ -206,3 +206,5 @@ JWT_AUTH = {
     'JWT_ISSUER': 'https://' + JWT_ACCOUNT + '.auth0.com/',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
+
+COORD_ROLE_ID = 'rol_FrafLuFFTewJsSMM'

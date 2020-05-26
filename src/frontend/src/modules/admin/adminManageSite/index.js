@@ -182,7 +182,7 @@ class adminManageSite extends React.Component {
                         <TextInputObj title={'Coordinator ' + ' Name'} id={'coord_name_' + (i + 1)} />
                         <TextInputObj title={'Coordinator ' + ' Email'} id={'coord_email_' + (i + 1)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} /></button>
                         </div>
                       </div>
                     )

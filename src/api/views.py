@@ -53,20 +53,29 @@ class OneCommunity(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
+        roles = get_roles(request)
+
+        if 'Coordinator' in roles:
+            try: 
+                community_id = get_site(request)
+            except:
+                return HttpResponse('Forbidden', status=403)
+
         queryset = Communities.objects.filter(community_id=community_id)
         serializer_class = CommunitiesSerializer(queryset, many=True)
         return Response(serializer_class.data[0])
 
     def post(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
-        communityData.community_name = request.POST.get("community_name")
-        communityData.referral_sources = request.POST.get("referral_sources")
-        communityData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
-        communityData.save() 
         try:
             communityData = Communities.objects.filter(community_id=community_id)[0]
         except:
             return HttpResponse('Not Found', status=404)
+
+        communityData.community_name = request.POST.get("community_name")
+        communityData.referral_sources = request.POST.get("referral_sources")
+        communityData.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
+        communityData.save() 
         return HttpResponse('Success', status=200)
 
 @method_decorator(requires_scope('admin'), name='post')
@@ -108,18 +117,19 @@ class OneCase(generics.ListCreateAPIView):
     serializer_class = CasesSerializer
     
     def get(self, request, *args, **kwargs):
-        get_case_id = request.META.get('HTTP_CASEID')
+        case_id = request.META.get('HTTP_CASEID')
         try:
             community_id = get_site(request)
+            case = Cases.objects.get(case_id=case_id)
+            serializer_class = CasesSerializer(case)
+            if (int(community_id) == case.community_id.community_id):
+                return Response(serializer_class.data)
         except:
-            return HttpResponse('Forbidden', status=403) 
-        case = Cases.objects.get(case_id=get_case_id)
-        serializer_class = CasesSerializer(case)
+            return HttpResponse('Forbidden', status=403)
 
-        if (community_id == case.community_id.community_id):
-            return Response(serializer_class.data)
+        return HttpResponse('Forbidden', status=403)
 
-@method_decorator(requires_scope('coord'), name='dispatch')
+@method_decorator(requires_scope('coord'), name='get')
 class CasesByCommunity(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
@@ -328,7 +338,7 @@ class FrontendAppView(View):
                 status=501,
             )
 
-@method_decorator(requires_scope('admin'), name='dispatch')
+@method_decorator(requires_scope('admin'), name='get')
 class ActiveCaseCountView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
@@ -359,20 +369,26 @@ class DVHRTReferalSourceView(generics.ListCreateAPIView):
 
         return JsonResponse(r_dict)
 
-@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('victim_id')
 
     def get(self, request, *args, **kwargs):
+        c_id = request.META.get("HTTP_COMMUNITYID")
+        roles = get_roles(request)
+        if 'Coordinator' in roles:
+            try: 
+                c_id = get_site(request)
+            except:
+                return HttpResponse('Forbidden', status=403)
+
         victim_info = {}
-        victim_info.update(self.get_vicitm_genders(request))
-        victim_info.update(self.get_victim_ethnicities(request))
-        victim_info.update(self.get_domestic_violence_service_utilization(request))
+        victim_info.update(self.get_vicitm_genders(request, c_id))
+        victim_info.update(self.get_victim_ethnicities(request, c_id))
+        victim_info.update(self.get_domestic_violence_service_utilization(request, c_id))
 
         return JsonResponse(victim_info)
 
-    def get_vicitm_genders(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_vicitm_genders(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         genders_to_counts = {
@@ -393,8 +409,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 
         return genders_to_counts
 
-    def get_victim_ethnicities(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_victim_ethnicities(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         ethnicities_to_counts = {
@@ -430,8 +445,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 
         return counts
 
-    def get_domestic_violence_service_utilization(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_domestic_violence_service_utilization(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]).select_related('outcome_id')
         dvsu = {
@@ -451,21 +465,26 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 
         return dvsu
 
-@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('abuser_id')
 
     def get(self, request, *args, **kwargs):
+        c_id = request.META.get("HTTP_COMMUNITYID")
+        roles = get_roles(request)
+        if 'Coordinator' in roles:
+            try: 
+                c_id = get_site(request)
+            except:
+                return HttpResponse('Forbidden', status=403)
+        
         abuser_info = {}
-        genders = self.get_abuser_genders(request)
-        ethnicities = self.get_abuser_ethnicities(request)
+        genders = self.get_abuser_genders(request, c_id)
+        ethnicities = self.get_abuser_ethnicities(request, c_id)
         abuser_info.update(genders)
         abuser_info.update(ethnicities)
-
         return JsonResponse(abuser_info)
 
-    def get_abuser_genders(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_abuser_genders(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         genders_to_counts = {
@@ -486,8 +505,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
         return genders_to_counts
 
-    def get_abuser_ethnicities(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_abuser_ethnicities(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         ethnicities_to_counts = {
@@ -524,10 +542,16 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
 
         return counts
 
-@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
+        roles = get_roles(request)
+        if 'Coordinator' in roles:
+            try: 
+                c_id = get_site(request)
+            except:
+                return HttpResponse('Forbidden', status=403)
+
         start_date, end_date = date_range(request)
         case_set = Cases.objects.filter(community_id=c_id, date_accepted__range=[start_date, end_date]).select_related('risk_factor_id')
 
@@ -556,22 +580,28 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
 
         return JsonResponse(rf_counts)
 
-@method_decorator(requires_scope('admin'), name='dispatch')
 class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('outcome_id')
 
     def get(self, request, *args, **kwargs):
+        c_id = request.META.get('HTTP_COMMUNITYID')
+        roles = get_roles(request)
+        if 'Coordinator' in roles:
+            try: 
+                c_id = get_site(request)
+            except:
+                return HttpResponse('Forbidden', status=403)
+
         outcomes_info = {}
-        outcomes_info.update(self.get_charges_filed(request))
-        outcomes_info.update(self.get_pretrial_hearing_outcomes(request))
-        outcomes_info.update(self.get_disposition_outcomes(request))
-        outcomes_info.update(self.get_sentencing_outcomes(request))
+        outcomes_info.update(self.get_charges_filed(request, c_id))
+        outcomes_info.update(self.get_pretrial_hearing_outcomes(request, c_id))
+        outcomes_info.update(self.get_disposition_outcomes(request, c_id))
+        outcomes_info.update(self.get_sentencing_outcomes(request, c_id))
 
         return JsonResponse(outcomes_info)
 
     # Charges Filed at or after case acceptance 
-    def get_charges_filed(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_charges_filed(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
@@ -592,8 +622,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
 
         return outcome_counts
 
-    def get_pretrial_hearing_outcomes(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_pretrial_hearing_outcomes(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
@@ -621,8 +650,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
 
         return outcome_counts
 
-    def get_disposition_outcomes(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_disposition_outcomes(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
@@ -649,8 +677,7 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
 
         return disposition_outcome_counts
 
-    def get_sentencing_outcomes(self, request):
-        c_id = request.META.get('HTTP_COMMUNITYID')
+    def get_sentencing_outcomes(self, request, c_id):
         start_date, end_date = date_range(request)
         case_set = self.query_set.filter(community_id=c_id, date_accepted__range=[start_date, end_date])
         total_count = 0
