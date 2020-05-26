@@ -25,38 +25,37 @@
   width: 40px;
 }
 
-
 .victim_table {
-    text-align: left;
-    width: 50%;
-    text-color: black;
+  text-align: left;
+  width: 50%;
+  text-color: black;
 }
 
 .abuser_table {
-    text-align: left;
-    width: 25.8%;
-    text-color: black;
+  text-align: left;
+  width: 25.8%;
+  text-color: black;
 }
 
 .rf_table {
-    text-align: left;
-    width: 25.8%;
-    text-color: black;
+  text-align: left;
+  width: 25.8%;
+  text-color: black;
 }
 
 .outcome_table {
-    text-align: left;
-    width: 51%;
-    text-color: black;
+  text-align: left;
+  width: 51%;
+  text-color: black;
 }
 
 .title {
-    text-align: center;
+  text-align: center;
 }
 
 .total {
-    border-top: 2px solid purple;
-    width: 73%;
-    text-align: left;
-    font-weight: bold;
+  border-top: 2px solid purple;
+  width: 73%;
+  text-align: left;
+  font-weight: bold;
 }
