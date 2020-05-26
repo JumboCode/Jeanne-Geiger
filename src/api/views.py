@@ -129,7 +129,7 @@ class OneCase(generics.ListCreateAPIView):
 
         return HttpResponse('Forbidden', status=403)
 
-@method_decorator(requires_scope('coord'), name='dispatch')
+@method_decorator(requires_scope('coord'), name='get')
 class CasesByCommunity(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
