@@ -80,12 +80,12 @@ def get_management_token():
         "grant_type": "client_credentials",
         "client_id": os.environ['MANAGEMENT_CLIENT_ID'],
         "client_secret": os.environ['MANAGEMENT_CLIENT_SECRET'],
-        "audience": "https://agross09.auth0.com/api/v2/"
+        "audience": "https://" + JWT_ACCOUNT + ".auth0.com/api/v2/"
     }
     headers = { 
         'content-type': "application/x-www-form-urlencoded"
     }
-    r = requests.post('https://agross09.auth0.com/oauth/token', headers=headers, data=payload)
+    r = requests.post('https://' + JWT_ACCOUNT + '.auth0.com/oauth/token', headers=headers, data=payload)
     return r.json()["access_token"]
 
 #unsure if coordinator id will change over time
@@ -95,7 +95,7 @@ def get_role_id(management_token):
     'authorization': f"Bearer {management_token}",
     'cache-control': "no-cache"
     }
-    r = requests.get('https://agross09.auth0.com/api/v2/roles', headers=headers)
+    r = requests.get('https://' + JWT_ACCOUNT + '.auth0.com/api/v2/roles', headers=headers)
     return r.json()
 
 def create_user(coordinator, community_id, management_token):
@@ -115,7 +115,7 @@ def create_user(coordinator, community_id, management_token):
         'authorization': f"Bearer {management_token}",
         'cache-control': "no-cache"
     }
-    r = requests.post("https://agross09.auth0.com/api/v2/users", headers=headers, data=json.dumps(payload))
+    r = requests.post("https://" + JWT_ACCOUNT + ".auth0.com/api/v2/users", headers=headers, data=json.dumps(payload))
     user_id = r.json()['user_id']
 
     payload = {
@@ -127,7 +127,7 @@ def create_user(coordinator, community_id, management_token):
     headers = { 
         'content-type': "application/json"
     }
-    r = requests.post("https://agross09.auth0.com/dbconnections/change_password", headers=headers, data=json.dumps(payload))
+    r = requests.post("https://" + JWT_ACCOUNT + ".auth0.com/dbconnections/change_password", headers=headers, data=json.dumps(payload))
 
     return user_id
 
@@ -140,7 +140,7 @@ def set_user_roles(user_id, management_token):
         'authorization': f"Bearer {management_token}",
         'cache-control': "no-cache"
     }
-    r = requests.post(f"https://agross09.auth0.com/api/v2/users/{user_id}/roles", headers=headers, data=json.dumps(payload))
+    r = requests.post(f"https://" + JWT_ACCOUNT + ".auth0.com/api/v2/users/{user_id}/roles", headers=headers, data=json.dumps(payload))
     return r
 
 def get_user_id(user_email, management_token):
@@ -150,7 +150,7 @@ def get_user_id(user_email, management_token):
         'cache-control': "no-cache"
     }
 
-    user = requests.get(f"https://agross09.auth0.com/api/v2/users?q=email%3A%22{user_email}%22&search_engine=v3", headers=headers)
+    user = requests.get(f"https://" + JWT_ACCOUNT + ".auth0.com/api/v2/users?q=email%3A%22{user_email}%22&search_engine=v3", headers=headers)
 
     user_id = user.json()[0]["user_id"]
     return user_id
@@ -161,4 +161,4 @@ def remove_user(user_id, management_token):
         'authorization': f"Bearer {management_token}",
         'cache-control': "no-cache"
     }
-    r = requests.delete(f"https://agross09.auth0.com/api/v2/users/{user_id}", headers=headers)
+    r = requests.delete(f"https://" + JWT_ACCOUNT + ".auth0.com/api/v2/users/{user_id}", headers=headers)
