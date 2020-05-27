@@ -5,6 +5,7 @@
   "proxy": "https://localhost:8000",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.6.4",
+    "@babel/preset-env": "^7.10.0",
     "bootstrap": "^4.4.1",
     "extend-shallow": "^3.0.2",
     "fibers": "^4.0.2",
