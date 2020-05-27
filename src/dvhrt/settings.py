@@ -194,7 +194,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # auth0 settings
-JWT_ACCOUNT = 'agross09'
+JWT_ACCOUNT = os.environ['AUTH0_ACCOUNT']
 
 JWT_AUTH = {
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
@@ -207,4 +207,4 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
-COORD_ROLE_ID = 'rol_FrafLuFFTewJsSMM'
+COORD_ROLE_ID = 'rol_J08W6BJZRessqcYt'
