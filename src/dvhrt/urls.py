@@ -20,8 +20,6 @@ from api.views import *
 
 
 urlpatterns = [
-	# path('', RedirectView.as_view(url='/api/')),
-    # path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     re_path(r'^', FrontendAppView.as_view()),
 ]
