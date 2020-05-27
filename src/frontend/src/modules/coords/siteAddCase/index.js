@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import { DateInputObj, DropdownObj, TextInputObj, MultSelectionObj, StatusObj } from './util.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import { BackButton } from '../../Back/back.js'

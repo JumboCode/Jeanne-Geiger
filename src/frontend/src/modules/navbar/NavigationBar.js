@@ -7,7 +7,6 @@ import './NavigationBar.css'
 
 const logoClick = () => {
   var path = window.location.pathname
-  var host = window.location.hostname
   if (path.slice(1, 5) === 'site') {
     window.location.replace('/site')
   } else {

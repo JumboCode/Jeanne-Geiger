@@ -128,7 +128,6 @@ class adminViewSite extends React.Component {
 
   getBackButtonLink () {
     var path = window.location.pathname
-    var host = window.location.hostname
     if (path.slice(1, 5) === 'site') {
       return '/site'
     } else {

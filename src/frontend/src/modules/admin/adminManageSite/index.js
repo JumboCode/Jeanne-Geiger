@@ -86,8 +86,9 @@ class adminManageSite extends React.Component {
     coordData[0].map(function (e, i) {
       var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
       coordinatorsJson.push(coord)
+      return coord
     })
-    var coordInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
+    var coordInfo = '&coord_data={"data": [' + coordinatorsJson + ']}'
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', COORDINATOR_POST_URL, true)
@@ -101,7 +102,7 @@ class adminManageSite extends React.Component {
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
                    '&referral_sources={' + referralSources + '}'
 
-    var sitePostRequest = new XMLHttpRequest()
+    sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', ONE_COMMUNITY_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
@@ -177,19 +178,19 @@ class adminManageSite extends React.Component {
                   this.state.coords.map((coords, i) => {
                     return (
                       <div key={i}>
-                        <TextInputObj title={'Coordinator ' + ' Name'} id={'coord_name_' + (i + 1)} />
-                        <TextInputObj title={'Coordinator ' + ' Email'} id={'coord_email_' + (i + 1)} />
+                        <TextInputObj title={'Coordinator Name'} id={'coord_name_' + (i + 1)} />
+                        <TextInputObj title={'Coordinator Email'} id={'coord_email_' + (i + 1)} />
                         <div class="buttons">
-                          <button class="remove" type="button" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} alt='remove'/></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
+                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} alt='add'/> Add another Coordinator</button>
                 </div>
-                To delete or edit coordinators, please go to <a href='https://auth0.com' target="_blank">Auth0</a>.
+                To delete or edit coordinators, please go to <a href='https://auth0.com' target="_blank" rel="noopener noreferrer">Auth0</a>.
               </Col>
               <Col>
                 <TextInputObj class="referral" title='Referral Source 1' id='referral_1' />
@@ -199,14 +200,14 @@ class adminManageSite extends React.Component {
                       <div key={i}>
                         <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" type="button" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} alt='remove'/></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button id="add-referral" class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+                  <button id="add-referral" class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} alt='add'/> Add another Referral Source</button>
                 </div>
               </Col>
             </Form.Row>

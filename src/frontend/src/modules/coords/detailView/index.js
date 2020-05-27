@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import editButton from './editButton.png'
 import { BackButton } from '../../Back/back.js'
@@ -293,7 +292,7 @@ class detailView extends React.Component {
           </div>
           <div class="col-3">
             <div class="editButtonsContainer">
-              <input type="image" id="editButton" src={editButton} onClick={() => this.openEditClick()}/>
+              <input type="image" id="editButton" src={editButton} alt='edit' onClick={() => this.openEditClick()}/>
             </div>
           </div>
         </div>

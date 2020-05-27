@@ -1,6 +1,5 @@
 import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import NavigationBar from '../navbar/NavigationBar.js'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';

@@ -40,6 +40,7 @@ const ObjectTable = (props) => {
     } else {
       table.push(<thead><Tablerow2>{children}</Tablerow2></thead>)
     }
+    return children
   })
 
   return (
