@@ -5,8 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
 
 import Plus from './plus.png'
@@ -16,8 +16,9 @@ const SITE_POST_URL = DOMAIN + 'api/communities/'
 
 class adminAddSite extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor () {
     super()
     this.state = {
@@ -41,14 +42,15 @@ class adminAddSite extends React.Component {
 
     var coordinatorsJson = []
     coordData[0].map(function (e, i) {
-      var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
+      var coord = '{"name": "' + e + '", "email": "' + coordData[1][i] + '"}'
       coordinatorsJson.push(coord)
+      return coord
     })
 
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
                    '&coordinators={' + coordinators + '}' +
                    '&referral_sources={' + referralSources + '}' +
-                   '&coord_data={\"data\": [' + coordinatorsJson + ']}'
+                   '&coord_data={"data": [' + coordinatorsJson + ']}'
 
     const { cookies } = this.props
     var token = cookies.get('token')
@@ -132,14 +134,14 @@ class adminAddSite extends React.Component {
                         <TextInputObj title={'Coordinator ' + (i + 2) + ' Name'} id={'coord_name_' + (i + 2)} />
                         <TextInputObj title={'Coordinator ' + (i + 2) + ' Email'} id={'coord_email_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e) => this.removeCoord(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" onClick={(e) => this.removeCoord(i)}><img class="logo" src={Remove} alt='logo' /></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
+                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} alt='add' /> Add another Coordinator</button>
                 </div>
               </Col>
               <Col>
@@ -150,14 +152,14 @@ class adminAddSite extends React.Component {
                       <div key={i}>
                         <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} alt='remove'/></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+                  <button class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} alt='add' /> Add another Referral Source</button>
                 </div>
 
               </Col>
@@ -173,4 +175,4 @@ class adminAddSite extends React.Component {
   }
 }
 
-export default withCookies(adminAddSite);
+export default withCookies(adminAddSite)

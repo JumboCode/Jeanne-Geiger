@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
 
 const COMMUNITY_LIST_URL = DOMAIN + 'api/communities/'
@@ -12,8 +12,9 @@ const ACTIVE_CASE_COUNT_URL = DOMAIN + 'api/ActiveCaseCountView/'
 
 class adminHomepage extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor () {
     super()
     this.state = {
@@ -60,7 +61,6 @@ class adminHomepage extends React.Component {
       }
     }
     ).then(results => {
-      // console.log(results.json())
       return results.json()
     }).then(communities => {
       // communities is a list of community objects
@@ -80,8 +80,7 @@ class adminHomepage extends React.Component {
             community.num_active = JSON.parse(text).case_count
           })
       )).then(() => {
-        if (communities)
-          this.setState({ communities: communities })
+        if (communities) { this.setState({ communities: communities }) }
       })
     })
   }

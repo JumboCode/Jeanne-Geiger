@@ -5,8 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
 
 import Plus from './plus.png'
@@ -17,8 +17,9 @@ const ONE_COMMUNITY_URL = DOMAIN + 'api/OneCommunity/'
 
 class adminManageSite extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor () {
     super()
     this.state = {
@@ -40,11 +41,11 @@ class adminManageSite extends React.Component {
 
     // Get referral sources, update state and prepopulate fields
     fetch(ONE_COMMUNITY_URL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          communityid: this.state.community_id
-        }
-      })
+      headers: {
+        Authorization: `Bearer ${token}`,
+        communityid: this.state.community_id
+      }
+    })
       .then(results => { return results.json() })
       .then(data => this.setState({ original_data: data }))
       .then(() => this.prepopulate())
@@ -62,12 +63,12 @@ class adminManageSite extends React.Component {
 
   prepopulate () {
     // site name prepopulate
-    document.getElementById('site_name').value = this.state.original_data['community_name']
+    document.getElementById('site_name').value = this.state.original_data.community_name
 
     // referral source prepopulate
-    for (var i = 0; i < this.state.original_data["referral_sources"].length; i++) {
-        if (i > 0) document.getElementById("add-referral").click();
-        document.getElementById('referral_' + (i + 1)).value = this.state.original_data["referral_sources"][i]
+    for (var i = 0; i < this.state.original_data.referral_sources.length; i++) {
+      if (i > 0) document.getElementById('add-referral').click()
+      document.getElementById('referral_' + (i + 1)).value = this.state.original_data.referral_sources[i]
     }
   }
 
@@ -84,10 +85,11 @@ class adminManageSite extends React.Component {
     var coordData = this.getCoordData()
     var coordinatorsJson = []
     coordData[0].map(function (e, i) {
-      var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
+      var coord = '{"name": "' + e + '", "email": "' + coordData[1][i] + '"}'
       coordinatorsJson.push(coord)
+      return coord
     })
-    var coordInfo = '&coord_data={\"data\": [' + coordinatorsJson + ']}'
+    var coordInfo = '&coord_data={"data": [' + coordinatorsJson + ']}'
 
     var sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', COORDINATOR_POST_URL, true)
@@ -101,7 +103,7 @@ class adminManageSite extends React.Component {
     var siteInfo = 'community_name=' + document.getElementById('site_name').value +
                    '&referral_sources={' + referralSources + '}'
 
-    var sitePostRequest = new XMLHttpRequest()
+    sitePostRequest = new XMLHttpRequest()
     sitePostRequest.open('POST', ONE_COMMUNITY_URL, true)
     sitePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     sitePostRequest.setRequestHeader('Authorization', `Bearer ${token}`)
@@ -135,8 +137,6 @@ class adminManageSite extends React.Component {
   getCoordData () {
     var nameData = []
     var emailData = []
-    // nameData.push(document.getElementById('coord_name_1').value)
-    // emailData.push(document.getElementById('coord_email_1').value)
     for (var i = 0; i < this.state.coords.length; i++) {
       nameData.push(document.getElementById('coord_name_' + (i + 1)).value)
       emailData.push(document.getElementById('coord_email_' + (i + 1)).value)
@@ -153,7 +153,7 @@ class adminManageSite extends React.Component {
     var nameData = coordData[0]
     var emailData = coordData[1]
 
-    this.state.coords.splice(0, 1);
+    this.state.coords.splice(0, 1)
 
     for (var i = index + 1; i < this.state.coords.length; i++) {
       document.getElementById('coord_name_' + (i + 1)).value = nameData[i + 1]
@@ -179,19 +179,19 @@ class adminManageSite extends React.Component {
                   this.state.coords.map((coords, i) => {
                     return (
                       <div key={i}>
-                        <TextInputObj title={'Coordinator ' + ' Name'} id={'coord_name_' + (i + 1)} />
-                        <TextInputObj title={'Coordinator ' + ' Email'} id={'coord_email_' + (i + 1)} />
+                        <TextInputObj title={'Coordinator Name'} id={'coord_name_' + (i + 1)} />
+                        <TextInputObj title={'Coordinator Email'} id={'coord_email_' + (i + 1)} />
                         <div class="buttons">
-                          <button class="remove" type="button" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeCoord(i - 1)}><img class="logo" src={Remove} alt='remove'/></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} /> Add another Coordinator</button>
+                  <button class="add" onClick={(e) => this.addCoord(e)}><img class="logo" src={Plus} alt='add'/> Add another Coordinator</button>
                 </div>
-                To delete or edit coordinators, please go to <a href='https://auth0.com' target="_blank">Auth0</a>.
+                To delete or edit coordinators, please go to <a href='https://auth0.com' target="_blank" rel="noopener noreferrer">Auth0</a>.
               </Col>
               <Col>
                 <TextInputObj class="referral" title='Referral Source 1' id='referral_1' />
@@ -201,14 +201,14 @@ class adminManageSite extends React.Component {
                       <div key={i}>
                         <TextInputObj class="referral" title={'Referral Source ' + (i + 2)} id={'referral_' + (i + 2)} />
                         <div class="buttons">
-                          <button class="remove" type="button" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} /></button>
+                          <button class="remove" type="button" onClick={(e) => this.removeSource(i)}><img class="logo" src={Remove} alt='remove'/></button>
                         </div>
                       </div>
                     )
                   })
                 }
                 <div class="buttons">
-                  <button id="add-referral" class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} /> Add another Referral Source</button>
+                  <button id="add-referral" class="add" onClick={(e) => this.addSource(e)}><img class="logo" src={Plus} alt='add'/> Add another Referral Source</button>
                 </div>
               </Col>
             </Form.Row>
@@ -223,4 +223,4 @@ class adminManageSite extends React.Component {
   }
 }
 
-export default withCookies(adminManageSite);
+export default withCookies(adminManageSite)

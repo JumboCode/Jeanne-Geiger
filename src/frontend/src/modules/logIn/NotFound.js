@@ -1,14 +1,14 @@
 import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import NavigationBar from '../navbar/NavigationBar.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 
 class notFound extends React.Component {
     static propTypes = {
-        cookies: instanceOf(Cookies).isRequired,
+      cookies: instanceOf(Cookies).isRequired
     };
+
     render () {
       return (
         <div>
@@ -17,7 +17,6 @@ class notFound extends React.Component {
         </div>
       )
     }
-  }
-  
-  export default withCookies(notFound)
-  
+}
+
+export default withCookies(notFound)

@@ -7,22 +7,20 @@ import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
 
 const CASES_URL = DOMAIN + 'api/CasesByCommunity/'
 
 class siteOverview extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor () {
     super()
     this.state = {
-      // TODO: remove hardcode
-      // Get auth0 data when loading this component to specify which community
-      //  id is loaded for the user that assigned it
       community_id: null,
       community_name: '',
       cases: [],
@@ -289,18 +287,18 @@ class siteOverview extends React.Component {
     var token = cookies.get('token')
     fetch(CASES_URL, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       }
     })
       .then(results => {
         return results.json()
       })
-      .then(results => { 
+      .then(results => {
         var data = JSON.parse(results)
-        if (data['data']) {
-          this.setState({ cases: data['data'] })
+        if (data.data) {
+          this.setState({ cases: data.data })
         }
-        this.setState({ community_id: data['community_id'], community_name: data['community_name'] }); 
+        this.setState({ community_id: data.community_id, community_name: data.community_name })
       })
   }
 
@@ -339,7 +337,7 @@ class siteOverview extends React.Component {
           </div>
           <div class="col-4">
             <div class="stack row">
-              <a href={"/site/add-case?com_id=" + this.state.community_id}>
+              <a href={'/site/add-case?com_id=' + this.state.community_id}>
                 <div class="add_a_case">Add a Case +</div>
               </a>
             </div>
