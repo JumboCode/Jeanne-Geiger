@@ -6,8 +6,8 @@ import { BackButton } from '../../Back/back.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import TabObj from '../../tabs.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
 
 const CASE_POST_URL = DOMAIN + 'api/cases/'
@@ -30,8 +30,9 @@ const ACTIVE_TITLE_TO_VALUE = { Active: 0, Inactive: 1, Closed: 2 }
 
 class siteAddCase extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor () {
     super()
     this.state = {
@@ -64,7 +65,7 @@ class siteAddCase extends React.Component {
     }).then(results => {
       return results.json()
     }).then(data => {
-      this.setState({referral_sources: data["referral_sources"]})
+      this.setState({ referral_sources: data.referral_sources })
     })
   }
 

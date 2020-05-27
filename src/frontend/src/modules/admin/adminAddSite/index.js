@@ -5,8 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
 
 import Plus from './plus.png'
@@ -16,8 +16,9 @@ const SITE_POST_URL = DOMAIN + 'api/communities/'
 
 class adminAddSite extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor () {
     super()
     this.state = {
@@ -41,7 +42,7 @@ class adminAddSite extends React.Component {
 
     var coordinatorsJson = []
     coordData[0].map(function (e, i) {
-      var coord = `{"name": "`+ e + `", "email": "` + coordData[1][i] + `"}`
+      var coord = '{"name": "' + e + '", "email": "' + coordData[1][i] + '"}'
       coordinatorsJson.push(coord)
       return coord
     })
@@ -174,4 +175,4 @@ class adminAddSite extends React.Component {
   }
 }
 
-export default withCookies(adminAddSite);
+export default withCookies(adminAddSite)

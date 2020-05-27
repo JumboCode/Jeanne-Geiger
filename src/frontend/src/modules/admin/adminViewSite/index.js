@@ -5,11 +5,11 @@ import styled from 'styled-components'
 import { BackButton } from '../../Back/back.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import Filter from '../../filters/date_filter/filter.js'
 import { DOMAIN } from '../../../utils/index.js'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`
   display: grid;
@@ -28,8 +28,9 @@ const OUTCOME_INFO_URL = DOMAIN + 'api/DVHRTCriminalJusticeOutcomes/'
 
 class adminViewSite extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
+    cookies: instanceOf(Cookies).isRequired
   };
+
   constructor (props) {
     super(props)
     this.state = {
@@ -43,7 +44,7 @@ class adminViewSite extends React.Component {
       end_date: []
     }
   }
-  
+
   componentDidMount () {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -72,8 +73,6 @@ class adminViewSite extends React.Component {
       })
     })
   }
-
-
 
   fetchTabData (url, tabName) {
     const { cookies } = this.props
@@ -147,10 +146,10 @@ class adminViewSite extends React.Component {
             <h1 class="header">{this.state.community_name}</h1>
           </div>
           <div class="col-3">
-            <Link to={"/admin/manage-site?com_id=" + this.state.community_id}>
-                <button type="button" class="edit_site_button">
+            <Link to={'/admin/manage-site?com_id=' + this.state.community_id}>
+              <button type="button" class="edit_site_button">
                     Edit Site
-                </button>
+              </button>
             </Link>
             <Filter/>
           </div>
@@ -193,7 +192,7 @@ class adminViewSite extends React.Component {
                   Victim Race/Ethnicity
               </div>
               <ObjectTable
-              tableRows = {[
+                tableRows = {[
                   ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
                   ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
               <div className='total'>
@@ -201,7 +200,7 @@ class adminViewSite extends React.Component {
               </div>
             </div>
           </Wrapper>
-          </div>
+        </div>
 
         <div id='Abuser' className='tabcontent'>
           <Wrapper>
@@ -244,10 +243,10 @@ class adminViewSite extends React.Component {
                   Risk Indicators
               </div>
               <ObjectTable tableRows = {[
-                  ['Has he/she tried to kill you?', this.state.risk_factor_info.attempted_murder],
-                  ['Has he/she ever tried to choke (strangle) you?', this.state.risk_factor_info.attempted_choke],
-                  ['Has he/she choked (strangled) you multiple times?', this.state.risk_factor_info.multiple_choked],
-                  ['Does he/she own a gun?', this.state.risk_factor_info.owns_gun]]}/>
+                ['Has he/she tried to kill you?', this.state.risk_factor_info.attempted_murder],
+                ['Has he/she ever tried to choke (strangle) you?', this.state.risk_factor_info.attempted_choke],
+                ['Has he/she choked (strangled) you multiple times?', this.state.risk_factor_info.multiple_choked],
+                ['Does he/she own a gun?', this.state.risk_factor_info.owns_gun]]}/>
               <div className='total'>
                   Total: {this.state.risk_factor_info.total}
               </div>
@@ -266,10 +265,10 @@ class adminViewSite extends React.Component {
                   ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
                   ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
                   ['No Police Response: Not Applicable', this.state.outcome_info['No Police Response: Not Applicable']]]}/>
-                <div className='total'>
+              <div className='total'>
                     Total: {this.state.outcome_info['Total Charges Filed Count']}
-                </div>
               </div>
+            </div>
 
             <div className='outcome_table'>
               <div className='title'>
@@ -326,4 +325,4 @@ class adminViewSite extends React.Component {
   }
 }
 
-export default withCookies(adminViewSite);
+export default withCookies(adminViewSite)
