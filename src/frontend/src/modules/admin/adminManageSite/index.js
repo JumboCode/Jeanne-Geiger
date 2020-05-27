@@ -135,8 +135,6 @@ class adminManageSite extends React.Component {
   getCoordData () {
     var nameData = []
     var emailData = []
-    // nameData.push(document.getElementById('coord_name_1').value)
-    // emailData.push(document.getElementById('coord_email_1').value)
     for (var i = 0; i < this.state.coords.length; i++) {
       nameData.push(document.getElementById('coord_name_' + (i + 1)).value)
       emailData.push(document.getElementById('coord_email_' + (i + 1)).value)

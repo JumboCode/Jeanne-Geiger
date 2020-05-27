@@ -1,4 +1,3 @@
-// src/modules/auth0button.js
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import CoordRoute from './CoordRoute.js'
@@ -12,16 +11,12 @@ import siteOverview from '../coords/siteOverview'
 import detailView from '../coords/detailView'
 import siteAddCase from '../coords/siteAddCase'
 import notFound from './NotFound.js'
-import NavigationBar from '../navbar/NavigationBar.js'
 
-import { useAuth0 } from '../../react-auth0-spa.js'
 import Login from './index.js'
 
 const NavBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
-
   return (
-    <div className='auth0button'>
+    <div className="auth0button">
       {(
         <span>
           <BrowserRouter>

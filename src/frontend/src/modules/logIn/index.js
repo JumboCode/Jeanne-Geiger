@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './styles.css'
-import { render } from 'react-dom'
 import { ReactComponent as Logo } from './logo.svg'
 import { useAuth0 } from '../../react-auth0-spa'
 
-import { Redirect } from 'react-router-dom'
 import { DOMAIN_FRONT } from '../../utils/index.js'
 
 const Login = () => {
-  const { roles, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { loginWithRedirect } = useAuth0()
 
   const redirectUri = DOMAIN_FRONT + 'site/'
 

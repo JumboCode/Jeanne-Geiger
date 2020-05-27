@@ -60,7 +60,6 @@ class adminHomepage extends React.Component {
       }
     }
     ).then(results => {
-      // console.log(results.json())
       return results.json()
     }).then(communities => {
       // communities is a list of community objects

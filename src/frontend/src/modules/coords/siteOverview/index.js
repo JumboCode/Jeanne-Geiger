@@ -20,9 +20,6 @@ class siteOverview extends React.Component {
   constructor () {
     super()
     this.state = {
-      // TODO: remove hardcode
-      // Get auth0 data when loading this component to specify which community
-      //  id is loaded for the user that assigned it
       community_id: null,
       community_name: '',
       cases: [],

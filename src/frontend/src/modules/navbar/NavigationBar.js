@@ -1,7 +1,6 @@
 
-import React, { Component } from 'react'
+import React from 'react'
 import { ReactComponent as Logo } from './logo.svg'
-import { ReactComponent as Settings } from './SettingsIcon.svg'
 import { useAuth0 } from '../../react-auth0-spa.js'
 import { Link } from 'react-router-dom'
 import './NavigationBar.css'
@@ -17,7 +16,7 @@ const logoClick = () => {
 }
 
 const NavigationBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { isAuthenticated, logout } = useAuth0()
 
   return (
     <div className="NavigationBarContainer">
