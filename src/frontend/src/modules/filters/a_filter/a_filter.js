@@ -16,8 +16,8 @@ class AFilter extends Component {
 
   render () {
     return (
-      <div className="filter_container">
-        <button type="button" className="filter_button" onClick={this.togglePopup.bind(this)}>
+      <div className="filter_container1">
+        <button type="button" className="filter_button1" onClick={this.togglePopup.bind(this)}>
                     Filter Results
         </button>
 

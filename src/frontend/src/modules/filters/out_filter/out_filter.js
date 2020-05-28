@@ -16,8 +16,8 @@ class OUTFilter extends Component {
 
   render () {
     return (
-      <div className="filter_container">
-        <button type="button" className="filter_button" onClick={this.togglePopup.bind(this)}>
+      <div className="filter_container3">
+        <button type="button" className="filter_button3" onClick={this.togglePopup.bind(this)}>
                     Filter Results
         </button>
 
