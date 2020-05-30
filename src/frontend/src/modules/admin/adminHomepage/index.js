@@ -18,6 +18,7 @@ class adminHomepage extends React.Component {
   constructor () {
     super()
     this.state = {
+      loading: true,
       communities: [],
       columns: [
         {
@@ -54,6 +55,7 @@ class adminHomepage extends React.Component {
     })
     const { cookies } = this.props
     var token = cookies.get('token')
+    console.log('Token: ' + token)
 
     fetch(COMMUNITY_LIST_URL, {
       headers: {
@@ -80,17 +82,21 @@ class adminHomepage extends React.Component {
             community.num_active = JSON.parse(text).case_count
           })
       )).then(() => {
+        this.setState({ loading: false })
         if (communities) { this.setState({ communities: communities }) }
       })
     })
   }
 
   render () {
+    const loading = this.state.loading
     return (
       <div>
+        {/* {console.log('Cookie: ' + this.props.cookies.get('token'))} */}
         <NavigationBar />
         <a href="/admin/add-site" ><div class="add_a_site_button">Add a New Site + </div></a>
         <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
+        {loading ? (<div className="loading">Loading Data...</div>) : null}
       </div>
     )
   }

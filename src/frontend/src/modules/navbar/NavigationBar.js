@@ -21,7 +21,13 @@ const NavigationBar = () => {
     <div className="NavigationBarContainer">
       <Logo class="LogoWrapper" width="17%" onClick={(e) => logoClick(e)}/>
       {!isAuthenticated && <Link to='/'><button id="logout">Log in</button></Link>}
-      {isAuthenticated && <button id="logout" onClick={() => logout()}>Log out</button>}
+      {isAuthenticated && <button id="logout" onClick={() => {
+        logout()
+        
+        // Prevent mismatched tokens
+        document.cookie = 'token=;path=/admin'
+        document.cookie = 'token=;path=/site'
+      }}>Log out</button>}
     </div>
   )
 }
