@@ -51,6 +51,12 @@ class adminViewSite extends React.Component {
       vars[key] = value
     })
 
+    var path = window.location.pathname
+    if (path.slice(1, 5) === 'site') {
+      var button = document.getElementById('edit-site-button')
+      button.classList.add('hide')
+    }
+
     if (vars.start_date !== undefined && vars.end_date !== undefined) {
       var percentageCols = document.getElementsByClassName('percentage')
       for (var i = 0; i < percentageCols.length; i++) {
@@ -146,11 +152,13 @@ class adminViewSite extends React.Component {
             <h1 class="header">{this.state.community_name}</h1>
           </div>
           <div class="col-3">
-            <Link to={'/admin/manage-site?com_id=' + this.state.community_id}>
-              <button type="button" class="edit_site_button">
-                    Edit Site
-              </button>
-            </Link>
+            <span id="edit-site-button">
+              <Link to={'/admin/manage-site?com_id=' + this.state.community_id}>
+                <button type="button" class="edit_site_button">
+                Edit Site
+                </button>
+              </Link>
+            </span>
             <Filter/>
           </div>
         </div>
