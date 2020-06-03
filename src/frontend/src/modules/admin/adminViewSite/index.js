@@ -299,7 +299,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Disposition Outcomes
               </div>
-              <ObjectTable
+              <ObjectTable total={this.state.outcome_info['TTotal Disposition Outcomes Count']}
                 tableRows = {[
                   ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
                   ['Not Guilty', this.state.outcome_info['Not Guilty']],
@@ -315,7 +315,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Sentencing Outcomes
               </div>
-              <ObjectTable
+              <ObjectTable total={this.state.outcome_info['Total Sentencing Outcomes Count']}
                 tableRows = {[
                   ['Incarceration', this.state.outcome_info.Incarceration],
                   ['Probation', this.state.outcome_info.Probation],
