@@ -71,3 +71,30 @@
 .login_button:focus {
   outline: none !important;
 }
+
+.not_found {
+  margin: 8%;
+  font-size: 25px;
+  text-align: center;
+}
+
+.error-404 {
+  font-size: 64px;
+}
+
+.back_home_button {
+  background-color: purple;
+  margin: 2%;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  width: 8em;
+  border-radius: 13px;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.back_home_button a {
+  text-decoration: none;
+}

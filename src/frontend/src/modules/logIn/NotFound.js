@@ -13,7 +13,13 @@ class notFound extends React.Component {
       return (
         <div>
           <NavigationBar />
-          Sorry, the page you're looking for does not exist.
+          <div className="not_found">
+            <div className="error-404">404</div>
+            <div>Sorry, the page you are looking for does not exist.</div>
+            <a href='/'>
+              <div className="back_home_button">Back to Home</div>
+            </a>
+          </div>
         </div>
       )
     }

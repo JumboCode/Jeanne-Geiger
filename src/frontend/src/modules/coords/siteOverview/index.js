@@ -330,12 +330,12 @@ class siteOverview extends React.Component {
       <div>
         <NavigationBar />
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
           </div>
-          <div class="col-4">
+          <div class="col-6">
             <h1 class="header">{this.state.community_name}</h1>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="stack row">
               <a href={'/site/add-case?com_id=' + this.state.community_id}>
                 <div class="add_a_case">Add a Case +</div>

@@ -64,7 +64,7 @@ class adminViewSite extends React.Component {
       }
     }
 
-    this.setState({ community_name: vars.com_name }, () => {
+    this.setState({ community_name: decodeURIComponent(vars.com_name) }, () => {
       this.setState({ start_date: vars.start_date }, () => {
         this.setState({ end_date: vars.end_date }, () => {
           this.setState({ community_id: vars.com_id }, () => {
@@ -145,10 +145,10 @@ class adminViewSite extends React.Component {
       <div>
         <NavigationBar />
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
             <BackButton class="button" link={this.getBackButtonLink()}/>
           </div>
-          <div class="col-4">
+          <div class="col-6">
             <h1 class="header">{this.state.community_name}</h1>
           </div>
           <div class="col-3">
