@@ -18,11 +18,6 @@ const Login = () => {
           <p1 className="dom_text">
                 Domestic Violence High-Risk Team Login
           </p1>
-        </div>
-      </div>
-      <div className="vl"></div>
-      <div className="item_container">
-        <div className="button_container">
           <button className="login_button" onClick={() => loginWithRedirect({ redirect_uri: redirectUri })}>Login</button>
         </div>
       </div>

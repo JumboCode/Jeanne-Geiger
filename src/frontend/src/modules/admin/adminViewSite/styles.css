@@ -1,5 +1,5 @@
 .row {
-  height: 4em;
+  height: 100%;
   margin: 1em;
 }
 
@@ -55,4 +55,8 @@
   width: 73%;
   text-align: left;
   font-weight: bold;
+}
+
+.hide {
+  display: none;
 }

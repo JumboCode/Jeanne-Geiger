@@ -51,6 +51,12 @@ class adminViewSite extends React.Component {
       vars[key] = value
     })
 
+    var path = window.location.pathname
+    if (path.slice(1, 5) === 'site') {
+      var button = document.getElementById('edit-site-button')
+      button.classList.add('hide')
+    }
+
     if (vars.start_date !== undefined && vars.end_date !== undefined) {
       var percentageCols = document.getElementsByClassName('percentage')
       for (var i = 0; i < percentageCols.length; i++) {
@@ -58,7 +64,7 @@ class adminViewSite extends React.Component {
       }
     }
 
-    this.setState({ community_name: vars.com_name }, () => {
+    this.setState({ community_name: decodeURIComponent(vars.com_name) }, () => {
       this.setState({ start_date: vars.start_date }, () => {
         this.setState({ end_date: vars.end_date }, () => {
           this.setState({ community_id: vars.com_id }, () => {
@@ -142,18 +148,20 @@ class adminViewSite extends React.Component {
       <div>
         <NavigationBar />
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
             <BackButton class="button" link={this.getBackButtonLink()}/>
           </div>
-          <div class="col-4">
+          <div class="col-6">
             <h1 class="header">{this.state.community_name}</h1>
           </div>
           <div class="col-3">
-            <Link to={'/admin/manage-site?com_id=' + this.state.community_id}>
-              <button type="button" class="edit_site_button">
-                    Edit Site
-              </button>
-            </Link>
+            <span id="edit-site-button">
+              <Link to={'/admin/manage-site?com_id=' + this.state.community_id}>
+                <button type="button" class="edit_site_button">
+                Edit Site
+                </button>
+              </Link>
+            </span>
             <Filter/>
           </div>
         </div>
@@ -166,7 +174,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   DVHRT High Risk Victim Information
               </div>
-              <ObjectTable tableRows = {[
+              <ObjectTable Title = "Gender" total={this.state.victim_info['Total Gender Count']} tableRows = {[
                 ['Female', this.state.victim_info.Female],
                 ['Male', this.state.victim_info.Male],
                 ['Other', this.state.victim_info.Other]]}/>
@@ -178,7 +186,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Victim Race/Ethnicity
               </div>
-              <ObjectTable tableRows = {[
+              <ObjectTable Title = "Race/Ethnicity" total={this.state.victim_info['Total Ethnicity Count']} tableRows = {[
                 ['American Indian/Alaska Native', this.state.victim_info['American Indian/Alaska Native']],
                 ['Asian', this.state.victim_info.Asian],
                 ['Black/African American', this.state.victim_info['Black/African American']],
@@ -194,7 +202,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Victim Race/Ethnicity
               </div>
-              <ObjectTable
+              <ObjectTable Title = "Domestic Violence Service Utilization" total={this.state.victim_info.total}
                 tableRows = {[
                   ['Connection To Domestic Violence Services', this.state.victim_info.connection_to_domestic_violence_services],
                   ['Engagement In Ongoing Domestic Violence Services', this.state.victim_info.engagement_in_ongoing_domestic_violence_services]]}/>
@@ -211,7 +219,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   DVHRT High Risk Victim Information
               </div>
-              <ObjectTable tableRows = {[
+              <ObjectTable Title="Gender" total={this.state.abuser_info['Total Gender Count']} tableRows = {[
                 ['Female', this.state.abuser_info.Female],
                 ['Male', this.state.abuser_info.Male],
                 ['Other', this.state.abuser_info.Other]]}/>
@@ -224,7 +232,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Abuser Race/Ethnicity
               </div>
-              <ObjectTable tableRows = {[
+              <ObjectTable Title="Race/Ethnicity" total={this.state.abuser_info['Total Count']} tableRows = {[
                 ['American Indian/Alaska Native', this.state.abuser_info['American Indian/Alaska Native']],
                 ['Asian', this.state.abuser_info.Asian],
                 ['Black/African American', this.state.abuser_info['Black/African American']],
@@ -245,7 +253,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Risk Indicators
               </div>
-              <ObjectTable tableRows = {[
+              <ObjectTable total={this.state.risk_factor_info.total} tableRows = {[
                 ['Has he/she tried to kill you?', this.state.risk_factor_info.attempted_murder],
                 ['Has he/she ever tried to choke (strangle) you?', this.state.risk_factor_info.attempted_choke],
                 ['Has he/she choked (strangled) you multiple times?', this.state.risk_factor_info.multiple_choked],
@@ -263,7 +271,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                     Abuser Outcomes
               </div>
-              <ObjectTable
+              <ObjectTable total={this.state.outcome_info['Total Charges Filed Count']}
                 tableRows = {[
                   ['Police Response: Charges Filed', this.state.outcome_info['Police Response: Charges Filed']],
                   ['Police Response: No Charges Filed', this.state.outcome_info['Police Response: No Charges Filed']],
@@ -277,7 +285,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Bail Hearing Outcomes
               </div>
-              <ObjectTable
+              <ObjectTable total={this.state.outcome_info['Total Pretrial Hearing Outcomes Count']}
                 tableRows = {[
                   ['Released on Bail', this.state.outcome_info['Released on Bail']],
                   ['Released on Personal Recognizance', this.state.outcome_info['Released on Personal Recognizance']],
@@ -294,7 +302,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Disposition Outcomes
               </div>
-              <ObjectTable
+              <ObjectTable total={this.state.outcome_info['TTotal Disposition Outcomes Count']}
                 tableRows = {[
                   ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
                   ['Not Guilty', this.state.outcome_info['Not Guilty']],
@@ -310,7 +318,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Sentencing Outcomes
               </div>
-              <ObjectTable
+              <ObjectTable total={this.state.outcome_info['Total Sentencing Outcomes Count']}
                 tableRows = {[
                   ['Incarceration', this.state.outcome_info.Incarceration],
                   ['Probation', this.state.outcome_info.Probation],
