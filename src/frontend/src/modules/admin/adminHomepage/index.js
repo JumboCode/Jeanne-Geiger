@@ -56,7 +56,7 @@ class adminHomepage extends React.Component {
     const { cookies } = this.props
     var token = cookies.get('token')
     // handle if token is not loaded in cookies yet
-    if (token == '') {
+    if (token === '') {
       window.location.reload()
     }
 

@@ -38,7 +38,7 @@ class adminManageSite extends React.Component {
   isEditSiteView () {
     const { cookies } = this.props
     var token = cookies.get('token')
-    if (token == '') {
+    if (token === '') {
       window.location.reload()
     }
 
@@ -83,7 +83,7 @@ class adminManageSite extends React.Component {
 
     const { cookies } = this.props
     var token = cookies.get('token')
-    if (token == '') {
+    if (token === '') {
       window.location.reload()
     }
 

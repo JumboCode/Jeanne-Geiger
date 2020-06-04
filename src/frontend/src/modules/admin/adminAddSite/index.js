@@ -54,7 +54,7 @@ class adminAddSite extends React.Component {
 
     const { cookies } = this.props
     var token = cookies.get('token')
-    if (token == '') {
+    if (token === '') {
       window.location.reload()
     }
 

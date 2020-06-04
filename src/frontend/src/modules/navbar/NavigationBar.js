@@ -23,7 +23,7 @@ const NavigationBar = () => {
       {!isAuthenticated && <Link to='/'><button id="logout">Log in</button></Link>}
       {isAuthenticated && <button id="logout" onClick={() => {
         logout()
-        
+
         // Prevent mismatched tokens
         document.cookie = 'token=;path=/admin'
         document.cookie = 'token=;path=/site'
