@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 const AdminRoute = ({ component: Component, path, ...rest }) => {
   const { roles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
   // eslint-disable-next-line
-  const [cookies, setCookie, removeCookie] = useCookies()
+  const [cookies, setCookie] = useCookies()
 
   useEffect(() => {
     if (loading) {
