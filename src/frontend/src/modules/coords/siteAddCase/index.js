@@ -56,6 +56,9 @@ class siteAddCase extends React.Component {
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
+    if (token == '') {
+      window.location.reload()
+    }
 
     fetch(REFERRAL_SOURCES_URL, {
       headers: {
@@ -82,6 +85,9 @@ class siteAddCase extends React.Component {
     this.setState({ case_id: vars.case_id })
     const { cookies } = this.props
     var token = cookies.get('token')
+    if (token == '') {
+      window.location.reload()
+    }
 
     // Get case specific info, update state and prepopulate fields
     fetch(GET_CASE_URL, {
@@ -258,6 +264,9 @@ class siteAddCase extends React.Component {
     caseInfo += '&active_status=' + activeStatus
     const { cookies } = this.props
     var token = cookies.get('token')
+    if (token == '') {
+      window.location.reload()
+    }
     var casePostRequest = new XMLHttpRequest()
     casePostRequest.open('POST', CASE_POST_URL, true)
     casePostRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')

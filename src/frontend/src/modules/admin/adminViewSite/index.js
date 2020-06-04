@@ -77,6 +77,9 @@ class adminViewSite extends React.Component {
   fetchTabData (url, tabName) {
     const { cookies } = this.props
     var token = cookies.get('token')
+    if (token == '') {
+      window.location.reload()
+    }
     fetch(
       url, {
         headers: {

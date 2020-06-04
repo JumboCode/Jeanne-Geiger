@@ -285,21 +285,18 @@ class siteOverview extends React.Component {
     this.showTab(0)
     const { cookies } = this.props
     var token = cookies.get('token')
-    console.log('Token: ' + token)
+    if (token == '') {
+      window.location.reload()
+    }
     fetch(CASES_URL, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then(results => {
-        console.log(results)
-        if (results.status == 401) {
-          // window.location.reload()
-        }
         return results.json()
       })
       .then(results => {
-        console.log(results)
         var data = JSON.parse(results)
         if (data.data) {
           this.setState({ cases: data.data })

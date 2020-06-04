@@ -55,7 +55,10 @@ class adminHomepage extends React.Component {
     })
     const { cookies } = this.props
     var token = cookies.get('token')
-    console.log('Token: ' + token)
+    // handle if token is not loaded in cookies yet
+    if (token == '') {
+      window.location.reload()
+    }
 
     fetch(COMMUNITY_LIST_URL, {
       headers: {
