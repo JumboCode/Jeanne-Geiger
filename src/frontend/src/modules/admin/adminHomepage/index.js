@@ -95,7 +95,6 @@ class adminHomepage extends React.Component {
     const loading = this.state.loading
     return (
       <div>
-        {/* {console.log('Cookie: ' + this.props.cookies.get('token'))} */}
         <NavigationBar />
         <a href="/admin/add-site" ><div class="add_a_site_button">Add a New Site + </div></a>
         <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
