@@ -152,7 +152,7 @@ class siteAddCase extends React.Component {
     document.getElementById('sentencing_outcomes_sentence').value = SENT_OUT_SENT_TITLE_TO_VALUE[this.state.case.outcome_id.sentencing_outcomes_sentence]
   }
 
-  getTabInfo (tabName) {
+  getTabInfo (tabName, keyName) {
     var i, tabcontent, tablinks
 
     // Get all elements with class='tabcontent' and hide them
@@ -169,6 +169,8 @@ class siteAddCase extends React.Component {
 
     // Show the current tab, and add an 'active' class to the button that opened the tab
     document.getElementById(tabName).style.display = 'block'
+
+   // this.setState({key: keyName})
   }
 
   doOutcomesPost () {
@@ -277,34 +279,36 @@ class siteAddCase extends React.Component {
   }
 
   showTab (index) {
-    if (index === 0) { this.getTabInfo('VictimForm') } else if (index === 1) { this.getTabInfo('AbuserForm') } else if (index === 2) { this.getTabInfo('RiskFactorsForm') } else if (index === 3) { this.getTabInfo('OutcomesForm') }
+    if (index === 0) { this.getTabInfo('VictimForm', "victim") } else if (index === 1) { this.getTabInfo('AbuserForm', "abuser") } else if (index === 2) { this.getTabInfo('RiskFactorsForm', "risk_factors") } else if (index === 3) { this.getTabInfo('OutcomesForm', "outcomes") }
   }
+
 
   changeTab (index) {
     switch(index) {
 
       case 0:
         this.setState({key: "victim"})
+        alert(this.state.key)
         //this.showTab(0)
         break
 
       case 1:
         this.setState({key: "abuser"})
+        alert(this.state.key)
         //this.showTab(1)
         break
 
       case 2:
         this.setState({key: "risk_factors"})
+        alert(this.state.key)
         //this.showTab(2)
         break
 
       case 3:
         this.setState({key: "outcomes"})
+        alert(this.state.key)
         //this.showTab(3)
-        break
 
-      default:
-        this.changeTab(0)
     }
   }
 
