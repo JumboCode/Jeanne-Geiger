@@ -10,7 +10,7 @@ django-cors-headers==3.1.1
 django-heroku==0.3.1
 djangorestframework==3.10.3
 djangorestframework-jwt==1.11.0
-drf-jwt==1.13.4
+drf-jwt==1.15.1
 ecdsa==0.15
 gunicorn==19.9.0
 heroku==0.1.4
