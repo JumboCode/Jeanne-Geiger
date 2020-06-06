@@ -13,11 +13,14 @@ class OutcomesSerializer(serializers.ModelSerializer):
 		model  = Outcomes
 		fields = ('__all__')
 
+
 class CommunitiesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model  = Communities
 		fields = ('__all__')
 
+
+# converts numerical representation of race/ethnicity to string representation 
 class RaceEthnicityField(serializers.Field):
 	def to_representation(self, value):
 		if value == 0:
@@ -47,6 +50,7 @@ class PersonsSerializer(serializers.ModelSerializer):
 		model  = Persons
 		fields = ('__all__')
 
+
 class RiskFactorsSerializer(serializers.ModelSerializer):
 	violence_increased = serializers.CharField(source='get_violence_increased_display')
 	attempted_leaving = serializers.CharField(source='get_attempted_leaving_display')
@@ -73,6 +77,8 @@ class RiskFactorsSerializer(serializers.ModelSerializer):
 		model  = RiskFactors
 		fields = ('__all__')
 
+
+# CasesSerializer calls other model serializers to parse the data in the foriegn keys 
 class CasesSerializer(serializers.ModelSerializer):
 	relationship_type = serializers.CharField(source='get_relationship_type_display')
 	relationship_len = serializers.CharField(source='get_relationship_len_display')
