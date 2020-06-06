@@ -69,7 +69,7 @@
             }
             ```
         - Comment out the line `del DATABASES['default']['OPTIONS']['sslmode']`
-- Run production backend 
+- Running production backend 
     - src/frontend/src/utils/index.js
         - Set value of DOMAIN: `export const DOMAIN = 'https://dvhrt.herokuapp.com/'`
     - src/dvhrt/settings.py
@@ -84,18 +84,18 @@
 
 ## Overview of Important Files
 - models.py
-    - A model is the single, definitive source of information about your data
+    - A model is the single, definitive source of information about the data
         - The model contains the fields and behaviors of the stored data 
         - Each model maps to a single database table 
         - Each attribute of the model represents a database field
     - There are 5 models: Cases, Outcomes, Communities, Persons, RiskFactors
         - Cases: the main database that represents one domestic violence case and contains references (through foreign keys) to the Outcomes, Communities, RiskFactors, and Persons table (twice, once for victim and abuser)
-        - Outcomes: the results of a case surrounding criminal justice 
+        - Outcomes: the criminal justice results of a case
         - Communities: a location that tracks its own case files (ex. a town)
         - Persons: the personal information of either a victim or abuser
         - RiskFactors: the individual factors used to assess the severity of a case
 - serializers.py
-    - Serializers converts data (ex. querysets or model instances) to native Python datatypes (or vice versa)
+    - Serializers convert data (ex. querysets or model instances) to native Python datatypes (or vice versa)
     - Each model in models.py has a corresponding serializer in serializers.py
     - A serializer must be called on data extracted from the database for it to be usable in views.py
 - urls.py (in src/api/)
@@ -113,18 +113,32 @@
         - Each class has a subclass, which determines what methods and functions it inherits (ex. get, post)
     - The method decorators specify which users have access to which views
         - By default, users can only access views if they are logged in 
-        - A view can require scope to be "admin" or "coord" (or none) to further specify who can access them
+        - A view can require the scope to be "admin" or "coord" (or none) to further specify who can access them
 - settings.py
     - Settings contains the django and auth0 settings for the project 
-    - These settings must be changed to run the application locally 
-    - os.environ refers to the dictionary of heroku environment variables, set at Heroku.com 
+    - These settings must be changed for the application to run locally (see above how to run locally)
+    - os.environ refers to the dictionary of heroku environment variables, set on the Heroku account
+
+
+## Overview of Auth0
+- There are two types of users, admin and coordinator
+    - Admin
+        - The admin is the manager for the DVHRT organization. They can create and edit communities, where each community has its own list of cases. They can see overall stats for a community, but they cannot view individual case files. 
+        - A user is set to be an admin by having the role "DVHRT_ADMIN" in auth0
+    - Coordinator 
+        - The coordinator is manager for one community. They can add and edit cases in their own community and view stats on their own community, but they cannot view data from any other community.
+        - A user is set to be a coordinator by having the role "Coordinator" in auth0 and by having a "site" id set in their metadata which refers to their specific community
+- A user by default can't access any of the backend views without being logged in 
+- Views can also have scopes which specify which users have access to which views based on their role 
+- A user is not meant to have both an admin and coordinator role, only one or the other 
+
 
 ## Info on how to use each POST and GET route
 - path('cases/', views.CasesList.as_view(), name="cases")
     - POST: given a case id and all case data in the request body, either updates a case (based on the id) or creates a new one if it doesn't exist, in the community of the current coordinator user
         - Scope: coordinator 
 - path('one-case/', views.OneCase.as_view(), name="one-case")
-    - GET: given a caseid in the header, returns the data of that case
+    - GET: given a case id in the header, returns the data of that case
         - Scope: coordinator 
 - path('CasesByCommunity/', views.CasesByCommunity.as_view(), name="CasesByCommunity")
     - GET: returns all of the cases associated with the community of the current coordinator 
@@ -139,7 +153,7 @@
         - Scope: admin or coordinator 
     - POST: given a community id in the request header and all community data in the request body, edits the data of an existing community
 - path('AddCoordinator/', views.AddCoordinator.as_view(), name="AddCoordinator")
-    - POST: given a community id in the request header and emails in the request body, creates new auth0 coordinator accounts for those emails 
+    - POST: given a community id in the request header and a list of emails in the request body, creates new auth0 coordinator accounts for those emails 
         - Scope: admin
 - path('ActiveCaseCountView/', views.ActiveCaseCountView.as_view(), name="ActiveCaseCountView")
     - GET: given a community id in the request header, returns the number of active cases for that community
@@ -159,18 +173,6 @@
 - path('DVHRTCriminalJusticeOutcomes/', views.DVHRTCriminalJusticeOutcomes.as_view(), name="DVHRTCriminalJusticeOutcomes")
     - GET: given a community id in the request header, returns summary of info for all outcomes in that community 
         - Scope: admin or coordinator 
-
-
-## Overview of Auth0
-- There are two types of users, admin and coordinator
-    - Admin
-        - The admin is the manager for the entire organization. They can create and edit communities, where each community has its own list of cases. They can see stats for a community, but they cannot view individual case files. 
-        - A user is set to be an admin by having the role "DVHRT_ADMIN" in auth0
-    - Coordinator 
-        - The coordinator is manager for one community. They can add and edit cases in their own community and view stats on their own community, but they cannot view data from any other community
-        - A user is set to be a coordinator by having the role "Coordinator" in auth0 and by having a site id set in their metadata which refers to their specific community
-- A user by default can't access any of the backend views without being logged in 
-- Views can also have scopes which specify which users have access to which views based on their role 
 
 
 ## Database Commands 
@@ -194,7 +196,7 @@
         `dropdb <name of database>`
     - To create a database
         `createdb <name of database>`
-- How to Use Admin Interface to Edit Database
+- How to use admin interface to edit database
     - This interface will allow you to edit any information already in the database, add to it, or delete from it - *super useful!*	
     - If you haven't made a [superuser](https://docs.djangoproject.com/en/1.8/intro/tutorial02/) yet:
         - Activate virtual environment: `. <name of virtual environment>/bin/activate`
@@ -215,9 +217,17 @@ or __pycache__
 	- Don't commit your virtual environment!
 	- Each machine may install their requirements differently, and we don't want 
 	conflicts
+4. The src/urls.py file is the high level root location for the project, but it's NOT neccessarily where the urls for the client facing application should go
+    - This is a convention we should follow for Django to work correctly
+5. The api/urls.py file in the api folder is where client-facing url paths will go
+    - This is where we map certain urls to different views, and call .as_view() for different classes defined in views.py
+6. Views.py is where much of the logic goes for serializing data from the models
+    - We define different classes with names like CommunitiesList, which serialize data and make queryset
+    - Each class defined in views.py generally has a subclass, which determines what methods and functions it inherits
+    - Pay attention to which subclasses we use, as this will give us different functionality for different views (ex: get and post)
+    - Then in urls.py, use CommunitiesList.as_view() to use that class for a given url
 
-
-# Helpful Links
+## Helpful Links
 - Spencer Postgres Tutorial: https://github.com/JumboCode/django-postgres-tutorial?fbclid=IwAR2OYUCsvZQdscLrme6B8yCTYir_iiNHp4SA0UKhdaNvlTQyU15SWnZcu2Q
 - Spencer Django Tutorial: https://github.com/JumboCode/django-tutorial
 - How to Enable and Connect the Django Admin Interface: https://www.digitalocean.com/community/tutorials/how-to-enable-and-connect-the-django-admin-interface
