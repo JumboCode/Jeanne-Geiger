@@ -2,11 +2,14 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 
+# maps bool to string
 BOOL = (
     (False, 'No'),
     (True, 'Yes')
 )
 
+
+# Outcomes represent the results of a case surrounding criminal justice
 class Outcomes(models.Model):
 	CHARGES = (
 		(0, 'undefined'),
@@ -49,6 +52,9 @@ class Outcomes(models.Model):
 	sentencing_outcomes_disposition = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_DISPOSITION)
 	sentencing_outcomes_sentence = models.IntegerField(default=0, choices=SENTENCING_OUTCOMES_SENTENCE)
 
+
+# Cases represent a singular case and uses foreign keys to refer to a specific victim, 
+# abuser, outcome, risk factors, and the community the case originates from. 
 class Cases(models.Model):
     RELATIONSHIP_TYPE = [
         (0, 'undefined'),
@@ -91,14 +97,21 @@ class Cases(models.Model):
     last_updated = models.DateField(null=True, blank=True)
 
 
+# Communities represents a location that tracks its own case files, like a town 
 class Communities(models.Model):
     community_id = models.AutoField(primary_key=True)
     community_name = models.CharField(max_length=100, default="")
+    # coordinators tracks the people who have access to the data from this community including name and email address
+    # this variable is not updated in the database after initial creation and is only updated through auth0
+    # note: this is an array of arrays of size 2 that contains strings, arrays are not represented in built-in Django API (this is not used in this app)
     coordinators = ArrayField(ArrayField(models.CharField(max_length=100, default=""), size=2), default=list)
+    # note: this is an an array of strings, arrays are not represented in built in Django API (this is not used in this app)
     referral_sources = ArrayField(models.CharField(max_length=100, default=""))
     date_created = models.DateField(null=True, blank=True)
     last_updated = models.DateField(null=True, blank=True)
 
+
+# Persons represents either a victim or abuser and contains personal information
 class Persons(models.Model):
     gender_choices = (
         (0, 'undefined'),
@@ -150,7 +163,7 @@ class Persons(models.Model):
     )
 
     person_id = models.AutoField(primary_key = True)
-    is_victim = models.BooleanField()
+    is_victim = models.BooleanField()   # if false, the person is an abuser
     name = models.CharField(max_length=100)
     dob = models.DateField(null=True, blank=True)
     gender = models.IntegerField(default=0, choices=gender_choices)
@@ -159,6 +172,7 @@ class Persons(models.Model):
     primary_language = models.IntegerField(default=0, choices=primary_language_choices)
     town = models.CharField(max_length=100)
 
+# RiskFactors represents each of the individual factors used to assess the severity of the case
 class RiskFactors(models.Model):
     BOOL = (
         (True, 'Yes'),

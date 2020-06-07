@@ -22,6 +22,7 @@ import http.client
 import requests
 import datetime
 
+# returns start and end dates from a request, if none given then it returns the last 30 days 
 def date_range(request):
     start_date = request.META.get('HTTP_STARTDATE')
     end_date = request.META.get('HTTP_ENDDATE')
@@ -33,6 +34,9 @@ def date_range(request):
 
     return start_date, end_date
 
+
+# creates new coordinators for the given community by creating new auth0 users
+# this does not update the list of coordinators in the Communities database 
 @method_decorator(requires_scope('admin'), name='post')
 class AddCoordinator(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
@@ -41,20 +45,25 @@ class AddCoordinator(generics.ListCreateAPIView):
         management_token = get_management_token()
         
         for coordinator in coordinators["data"]:
+            # create the user
             user_id = create_user(coordinator, community_id, management_token)
+            # give the user the coordinator role
             r = set_user_roles(user_id, management_token)
 
         return HttpResponse('Success', status=200) 
+
 
 @method_decorator(requires_scope('admin'), name='post')
 class OneCommunity(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
     serializer_class = CommunitiesSerializer
 
+    # view data for one community 
     def get(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
         roles = get_roles(request)
 
+        # if coordinator, they must have the correct community id, while admin can access all communities 
         if 'Coordinator' in roles:
             try: 
                 community_id = get_site(request)
@@ -65,6 +74,7 @@ class OneCommunity(generics.ListCreateAPIView):
         serializer_class = CommunitiesSerializer(queryset, many=True)
         return Response(serializer_class.data[0])
 
+    # edit data for one community (edit does not include coordinators)
     def post(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
         try:
@@ -78,17 +88,19 @@ class OneCommunity(generics.ListCreateAPIView):
         communityData.save() 
         return HttpResponse('Success', status=200)
 
-@method_decorator(requires_scope('admin'), name='post')
+
+@method_decorator(requires_scope('admin'), name='dispatch')
 class CommunitiesList(generics.ListCreateAPIView):
     queryset = Communities.objects.all()
     serializer_class = CommunitiesSerializer
 
+    # return list of all communities 
     def get(self, request, *args, **kwargs):
         queryset = Communities.objects.all()
         serializer_class = CommunitiesSerializer(queryset, many=True)
         return Response(serializer_class.data)
 
-
+    # add a community 
     def post(self, request, *args, **kwargs):
         get_community_id = request.POST.get("community_id")
         try:
@@ -102,20 +114,23 @@ class CommunitiesList(generics.ListCreateAPIView):
                 last_updated = datetime.datetime.today().strftime('%Y-%m-%d'),
             )
             communityData.save()
+
+            # create coordinator users 
             coordinators = json.loads(request.POST.get("coord_data"))
             management_token = get_management_token()
-            
             for coordinator in coordinators["data"]:
                 user_id = create_user(coordinator, communityData.community_id, management_token)
                 r = set_user_roles(user_id, management_token)
             
         return JsonResponse({'community_id' : communityData.community_id})
 
+
 @method_decorator(requires_scope('coord'), name='dispatch')
 class OneCase(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
     
+    # view data for one case
     def get(self, request, *args, **kwargs):
         case_id = request.META.get('HTTP_CASEID')
         try:
@@ -129,11 +144,13 @@ class OneCase(generics.ListCreateAPIView):
 
         return HttpResponse('Forbidden', status=403)
 
+
 @method_decorator(requires_scope('coord'), name='get')
 class CasesByCommunity(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
 
+    # returns all of the cases associated with a particular community 
     def get(self, request, *args, **kwargs):
         try:
             community_id = get_site(request)
@@ -152,12 +169,12 @@ class CasesByCommunity(generics.ListCreateAPIView):
         return Response(json.dumps(response))
 
 
-
 @method_decorator(requires_scope('coord'), name='dispatch')
 class CasesList(generics.ListCreateAPIView):
     queryset = Cases.objects.all()
     serializer_class = CasesSerializer
 
+    # create a new case or edit an existing case 
     def post(self, request, *args, **kwargs):
         get_case_id = request.POST.get("case_id")
         community_id = get_site(request)
@@ -316,13 +333,11 @@ class CasesList(generics.ListCreateAPIView):
             caseData.save()
 
         return JsonResponse({'case_id' : caseData.case_id})
-      
-class FrontendAppView(View):
-    """
-    Serves the compiled frontend entry point (only works if you have run `yarn
-    run build`).
-    """
 
+
+class FrontendAppView(View):
+
+    # Serves the compiled frontend entry point (only works if you have run `yarn run build`).
     def get(self, request):
         try:
             with open(os.path.join(settings.REACT_APP_DIR, 'build', 'index.html')) as f:
@@ -338,13 +353,17 @@ class FrontendAppView(View):
                 status=501,
             )
 
+
 @method_decorator(requires_scope('admin'), name='get')
 class ActiveCaseCountView(generics.ListCreateAPIView):
+    # returns the number of active cases for a specific community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
         case_count = len(Cases.objects.filter(community_id=c_id, active_status=0))
         return JsonResponse({'case_count': case_count})
 
+
+# currently unused
 @method_decorator(requires_scope('coord'), name='dispatch')
 class DVHRTReferalSourceView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
@@ -369,9 +388,11 @@ class DVHRTReferalSourceView(generics.ListCreateAPIView):
 
         return JsonResponse(r_dict)
 
+
 class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('victim_id')
 
+    # returns summary of info for all victims in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get("HTTP_COMMUNITYID")
         roles = get_roles(request)
@@ -468,6 +489,7 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
 class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('abuser_id')
 
+    # returns summary of info for all abusers in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get("HTTP_COMMUNITYID")
         roles = get_roles(request)
@@ -543,6 +565,7 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
         return counts
 
 class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
+    # returns summary of info for all risk factors in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
         roles = get_roles(request)
@@ -582,7 +605,7 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
 
 class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
     query_set = Cases.objects.all().select_related('outcome_id')
-
+    # returns summary of info for all outcomes in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
         roles = get_roles(request)

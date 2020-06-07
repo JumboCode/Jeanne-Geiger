@@ -5,6 +5,7 @@ from django.contrib import admin
 from . import views
 from .views import *
 
+# client facing urls, each one referencing a view in views.py
 urlpatterns = [
     path('cases/', views.CasesList.as_view(), name="cases"),
     path('one-case/', views.OneCase.as_view(), name="one-case"),
