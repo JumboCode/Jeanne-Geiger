@@ -14,7 +14,9 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
     }
     if (isAuthenticated) {
       getTokenSilently().then((token) => {
-        setCookie('token', token, { path: '/' })
+        if (roles.includes('DVHRT_ADMIN')) {
+          document.cookie = 'token=' + token + ';path=/admin'
+        }
       })
       return
     }

@@ -22,3 +22,8 @@
   border-radius: 13px;
   margin: 0.5em;
 }
+
+.loading {
+  font-size: 24px;
+  text-align: center;
+}

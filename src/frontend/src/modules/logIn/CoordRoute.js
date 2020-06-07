@@ -14,7 +14,9 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
     }
     if (isAuthenticated) {
       getTokenSilently().then((token) => {
-        setCookie('token', token, { path: '/' })
+        if (roles.includes('Coordinator')) {
+          document.cookie = 'token=' + token + ';path=/site'
+        }
       })
       return
     }
@@ -28,7 +30,7 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
 
   const render = props =>
     (loading
-      ? null : (!isAuthenticated)
+      ? <div>Loading...</div> : (!isAuthenticated)
         ? <Redirect to='/'/> : (roles.includes('Coordinator')
           ? <Component {...props} /> : (roles.includes('DVHRT_ADMIN')
             ? <Redirect to='/admin/'/> : <Redirect to='/'/>)))

@@ -38,6 +38,9 @@ class adminManageSite extends React.Component {
   isEditSiteView () {
     const { cookies } = this.props
     var token = cookies.get('token')
+    if (token === '') {
+      window.location.reload()
+    }
 
     // Get referral sources, update state and prepopulate fields
     fetch(ONE_COMMUNITY_URL, {
@@ -80,6 +83,9 @@ class adminManageSite extends React.Component {
 
     const { cookies } = this.props
     var token = cookies.get('token')
+    if (token === '') {
+      window.location.reload()
+    }
 
     // add coordinators post request
     var coordData = this.getCoordData()
