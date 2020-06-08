@@ -15,7 +15,10 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
     if (isAuthenticated) {
       getTokenSilently().then((token) => {
         if (roles.includes('Coordinator')) {
-          document.cookie = 'token=' + token + ';path=/site'
+          // set token to expire in 10 hours
+          var expiry = new Date()
+          expiry.setHours(expiry.getHours() + 10)
+          document.cookie = 'token=' + token + ';path=/site;expires=' + expiry.toUTCString() + ';'
         }
       })
       return
