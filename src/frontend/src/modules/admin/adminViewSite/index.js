@@ -96,9 +96,14 @@ class adminViewSite extends React.Component {
         }
       }
     ).then(results => {
-      return results.text()
-    }).then(text => {
-      this.doSetState(tabName, JSON.parse(text))
+      if (results.status !== 200) {
+        document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+        console.log(results)
+      } else {
+        return results.text().then(text => {
+          this.doSetState(tabName, JSON.parse(text))
+        })
+      }
     })
   }
 
@@ -165,6 +170,7 @@ class adminViewSite extends React.Component {
             <Filter/>
           </div>
         </div>
+        <div id='err' ></div>
 
         <TabObj selectFunc={(index, label) => this.getTabInfo(label)}/>
 

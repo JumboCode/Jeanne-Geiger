@@ -66,9 +66,15 @@ class siteAddCase extends React.Component {
         Authorization: `Bearer ${token}`
       }
     }).then(results => {
-      return results.json()
-    }).then(data => {
-      this.setState({ referral_sources: data.referral_sources })
+      if (results.status !== 200) {
+        document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+        console.log(results)
+      } else {
+        return results.json()
+          .then(data => {
+            this.setState({ referral_sources: data.referral_sources })
+          })
+      }
     })
   }
 
@@ -96,10 +102,17 @@ class siteAddCase extends React.Component {
         caseid: vars.case_id
       }
     })
-      .then(results => { return results.json() })
-      .then(data => this.setState({ case: data }))
-      .then(() => this.prepopulate())
-      .then(document.getElementById('active_status_obj').style.display = 'block')
+      .then(results => {
+        if (results.status !== 200) {
+          document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+          console.log(results)
+        } else {
+          return results.json()
+            .then(data => this.setState({ case: data }))
+            .then(() => this.prepopulate())
+            .then(document.getElementById('active_status_obj').style.display = 'block')
+        }
+      })
 
     return true
   }
@@ -284,6 +297,7 @@ class siteAddCase extends React.Component {
       <div>
         <NavigationBar />
         <BackButton link='/site'/>
+        <div id='err'></div>
         <div class = "container">
           <TabObj selectFunc={(index, label) => this.showTab(index)}/>
           <form id='CasePost'>
