@@ -66,28 +66,41 @@ class adminHomepage extends React.Component {
       }
     }
     ).then(results => {
+      if (results.status !== 200) {
+        document.getElementById('loading').innerHTML = '<br />'
+        document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+        console.log(results)
+        return
+      }
       return results.json()
-    }).then(communities => {
-      // communities is a list of community objects
-      // for each community object, get its active case count and add it to
-      // the per community data
-      Promise.all(communities.map(community =>
-        fetch(ACTIVE_CASE_COUNT_URL, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            communityid: community.community_id
+        .then(communities => {
+          // communities is a list of community objects
+          // for each community object, get its active case count and add it to
+          // the per community data
+          try {
+            Promise.all(communities.map(community =>
+              fetch(ACTIVE_CASE_COUNT_URL, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  communityid: community.community_id
+                }
+              })
+                .then(results => {
+                  return results.text()
+                })
+                .then(text => {
+                  community.num_active = JSON.parse(text).case_count
+                })
+            )).then(() => {
+              this.setState({ loading: false })
+              if (communities) { this.setState({ communities: communities }) }
+            })
+          } catch (err) {
+            document.getElementById('loading').innerHTML = '<br />'
+            document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+            console.log(err)
           }
         })
-          .then(results => {
-            return results.text()
-          })
-          .then(text => {
-            community.num_active = JSON.parse(text).case_count
-          })
-      )).then(() => {
-        this.setState({ loading: false })
-        if (communities) { this.setState({ communities: communities }) }
-      })
     })
   }
 
@@ -98,7 +111,8 @@ class adminHomepage extends React.Component {
         <NavigationBar />
         <a href="/admin/add-site" ><div class="add_a_site_button">Add a New Site + </div></a>
         <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
-        {loading ? (<div className="loading">Loading Data...</div>) : null}
+        {loading ? (<div className="loading" id="loading">Loading Data...</div>) : null}
+        <div id='err'></div>
       </div>
     )
   }
