@@ -312,10 +312,9 @@ class siteOverview extends React.Component {
               if (data.data) {
                 this.setState({ cases: data.data })
               }
-              this.setState({ community_id: data.community_id, community_name: data.community_name })
+              this.setState({ loading: false, community_id: data.community_id, community_name: data.community_name })
             })
         }
-        this.setState({ loading: false, community_id: data.community_id, community_name: data.community_name })
       })
   }
 
