@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './styles.css'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
+import Loading from '../../logIn/Loading.js'
 import { withCookies, Cookies } from 'react-cookie'
 import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
@@ -111,8 +112,8 @@ class adminHomepage extends React.Component {
         <NavigationBar />
         <a href="/admin/add-site" ><div class="add_a_site_button">Add a New Site + </div></a>
         <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
-        {loading ? (<div className="loading" id="loading">Loading Data...</div>) : null}
         <div id='err'></div>
+        {loading ? (<Loading />) : null}
       </div>
     )
   }
