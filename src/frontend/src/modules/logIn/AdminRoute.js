@@ -15,12 +15,14 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
     if (isAuthenticated) {
       getTokenSilently().then((token) => {
         if (roles.includes('DVHRT_ADMIN')) {
-          document.cookie = 'token=' + token + ';path=/admin'
+          // set token to expire in 10 hours
+          var expiry = new Date()
+          expiry.setHours(expiry.getHours() + 10)
+          document.cookie = 'token=' + token + ';path=/admin;expires=' + expiry.toUTCString() + ';'
         }
       })
       return
     }
-
     const fn = async () => {
       await loginWithRedirect({
         appState: { targetUrl: path }
