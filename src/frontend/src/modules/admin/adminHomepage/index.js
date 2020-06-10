@@ -68,7 +68,6 @@ class adminHomepage extends React.Component {
     }
     ).then(results => {
       if (results.status !== 200) {
-        document.getElementById('loading').innerHTML = '<br />'
         document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
         console.log(results)
         return
@@ -97,7 +96,6 @@ class adminHomepage extends React.Component {
               if (communities) { this.setState({ communities: communities }) }
             })
           } catch (err) {
-            document.getElementById('loading').innerHTML = '<br />'
             document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
             console.log(err)
           }

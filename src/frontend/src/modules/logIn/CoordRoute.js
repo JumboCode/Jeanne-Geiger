@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { useAuth0 } from '../../react-auth0-spa.js'
 import { useCookies } from 'react-cookie'
+import Loading from './Loading.js'
 
 const CoordRoute = ({ component: Component, path, ...rest }) => {
   const { roles, user, loading, isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0()
@@ -33,7 +34,7 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
 
   const render = props =>
     (loading
-      ? <div>Loading...</div> : (!isAuthenticated)
+      ? <Loading /> : (!isAuthenticated)
         ? <Redirect to='/'/> : (roles.includes('Coordinator')
           ? <Component {...props} /> : (roles.includes('DVHRT_ADMIN')
             ? <Redirect to='/admin/'/> : <Redirect to='/'/>)))

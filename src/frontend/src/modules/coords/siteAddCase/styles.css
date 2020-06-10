@@ -5,3 +5,7 @@
 #active_status_obj {
   display: none;
 }
+
+.loading {
+  margin-top: 10px;
+}
