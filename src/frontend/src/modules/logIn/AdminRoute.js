@@ -14,7 +14,7 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
     }
     if (isAuthenticated) {
       getTokenSilently().then((token) => {
-        if (roles.includes('DVHRT_ADMIN')) {
+        if (roles.includes('Admin')) {
           // set token to expire in 10 hours
           var expiry = new Date()
           expiry.setHours(expiry.getHours() + 10)
@@ -34,7 +34,7 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
   const render = props =>
     (loading
       ? null : (!isAuthenticated)
-        ? <Redirect to='/'/> : (roles.includes('DVHRT_ADMIN')
+        ? <Redirect to='/'/> : (roles.includes('Admin')
           ? <Component {...props} /> : (roles.includes('Coordinator')
             ? <Redirect to='/site/'/> : <Redirect to='/'/>)))
 

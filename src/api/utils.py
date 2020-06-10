@@ -44,13 +44,9 @@ def requires_scope(required_scope):
     def require_scope(f):
         @wraps(f)
         def decorated(*args, **kwargs):
-            token = get_token_auth_header(args[0])
-            decoded = jwt.decode(token, verify=False)
-            if decoded.get("permissions"):
-                token_scopes = decoded["permissions"]
-                for token_scope in token_scopes:
-                    if token_scope == required_scope:
-                        return f(*args, **kwargs)
+            role = get_role(args[0])
+            if role == required_scope:
+                return f(*args, **kwargs)
             response = JsonResponse({'message': 'You don\'t have access to this resource'})
             response.status_code = 403
             return response
@@ -67,13 +63,13 @@ def get_email(request):
 def get_site(request):
     token = get_token_auth_header(request)
     decoded = jwt.decode(token, verify=False)
-    return decoded.get('https://jeanne-geiger-api//site')
+    return decoded.get('https://jeanne-geiger-api//appsite')
 
 # returns the role name of the auth0 user which is encoded in the access token 
-def get_roles(request):
+def get_role(request):
     token = get_token_auth_header(request)
     decoded = jwt.decode(token, verify=False)
-    return decoded.get('https://jeanne-geiger-api//roles')
+    return decoded.get('https://jeanne-geiger-api//role')
 
 # returns the management token which can be used to edit the auth0 users
 def get_management_token():
@@ -89,16 +85,6 @@ def get_management_token():
     r = requests.post('https://' + JWT_ACCOUNT + '.auth0.com/oauth/token', headers=headers, data=payload)
     return r.json()["access_token"]
 
-# returns the available roles of the application, including each role name and ID
-def get_role_info(management_token):
-    headers = {
-    'content-type': "application/json",
-    'authorization': f"Bearer {management_token}",
-    'cache-control': "no-cache"
-    }
-    r = requests.get('https://' + JWT_ACCOUNT + '.auth0.com/api/v2/roles', headers=headers)
-    return r.json()
-
 # generate a random password to initialize user account (required step), 
 # to be changed later though reset password email
 def generate_password():
@@ -111,7 +97,6 @@ def create_user(coordinator, community_id, management_token):
     # set the "site" field in the user metadata to the site ID to link the user to a specific community
     # this sends an email to the new user asking to verify their email address
     password = generate_password()
-    print(password)
     payload = {
         "email": coordinator["email"],
         "email_verified": False,
@@ -119,7 +104,8 @@ def create_user(coordinator, community_id, management_token):
         "connection": "Username-Password-Authentication",
         "password": password,
         "verify_email": True,
-        "user_metadata": {
+        "app_metadata": {
+            "role" : "Coordinator",
             "site" : community_id
         }
     }
@@ -145,19 +131,6 @@ def create_user(coordinator, community_id, management_token):
     r = requests.post("https://" + JWT_ACCOUNT + ".auth0.com/dbconnections/change_password", headers=headers, data=json.dumps(payload))
 
     return user_id
-
-# sets the role of an auth0 user to Coordinator 
-def set_user_roles(user_id, management_token):
-    payload = {
-        'roles': [COORD_ROLE_ID]
-    }
-    headers = {
-        'content-type': "application/json",
-        'authorization': f"Bearer {management_token}",
-        'cache-control': "no-cache"
-    }
-    r = requests.post(f"https://" + JWT_ACCOUNT + ".auth0.com/api/v2/users/{user_id}/roles", headers=headers, data=json.dumps(payload))
-    return r
 
 # searches the list of auth0 users given an email and returns the corresponding user id
 # currently not used 
