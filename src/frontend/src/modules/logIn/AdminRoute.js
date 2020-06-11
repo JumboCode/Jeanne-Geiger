@@ -13,9 +13,10 @@ const AdminRoute = ({ component: Component, path, ...rest }) => {
       return
     }
     if (isAuthenticated) {
+      // Authentication tokens are stored in cookies to pass them to different views, which
+      // allows requests to the database directly from said views
       getTokenSilently().then((token) => {
         if (roles.includes('DVHRT_ADMIN')) {
-          // set token to expire in 10 hours
           var expiry = new Date()
           expiry.setHours(expiry.getHours() + 10)
           document.cookie = 'token=' + token + ';path=/admin;expires=' + expiry.toUTCString() + ';'

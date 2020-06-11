@@ -5,6 +5,7 @@ import { useAuth0 } from '../../react-auth0-spa.js'
 import { Link } from 'react-router-dom'
 import './NavigationBar.css'
 
+// Redirect to proper landing page depending on user
 const logoClick = () => {
   var path = window.location.pathname
   if (path.slice(1, 5) === 'site') {
@@ -20,14 +21,15 @@ const NavigationBar = () => {
   return (
     <div className="NavigationBarContainer">
       <Logo class="LogoWrapper" width="17%" onClick={(e) => logoClick(e)}/>
-      {!isAuthenticated && <Link to='/'><button id="logout">Log in</button></Link>}
-      {isAuthenticated && <button id="logout" onClick={() => {
-        logout()
+      {isAuthenticated
+        ? <button id="logout" onClick={() => {
+          logout()
 
-        // Prevent mismatched tokens
-        document.cookie = 'token=;path=/admin'
-        document.cookie = 'token=;path=/site'
-      }}>Log out</button>}
+          // Explicitly clear all tokens on logout
+          document.cookie = 'token=;path=/admin'
+          document.cookie = 'token=;path=/site'
+        }}>Log out</button>
+        : <Link to='/'><button id="logout">Log in</button></Link>}
     </div>
   )
 }

@@ -15,6 +15,9 @@ import siteOverview from './modules/coords/siteOverview'
 import detailView from './modules/coords/detailView'
 import siteAddCase from './modules/coords/siteAddCase'
 
+// Routing table
+// AdminRoute protects routes which are accessible only by users with admin-level permissions
+// CoordRoute protects routes which are accessible only by users with coordinator-level permissions
 const Routes = () => {
   return (
     <div className="auth0button">
