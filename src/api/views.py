@@ -61,10 +61,10 @@ class OneCommunity(generics.ListCreateAPIView):
     # view data for one community 
     def get(self, request, *args, **kwargs):
         community_id = request.META.get("HTTP_COMMUNITYID")
-        roles = get_roles(request)
+        role = get_role(request)
 
         # if coordinator, they must have the correct community id, while Admin can access all communities 
-        if 'Coordinator' in roles:
+        if (role == 'Coordinator'):
             try: 
                 community_id = get_site(request)
             except:
@@ -253,7 +253,6 @@ class CasesList(generics.ListCreateAPIView):
 
         except Cases.DoesNotExist: # case doesn't exist, create a new one
             community = Communities.objects.get(community_id=community_id)
-
             community.last_updated = datetime.datetime.today().strftime('%Y-%m-%d')
             community.save()
             
@@ -395,8 +394,8 @@ class DVHRTHighRiskVictimInfo(generics.ListCreateAPIView):
     # returns summary of info for all victims in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get("HTTP_COMMUNITYID")
-        roles = get_roles(request)
-        if 'Coordinator' in roles:
+        role = get_role(request)
+        if (role == 'Coordinator'):
             try: 
                 c_id = get_site(request)
             except:
@@ -492,8 +491,8 @@ class DVHRTHighRiskAbuserInfo(generics.ListCreateAPIView):
     # returns summary of info for all abusers in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get("HTTP_COMMUNITYID")
-        roles = get_roles(request)
-        if 'Coordinator' in roles:
+        role = get_role(request)
+        if (role == 'Coordinator'):
             try: 
                 c_id = get_site(request)
             except:
@@ -568,8 +567,8 @@ class DVHRTRiskFactorCounts(generics.ListCreateAPIView):
     # returns summary of info for all risk factors in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
-        roles = get_roles(request)
-        if 'Coordinator' in roles:
+        role = get_role(request)
+        if (role == 'Coordinator'):
             try: 
                 c_id = get_site(request)
             except:
@@ -608,8 +607,8 @@ class DVHRTCriminalJusticeOutcomes(generics.ListCreateAPIView):
     # returns summary of info for all outcomes in a community 
     def get(self, request, *args, **kwargs):
         c_id = request.META.get('HTTP_COMMUNITYID')
-        roles = get_roles(request)
-        if 'Coordinator' in roles:
+        role = get_role(request)
+        if (role == 'Coordinator'):
             try: 
                 c_id = get_site(request)
             except:
