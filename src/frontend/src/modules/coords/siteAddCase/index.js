@@ -266,8 +266,6 @@ class siteAddCase extends React.Component {
     var vParams = this.doAbuserOrVictimPost('True', 'v_name', 'v_dob', 'v_gender', 'v_race_ethnicity', 'v_age_at_case_acceptance', 'v_primary_language', 'v_town')
     var rfParams = this.doRiskFactorsPost()
 
-    console.log(rfParams)
-
     var caseInfo = oParams + '&' + aParams + '&' + vParams + '&' + rfParams + '&' +
                   '&community_id=' + this.state.community_id +
                   '&relationship_type=' + document.getElementById('relationship_type').value +
