@@ -30,7 +30,7 @@ const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarcer
 const ACTIVE_TITLE_TO_VALUE = { Active: 0, Inactive: 1, Closed: 2 }
 
 // Dropdown Object Choices
-const BOOL_W_NA_CHOICES = [['Yes', 'True'], ['No', 'False'], ['Other/Not Applicable', 'None']]
+const BOOL_W_NA_CHOICES = [['Yes', 'True'], ['No', 'False'], ['Other/Not Applicable']]
 const BOOL_CHOICES = [['Yes', 'True'], ['No', 'False']]
 
 class siteAddCase extends React.Component {
