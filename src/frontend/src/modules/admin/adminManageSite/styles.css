@@ -2,6 +2,15 @@
   margin: 10px !important;
 }
 
+
+.backbutton {
+  top: -30px !important;
+}
+
+.backbutton img {
+  float: left;
+}
+
 .edit_site_button {
   left: 50%;
   bottom: 70%;
