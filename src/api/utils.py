@@ -1,6 +1,8 @@
 import json
 import os
 import jwt
+import random
+import string
 import requests
 from django.contrib.auth import authenticate
 from dvhrt.settings import JWT_ACCOUNT, JWT_AUTH, COORD_ROLE_ID
@@ -97,17 +99,25 @@ def get_role_info(management_token):
     r = requests.get('https://' + JWT_ACCOUNT + '.auth0.com/api/v2/roles', headers=headers)
     return r.json()
 
+# generate a random password to initialize user account (required step), 
+# to be changed later though reset password email
+def generate_password():
+    character_set = string.ascii_letters + string.digits
+    return ''.join((random.choice(character_set) for i in range(32)))
+
 # creates a new auth0 user that represents a coordinator of a specific community  
 def create_user(coordinator, community_id, management_token):
     # make request to create user 
     # set the "site" field in the user metadata to the site ID to link the user to a specific community
     # this sends an email to the new user asking to verify their email address
+    password = generate_password()
+    print(password)
     payload = {
         "email": coordinator["email"],
         "email_verified": False,
         "name": coordinator["name"],
         "connection": "Username-Password-Authentication",
-        "password": os.environ["DEFAULT_PASSWORD"],
+        "password": password,
         "verify_email": True,
         "user_metadata": {
             "site" : community_id

@@ -49,9 +49,16 @@ class adminManageSite extends React.Component {
         communityid: this.state.community_id
       }
     })
-      .then(results => { return results.json() })
-      .then(data => this.setState({ original_data: data }))
-      .then(() => this.prepopulate())
+      .then(results => {
+        if (results.status !== 200) {
+          document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+          console.log(results)
+        } else {
+          return results.json()
+            .then(data => this.setState({ original_data: data }))
+            .then(() => this.prepopulate())
+        }
+      })
 
     return true
   }
@@ -176,6 +183,7 @@ class adminManageSite extends React.Component {
         <h2 class="title">Manage Site</h2>
         <h1>{this.props.type}</h1>
         <BackButton link='/admin' />
+        <div id='err'></div>
         <form>
           <div class="container">
             <Form.Row>

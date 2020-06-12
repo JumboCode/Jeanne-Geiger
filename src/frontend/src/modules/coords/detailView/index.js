@@ -38,8 +38,15 @@ class detailView extends React.Component {
         Authorization: `Bearer ${token}`
       }
     })
-      .then(results => { return results.json() })
-      .then(data => this.setState({ case: data }))
+      .then(results => {
+        if (results.status !== 200) {
+          document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
+          console.log(results)
+        } else {
+          return results.json()
+            .then(data => this.setState({ case: data }))
+        }
+      })
   }
 
   getCaseIdFromUrl () {
@@ -315,6 +322,7 @@ class detailView extends React.Component {
             {this.getRiskFactorTabInfo()}
           </div>
         </div>
+        <div id='err'></div>
       </div>
     )
   }
