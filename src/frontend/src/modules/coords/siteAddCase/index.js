@@ -22,16 +22,11 @@ const PRIMARY_LANGUAGE_TITLE_TO_VALUE = { English: 1, 'Spanish/Spanish Creole': 
 const REL_TYPE_TITLE_TO_VALUE = { 'Current Spouse/Intimate Partner': 1, 'Former Spouse/Intimate Partner': 2, 'Current Dating Relationship': 3, 'Former Dating Relationship': 4, Other: 5 }
 const REL_LEN_TITLE_TO_VALUE = { '<1 year': 1, '1-5 years': 2, '6-9 years': 3, '10-14 years': 4, '15-19 years': 5, '20-29 years': 6, '30+ years': 7 }
 const BOOL_TITLE_TO_VALUE = { Yes: 'True', No: 'False' }
-const BOOL_W_NA_TITLE_TO_VALUE = { Yes: 'True', No: 'False', 'Other/Not Applicable': 'None',  'Other/Not Applicable': '' }
 const CHARGES_TITLE_TO_VALUE = { 'Police Response: Charges Filed': 1, 'Police Response: No Charges Filed': 2, 'No Police Response: Not Applicable': 3 }
 const PRETRIAL_OUTCOME_TITLE_TO_VALUE = { 'Released on Bail': 1, 'Released on Personal Recognizance': 2, 'Detained/Pretrial Detention Statute': 3, 'Detained/Bail Unmet': 4, 'Detained/Other': 5, 'Pending Pretrial Hearing': 6 }
 const SENT_OUT_DISP_TITLE_TO_VALUE = { 'Charges Dismissed': 1, 'Not Guilty': 2, 'Deferred Adjudication': 3, 'Plead/Found Guilty': 4, 'Pending Disposition': 5 }
 const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarceration Followed by Probation': 3 }
 const ACTIVE_TITLE_TO_VALUE = { Active: 0, Inactive: 1, Closed: 2 }
-
-// Dropdown Object Choices
-const BOOL_W_NA_CHOICES = [['Yes', 'True'], ['No', 'False'], ['Other/Not Applicable']]
-const BOOL_CHOICES = [['Yes', 'True'], ['No', 'False']]
 
 class siteAddCase extends React.Component {
   static propTypes = {
@@ -157,27 +152,27 @@ class siteAddCase extends React.Component {
     document.getElementById('a_town').value = this.state.case.abuser_id.town
 
     // riskfactor prepopulate
-    document.getElementById('violence_increased').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.violence_increased]
-    document.getElementById('attempted_leaving').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_leaving]
-    document.getElementById('control_activites').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.control_activites]
-    document.getElementById('attempted_murder').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_murder]
-    document.getElementById('threatened_murder').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.threatened_murder]
-    document.getElementById('weapon_threat').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.weapon_threat]
-    document.getElementById('attempted_choke').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_choke]
-    document.getElementById('multiple_choked').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.multiple_choked]
-    document.getElementById('killing_capable').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.killing_capable]
-    document.getElementById('owns_gun').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.owns_gun]
-    document.getElementById('suicide_threat_or_attempt').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.suicide_threat_or_attempt]
-    document.getElementById('is_unemployed').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_unemployed]
-    document.getElementById('avoided_arrest').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.avoided_arrest]
-    document.getElementById('unrelated_child').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.unrelated_child]
-    document.getElementById('uses_illegal_drugs').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.uses_illegal_drugs]
-    document.getElementById('is_alcoholic').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_alcoholic]
-    document.getElementById('forced_sex').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.forced_sex]
-    document.getElementById('constantly_jealous').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.constantly_jealous]
-    document.getElementById('pregnant_abuse').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.pregnant_abuse]
-    document.getElementById('children_threatened').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.children_threatened]
-    document.getElementById('has_spied').value = BOOL_W_NA_TITLE_TO_VALUE[this.state.case.risk_factor_id.has_spied]
+    document.getElementById('violence_increased').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.violence_increased]
+    document.getElementById('attempted_leaving').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_leaving]
+    document.getElementById('control_activites').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.control_activites]
+    document.getElementById('attempted_murder').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_murder]
+    document.getElementById('threatened_murder').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.threatened_murder]
+    document.getElementById('weapon_threat').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.weapon_threat]
+    document.getElementById('attempted_choke').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.attempted_choke]
+    document.getElementById('multiple_choked').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.multiple_choked]
+    document.getElementById('killing_capable').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.killing_capable]
+    document.getElementById('owns_gun').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.owns_gun]
+    document.getElementById('suicide_threat_or_attempt').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.suicide_threat_or_attempt]
+    document.getElementById('is_unemployed').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_unemployed]
+    document.getElementById('avoided_arrest').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.avoided_arrest]
+    document.getElementById('unrelated_child').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.unrelated_child]
+    document.getElementById('uses_illegal_drugs').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.uses_illegal_drugs]
+    document.getElementById('is_alcoholic').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.is_alcoholic]
+    document.getElementById('forced_sex').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.forced_sex]
+    document.getElementById('constantly_jealous').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.constantly_jealous]
+    document.getElementById('pregnant_abuse').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.pregnant_abuse]
+    document.getElementById('children_threatened').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.children_threatened]
+    document.getElementById('has_spied').value = BOOL_TITLE_TO_VALUE[this.state.case.risk_factor_id.has_spied]
 
     // outcome prepopulate
     document.getElementById('connection_to_dvs').value = BOOL_TITLE_TO_VALUE[this.state.case.outcome_id.connection_to_domestic_violence_services]
@@ -310,8 +305,8 @@ class siteAddCase extends React.Component {
               <div class = "container">
                 <Form.Row>
                   <Col>
-                    <DropdownObj id='connection_to_dvs' title='Connection to Domestic Violence Services' choices={BOOL_CHOICES}/>
-                    <DropdownObj id='engagement_in_ongoing_dvs' title='Engagement in Ongoing Domestic Violence Services' choices={BOOL_CHOICES}/>
+                    <DropdownObj id='connection_to_dvs' title='Connection to Domestic Violence Services' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='engagement_in_ongoing_dvs' title='Engagement in Ongoing Domestic Violence Services' choices={[['Yes', 'True'], ['No', 'False']]}/>
                     <DropdownObj id='charges' title='Charges' choices={[['Police Response: Charges Filed', 1], ['Police Response: No Charges Filed', 2], ['No Police Response: Not Applicable', 3]]}/>
                   </Col>
                   <Col>
@@ -327,29 +322,29 @@ class siteAddCase extends React.Component {
               <div class = "container">
                 <Form.Row>
                   <Col>
-                    <DropdownObj id='violence_increased' title='Has the physical violence increased in severity or frequency over the past year?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='attempted_leaving' title='Have you left him/her after living together in the past year?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='control_activites' title='Does he/she control most or all of your daily activities?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='attempted_murder' title='Has he/she tried to kill you?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='threatened_murder' title='Has he/she ever threatened to kill you?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='weapon_threat' title='Has he/she used a weapon against you or threatened you with a lethal weapon? ' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='attempted_choke' title='Has he/she ever tried to choke (strangle) you?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='multiple_choked' title='Has he/she choked (strangled) you multiple times?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='killing_capable' title='Do you believe he/she is capable of killing you?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='owns_gun' title='Does he/she own a gun?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='suicide_threat_or_attempt' title='Has he/she ever threatened or tried to commit suicide?' choices={BOOL_W_NA_CHOICES}/>
+                    <DropdownObj id='violence_increased' title='Has the physical violence increased in severity or frequency over the past year?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='attempted_leaving' title='Have you left him/her after living together in the past year?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='control_activites' title='Does he/she control most or all of your daily activities?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='attempted_murder' title='Has he/she tried to kill you?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='threatened_murder' title='Has he/she ever threatened to kill you?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='weapon_threat' title='Has he/she used a weapon against you or threatened you with a lethal weapon? ' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='attempted_choke' title='Has he/she ever tried to choke (strangle) you?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='multiple_choked' title='Has he/she choked (strangled) you multiple times?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='killing_capable' title='Do you believe he/she is capable of killing you?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='owns_gun' title='Does he/she own a gun?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='suicide_threat_or_attempt' title='Has he/she ever threatened or tried to commit suicide?' choices={[['Yes', 'True'], ['No', 'False']]}/>
                   </Col>
                   <Col>
-                    <DropdownObj id='is_unemployed' title='Is he/she unemployed?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='avoided_arrest' title='Has he/she avoided being arrested for domestic violence?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='unrelated_child' title='Do you have a child that is not his/hers? ' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='uses_illegal_drugs' title='Does he/she use illegal drugs?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='is_alcoholic' title='Is he/she an alcoholic or problem drinker?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='forced_sex' title='Has he/she ever forced you to have sex when you did not wish to do so?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='constantly_jealous' title='Is he/she violently or constantly jealous?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='pregnant_abuse' title='Has he/she ever beaten you while you were pregnant?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='children_threatened' title='Threatens to harm victim’s children?' choices={BOOL_W_NA_CHOICES}/>
-                    <DropdownObj id='has_spied' title='Does he/she spy on you, leaving threatening notes or messages?' choices={BOOL_W_NA_CHOICES}/>
+                    <DropdownObj id='is_unemployed' title='Is he/she unemployed?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='avoided_arrest' title='Has he/she avoided being arrested for domestic violence?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='unrelated_child' title='Do you have a child that is not his/hers? ' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='uses_illegal_drugs' title='Does he/she use illegal drugs?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='is_alcoholic' title='Is he/she an alcoholic or problem drinker?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='forced_sex' title='Has he/she ever forced you to have sex when you did not wish to do so?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='constantly_jealous' title='Is he/she violently or constantly jealous?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='pregnant_abuse' title='Has he/she ever beaten you while you were pregnant?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='children_threatened' title='Threatens to harm victim’s children?' choices={[['Yes', 'True'], ['No', 'False']]}/>
+                    <DropdownObj id='has_spied' title='Does he/she spy on you, leaving threatening notes or messages?' choices={[['Yes', 'True'], ['No', 'False']]}/>
                   </Col>
                 </Form.Row>
               </div>
@@ -388,7 +383,7 @@ class siteAddCase extends React.Component {
                     <TextInputObj title='Town' id='v_town'/>
                     <DropdownObj id='relationship_type' title='Relationship Type' choices={[['Current Spouse/Intimate Partner', 1], ['Former Spouse/Intimate Partner', 2], ['Current Dating Relationship', 3], ['Former Dating Relationship', 4], ['Other', 5]]}/>
                     <DropdownObj id='relationship_len' title='Relationship Type' choices={[['<1 year', 1], ['1-5 years', 2], ['6-9 years', 3], ['10-14 years', 4], ['15-19 years', 5], ['20-29 years', 6], ['30+ years', 7]]}/>
-                    <DropdownObj id='minor_in_home' title='Minor in Home' choices={BOOL_CHOICES}/>
+                    <DropdownObj id='minor_in_home' title='Minor in Home' choices={[['Yes', 'True'], ['No', 'False']]}/>
                     <DropdownObj id='referral_source' title='Referral Source' choices={this.state.referral_sources.map(listitem => [listitem, listitem])}/>
                     <DateInputObj title='Date of Case Acceptance' id='date_accepted'/>
                     <StatusObj/>
