@@ -27,6 +27,11 @@ h3 {
   vertical-align: middle;
 }
 
+.backbutton img {
+  width: 60%;
+  cursor: pointer;
+}
+
 .title-section {
   text-align: center !important;
 }
