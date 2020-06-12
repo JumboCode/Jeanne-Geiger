@@ -22,7 +22,7 @@ const PRIMARY_LANGUAGE_TITLE_TO_VALUE = { English: 1, 'Spanish/Spanish Creole': 
 const REL_TYPE_TITLE_TO_VALUE = { 'Current Spouse/Intimate Partner': 1, 'Former Spouse/Intimate Partner': 2, 'Current Dating Relationship': 3, 'Former Dating Relationship': 4, Other: 5 }
 const REL_LEN_TITLE_TO_VALUE = { '<1 year': 1, '1-5 years': 2, '6-9 years': 3, '10-14 years': 4, '15-19 years': 5, '20-29 years': 6, '30+ years': 7 }
 const BOOL_TITLE_TO_VALUE = { Yes: 'True', No: 'False' }
-const BOOL_W_NA_TITLE_TO_VALUE = { Yes: 'True', No: 'False', 'Other/Not Applicable': 'None' }
+const BOOL_W_NA_TITLE_TO_VALUE = { Yes: 'True', No: 'False', 'Other/Not Applicable': '' }
 const CHARGES_TITLE_TO_VALUE = { 'Police Response: Charges Filed': 1, 'Police Response: No Charges Filed': 2, 'No Police Response: Not Applicable': 3 }
 const PRETRIAL_OUTCOME_TITLE_TO_VALUE = { 'Released on Bail': 1, 'Released on Personal Recognizance': 2, 'Detained/Pretrial Detention Statute': 3, 'Detained/Bail Unmet': 4, 'Detained/Other': 5, 'Pending Pretrial Hearing': 6 }
 const SENT_OUT_DISP_TITLE_TO_VALUE = { 'Charges Dismissed': 1, 'Not Guilty': 2, 'Deferred Adjudication': 3, 'Plead/Found Guilty': 4, 'Pending Disposition': 5 }
@@ -30,7 +30,7 @@ const SENT_OUT_SENT_TITLE_TO_VALUE = { Incarceration: 1, Probation: 2, 'Incarcer
 const ACTIVE_TITLE_TO_VALUE = { Active: 0, Inactive: 1, Closed: 2 }
 
 // Dropdown Object Choices
-const BOOL_W_NA_CHOICES = [['Yes', 'True'], ['No', 'False'], ['Other/Not Applicable', 'None']]
+const BOOL_W_NA_CHOICES = [['Yes', 'True'], ['No', 'False'], ['Other/Not Applicable', '']]
 const BOOL_CHOICES = [['Yes', 'True'], ['No', 'False']]
 
 class siteAddCase extends React.Component {
