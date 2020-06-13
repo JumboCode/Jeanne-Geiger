@@ -294,14 +294,25 @@ class siteOverview extends React.Component {
       }
     })
       .then(results => {
-        return results.json()
-      })
-      .then(results => {
-        var data = JSON.parse(results)
-        if (data.data) {
-          this.setState({ cases: data.data })
+        if (results.status !== 200) {
+          document.getElementById('err').innerHTML = '<br />An error has occured, please refresh the page or try again later.'
+          console.log(results)
+        } else {
+          return results.json()
+            .then(results => {
+              try {
+                var data = JSON.parse(results)
+              } catch (err) {
+                document.getElementById('err').innerHTML = '<br />An error has occured, please refresh the page or try again later.'
+                console.log(err)
+                return
+              }
+              if (data.data) {
+                this.setState({ cases: data.data })
+              }
+              this.setState({ community_id: data.community_id, community_name: data.community_name })
+            })
         }
-        this.setState({ community_id: data.community_id, community_name: data.community_name })
       })
   }
 
@@ -368,6 +379,7 @@ class siteOverview extends React.Component {
           <RFFilter />
           <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
+        <div id="err"></div>
       </div>
     )
   }

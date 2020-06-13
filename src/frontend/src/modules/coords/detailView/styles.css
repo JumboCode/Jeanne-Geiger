@@ -15,7 +15,6 @@ h3 {
 .editButtonsContainer {
   position: relative;
   display: inline-block;
-  width: 150%;
   left: 20%;
   top: 20%;
 }
@@ -28,6 +27,11 @@ h3 {
   vertical-align: middle;
 }
 
+.backbutton img {
+  width: 60%;
+  cursor: pointer;
+}
+
 .title-section {
   text-align: center !important;
 }
@@ -36,6 +40,7 @@ h3 {
   display: inline;
   vertical-align: middle;
   position: relative;
+  width: 40%;
 }
 
 p {
