@@ -9,3 +9,11 @@
 .loading {
   margin-top: 10px;
 }
+
+.backbutton {
+  top: 0px !important;
+}
+
+.backbutton img {
+  float: left;
+}

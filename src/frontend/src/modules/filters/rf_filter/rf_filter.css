@@ -1,9 +1,20 @@
-.filter_container {
-  position: relative;
-  left: 92%;
+.filter_container4 {
+  position: absolute;
+  right: 1.6%;
+  top: 26%;
 }
 
-.filter_button {
+.filter_button4 {
+  background-color: #333;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 10em;
+  height: 1.6em;
+  border-radius: 13px;
+  margin: 0.2em;
   border-radius: 15px;
-  font-size: 12px;
+  font-size: 15px;
 }

@@ -16,8 +16,8 @@ class VFilter extends Component {
 
   render () {
     return (
-      <div className="filter_container">
-        <button type="button" className="filter_button" onClick={this.togglePopup.bind(this)}>
+      <div className="filter_container2">
+        <button type="button" className="filter_button2" onClick={this.togglePopup.bind(this)}>
                     Filter Results
         </button>
 
