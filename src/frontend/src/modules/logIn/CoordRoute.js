@@ -36,7 +36,7 @@ const CoordRoute = ({ component: Component, path, ...rest }) => {
     (loading
       ? <Loading /> : (!isAuthenticated)
         ? <Redirect to='/'/> : (roles.includes('Coordinator')
-          ? <Component {...props} /> : (roles.includes('DVHRT_ADMIN')
+          ? <Component {...props} /> : (roles.includes('Admin')
             ? <Redirect to='/admin/'/> : <Redirect to='/'/>)))
 
   return <Route path={path} render={render} {...rest} />
