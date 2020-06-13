@@ -10,6 +10,7 @@ import { instanceOf } from 'prop-types'
 import Filter from '../../filters/date_filter/filter.js'
 import { DOMAIN } from '../../../utils/index.js'
 import { Link } from 'react-router-dom'
+import Loading from '../../logIn/Loading.js'
 
 const Wrapper = styled.div`
   display: grid;
@@ -34,6 +35,7 @@ class adminViewSite extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      loading: false,
       victim_info: [],
       abuser_info: [],
       risk_factor_info: [],
@@ -46,6 +48,7 @@ class adminViewSite extends React.Component {
   }
 
   componentDidMount () {
+    this.setState({ loading: true })
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
       vars[key] = value
@@ -100,6 +103,7 @@ class adminViewSite extends React.Component {
         document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
         console.log(results)
       } else {
+        this.setState({ loading: false })
         return results.text().then(text => {
           this.doSetState(tabName, JSON.parse(text))
         })
@@ -149,6 +153,7 @@ class adminViewSite extends React.Component {
   }
 
   render () {
+    const loading = this.state.loading
     return (
       <div>
         <NavigationBar />
@@ -336,7 +341,7 @@ class adminViewSite extends React.Component {
             </div>
           </Wrapper>
         </div>
-
+        {loading ? <Loading /> : null}
       </div>
     )
   }

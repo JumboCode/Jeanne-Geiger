@@ -121,6 +121,7 @@ def create_user(coordinator, community_id, management_token):
     # this sends an email to the new user asking them to reset their password
     payload = {
         "client_id": os.environ['MANAGEMENT_CLIENT_ID'],
+
         "email": coordinator["email"],
         "connection": "Username-Password-Authentication",
     }

@@ -8,6 +8,7 @@ import { Row, Col } from 'react-bootstrap'
 import { withCookies, Cookies } from 'react-cookie'
 import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
+import Loading from '../../logIn/Loading'
 
 const GET_CASE_URL = DOMAIN + 'api/one-case/'
 
@@ -19,6 +20,7 @@ class detailView extends React.Component {
   constructor () {
     super()
     this.state = {
+      loading: false,
       case: [],
       case_id: []
     }
@@ -32,6 +34,7 @@ class detailView extends React.Component {
     if (token === '') {
       window.location.reload()
     }
+    this.setState({ loading: true })
     fetch(GET_CASE_URL, {
       headers: {
         caseid: this.getCaseIdFromUrl(),
@@ -44,7 +47,9 @@ class detailView extends React.Component {
           console.log(results)
         } else {
           return results.json()
-            .then(data => this.setState({ case: data }))
+            .then(data => {
+              this.setState({ loading: false, case: data })
+            })
         }
       })
   }
@@ -282,6 +287,7 @@ class detailView extends React.Component {
   }
 
   render () {
+    const loading = this.state.loading
     return (
       <div>
         <NavigationBar />
@@ -323,6 +329,7 @@ class detailView extends React.Component {
           </div>
         </div>
         <div id='err'></div>
+        {loading ? <Loading /> : null}
       </div>
     )
   }

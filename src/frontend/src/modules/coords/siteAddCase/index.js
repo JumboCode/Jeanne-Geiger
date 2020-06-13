@@ -9,6 +9,7 @@ import TabObj from '../../tabs.js'
 import { withCookies, Cookies } from 'react-cookie'
 import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
+import Loading from '../../logIn/Loading.js'
 
 const CASE_POST_URL = DOMAIN + 'api/cases/'
 const REFERRAL_SOURCES_URL = DOMAIN + 'api/OneCommunity/'
@@ -36,6 +37,7 @@ class siteAddCase extends React.Component {
   constructor () {
     super()
     this.state = {
+      loading: false,
       referral_sources: [],
       is_edit_case_view: false,
       case_id: [],
@@ -255,6 +257,7 @@ class siteAddCase extends React.Component {
     if (!f.checkValidity()) {
       return
     }
+    this.setState({ loading: true })
     var activeStatus = 0
     var oParams = this.doOutcomesPost()
     var aParams = this.doAbuserOrVictimPost('False', 'a_name', 'a_dob', 'a_gender', 'a_race_ethnicity', 'a_age_at_case_acceptance', 'a_primary_language', 'a_town')
@@ -293,6 +296,7 @@ class siteAddCase extends React.Component {
   }
 
   render () {
+    const loading = this.state.loading
     return (
       <div>
         <NavigationBar />
@@ -395,6 +399,9 @@ class siteAddCase extends React.Component {
 
           <div>
             <button onClick={() => this.doSubmit()} >Submit</button>
+          </div>
+          <div class="loading">
+            {loading ? (<Loading />) : null}
           </div>
         </div>
       </div>

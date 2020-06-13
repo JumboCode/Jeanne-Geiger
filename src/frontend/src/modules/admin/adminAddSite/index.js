@@ -8,6 +8,7 @@ import NavigationBar from '../../navbar/NavigationBar.js'
 import { withCookies, Cookies } from 'react-cookie'
 import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
+import Loading from '../../logIn/Loading.js'
 
 import Plus from './plus.png'
 import Remove from './remove.png'
@@ -22,6 +23,7 @@ class adminAddSite extends React.Component {
   constructor () {
     super()
     this.state = {
+      loading: false,
       sources: [],
       coords: []
     }
@@ -33,6 +35,7 @@ class adminAddSite extends React.Component {
       return
     }
 
+    this.setState({ loading: true })
     var referralSources = this.getSourceData()
     var coordData = this.getCoordData()
 
@@ -117,9 +120,11 @@ class adminAddSite extends React.Component {
   }
 
   render () {
+    const loading = this.state.loading
     return (
       <div>
         <NavigationBar />
+
         <h2 class="title">Add New Site</h2>
         <h1>{this.props.type}</h1>
         <BackButton link='/admin' />
@@ -173,6 +178,7 @@ class adminAddSite extends React.Component {
           <button class="cancel_button" onClick={ function () { window.location.href = '/admin' }}>Cancel</button>
           <button type="submit" class="save_button" onClick={() => this.doSubmit()} value="Submit">Submit</button>
         </div>
+        {loading ? (<Loading />) : null}
       </div>
     )
   }
