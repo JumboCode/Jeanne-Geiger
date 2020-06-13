@@ -7,6 +7,7 @@ import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
+import Loading from '../../logIn/Loading.js'
 import { withCookies, Cookies } from 'react-cookie'
 import { instanceOf } from 'prop-types'
 import { DOMAIN } from '../../../utils/index.js'
@@ -21,6 +22,7 @@ class siteOverview extends React.Component {
   constructor () {
     super()
     this.state = {
+      loading: true,
       community_id: null,
       community_name: '',
       cases: [],
@@ -310,7 +312,7 @@ class siteOverview extends React.Component {
               if (data.data) {
                 this.setState({ cases: data.data })
               }
-              this.setState({ community_id: data.community_id, community_name: data.community_name })
+              this.setState({ loading: false, community_id: data.community_id, community_name: data.community_name })
             })
         }
       })
@@ -340,6 +342,7 @@ class siteOverview extends React.Component {
   }
 
   render () {
+    const loading = this.state.loading
     return (
       <div>
         <NavigationBar />
@@ -380,6 +383,7 @@ class siteOverview extends React.Component {
           <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
         <div id="err"></div>
+        {loading ? (<Loading />) : null}
       </div>
     )
   }
