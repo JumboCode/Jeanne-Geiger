@@ -321,6 +321,9 @@ class siteOverview extends React.Component {
   getTabInfo (tabName) {
     var i, tabcontent, tablinks
 
+    // Show corresponding filter for tab
+    this.showFilter(tabName)
+
     // Get all elements with class='tabcontent' and hide them
     tabcontent = document.getElementsByClassName('tabcontent')
     for (i = 0; i < tabcontent.length; i++) {
@@ -335,6 +338,19 @@ class siteOverview extends React.Component {
 
     // Show the current tab, and add an 'active' class to the button that opened the tab
     document.getElementById(tabName).style.display = 'block'
+  }
+
+  showFilter (tabName) {
+    var i, filters
+
+    // Get all elements with class='filter' and hide them
+    filters = document.getElementsByClassName('filter')
+    for (i = 0; i < filters.length; i++) {
+      filters[i].style.display = 'none'
+    }
+
+    // show current filter
+    document.getElementById(tabName + '_filter').style.display = 'block'
   }
 
   showTab (index) {
@@ -363,23 +379,31 @@ class siteOverview extends React.Component {
                 <div class="add_a_case">View Summary</div>
               </a>
             </div>
+            <div id='Victim_filter' className='stack row filter'>
+              <VFilter />
+            </div>
+            <div id='Abuser_filter' className='stack row filter'>
+              <AFilter />
+            </div>
+            <div id='Outcomes_filter' className='stack row filter'>
+              <OUTFilter />
+            </div>
+            <div id='RiskFactors_filter' className='stack row filter'>
+              <RFFilter />
+            </div>
           </div>
         </div>
         <TabObj clasName="overflowtab" selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <VFilter />
           <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Abuser' className='tabcontent'>
-          <AFilter />
           <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='Outcomes' className='tabcontent '>
-          <OUTFilter />
           <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
         </div>
         <div id='RiskFactors' className='tabcontent overflowtab'>
-          <RFFilter />
           <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
         </div>
         <div id="err"></div>
