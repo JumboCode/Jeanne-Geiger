@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table'
 import React from 'react'
 
 const OverviewTable = (props) => {
-  return MyTable(props.columns, props.data, props.linkName)
+  return MyTable(props.columns, props.data, props.linkName, props.page)
 }
 
 function getLink (linkName, dataset) {
@@ -15,7 +15,7 @@ function getLink (linkName, dataset) {
 }
 
 // source: https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/sorting
-function MyTable (columns, data, linkName) {
+function MyTable (columns, data, linkName, page) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -30,21 +30,13 @@ function MyTable (columns, data, linkName) {
     useSortBy
   )
 
-  // We don't want to render all 2000 rows for this example, so cap
-  // it at 20 for this use case
-  const firstPageRows = rows.slice(0, 20)
+  // show only 20 entries at a time
+  const start = (page - 1) * 20
+  const end = (page * 20 > rows.length) ? (rows.length % 20) + start : page * 20
+  const currentPageRows = rows.slice(start, end)
 
   return (
     <>
-      <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          document.querySelectorAll('tr[data-href]').forEach(row => {
-            row.addEventListener('click', () => {
-              window.location.href = row.dataset.href
-            })
-          })
-        })
-      </script>
       <Table striped border hover {...getTableProps()} >
         <thead>
           {headerGroups.map(headerGroup => (
@@ -71,10 +63,10 @@ function MyTable (columns, data, linkName) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row, i) => {
+          {currentPageRows.map((row, i) => {
             prepareRow(row)
             return (
-              <tr data-href={getLink(linkName, data[i])} {...row.getRowProps()}>
+              <tr onClick={() => { window.location.href = getLink(linkName, data[((page - 1) * 20) + i]) }} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
@@ -86,7 +78,7 @@ function MyTable (columns, data, linkName) {
         </tbody>
       </Table>
       <br />
-      <div>Showing the first {rows.length > 20 ? 20 : rows.length} results of {rows.length} rows</div>
+      <div>Showing {currentPageRows.length} entries out of {rows.length}</div>
     </>
   )
 }
