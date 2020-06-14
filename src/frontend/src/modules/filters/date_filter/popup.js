@@ -23,10 +23,10 @@ class Popup extends React.Component {
             <h1>{this.props.text}</h1>
             <button class='close_button'
               onClick={() => {
-                var params = new URLSearchParams(window.location.search)
+                var params = new URLSearchParams()
                 params.set('start_date', document.getElementById('start_date').value)
                 params.set('end_date', document.getElementById('end_date').value)
-                window.location.search = params.toString()
+                window.location.search += '&' + params.toString()
               }}>
               Generate
             </button>
