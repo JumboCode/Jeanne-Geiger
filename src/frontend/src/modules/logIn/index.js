@@ -21,7 +21,8 @@ const Login = () => {
           <button className="login_button" onClick={() => {
             document.cookie = 'token=;path=/admin'
             document.cookie = 'token=;path=/site'
-            loginWithRedirect({ redirect_uri: redirectUri })}
+            loginWithRedirect({ redirect_uri: redirectUri })
+          }
           }>Login</button>
         </div>
       </div>
