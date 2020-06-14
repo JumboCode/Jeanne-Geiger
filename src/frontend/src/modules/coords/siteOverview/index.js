@@ -1,9 +1,5 @@
 import React from 'react'
 import './styles.css'
-import VFilter from '../../filters/v_filter/filter.js'
-import AFilter from '../../filters/a_filter/a_filter.js'
-import RFFilter from '../../filters/rf_filter/rf_filter.js'
-import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
@@ -321,9 +317,6 @@ class siteOverview extends React.Component {
   getTabInfo (tabName) {
     var i, tabcontent, tablinks
 
-    // Show corresponding filter for tab
-    this.showFilter(tabName)
-
     // Get all elements with class='tabcontent' and hide them
     tabcontent = document.getElementsByClassName('tabcontent')
     for (i = 0; i < tabcontent.length; i++) {
@@ -338,19 +331,6 @@ class siteOverview extends React.Component {
 
     // Show the current tab, and add an 'active' class to the button that opened the tab
     document.getElementById(tabName).style.display = 'block'
-  }
-
-  showFilter (tabName) {
-    var i, filters
-
-    // Get all elements with class='filter' and hide them
-    filters = document.getElementsByClassName('filter')
-    for (i = 0; i < filters.length; i++) {
-      filters[i].style.display = 'none'
-    }
-
-    // show current filter
-    document.getElementById(tabName + '_filter').style.display = 'block'
   }
 
   showTab (index) {
@@ -378,18 +358,6 @@ class siteOverview extends React.Component {
               <a href={'/site/site-summary?com_id=' + this.state.community_id + '&com_name=' + this.state.community_name}>
                 <div class="add_a_case">View Summary</div>
               </a>
-            </div>
-            <div id='Victim_filter' className='stack row filter'>
-              <VFilter />
-            </div>
-            <div id='Abuser_filter' className='stack row filter'>
-              <AFilter />
-            </div>
-            <div id='Outcomes_filter' className='stack row filter'>
-              <OUTFilter />
-            </div>
-            <div id='RiskFactors_filter' className='stack row filter'>
-              <RFFilter />
             </div>
           </div>
         </div>
