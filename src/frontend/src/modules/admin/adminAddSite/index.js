@@ -32,6 +32,7 @@ class adminAddSite extends React.Component {
   doSubmit () {
     var f = document.getElementsByTagName('form')[0]
     if (!f.checkValidity()) {
+      alert('Please fill out all fields.')
       return
     }
 

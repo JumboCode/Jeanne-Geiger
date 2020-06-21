@@ -12,11 +12,6 @@
   size: 1em;
 }
 
-.backbutton img {
-  width: 20%;
-  cursor: pointer;
-}
-
 .percentage {
   display: none;
   width: 40px;

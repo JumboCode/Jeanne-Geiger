@@ -21,6 +21,7 @@ class adminHomepage extends React.Component {
     this.state = {
       loading: true,
       communities: [],
+      page: 1,
       columns: [
         {
           Header: 'Date Created',
@@ -94,6 +95,7 @@ class adminHomepage extends React.Component {
             )).then(() => {
               this.setState({ loading: false })
               if (communities) { this.setState({ communities: communities }) }
+              this.changePage(1)
             })
           } catch (err) {
             document.getElementById('err').innerHTML = 'An error has occured, please refresh the page or try again later.'
@@ -103,14 +105,40 @@ class adminHomepage extends React.Component {
     })
   }
 
+  // changes which page of site entries is shown
+  changePage (page) {
+    var i, pageNavs
+
+    this.setState({ page: page }, () => {
+      // set all page_nav elements to not bold and not underlined
+      pageNavs = document.getElementsByClassName('page_nav')
+      for (i = 0; i < pageNavs.length; i++) {
+        pageNavs[i].style['font-weight'] = 'normal'
+        pageNavs[i].style['text-decoration'] = 'none'
+      }
+
+      // bold and underline current page_nav
+      document.getElementById(page + '_page').style['font-weight'] = 'bold'
+      document.getElementById(page + '_page').style['text-decoration'] = 'underline'
+    })
+  }
+
   render () {
     const loading = this.state.loading
+    const entries = this.state.communities.length
+    const numPages = parseInt((entries || 1) / 20) + ((entries % 20) ? 1 : 0)
+    const page = this.state.page
+
     return (
       <div>
         <NavigationBar />
         <a href="/admin/add-site" ><div class="add_a_site_button">Add a New Site + </div></a>
-        <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} />
+        <OverviewTable columns={this.state.columns} data={this.state.communities} linkName={'adminOverview'} page={page}/>
         <div id='err'></div>
+        Page:
+        {[...Array(numPages).keys()].map((i) => (
+          <a class="page_nav" id={(i + 1) + '_page'} onClick={() => this.changePage(i + 1) }> {i + 1} </a>
+        ))}
         {loading ? (<Loading />) : null}
       </div>
     )

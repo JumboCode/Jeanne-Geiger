@@ -1,9 +1,5 @@
 import React from 'react'
 import './styles.css'
-import VFilter from '../../filters/v_filter/filter.js'
-import AFilter from '../../filters/a_filter/a_filter.js'
-import RFFilter from '../../filters/rf_filter/rf_filter.js'
-import OUTFilter from '../../filters/out_filter/out_filter.js'
 import NavigationBar from '../../navbar/NavigationBar.js'
 import TabObj from '../../tabs.js'
 import OverviewTable from '../../overviewTable/overviewTable.js'
@@ -26,6 +22,7 @@ class siteOverview extends React.Component {
       community_id: null,
       community_name: '',
       cases: [],
+      page: 1,
       victim_columns: [
         {
           Header: 'Date Created',
@@ -313,6 +310,7 @@ class siteOverview extends React.Component {
                 this.setState({ cases: data.data })
               }
               this.setState({ loading: false, community_id: data.community_id, community_name: data.community_name })
+              this.changePage(1)
             })
         }
       })
@@ -341,8 +339,30 @@ class siteOverview extends React.Component {
     if (index === 0) { this.getTabInfo('Victim') } else if (index === 1) { this.getTabInfo('Abuser') } else if (index === 2) { this.getTabInfo('RiskFactors') } else { this.getTabInfo('Outcomes') }
   }
 
+  // changes which page of case entries is shown
+  changePage (page) {
+    var i, pageNavs
+
+    this.setState({ page: page }, () => {
+      // set all page_nav elements to not bold and not underlined
+      pageNavs = document.getElementsByClassName('page_nav')
+      for (i = 0; i < pageNavs.length; i++) {
+        pageNavs[i].style['font-weight'] = 'normal'
+        pageNavs[i].style['text-decoration'] = 'none'
+      }
+
+      // bold and underline current page_nav
+      document.getElementById(page + '_page').style['font-weight'] = 'bold'
+      document.getElementById(page + '_page').style['text-decoration'] = 'underline'
+    })
+  }
+
   render () {
     const loading = this.state.loading
+    const entries = this.state.cases.length
+    const numPages = parseInt((entries || 1) / 20) + ((entries % 20) ? 1 : 0)
+    const page = this.state.page
+
     return (
       <div>
         <NavigationBar />
@@ -367,22 +387,22 @@ class siteOverview extends React.Component {
         </div>
         <TabObj clasName="overflowtab" selectFunc={(index, label) => this.showTab(index)}/>
         <div id='Victim' className='tabcontent'>
-          <VFilter />
-          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.victim_columns} data={this.state.cases} linkName={'siteOverview'} page={page} />
         </div>
         <div id='Abuser' className='tabcontent'>
-          <AFilter />
-          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.abuser_columns} data={this.state.cases} linkName={'siteOverview'} page={page} />
         </div>
         <div id='Outcomes' className='tabcontent '>
-          <OUTFilter />
-          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} />
+          <OverviewTable columns={this.state.outcomes_columns} data={this.state.cases} linkName={'siteOverview'} page={page} />
         </div>
         <div id='RiskFactors' className='tabcontent overflowtab'>
-          <RFFilter />
-          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'}/>
+          <OverviewTable columns={this.state.risk_factor_columns} data={this.state.cases} linkName={'siteOverview'} page={page} />
         </div>
         <div id="err"></div>
+        Page:
+        {[...Array(numPages).keys()].map((i) => (
+          <a class="page_nav" id={(i + 1) + '_page'} onClick={() => this.changePage(i + 1) }> {i + 1} </a>
+        ))}
         {loading ? (<Loading />) : null}
       </div>
     )

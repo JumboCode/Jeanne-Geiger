@@ -27,3 +27,8 @@
   font-size: 24px;
   text-align: center;
 }
+
+.page_nav {
+  margin: 5px;
+  cursor: pointer;
+}

@@ -9,7 +9,8 @@
 }
 
 .backbutton img {
-  width: 3%;
+  width: 50px;
+  cursor: pointer;
 }
 
 .backbutton:hover {

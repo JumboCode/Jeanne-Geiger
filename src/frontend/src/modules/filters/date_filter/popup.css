@@ -1,7 +1,6 @@
 .popup {
   position: fixed;
   width: 40%;
-  height: 40% !important;
   top: 30%;
   left: 30%;
   margin: auto;
@@ -21,9 +20,6 @@
 
 .close_button {
   border-radius: 0.1em;
-  position: fixed;
-  bottom: 146% !important;
-  height: 1em !important;
   font-size: 1em;
 }
 
@@ -32,6 +28,7 @@
   font-size: 1em;
   position: absolute;
   bottom: 90% !important;
+  left: 100%;
 }
 
 .container {
