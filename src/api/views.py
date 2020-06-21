@@ -47,8 +47,6 @@ class AddCoordinator(generics.ListCreateAPIView):
         for coordinator in coordinators["data"]:
             # create the user
             user_id = create_user(coordinator, community_id, management_token)
-            # give the user the coordinator role
-            r = set_user_roles(user_id, management_token)
 
         return HttpResponse('Success', status=200) 
 
@@ -120,7 +118,6 @@ class CommunitiesList(generics.ListCreateAPIView):
             management_token = get_management_token()
             for coordinator in coordinators["data"]:
                 user_id = create_user(coordinator, communityData.community_id, management_token)
-                r = set_user_roles(user_id, management_token)
             
         return JsonResponse({'community_id' : communityData.community_id})
 

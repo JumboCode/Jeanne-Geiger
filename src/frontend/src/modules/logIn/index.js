@@ -18,7 +18,12 @@ const Login = () => {
           <p1 className="dom_text">
                 Domestic Violence High-Risk Team Login
           </p1>
-          <button className="login_button" onClick={() => loginWithRedirect({ redirect_uri: redirectUri })}>Login</button>
+          <button className="login_button" onClick={() => {
+            document.cookie = 'token=;path=/admin'
+            document.cookie = 'token=;path=/site'
+            loginWithRedirect({ redirect_uri: redirectUri })
+          }
+          }>Login</button>
         </div>
       </div>
     </div>
