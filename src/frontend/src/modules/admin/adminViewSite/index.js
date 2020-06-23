@@ -313,7 +313,7 @@ class adminViewSite extends React.Component {
               <div className='title'>
                   Disposition Outcomes
               </div>
-              <ObjectTable total={this.state.outcome_info['TTotal Disposition Outcomes Count']}
+              <ObjectTable total={this.state.outcome_info['Total Disposition Outcomes Count']}
                 tableRows = {[
                   ['Charges Dismissed', this.state.outcome_info['Charges Dismissed']],
                   ['Not Guilty', this.state.outcome_info['Not Guilty']],
