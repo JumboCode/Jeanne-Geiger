@@ -352,7 +352,6 @@ class siteOverview extends React.Component {
       }
 
       // bold and underline current page_nav
-      console.log(page)
       document.getElementById(page + '_page').style['font-weight'] = 'bold'
       document.getElementById(page + '_page').style['text-decoration'] = 'underline'
     })
