@@ -126,7 +126,7 @@ class adminHomepage extends React.Component {
   render () {
     const loading = this.state.loading
     const entries = this.state.communities.length
-    const numPages = parseInt((entries || 1) / 20) + ((entries % 20) ? 1 : 0)
+    const numPages = parseInt((entries || 1) / 20) + ((entries % 20) ? 1 : 1)
     const page = this.state.page
 
     return (
