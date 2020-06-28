@@ -352,6 +352,7 @@ class siteOverview extends React.Component {
       }
 
       // bold and underline current page_nav
+      console.log(page)
       document.getElementById(page + '_page').style['font-weight'] = 'bold'
       document.getElementById(page + '_page').style['text-decoration'] = 'underline'
     })
@@ -360,7 +361,7 @@ class siteOverview extends React.Component {
   render () {
     const loading = this.state.loading
     const entries = this.state.cases.length
-    const numPages = parseInt((entries || 1) / 20) + ((entries % 20) ? 1 : 0)
+    const numPages = parseInt((entries || 1) / 20) + ((entries % 20) ? 1 : 1)
     const page = this.state.page
 
     return (
